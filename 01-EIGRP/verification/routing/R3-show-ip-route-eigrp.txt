@@ -1,0 +1,31 @@
+!
+! Router: R3-DIST-B
+! Command: show ip route eigrp
+!
+
+R3-DIST-B#show ip route eigrp
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 10.13.0.1 to network 0.0.0.0
+
+D*EX  0.0.0.0/0 [170/5376] via 10.13.0.1, 00:04:17, GigabitEthernet0/0
+      10.0.0.0/8 is variably subnetted, 15 subnets, 2 masks
+D        10.1.1.1/32 [90/130816] via 10.13.0.1, 00:04:17, GigabitEthernet0/0
+D        10.2.2.2/32 [90/130816] via 10.23.0.2, 00:04:10, GigabitEthernet0/1
+D        10.12.0.0/30 [90/3072] via 10.23.0.2, 00:04:10, GigabitEthernet0/1
+                      [90/3072] via 10.13.0.1, 00:04:10, GigabitEthernet0/0
+D        10.24.0.0/30 [90/3072] via 10.34.0.2, 00:04:10, GigabitEthernet0/2
+                      [90/3072] via 10.23.0.2, 00:04:10, GigabitEthernet0/1
+D        10.45.0.0/30 [90/3072] via 10.34.0.2, 00:04:08, GigabitEthernet0/2
+D EX     10.200.1.0/30 [170/5376] via 10.13.0.1, 00:04:17, GigabitEthernet0/0
+      172.16.0.0/22 is subnetted, 2 subnets
+D        172.16.40.0 [90/130816] via 10.34.0.2, 00:04:08, GigabitEthernet0/2
+D        172.16.48.0 [90/3104] via 10.34.0.2, 00:04:03, GigabitEthernet0/2

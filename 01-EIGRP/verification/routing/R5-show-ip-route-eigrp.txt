@@ -1,0 +1,21 @@
+!
+! Router: R5-REMOTE
+! Command: show ip route eigrp
+!
+
+R5-REMOTE#show ip route eigrp
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 10.45.0.1 to network 0.0.0.0
+
+D*EX  0.0.0.0/0 [170/71680] via 10.45.0.1, 00:06:44, GigabitEthernet0/0
+      172.16.0.0/16 is variably subnetted, 9 subnets, 3 masks
+D        172.16.48.0/22 is a summary, 00:06:47, Null0
