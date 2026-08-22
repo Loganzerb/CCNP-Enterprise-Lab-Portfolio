@@ -88,6 +88,20 @@ Items reviewed:
 
 # Lab Troubleshooting Scenarios
 
+# Scenario Documentation Format
+
+Each troubleshooting scenario contains:
+
+- Problem Statement
+- Failure Injection
+- Expected Behavior
+- Initial Symptoms
+- Troubleshooting Process
+- Root Cause Analysis
+- Corrective Action
+- Verification After Fix
+- Key EIGRP Concepts Demonstrated
+
 The following CCNP Enterprise level scenarios are documented:
 
 ---
