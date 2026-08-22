@@ -24,6 +24,24 @@ The goals of this lab were:
 
 ---
 
+# Lab Topology
+
+The EIGRP lab consisted of a multi-router enterprise topology designed to simulate core, distribution, and branch routing relationships.
+
+The topology was used to validate:
+
+- EIGRP neighbor formation
+- Route propagation
+- Redundant path selection
+- Routing convergence during failures
+- Dynamic routing troubleshooting
+
+## Topology Diagram
+
+*Topology diagram will be added here.*
+
+---
+
 # Technologies Practiced
 
 ## EIGRP Fundamentals
@@ -54,9 +72,23 @@ The goals of this lab were:
 
 ---
 
+# Skills Demonstrated
+
+- Enterprise routing design
+- Dynamic routing troubleshooting
+- Network convergence analysis
+- Cisco IOS verification methodology
+- Failure scenario testing
+- Routing protocol optimization
+- Network behavior analysis
+
+---
+
 # Troubleshooting Scenarios
 
 This lab included deliberate failure testing to observe EIGRP convergence behavior.
+
+The goal was to understand how EIGRP reacts to network changes and how DUAL determines the best available path.
 
 Examples:
 
@@ -66,34 +98,15 @@ Examples:
 - Query propagation and Active state behavior
 - Neighbor relationship troubleshooting
 
----
-
-# Repository Structure
-configs/
-    Sanitized Cisco IOS configurations
-verification/
-    Show commands and validation outputs
-troubleshooting/
-    Failure scenarios and analysis
-
-    
----
-
-# Lab Environment
-
-Tools used:
-
-- Cisco Modeling Labs (CML)
-- Cisco IOSv routers
-- GitHub documentation workflow
+Detailed troubleshooting scenarios will be documented in the troubleshooting directory.
 
 ---
 
-# Lessons Learned
+# Verification
 
-Key takeaways from this lab:
+The following Cisco IOS commands were used to validate EIGRP operation.
 
-- EIGRP maintains loop-free backup paths through DUAL
-- Understanding FD and RD is critical for troubleshooting convergence
-- Verification commands are essential for validating expected behavior
-- Network failures should be tested intentionally to understand protocol behavior
+## Neighbor Verification
+
+```text
+show ip eigrp neighbors
