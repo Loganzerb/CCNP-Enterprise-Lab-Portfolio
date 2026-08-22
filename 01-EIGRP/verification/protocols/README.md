@@ -1,7 +1,4 @@
 
-Paste:
-
-```markdown
 # EIGRP Protocol Verification
 
 This directory contains EIGRP process verification outputs collected from the EIGRP AS 100 lab environment.
