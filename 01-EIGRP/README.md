@@ -38,7 +38,9 @@ The topology was used to validate:
 
 ## Topology Diagram
 
-*Topology diagram will be added here.*
+![EIGRP AS 100 Topology](topology.png)
+
+
 
 ---
 
