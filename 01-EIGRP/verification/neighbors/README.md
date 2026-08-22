@@ -8,3 +8,25 @@ The purpose of these outputs is to validate successful EIGRP neighbor formation 
 
 ```text
 show ip eigrp neighbors
+
+
+
+Validation Performed
+The outputs verify:
+- EIGRP neighbor relationships
+- Neighbor adjacency status
+- Connected interfaces participating in EIGRP
+- Neighbor uptime
+- Reliable Transport Protocol (RTP) neighbor communication
+Expected Behavior
+A healthy EIGRP adjacency should show:
+- Neighbor routers in the neighbor table
+- Stable uptime values
+- Correct interface participation
+- No adjacency resets
+Lab Devices Verified
+- R1-CORE
+- R2-DIST-A
+- R3-DIST-B
+- R4-BRANCH
+- R5-REMOTE
