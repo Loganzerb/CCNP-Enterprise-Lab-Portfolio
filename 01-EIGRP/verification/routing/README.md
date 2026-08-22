@@ -1,7 +1,4 @@
 
-Paste:
-
-```markdown
 # EIGRP Routing Verification
 
 This directory contains EIGRP routing table verification outputs from the EIGRP AS 100 lab environment.
