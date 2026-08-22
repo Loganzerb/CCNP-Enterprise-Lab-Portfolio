@@ -1,0 +1,10 @@
+!
+! Router: R5-REMOTE
+! Command: show ip eigrp neighbors
+!
+
+R5-REMOTE#show ip eigrp neighbors
+EIGRP-IPv4 VR(CCNP-LAB) Address-Family Neighbors for AS(100)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+0   10.45.0.1               Gi0/0                    11 00:06:47  418  2508  0  9

@@ -1,0 +1,12 @@
+!
+! Router: R3-DIST-B
+! Command: show ip eigrp neighbors
+!
+
+R3-DIST-B#show ip eigrp neighbors
+EIGRP-IPv4 Neighbors for AS(100)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+2   10.34.0.2               Gi0/2                    12 00:04:07  244  1464  0  11
+1   10.23.0.2               Gi0/1                    14 00:04:13  208  1248  0  22
+0   10.13.0.1               Gi0/0                    12 00:04:13  207  1242  0  16

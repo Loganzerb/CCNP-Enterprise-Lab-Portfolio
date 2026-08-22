@@ -1,0 +1,11 @@
+!
+! Router: R1-CORE
+! Command: show ip eigrp neighbors
+!
+
+R1-CORE#show ip eigrp neighbors
+EIGRP-IPv4 Neighbors for AS(100)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+1   10.13.0.2               Gi0/1                    11 00:01:14  283  1698  0  14
+0   10.12.0.2               Gi0/0                    10 00:01:20  245  1470  0  21
