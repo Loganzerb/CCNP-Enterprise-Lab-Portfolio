@@ -57,6 +57,7 @@ The EIGRP topology table provides information used by the Diffusing Update Algor
 
 Verification commands:
 show ip eigrp topology
+
 show ip eigrp topology all-links
 
 Items reviewed:
