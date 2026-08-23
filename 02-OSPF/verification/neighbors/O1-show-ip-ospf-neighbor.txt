@@ -1,0 +1,8 @@
+Router: O1-CORE
+Command: show ip ospf neighbor
+
+O1-CORE#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.100.2.2        1   FULL/DR         00:00:36    10.100.12.2     GigabitEthernet0/0
+O1-CORE#

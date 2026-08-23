@@ -1,0 +1,9 @@
+Router: O3-BRANCH
+Command: show ip ospf neighbor
+
+O3-BRANCH#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.100.5.5        0   FULL/  -        00:00:38    10.100.35.2     GigabitEthernet0/1
+10.100.2.2        0   FULL/  -        00:00:37    10.100.23.1     GigabitEthernet0/0
+O3-BRANCH#

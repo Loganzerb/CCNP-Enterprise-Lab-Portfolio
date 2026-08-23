@@ -1,0 +1,9 @@
+Router: O5-TRANSIT
+Command: show ip ospf neighbor
+
+O5-TRANSIT#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.100.4.4        0   FULL/  -        00:00:31    10.100.45.2     GigabitEthernet0/1
+10.100.3.3        0   FULL/  -        00:00:39    10.100.35.1     GigabitEthernet0/0
+O5-TRANSIT#

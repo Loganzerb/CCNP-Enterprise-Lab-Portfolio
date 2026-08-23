@@ -1,0 +1,9 @@
+Router: O4-EDGE
+Command: show ip ospf neighbor
+
+O4-EDGE#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.100.5.5        0   FULL/  -        00:00:36    10.100.45.1     GigabitEthernet0/1
+10.100.2.2        1   FULL/BDR        00:00:32    10.100.24.1     GigabitEthernet0/0
+O4-EDGE#

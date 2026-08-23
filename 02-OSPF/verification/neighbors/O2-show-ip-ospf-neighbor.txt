@@ -1,0 +1,10 @@
+Router: O2-ABR
+Command: show ip ospf neighbor
+
+O2-ABR#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.100.1.1        1   FULL/BDR        00:00:33    10.100.12.1     GigabitEthernet0/0
+10.100.4.4        1   FULL/DR         00:00:31    10.100.24.2     GigabitEthernet0/2
+10.100.3.3        0   FULL/  -        00:00:35    10.100.23.2     GigabitEthernet0/1
+O2-ABR#
