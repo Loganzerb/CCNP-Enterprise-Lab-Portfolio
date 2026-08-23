@@ -1,0 +1,36 @@
+Router: O1-CORE
+Command: show ip ospf database
+
+O1-CORE#show ip ospf database
+        OSPF Router with ID (10.100.1.1) (Process ID 1)
+
+            Router Link States (Area 0)
+
+Link ID         ADV Router      Age         Seq#       Checksum Link count
+10.100.1.1      10.100.1.1      928         0x80000005 0x00A937 3
+10.100.2.2      10.100.2.2      926         0x80000005 0x00853C 2
+
+            Net Link States (Area 0)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.100.12.2     10.100.2.2      936         0x80000001 0x00F377
+
+            Summary Net Link States (Area 0)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.100.3.3      10.100.2.2      955         0x80000001 0x00E961
+10.100.4.4      10.100.2.2      910         0x80000002 0x00D275
+10.100.5.5      10.100.2.2      955         0x80000001 0x002419
+10.100.23.0     10.100.2.2      975         0x80000001 0x000F2F
+10.100.24.0     10.100.2.2      975         0x80000001 0x000439
+10.100.35.0     10.100.2.2      955         0x80000001 0x00EE39
+10.100.45.0     10.100.2.2      910         0x80000002 0x007E9E
+10.200.2.0      10.100.2.2      910         0x80000002 0x00A43F
+172.20.32.0     10.100.2.2      955         0x80000001 0x003AA7
+
+            Type-5 AS External Link States
+
+Link ID         ADV Router      Age         Seq#       Checksum Tag
+192.0.2.0       10.100.2.2      945         0x80000001 0x007CF8 0
+198.51.100.0    10.100.2.2      945         0x80000001 0x008D4C 0
+O1-CORE#

@@ -1,0 +1,30 @@
+Router: O4-EDGE
+Command: show ip ospf database
+
+O4-EDGE#show ip ospf database
+        OSPF Router with ID (10.100.4.4) (Process ID 1)
+
+            Router Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum Link count
+10.100.2.2      10.100.2.2      949         0x80000006 0x00A9CD 3
+10.100.3.3      10.100.3.3      1000        0x80000003 0x006E16 9
+10.100.4.4      10.100.4.4      940         0x80000004 0x004F7D 5
+10.100.5.5      10.100.5.5      993         0x80000003 0x00C455 5
+
+            Net Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.100.24.2     10.100.4.4      955         0x80000001 0x003C13
+
+            Summary Net Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+0.0.0.0         10.100.2.2      1018        0x80000001 0x00A122
+
+            Type-7 AS External Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum Tag
+192.0.2.0       10.100.4.4      996         0x80000001 0x00CD99 0
+198.51.100.0    10.100.4.4      996         0x80000001 0x00DEEC 0
+O4-EDGE#

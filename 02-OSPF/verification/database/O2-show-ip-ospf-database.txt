@@ -1,0 +1,61 @@
+Router: O2-ABR
+Command: show ip ospf database
+
+O2-ABR#show ip ospf database
+        OSPF Router with ID (10.100.2.2) (Process ID 1)
+
+            Router Link States (Area 0)
+
+Link ID         ADV Router      Age         Seq#       Checksum Link count
+10.100.1.1      10.100.1.1      937         0x80000005 0x00A937 3
+10.100.2.2      10.100.2.2      934         0x80000005 0x00853C 2
+
+            Net Link States (Area 0)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.100.12.2     10.100.2.2      944         0x80000001 0x00F377
+
+            Summary Net Link States (Area 0)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.100.3.3      10.100.2.2      964         0x80000001 0x00E961
+10.100.4.4      10.100.2.2      918         0x80000002 0x00D275
+10.100.5.5      10.100.2.2      964         0x80000001 0x002419
+10.100.23.0     10.100.2.2      984         0x80000001 0x000F2F
+10.100.24.0     10.100.2.2      984         0x80000001 0x000439
+10.100.35.0     10.100.2.2      964         0x80000001 0x00EE39
+10.100.45.0     10.100.2.2      918         0x80000002 0x007E9E
+10.200.2.0      10.100.2.2      918         0x80000002 0x00A43F
+172.20.32.0     10.100.2.2      964         0x80000001 0x003AA7
+
+            Router Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum Link count
+10.100.2.2      10.100.2.2      916         0x80000006 0x00A9CD 3
+10.100.3.3      10.100.3.3      967         0x80000003 0x006E16 9
+10.100.4.4      10.100.4.4      909         0x80000004 0x004F7D 5
+10.100.5.5      10.100.5.5      962         0x80000003 0x00C455 5
+
+            Net Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.100.24.2     10.100.4.4      924         0x80000001 0x003C13
+
+            Summary Net Link States (Area 10)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+0.0.0.0         10.100.2.2      984         0x80000001 0x00A122
+
+            Type-7 AS External Link States (Area 10)
+      
+
+Link ID         ADV Router      Age         Seq#       Checksum Tag
+192.0.2.0       10.100.4.4      966         0x80000001 0x00CD99 0
+198.51.100.0    10.100.4.4      966         0x80000001 0x00DEEC 0
+
+            Type-5 AS External Link States
+
+Link ID         ADV Router      Age         Seq#       Checksum Tag
+192.0.2.0       10.100.2.2      954         0x80000001 0x007CF8 0
+198.51.100.0    10.100.2.2      954         0x80000001 0x008D4C 0
+O2-ABR#
