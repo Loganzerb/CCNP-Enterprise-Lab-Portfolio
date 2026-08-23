@@ -1,0 +1,23 @@
+# BGP Forwarding Verification
+# Router: O4-EDGE
+# Commands: show ip route 203.0.113.0; traceroute 203.0.113.1
+
+O4-EDGE#show ip route 203.0.113.0
+Routing entry for 203.0.113.0/24
+Known via "bgp 65000", distance 20, metric 0
+Tag 65200, type external
+Last update from 10.250.2.2 00:27:49 ago
+Routing Descriptor Blocks:
+
+  * 10.250.2.2, from 10.250.2.2, 00:27:49 ago
+  Route metric is 0, traffic share count is 1
+  AS Hops 1
+  Route tag 65200
+  MPLS label: none
+O4-EDGE#traceroute 203.0.113.1
+Type escape sequence to abort.
+Tracing the route to 203.0.113.1
+VRF info: (vrf in name/id, vrf out name/id)
+  1 10.250.2.2 2 msec 2 msec 1 msec
+  2 10.250.2.2 !H  *  !H
+O4-EDGE#
