@@ -1,0 +1,28 @@
+Router: X1-OUTSIDE
+Command: show ip bgp
+
+X1-OUTSIDE#sh ip bgp
+BGP table version is 14, local router ID is 10.255.3.3
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+x best-external, a additional-path, c RIB-compressed,
+t secondary path,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>   10.50.50.0/24    0.0.0.0                  0         32768 ?
+r    10.255.1.1/32    10.255.1.1               0             0 65100 i
+r>                    10.250.3.1               0             0 65100 i
+*    172.31.250.0/24  10.250.4.1                             0 65200 65000 i
+*                     10.255.1.1                             0 65100 65000 i
+*>                    10.250.3.1                             0 65100 65000 i
+*    172.31.251.0/24  10.255.1.1               0             0 65100 i
+*>                    10.250.3.1               0             0 65100 i
+s>   192.0.2.0/25     0.0.0.0                  0         32768 i
+*>   192.0.2.0        0.0.0.0                            32768 i
+s>   192.0.2.128/26   0.0.0.0                  0         32768 i
+s>   192.0.2.224/27   0.0.0.0                  0         32768 i
+*>   198.51.100.0     0.0.0.0                  0         32768 i
+     Network          Next Hop            Metric LocPrf Weight Path
+*>   203.0.113.0      10.250.4.1               0             0 65200 i
+X1-OUTSIDE#

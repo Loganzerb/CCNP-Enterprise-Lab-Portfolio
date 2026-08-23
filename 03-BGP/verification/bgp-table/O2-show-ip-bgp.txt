@@ -1,0 +1,24 @@
+Router: O2-ABR
+Command: show ip bgp
+
+O2-ABR#sh ip bgp
+BGP table version is 9, local router ID is 10.100.2.2
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+x best-external, a additional-path, c RIB-compressed,
+t secondary path,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+     Network          Next Hop            Metric LocPrf Weight Path
+* i  10.50.50.0/24    10.100.4.4               0    100      0 65200 65300 ?
+*>i                   10.100.1.1               0    100      0 65100 65300 ?
+* i  10.255.1.1/32    10.100.4.4               0    100      0 65100 i
+*>i                   10.100.1.1               0    100      0 65100 i
+*>   172.31.250.0/24  0.0.0.0                  0         32768 i
+* i  172.31.251.0/24  10.100.4.4               0    100      0 65100 i
+*>i                   10.100.1.1               0    100      0 65100 i
+r i  192.0.2.0        10.100.4.4               0    100      0 65200 65300 i
+r>i                   10.100.1.1               0    100      0 65100 65300 i
+r>i  198.51.100.0     10.100.4.4               0    100      0 65200 65300 i
+*>i  203.0.113.0      10.100.4.4               0    100      0 65200 i
+O2-ABR#

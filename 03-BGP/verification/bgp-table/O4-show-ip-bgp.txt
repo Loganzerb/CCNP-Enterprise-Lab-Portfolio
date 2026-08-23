@@ -1,0 +1,30 @@
+Router: O4-EDGE
+Command: show ip bgp
+
+O4-EDGE#sh ip bgp
+BGP table version is 13, local router ID is 10.100.4.4
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+x best-external, a additional-path, c RIB-compressed,
+t secondary path,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+     Network          Next Hop            Metric LocPrf Weight Path
+*    10.50.50.0/24    10.250.2.3                             0 65100 65300 ?
+*>                    10.250.2.2                             0 65200 65300 ?
+* i                   10.100.1.1               0    100      0 65100 65300 ?
+*>   10.255.1.1/32    10.250.2.3               0             0 65100 i
+*                     10.250.2.2                             0 65200 65300 65100 i
+* i                   10.100.1.1               0    100      0 65100 i
+*>i  172.31.250.0/24  10.100.2.2               0    100      0 i
+*>   172.31.251.0/24  10.250.2.3               0             0 65100 i
+*                     10.250.2.2                             0 65200 65300 65100 i
+* i                   10.100.1.1               0    100      0 65100 i
+r    192.0.2.0        10.250.2.3                             0 65100 65300 i
+     Network          Next Hop            Metric LocPrf Weight Path
+r>                    10.250.2.2                             0 65200 65300 i
+r i                   10.100.1.1               0    100      0 65100 65300 i
+r>   198.51.100.0     10.250.2.2                             0 65200 65300 i
+*    203.0.113.0      10.250.2.3                             0 65100 65300 65200 i
+*>                    10.250.2.2               0             0 65200 i
+O4-EDGE#
