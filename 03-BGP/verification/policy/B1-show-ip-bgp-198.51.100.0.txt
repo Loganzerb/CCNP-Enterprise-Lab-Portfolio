@@ -1,0 +1,30 @@
+Router: B1-ISP-A
+Command: show ip bgp 198.51.100.0
+
+B1-ISP-A#show ip bgp 198.51.100.0
+BGP routing table entry for 198.51.100.0/24, version 6
+Paths: (4 available, best #4, table default, not advertised to EBGP peer)
+ Not advertised to any peer
+ Refresh Epoch 1
+ 65000 65200 65300
+   10.250.2.2 from 10.250.2.1 (10.100.4.4)
+     Origin IGP, localpref 100, valid, external
+     rx pathid: 0, tx pathid: 0
+ Refresh Epoch 1
+ 65000 65200 65300
+   10.250.1.1 from 10.250.1.1 (10.100.1.1)
+     Origin IGP, localpref 100, valid, external
+     rx pathid: 0, tx pathid: 0
+ Refresh Epoch 1
+ 65300
+   10.250.3.2 from 10.250.3.2 (10.255.3.3)
+     Origin IGP, metric 0, localpref 50, valid, external
+     Community: 65300:100
+     rx pathid: 0, tx pathid: 0
+ Refresh Epoch 1
+ 65300
+   10.255.3.3 from 10.255.3.3 (10.255.3.3)
+     Origin IGP, metric 0, localpref 100, valid, external, best
+     Community: no-export
+     rx pathid: 0, tx pathid: 0x0
+B1-ISP-A#

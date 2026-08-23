@@ -1,0 +1,13 @@
+Router: X1-OUTSIDE
+Command: show ip bgp 192.0.2.0
+
+X1-OUTSIDE#show ip bgp 192.0.2.0
+BGP routing table entry for 192.0.2.0/25, version 8
+Paths: (1 available, best #1, table default, Advertisements suppressed by an aggregate.)
+ Not advertised to any peer
+ Refresh Epoch 1
+ Local
+   0.0.0.0 from 0.0.0.0 (10.255.3.3)
+     Origin IGP, metric 0, localpref 100, weight 32768, valid, sourced, local, best
+     rx pathid: 0, tx pathid: 0x0
+X1-OUTSIDE#

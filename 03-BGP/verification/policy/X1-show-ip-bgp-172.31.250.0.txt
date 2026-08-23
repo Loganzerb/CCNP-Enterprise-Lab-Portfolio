@@ -1,0 +1,24 @@
+Router: X1-OUTSIDE
+Command: show ip bgp 172.31.250.0
+
+X1-OUTSIDE#show ip bgp 172.31.250.0
+BGP routing table entry for 172.31.250.0/24, version 14
+Paths: (3 available, best #3, table default)
+ Advertised to update-groups:
+    1          2         
+ Refresh Epoch 1
+ 65200 65000
+   10.250.4.1 from 10.250.4.1 (10.255.2.2)
+     Origin IGP, localpref 100, valid, external
+     rx pathid: 0, tx pathid: 0
+ Refresh Epoch 1
+ 65100 65000
+   10.255.1.1 from 10.255.1.1 (10.255.1.1)
+     Origin IGP, localpref 100, valid, external
+     rx pathid: 0, tx pathid: 0
+ Refresh Epoch 1
+ 65100 65000
+   10.250.3.1 from 10.250.3.1 (10.255.1.1)
+     Origin IGP, localpref 100, valid, external, best
+     rx pathid: 0, tx pathid: 0x0
+X1-OUTSIDE#
