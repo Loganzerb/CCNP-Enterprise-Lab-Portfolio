@@ -1,0 +1,9 @@
+Router: O1-CORE
+Command: show ip ospf interface brief
+
+O1-CORE#show ip ospf interface brief
+Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
+Lo0          1     0               10.100.1.1/32      1     LOOP  0/0
+Gi0/0        1     0               10.100.12.1/30     10    BDR   1/1
+Gi0/1        1     0               10.200.1.2/30      10    P2P   0/0
+O1-CORE#

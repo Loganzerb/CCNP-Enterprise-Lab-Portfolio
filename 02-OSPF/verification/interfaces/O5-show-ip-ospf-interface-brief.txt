@@ -1,0 +1,9 @@
+Router: O5-TRANSIT
+Command: show ip ospf interface brief
+
+O5-TRANSIT#show ip ospf interface brief
+Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
+Lo0          1     10              10.100.5.5/32      1     LOOP  0/0
+Gi0/1        1     10              10.100.45.1/30     10    P2P   1/1
+Gi0/0        1     10              10.100.35.2/30     10    P2P   1/1
+O5-TRANSIT#
