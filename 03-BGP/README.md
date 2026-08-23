@@ -1,109 +1,43 @@
-# BGP Enterprise Edge and Path-Selection Lab
+# BGP — Multi-AS Routing, Policy, and Troubleshooting
 
-## Overview
+This lab implements a multi-AS BGP environment that combines enterprise route reflection with redundant external connectivity. It demonstrates IPv4 unicast BGP, iBGP route reflection, conventional eBGP, eBGP multihop, IPv6 peering, and an IPv4 VRF customer example—then validates the healthy control and forwarding planes and documents three focused break/fix scenarios.
 
-This lab implements a multi-autonomous-system Border Gateway Protocol (BGP) topology with an enterprise network, two upstream Internet service providers, and an external network. It demonstrates practical internal BGP (iBGP), external BGP (eBGP), route reflection, controlled prefix advertisement, policy enforcement, and BGP path-selection validation in a design representative of an enterprise edge.
+![BGP lab topology](topology.png)
 
-## Lab Objectives
+## Architecture
 
-- Establish iBGP and eBGP neighbor relationships across a multi-AS topology.
-- Use a route reflector to distribute BGP routes within the enterprise.
-- Advertise the enterprise prefix `172.31.250.0/24` using exact BGP `network` statement behavior.
-- Influence inbound and outbound routing with BGP attributes and route policy.
-- Verify both control-plane path selection and data-plane forwarding.
-- Build a repeatable foundation for real break/fix troubleshooting case studies.
+The enterprise runs AS 65000 across **O1-CORE**, **O2-ABR**, and **O4-EDGE**. O2 (router ID `10.100.2.2`) is the route reflector; O1 (`10.100.1.1`) and O4 (`10.100.4.4`) are RR clients. These iBGP sessions use Loopback0 addresses and `update-source Loopback0`.
 
-## Topology
+External reachability is deliberately redundant:
 
-![BGP enterprise edge topology](topology.png)
+- O1 peers with **B1-ISP-A** (AS 65100) on `10.250.1.0/30`.
+- O4 peers with both **B2-ISP-B** (AS 65200) and B1 on the shared `10.250.2.0/29` segment.
+- B1 peers with **X1-OUTSIDE** (AS 65300) using direct IPv4 and loopback-based eBGP multihop sessions. The same B1–X1 path also carries IPv6 eBGP and a CUSTOMER-A IPv4 VRF session.
+- B2 peers directly with X1 on `10.250.4.0/30`.
 
-The topology places three enterprise routers in Autonomous System (AS) 65000 behind a dual-provider edge. O4-EDGE connects to B1-ISP-A in AS 65100 and B2-ISP-B in AS 65200. Both provider autonomous systems connect to X1-OUTSIDE in AS 65300.
+This design makes BGP path selection, next-hop behavior, route reflection, redundancy, and policy effects visible without obscuring them behind unnecessary underlay detail.
 
-## Device and AS Roles
+## Routing and policy highlights
 
-| Device | AS | BGP Router ID | Role |
-|---|---:|---|---|
-| O1-CORE | 65000 | `10.100.1.1` | Enterprise core and iBGP peer |
-| O2-ABR | 65000 | `10.100.2.2` | Enterprise iBGP route reflector with clients |
-| O4-EDGE | 65000 | `10.100.4.4` | Enterprise eBGP edge connected to both providers |
-| B1-ISP-A | 65100 | — | Upstream provider A |
-| B2-ISP-B | 65200 | — | Upstream provider B |
-| X1-OUTSIDE | 65300 | — | External network connected to both upstream autonomous systems |
+- O2 originates `172.31.250.0/24`, B1 originates `172.31.251.0/24`, and B2 originates `203.0.113.0/24`; each network statement is supported by an exact static route to Null0.
+- X1 aggregates `192.0.2.0/24` from more-specific routes with `summary-only`, originates `198.51.100.0/24`, and redistributes `10.50.50.0/24` through the `STATIC-REDIST` route-map.
+- Toward B1's direct session, X1 tags `198.51.100.0/24` with community `65300:100`; B1 matches that community and lowers Local Preference to 50.
+- Toward B1's loopback multihop session, X1 advertises the same prefix with `no-export`.
 
-O1-CORE and O2-ABR use iBGP. O2-ABR operated as a route reflector with clients in the completed lab, while O4-EDGE provided the enterprise's eBGP connectivity to both upstream providers.
+The configurations also retain selected prefix-lists and route-maps from study exercises. Objects that were present but not attached to a neighbor or redistribution process in the captured running state are lab artifacts—not claimed here as active baseline policy.
 
-## Key BGP Concepts Practiced
+## Verification
 
-- iBGP and eBGP session establishment
-- Route-reflector operation and client relationships
-- Exact BGP `network` advertisement behavior, including the requirement for a matching route in the routing table
-- BGP best-path analysis and attribute comparison
-- Local Preference for influencing outbound enterprise path selection
-- AS-PATH prepending for influencing remote inbound path selection
-- Multi-Exit Discriminator (MED) manipulation
-- Origin-code evaluation
-- Prefix lists and route maps
-- Inbound and outbound neighbor policy
-- Control-plane and data-plane validation
+The [verification guide](verification/) organizes healthy-state checks for neighbor establishment, the BGP table, policy attributes, and forwarding. The evidence emphasizes both control-plane correctness and route installation rather than treating an Established session alone as proof of end-to-end health.
 
-## Policy and Path-Selection Exercises
+## Troubleshooting
 
-The lab used `172.31.250.0/24` as the enterprise prefix for advertisement and policy exercises. Local Preference, AS-PATH length, MED, and Origin code were examined and modified to observe their effects on the selected BGP path.
+The [troubleshooting case studies](troubleshooting/) document three reproducible failures and their recovery:
 
-A specific outbound policy on O4-EDGE matched the enterprise prefix and prepended AS 65000 twice when advertising it toward B2-ISP-B:
+- **Wrong remote AS / Bad Peer AS** — corrected an eBGP adjacency failure caused by a mismatched neighbor AS.
+- **iBGP next-hop reachability (`next-hop-self`)** — restored a reachable next hop while redundant paths preserved service.
+- **Route-map implicit deny** — recovered unintentionally filtered advertisements by adding the required catch-all permit.
 
-```cisco
-ip prefix-list ENTERPRISE-PREPEND permit 172.31.250.0/24
+## Configurations
 
-route-map PREPEND-TO-B2 permit 10
- match ip address prefix-list ENTERPRISE-PREPEND
- set as-path prepend 65000 65000
-
-route-map PREPEND-TO-B2 permit 20
-```
-
-The later permit sequence allows routes not matched by the prefix-specific sequence to continue through the route map. This exercise reinforced that a prefix list identifies which routes match, while the route map determines the policy action and whether unmatched routes are permitted or denied. The policy was applied outbound toward B2 so that advertisements of `172.31.250.0/24` carried the additional AS-PATH entries.
-
-## Verification Strategy
-
-Verification combined routing-state inspection with forwarding tests:
-
-- Confirmed BGP neighbor establishment and address-family state.
-- Inspected advertised and received prefixes where appropriate.
-- Compared available paths, BGP attributes, and the installed best path.
-- Validated route-map and prefix-list matches in the intended direction.
-- Rechecked path selection after each policy change.
-- Used traceroute to confirm that actual forwarding followed the expected provider path.
-
-This approach distinguishes a successful BGP control-plane change from successful end-to-end data-plane behavior.
-
-## Troubleshooting Focus
-
-The lab emphasized systematic validation of neighbor state, exact prefix origination, policy direction, route-map sequencing, prefix-list matching, attribute changes, best-path selection, and forwarding behavior.
-
-Detailed troubleshooting case-study files are intentionally not included yet. They will be added under `troubleshooting/` only as real break/fix scenarios are performed, validated, and documented.
-
-## Repository Structure
-
-```text
-03-BGP/
-├── README.md
-├── topology.png
-├── configs/
-├── verification/
-└── troubleshooting/
-```
-
-- `configs/` — device configurations from the completed lab
-- `verification/` — captured BGP state, path-selection evidence, and forwarding validation
-- `troubleshooting/` — future case studies based on completed break/fix testing
-
-## Skills Demonstrated
-
-- Designing and operating a multi-AS BGP topology
-- Configuring enterprise iBGP, eBGP, and route reflection
-- Implementing prefix-specific routing policy with prefix lists and route maps
-- Manipulating BGP attributes to influence inbound and outbound traffic paths
-- Interpreting BGP best-path decisions
-- Validating routing policy through show-command evidence and traceroute
-- Documenting enterprise routing work clearly for technical review
+The [device configurations](configs/) contain the captured router configurations for O1-CORE, O2-ABR, O4-EDGE, B1-ISP-A, B2-ISP-B, and X1-OUTSIDE. They are the authoritative source for interface-level and address-family detail; the topology intentionally focuses on BGP relationships.
