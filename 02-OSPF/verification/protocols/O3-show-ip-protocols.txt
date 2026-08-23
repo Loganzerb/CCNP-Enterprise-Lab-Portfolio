@@ -1,0 +1,45 @@
+Router: O3-BRANCH
+Command: show ip protocols
+
+O3-BRANCH#show ip protocols
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "application"
+  Sending updates every 0 seconds
+  Invalid after 0 seconds, hold down 0, flushed after 0
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Maximum path: 32
+  Routing for Networks:
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: (default is 4)
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 10.100.3.3
+  Number of areas in this router is 1. 0 normal 0 stub 1 nssa
+  Maximum path: 2
+  Routing for Networks:
+    10.100.3.3 0.0.0.0 area 10
+    10.100.23.0 0.0.0.3 area 10
+    10.100.35.0 0.0.0.3 area 10
+    172.20.32.0 0.0.3.255 area 10
+  Passive Interface(s):
+    GigabitEthernet0/2
+    GigabitEthernet0/3
+    Loopback0
+    Loopback1
+    Loopback2
+    Loopback3
+    Loopback4
+    RG-AR-IF-INPUT1
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    10.100.4.4           110      00:33:02
+    10.100.5.5           110      00:33:46
+    10.100.2.2           110      00:33:56
+  Distance: (default is 110)
+
+O3-BRANCH#

@@ -1,0 +1,40 @@
+Router: O5-TRANSIT
+Command: show ip protocols
+
+O5-TRANSIT#show ip protocols
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "application"
+  Sending updates every 0 seconds
+  Invalid after 0 seconds, hold down 0, flushed after 0
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Maximum path: 32
+  Routing for Networks:
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: (default is 4)
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 10.100.5.5
+  Number of areas in this router is 1. 0 normal 0 stub 1 nssa
+  Maximum path: 4
+  Routing for Networks:
+    10.100.5.5 0.0.0.0 area 10
+    10.100.35.0 0.0.0.3 area 10
+    10.100.45.0 0.0.0.3 area 10
+  Passive Interface(s):
+    GigabitEthernet0/2
+    GigabitEthernet0/3
+    Loopback0
+    RG-AR-IF-INPUT1
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    10.100.4.4           110      00:34:02
+    10.100.2.2           110      00:33:25
+    10.100.3.3           110      00:34:12
+  Distance: (default is 110)
+         
+O5-TRANSIT#
