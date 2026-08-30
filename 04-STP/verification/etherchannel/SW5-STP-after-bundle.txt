@@ -1,0 +1,19 @@
+SW5-ROGUE#show spanning-tree vlan 10
+
+VLAN0010
+Spanning tree enabled protocol rstp
+Root ID    Priority    24586
+           Address     5254.0007.0f1b
+           Cost        11
+           Port        65 (Port-channel1)
+           Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+           Address     5254.0000.6b48
+           Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+           Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po1                 Root FWD 3         128.65   P2p
+SW5-ROGUE#

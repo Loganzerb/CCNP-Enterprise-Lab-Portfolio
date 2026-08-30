@@ -1,0 +1,41 @@
+SW3-ACCESS-B#show spanning-tree interface gigabitEthernet 0/1 detail
+ Port 2 (GigabitEthernet0/1) of VLAN0010 is designated forwarding
+   Port path cost 20000, Port priority 128, Port Identifier 128.2.
+   Designated root has priority 24586, address 5254.0007.0f1b
+   Designated bridge has priority 32778, address 5254.000f.1a79
+   Designated port id is 128.2, designated path cost 20000
+   Timers: message age 0, forward delay 0, hold 0
+   Number of transitions to forwarding state: 2
+   Link type is point-to-point by default
+   BPDU: sent 36, received 6
+
+ Port 2 (GigabitEthernet0/1) of VLAN0020 is designated forwarding
+   Port path cost 20000, Port priority 128, Port Identifier 128.2.
+   Designated root has priority 24596, address 5254.0007.0f1b
+   Designated bridge has priority 32788, address 5254.000f.1a79
+   Designated port id is 128.2, designated path cost 20000
+   Timers: message age 0, forward delay 0, hold 0
+   Number of transitions to forwarding state: 2
+   Link type is point-to-point by default
+   BPDU: sent 36, received 6
+
+ Port 2 (GigabitEthernet0/1) of VLAN0030 is root forwarding
+   Port path cost 20000, Port priority 128, Port Identifier 128.2.
+   Designated root has priority 24606, address 5254.000d.a2e1
+   Designated bridge has priority 24606, address 5254.000d.a2e1
+   Designated port id is 128.2, designated path cost 0
+   Timers: message age 15, forward delay 0, hold 0
+   Number of transitions to forwarding state: 1
+   Link type is point-to-point by default
+   BPDU: sent 11, received 32
+
+ Port 2 (GigabitEthernet0/1) of VLAN0040 is root forwarding
+   Port path cost 20000, Port priority 128, Port Identifier 128.2.
+   Designated root has priority 24616, address 5254.000d.a2e1
+   Designated bridge has priority 24616, address 5254.000d.a2e1
+   Designated port id is 128.2, designated path cost 0
+   Timers: message age 15, forward delay 0, hold 0
+   Number of transitions to forwarding state: 1
+   Link type is point-to-point by default
+   BPDU: sent 11, received 32
+SW3-ACCESS-B#

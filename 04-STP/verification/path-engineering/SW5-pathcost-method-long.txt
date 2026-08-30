@@ -1,0 +1,3 @@
+SW5-ROGUE#show spanning-tree summary | include Pathcost
+Configured Pathcost method used is long
+SW5-ROGUE#

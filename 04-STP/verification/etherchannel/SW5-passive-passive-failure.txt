@@ -1,0 +1,12 @@
+SW5-ROGUE#
+*Aug 27 22:52:20.159: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to down
+*Aug 27 22:52:20.170: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+*Aug 27 22:52:21.171: %LINK-3-UPDOWN: Interface Port-channel1, changed state to down
+*Aug 27 22:52:22.171: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to down
+*Aug 27 22:52:24.455: %EC-5-L3DONTBNDL2: Gi0/0 suspended: LACP currently not enabled on the remote port.
+*Aug 27 22:52:24.954: %EC-5-L3DONTBNDL2: Gi0/1 suspended: LACP currently not enabled on the remote port.
+SW5-ROGUE#show etherchannel summary
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SD)         LACP      Gi0/0(s)    Gi0/1(s)
+SW5-ROGUE#
