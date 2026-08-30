@@ -1,0 +1,21 @@
+MST4-DIST-B#show spanning-tree inconsistentports
+
+Name                 Interface                Inconsistency
+MST0                 GigabitEthernet0/2       PVST Sim. Inconsistent
+MST1                 GigabitEthernet0/2       PVST Sim. Inconsistent
+MST2                 GigabitEthernet0/2       PVST Sim. Inconsistent
+
+Number of inconsistent ports (segments) in the system : 3
+
+MST4-DIST-B#show spanning-tree mst 0
+##### MST0
+Root          address 5254.0000.5f87  priority      32768 (32768 sysid 0)
+              port    Gi0/0           path cost     0
+Regional Root address 5254.0000.5f87  priority      32768 (32768 sysid 0)
+internal cost 20000     rem hops 19
+
+Gi0/0            Root FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi0/2            Desg BKN*20000     128.3    P2p Bound(PVST) *PVST_Inc
+
+[Captured output excerpt: CIST root remained inside MST while the Rapid-PVST+ VLAN became superior.]

@@ -1,0 +1,23 @@
+MST4-DIST-B#show spanning-tree summary
+Switch is in mst mode (IEEE Standard)
+Root bridge for: MST2
+PVST Simulation                         is enabled
+Configured Pathcost method used is short (Operational value is long)
+
+MST4-DIST-B#show spanning-tree mst 1
+Root          address 5254.0019.6d95  priority      24577 (24576 sysid 1)
+              port    Gi0/0           cost          40000     rem hops 18
+Gi0/0            Root FWD 20000     128.1    P2p
+
+MST3-ACCESS-B#show spanning-tree mst 0
+Configured    hello time 2 , forward delay 15, max age 20, max hops 20
+Gi0/0            Desg BLK 20000     128.1    P2p Dispute
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi0/2            Root FWD 20000     128.3    P2p
+
+MST3-ACCESS-B#show spanning-tree mst 0
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi0/2            Root FWD 20000     128.3    P2p
+
+[Captured output excerpts; Dispute was transient.]

@@ -1,0 +1,22 @@
+MST3-ACCESS-B#show spanning-tree mst configuration digest
+Name      [CCNP_MST]
+Revision  2     Instances configured 3
+Digest          0xCA136A235706B316C8DB8F921067A68F
+Pre-std Digest  0x516CA6CBD38BE8C158883334A8C330E4
+
+MST3-ACCESS-B#show spanning-tree mst
+##### MST0
+Regional Root this switch
+Gi0/0            Altn BLK 20000     128.1    P2p Bound(RSTP)
+Gi0/1            Altn BLK 20000     128.2    P2p Bound(RSTP)
+Gi0/2            Root FWD 20000     128.3    P2p Bound(RSTP)
+
+##### MST1    vlans mapped:   10,20
+Root          this switch for MST1
+Gi0/2            Mstr FWD 20000     128.3    P2p Bound(RSTP)
+
+##### MST2    vlans mapped:   30,40
+Root          this switch for MST2
+Gi0/2            Mstr FWD 20000     128.3    P2p Bound(RSTP)
+
+[Captured output excerpt.]

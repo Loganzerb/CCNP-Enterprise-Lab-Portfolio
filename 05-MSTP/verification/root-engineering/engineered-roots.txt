@@ -1,0 +1,21 @@
+MST1-DIST-A#show spanning-tree mst 1
+
+##### MST1    vlans mapped:   10,20
+Bridge        address 5254.0019.6d95  priority      24577 (24576 sysid 1)
+Root          this switch for MST1
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+
+MST4-DIST-B#show spanning-tree mst 2
+
+##### MST2    vlans mapped:   30,40
+Bridge        address 5254.000d.a6c7  priority      24578 (24576 sysid 2)
+Root          this switch for MST2
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p

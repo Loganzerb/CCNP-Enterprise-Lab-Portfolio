@@ -1,0 +1,25 @@
+MST2-ACCESS-A#show spanning-tree mst 1
+
+##### MST1    vlans mapped:   10,20
+Bridge        address 5254.0000.5f87  priority      32769 (32768 sysid 1)
+Root          address 5254.0019.6d95  priority      24577 (24576 sysid 1)
+              port    Gi0/0           cost          20000     rem hops 19
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Root FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p
+
+MST2-ACCESS-A#show spanning-tree mst 2
+
+##### MST2    vlans mapped:   30,40
+Bridge        address 5254.0000.5f87  priority      32770 (32768 sysid 2)
+Root          address 5254.000d.a6c7  priority      24578 (24576 sysid 2)
+              port    Gi0/1           cost          20000     rem hops 19
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Root FWD 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p

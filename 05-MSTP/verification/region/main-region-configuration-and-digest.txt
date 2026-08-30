@@ -1,0 +1,18 @@
+MST1-DIST-A#show spanning-tree mst configuration
+Name      [CCNP_MST]
+Revision  1     Instances configured 3
+
+Instance  Vlans mapped
+--------  ---------------------------------------------------------------------
+0         1-9,11-19,21-29,31-39,41-4094
+1         10,20
+2         30,40
+-------------------------------------------------------------------------------
+
+MST1-DIST-A#show spanning-tree mst configuration digest
+Name      [CCNP_MST]
+Revision  1     Instances configured 3
+Digest          0xCA136A235706B316C8DB8F921067A68F
+Pre-std Digest  0x516CA6CBD38BE8C158883334A8C330E4
+
+[Captured output; the command was also observed before MST mode was enabled, when IOS prefixed it with "% Switch is not in mst mode".]
