@@ -1,0 +1,11 @@
+PING 10.10.10.20 (10.10.10.20): 56 data bytes
+64 bytes from 10.10.10.20: seq=0 ttl=42 time=11.410 ms
+64 bytes from 10.10.10.20: seq=1 ttl=42 time=5.457 ms
+64 bytes from 10.10.10.20: seq=2 ttl=42 time=5.017 ms
+64 bytes from 10.10.10.20: seq=3 ttl=42 time=4.890 ms
+64 bytes from 10.10.10.20: seq=4 ttl=42 time=4.899 ms
+
+\--- 10.10.10.20 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 4.890/6.334/11.410 ms
+PC-A:\~$

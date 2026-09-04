@@ -1,0 +1,16 @@
+EC-SW3-ACCESS-A(config)#no lacp system-priority 1
+EC-SW3-ACCESS-A(config)#end
+EC-SW3-ACCESS-A#
+\*Sep  4 21:32:23.288: %SYS-5-CONFIG\_I: Configured from console by console
+EC-SW3-ACCESS-A#
+EC-SW3-ACCESS-A#
+EC-SW3-ACCESS-A#
+EC-SW3-ACCESS-A#show lacp sys-id
+32768, 5254.0002.8000
+EC-SW3-ACCESS-A#
+\*Sep  4 21:32:32.409: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+\*Sep  4 21:32:38.573: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+\*Sep  4 21:32:39.572: %LINK-3-UPDOWN: Interface Port-channel20, changed state to down
+\*Sep  4 21:32:40.573: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel20, changed state to down
+\*Sep  4 21:32:43.338: %LINK-3-UPDOWN: Interface Port-channel20, changed state to up
+\*Sep  4 21:32:44.338: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel20, changed state to up

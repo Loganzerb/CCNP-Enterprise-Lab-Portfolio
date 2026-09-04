@@ -1,0 +1,2 @@
+EC-SW3-ACCESS-A#show running-config | section ^interface Port-channel40
+EC-SW3-ACCESS-A#

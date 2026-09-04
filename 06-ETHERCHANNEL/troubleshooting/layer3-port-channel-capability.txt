@@ -1,0 +1,11 @@
+EC-SW3-ACCESS-A#show running-config int po40
+Building configuration...
+
+Current configuration : 62 bytes
+!
+interface Port-channel40
+&#x20;no switchport
+&#x20;no ip address
+end
+
+EC-SW3-ACCESS-A#

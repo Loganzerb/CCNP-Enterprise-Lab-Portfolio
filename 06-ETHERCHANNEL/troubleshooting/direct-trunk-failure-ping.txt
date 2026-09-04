@@ -1,0 +1,27 @@
+PC-A:\~$ ping 10.10.10.20
+PING 10.10.10.20 (10.10.10.20): 56 data bytes
+64 bytes from 10.10.10.20: seq=0 ttl=42 time=2.836 ms
+64 bytes from 10.10.10.20: seq=1 ttl=42 time=2.693 ms
+64 bytes from 10.10.10.20: seq=2 ttl=42 time=2.694 ms
+64 bytes from 10.10.10.20: seq=3 ttl=42 time=3.207 ms
+64 bytes from 10.10.10.20: seq=4 ttl=42 time=2.858 ms
+64 bytes from 10.10.10.20: seq=5 ttl=42 time=3.878 ms
+64 bytes from 10.10.10.20: seq=6 ttl=42 time=2.374 ms
+64 bytes from 10.10.10.20: seq=7 ttl=42 time=2.606 ms
+64 bytes from 10.10.10.20: seq=54 ttl=42 time=2107.591 ms
+64 bytes from 10.10.10.20: seq=55 ttl=42 time=1108.248 ms
+64 bytes from 10.10.10.20: seq=56 ttl=42 time=110.205 ms
+64 bytes from 10.10.10.20: seq=57 ttl=42 time=5.116 ms
+64 bytes from 10.10.10.20: seq=58 ttl=42 time=6.010 ms
+64 bytes from 10.10.10.20: seq=59 ttl=42 time=5.006 ms
+64 bytes from 10.10.10.20: seq=60 ttl=42 time=5.136 ms
+64 bytes from 10.10.10.20: seq=61 ttl=42 time=5.781 ms
+64 bytes from 10.10.10.20: seq=62 ttl=42 time=4.831 ms
+64 bytes from 10.10.10.20: seq=63 ttl=42 time=5.116 ms
+64 bytes from 10.10.10.20: seq=64 ttl=42 time=5.029 ms
+64 bytes from 10.10.10.20: seq=65 ttl=42 time=5.549 ms
+^C
+\--- 10.10.10.20 ping statistics ---
+66 packets transmitted, 20 packets received, 69% packet loss
+round-trip min/avg/max = 2.374/169.838/2107.591 ms
+PC-A:\~$

@@ -1,0 +1,15 @@
+EC-SW3-ACCESS-A#show running-config interface Port-channel20
+Building configuration...
+
+Current configuration : 242 bytes
+!
+interface Port-channel20
+&#x20;description LACP-TO-EC-SW1-DIST-A
+&#x20;switchport trunk allowed vlan 1,10,20,30,99
+&#x20;switchport trunk encapsulation dot1q
+&#x20;switchport trunk native vlan 99
+&#x20;switchport mode trunk
+&#x20;no port-channel standalone-disable
+end
+
+EC-SW3-ACCESS-A#

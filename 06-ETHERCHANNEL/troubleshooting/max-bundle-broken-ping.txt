@@ -1,0 +1,6 @@
+PC-A:\~$ ping -c 5 10.10.10.20
+PING 10.10.10.20 (10.10.10.20): 56 data bytes
+^C
+\--- 10.10.10.20 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+PC-A:\~$

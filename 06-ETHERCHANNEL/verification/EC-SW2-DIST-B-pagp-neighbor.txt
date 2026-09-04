@@ -1,0 +1,10 @@
+EC-SW2-DIST-B#show pagp neighbor
+Flags:  S - Device is sending Slow hello.  C - Device is in Consistent state.
+&#x20;       A - Device is in Auto mode.        P - Device learns on physical port.
+
+Channel group 30 neighbors
+&#x20;         Partner              Partner          Partner         Partner Group
+Port      Name                 Device ID        Port       Age  Flags   Cap.
+Gi0/2     EC-SW4-ACCESS-B      5254.0019.8000   Gi0/0       13s SAC     1E0001&#x20;
+Gi0/3     EC-SW4-ACCESS-B      5254.0019.8000   Gi0/1       18s SAC     1E0001&#x20;
+EC-SW2-DIST-B#

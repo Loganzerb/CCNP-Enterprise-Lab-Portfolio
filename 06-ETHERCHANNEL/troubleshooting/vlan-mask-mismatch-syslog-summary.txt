@@ -1,0 +1,32 @@
+nter configuration commands, one per line.  End with CNTL/Z.
+EC-SW3-ACCESS-A(config)#interface GigabitEthernet0/0
+EC-SW3-ACCESS-A(config-if)# switchport trunk allowed vlan 1,10,20,30
+EC-SW3-ACCESS-A(config-if)#end
+EC-SW3-ACCESS-A#
+\*Sep  4 21:39:34.417: %EC-5-CANNOT\_BUNDLE2: Gi0/0 is not compatible with Gi0/1 and will be suspended (vlan mask is different)
+\*Sep  4 21:39:35.415: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to down
+\*Sep  4 21:39:35.680: %SYS-5-CONFIG\_I: Configured from console by consoleshow etherchannel summar
+Flags:  D - down        P - bundled in port-channel
+I - stand-alone s - suspended
+H - Hot-standby (LACP only)
+R - Layer3      S - Layer2
+U - in use      N - not in use, no aggregation
+f - failed to allocate aggregator
+```
+    M - not in use, minimum links not met
+    m - not in use, port not aggregated due to minimum links not met
+    u - unsuitable for bundling
+    w - waiting to be aggregated
+    d - default port
+
+    A - formed by Auto LAG
+```
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+\------+-------------+-----------+-----------------------------------------------
+20     Po20(SU)        LACP      Gi0/0(s)    Gi0/1(P)
+
+EC-SW3-ACCESS-A#

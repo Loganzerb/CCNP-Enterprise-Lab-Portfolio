@@ -1,0 +1,16 @@
+EC-SW1-DIST-A#show lacp neighbor
+Flags:  S - Device is requesting Slow LACPDUs
+F - Device is requesting Fast LACPDUs
+A - Device is in Active mode       P - Device is in Passive mode
+
+Channel group 20 neighbors
+
+Partner's information:
+```
+              LACP port                        Admin  Oper   Port    Port
+```
+
+Port      Flags   Priority  Dev ID          Age    key    Key    Number  State
+Gi0/2     SP      32768     5254.0002.8000  28s    0x0    0x14   0x1     0x3C\
+Gi0/3     SP      32768     5254.0002.8000  23s    0x0    0x14   0x2     0x3C\
+EC-SW1-DIST-A#

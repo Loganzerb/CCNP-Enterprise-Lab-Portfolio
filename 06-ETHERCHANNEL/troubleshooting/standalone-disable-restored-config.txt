@@ -1,0 +1,20 @@
+EC-SW3-ACCESS-A(config)#interface Port-channel20
+EC-SW3-ACCESS-A(config-if)# port-channel standalone-disable
+Ports of Po20 already in standalone (I) mode require a shut/no shut.
+
+EC-SW3-ACCESS-A(config-if)#end
+EC-SW3-ACCESS-A#
+\*Sep  4 21:52:01.378: %SYS-5-CONFIG\_I: Configured from console by consoleshow running-config interface Port-channel20
+Building configuration...
+
+Current configuration : 206 bytes
+!
+interface Port-channel20
+&#x20;description LACP-TO-EC-SW1-DIST-A
+&#x20;switchport trunk allowed vlan 1,10,20,30,99
+&#x20;switchport trunk encapsulation dot1q
+&#x20;switchport trunk native vlan 99
+&#x20;switchport mode trunk
+end
+
+EC-SW3-ACCESS-A#

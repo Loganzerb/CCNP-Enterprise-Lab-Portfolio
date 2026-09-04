@@ -1,0 +1,65 @@
+EC-SW3-ACCESS-A(config)#interface Port-channel20
+EC-SW3-ACCESS-A(config-if)#lacp ?
+fast-switchover  LACP fast switchover supported on this port channel
+max-bundle       LACP maximum number of ports to bundle in this port channel
+
+EC-SW3-ACCESS-A(config-if)#lacp max
+EC-SW3-ACCESS-A(config-if)#lacp max-bundle 1
+EC-SW3-ACCESS-A(config-if)#end
+EC-SW3-ACCESS-A#sh
+\*Sep  3 23:48:45.834: %SYS-5-CONFIG\_I: Configured from console by consoleow ether
+\*Sep  3 23:48:45.976: %LINK-3-UPDOWN: Interface Port-channel20, changed state to down
+\*Sep  3 23:48:46.976: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel20, changed state to downchan
+EC-SW3-ACCESS-A#show etherchannel
+EC-SW3-ACCESS-A#show etherchannel sum
+EC-SW3-ACCESS-A#show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+I - stand-alone s - suspended
+H - Hot-standby (LACP only)
+R - Layer3      S - Layer2
+U - in use      N - not in use, no aggregation
+f - failed to allocate aggregator
+```
+    M - not in use, minimum links not met
+    m - not in use, port not aggregated due to minimum links not met
+    u - unsuitable for bundling
+    w - waiting to be aggregated
+    d - default port
+
+    A - formed by Auto LAG
+```
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+\------+-------------+-----------+-----------------------------------------------
+20     Po20(SN)        LACP      Gi0/0(w)    Gi0/1(H)
+
+EC-SW3-ACCESS-A#show etherchannel summary
+\*Sep  3 23:48:53.480: %LINK-3-UPDOWN: Interface Port-channel20, changed state to up
+\*Sep  3 23:48:54.480: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel20, changed state to up
+Flags:  D - down        P - bundled in port-channel
+I - stand-alone s - suspended
+H - Hot-standby (LACP only)
+R - Layer3      S - Layer2
+U - in use      N - not in use, no aggregation
+f - failed to allocate aggregator
+```
+    M - not in use, minimum links not met
+    m - not in use, port not aggregated due to minimum links not met
+    u - unsuitable for bundling
+    w - waiting to be aggregated
+    d - default port
+
+    A - formed by Auto LAG
+```
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+\------+-------------+-----------+-----------------------------------------------
+20     Po20(SU)        LACP      Gi0/0(P)    Gi0/1(H)
+
+EC-SW3-ACCESS-A#

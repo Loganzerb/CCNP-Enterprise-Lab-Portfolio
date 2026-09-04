@@ -1,0 +1,51 @@
+EC-SW1-DIST-A#show spanning-tree interface Port-channel20 detail
+&#x20;Port 66 (Port-channel20) of VLAN0001 is designated forwarding&#x20;
+&#x20;  Port path cost 4, Port priority 128, Port Identifier 128.66.
+&#x20;  Designated root has priority 32769, address 5254.0003.fde8
+&#x20;  Designated bridge has priority 32769, address 5254.001c.8120
+&#x20;  Designated port id is 128.66, designated path cost 3
+&#x20;  Timers: message age 0, forward delay 0, hold 0
+&#x20;  Number of transitions to forwarding state: 1
+&#x20;  Link type is point-to-point by default
+&#x20;  BPDU: sent 276, received 0
+
+&#x20;Port 66 (Port-channel20) of VLAN0010 is designated forwarding&#x20;
+&#x20;  Port path cost 4, Port priority 128, Port Identifier 128.66.
+&#x20;  Designated root has priority 32778, address 5254.0003.fde8
+&#x20;  Designated bridge has priority 32778, address 5254.001c.8120
+&#x20;  Designated port id is 128.66, designated path cost 3
+&#x20;  Timers: message age 0, forward delay 0, hold 0
+&#x20;  Number of transitions to forwarding state: 1
+&#x20;  Link type is point-to-point by default
+&#x20;  BPDU: sent 276, received 0
+
+&#x20;Port 66 (Port-channel20) of VLAN0020 is designated forwarding&#x20;
+&#x20;  Port path cost 4, Port priority 128, Port Identifier 128.66.
+&#x20;  Designated root has priority 32788, address 5254.0003.fde8
+&#x20;  Designated bridge has priority 32788, address 5254.001c.8120
+&#x20;  Designated port id is 128.66, designated path cost 3
+&#x20;  Timers: message age 0, forward delay 0, hold 0
+&#x20;  Number of transitions to forwarding state: 1
+&#x20;  Link type is point-to-point by default
+&#x20;  BPDU: sent 276, received 0
+
+&#x20;Port 66 (Port-channel20) of VLAN0030 is designated forwarding&#x20;
+&#x20;  Port path cost 4, Port priority 128, Port Identifier 128.66.
+&#x20;  Designated root has priority 32798, address 5254.0003.fde8
+&#x20;  Designated bridge has priority 32798, address 5254.001c.8120
+&#x20;  Designated port id is 128.66, designated path cost 3
+&#x20;  Timers: message age 0, forward delay 0, hold 0
+&#x20;  Number of transitions to forwarding state: 1
+&#x20;  Link type is point-to-point by default
+&#x20;  BPDU: sent 276, received 0
+
+&#x20;Port 66 (Port-channel20) of VLAN0099 is designated forwarding&#x20;
+&#x20;  Port path cost 4, Port priority 128, Port Identifier 128.66.
+&#x20;  Designated root has priority 32867, address 5254.0003.fde8
+&#x20;  Designated bridge has priority 32867, address 5254.001c.8120
+&#x20;  Designated port id is 128.66, designated path cost 3
+&#x20;  Timers: message age 0, forward delay 0, hold 0
+&#x20;  Number of transitions to forwarding state: 1
+&#x20;  Link type is point-to-point by default
+&#x20;  BPDU: sent 276, received 0
+EC-SW1-DIST-A#

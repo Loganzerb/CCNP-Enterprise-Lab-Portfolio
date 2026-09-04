@@ -1,0 +1,6 @@
+EC-SW3-ACCESS-A(config)#interface GigabitEthernet0/0
+EC-SW3-ACCESS-A(config-if)#lacp ?
+&#x20; port-priority  LACP priority on this interface
+
+EC-SW3-ACCESS-A(config-if)#lacp ?
+&#x20; port-priority  LACP priority on this interface

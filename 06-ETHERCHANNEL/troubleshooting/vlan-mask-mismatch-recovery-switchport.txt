@@ -1,0 +1,4 @@
+EC-SW3-ACCESS-A#$port | include Operational Mode|Trunking VLANs Enabled     &#x20;
+Operational Mode: trunk (member of bundle Po20)
+Trunking VLANs Enabled: 1,10,20,30,99
+EC-SW3-ACCESS-A#

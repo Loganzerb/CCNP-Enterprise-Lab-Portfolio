@@ -1,0 +1,67 @@
+PC-A:\~$ ping 10.10.10.20
+PING 10.10.10.20 (10.10.10.20): 56 data bytes
+64 bytes from 10.10.10.20: seq=0 ttl=42 time=5.099 ms
+64 bytes from 10.10.10.20: seq=1 ttl=42 time=5.194 ms
+64 bytes from 10.10.10.20: seq=2 ttl=42 time=5.053 ms
+64 bytes from 10.10.10.20: seq=3 ttl=42 time=4.926 ms
+64 bytes from 10.10.10.20: seq=4 ttl=42 time=5.186 ms
+64 bytes from 10.10.10.20: seq=5 ttl=42 time=5.230 ms
+64 bytes from 10.10.10.20: seq=6 ttl=42 time=4.997 ms
+64 bytes from 10.10.10.20: seq=7 ttl=42 time=5.109 ms
+64 bytes from 10.10.10.20: seq=8 ttl=42 time=6.045 ms
+64 bytes from 10.10.10.20: seq=9 ttl=42 time=5.937 ms
+64 bytes from 10.10.10.20: seq=10 ttl=42 time=5.481 ms
+64 bytes from 10.10.10.20: seq=11 ttl=42 time=5.571 ms
+64 bytes from 10.10.10.20: seq=12 ttl=42 time=5.376 ms
+64 bytes from 10.10.10.20: seq=13 ttl=42 time=5.007 ms
+64 bytes from 10.10.10.20: seq=14 ttl=42 time=4.857 ms
+64 bytes from 10.10.10.20: seq=15 ttl=42 time=6.012 ms
+64 bytes from 10.10.10.20: seq=16 ttl=42 time=5.643 ms
+64 bytes from 10.10.10.20: seq=17 ttl=42 time=4.992 ms
+64 bytes from 10.10.10.20: seq=18 ttl=42 time=5.163 ms
+64 bytes from 10.10.10.20: seq=19 ttl=42 time=5.237 ms
+64 bytes from 10.10.10.20: seq=20 ttl=42 time=4.478 ms
+64 bytes from 10.10.10.20: seq=21 ttl=42 time=5.060 ms
+64 bytes from 10.10.10.20: seq=22 ttl=42 time=5.315 ms
+64 bytes from 10.10.10.20: seq=23 ttl=42 time=7.167 ms
+64 bytes from 10.10.10.20: seq=24 ttl=42 time=4.976 ms
+64 bytes from 10.10.10.20: seq=25 ttl=42 time=5.562 ms
+64 bytes from 10.10.10.20: seq=26 ttl=42 time=5.316 ms
+64 bytes from 10.10.10.20: seq=27 ttl=42 time=5.798 ms
+64 bytes from 10.10.10.20: seq=28 ttl=42 time=5.382 ms
+64 bytes from 10.10.10.20: seq=29 ttl=42 time=4.944 ms
+64 bytes from 10.10.10.20: seq=30 ttl=42 time=5.696 ms
+64 bytes from 10.10.10.20: seq=31 ttl=42 time=6.599 ms
+64 bytes from 10.10.10.20: seq=32 ttl=42 time=4.990 ms
+64 bytes from 10.10.10.20: seq=33 ttl=42 time=5.165 ms
+64 bytes from 10.10.10.20: seq=34 ttl=42 time=5.085 ms
+64 bytes from 10.10.10.20: seq=35 ttl=42 time=5.327 ms
+64 bytes from 10.10.10.20: seq=36 ttl=42 time=5.511 ms
+64 bytes from 10.10.10.20: seq=37 ttl=42 time=4.661 ms
+64 bytes from 10.10.10.20: seq=38 ttl=42 time=5.107 ms
+64 bytes from 10.10.10.20: seq=39 ttl=42 time=5.322 ms
+64 bytes from 10.10.10.20: seq=40 ttl=42 time=5.037 ms
+64 bytes from 10.10.10.20: seq=41 ttl=42 time=6.854 ms
+64 bytes from 10.10.10.20: seq=42 ttl=42 time=4.952 ms
+64 bytes from 10.10.10.20: seq=43 ttl=42 time=4.871 ms
+64 bytes from 10.10.10.20: seq=44 ttl=42 time=4.874 ms
+64 bytes from 10.10.10.20: seq=45 ttl=42 time=4.748 ms
+64 bytes from 10.10.10.20: seq=46 ttl=42 time=5.059 ms
+64 bytes from 10.10.10.20: seq=47 ttl=42 time=4.803 ms
+64 bytes from 10.10.10.20: seq=48 ttl=42 time=6.834 ms
+64 bytes from 10.10.10.20: seq=49 ttl=42 time=4.994 ms
+64 bytes from 10.10.10.20: seq=50 ttl=42 time=5.996 ms
+64 bytes from 10.10.10.20: seq=51 ttl=42 time=5.631 ms
+64 bytes from 10.10.10.20: seq=52 ttl=42 time=6.299 ms
+64 bytes from 10.10.10.20: seq=53 ttl=42 time=5.930 ms
+64 bytes from 10.10.10.20: seq=54 ttl=42 time=5.938 ms
+64 bytes from 10.10.10.20: seq=55 ttl=42 time=6.093 ms
+64 bytes from 10.10.10.20: seq=56 ttl=42 time=6.124 ms
+64 bytes from 10.10.10.20: seq=57 ttl=42 time=4.988 ms
+64 bytes from 10.10.10.20: seq=58 ttl=42 time=5.089 ms
+64 bytes from 10.10.10.20: seq=59 ttl=42 time=5.125 ms
+^C
+\--- 10.10.10.20 ping statistics ---
+60 packets transmitted, 60 packets received, 0% packet loss
+round-trip min/avg/max = 4.478/5.396/7.167 ms
+PC-A:\~$

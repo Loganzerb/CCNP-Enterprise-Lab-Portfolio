@@ -1,0 +1,10 @@
+EC-SW3-ACCESS-A#show etherchannel load-balance
+EtherChannel Load-Balancing Configuration:
+&#x20;       src-dst-ip
+
+EtherChannel Load-Balancing Addresses Used Per-Protocol:
+Non-IP: Source XOR Destination MAC address
+&#x20; IPv4: Source XOR Destination IP address
+&#x20; IPv6: Source XOR Destination IP address
+
+EC-SW3-ACCESS-A#

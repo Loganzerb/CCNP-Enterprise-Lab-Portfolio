@@ -1,0 +1,12 @@
+EC-SW2-DIST-B#show spanning-tree interface Port-channel30
+
+Vlan                Role Sts Cost      Prio.Nbr Type
+
+---
+
+VLAN0001            Altn BLK 3         128.66   P2p
+VLAN0010            Altn BLK 3         128.66   P2p
+VLAN0020            Altn BLK 3         128.66   P2p
+VLAN0030            Altn BLK 3         128.66   P2p
+VLAN0099            Altn BLK 3         128.66   P2p
+EC-SW2-DIST-B#

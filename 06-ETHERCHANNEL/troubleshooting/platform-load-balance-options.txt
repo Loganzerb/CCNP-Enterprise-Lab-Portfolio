@@ -1,0 +1,9 @@
+EC-SW3-ACCESS-A(config)#port-channel load-balance ?
+&#x20; dst-ip       Dst IP Addr
+&#x20; dst-mac      Dst Mac Addr
+&#x20; src-dst-ip   Src XOR Dst IP Addr
+&#x20; src-dst-mac  Src XOR Dst Mac Addr
+&#x20; src-ip       Src IP Addr
+&#x20; src-mac      Src Mac Addr
+
+EC-SW3-ACCESS-A(config)#port-channel load-balance

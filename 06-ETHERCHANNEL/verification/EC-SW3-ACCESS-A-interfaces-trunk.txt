@@ -1,0 +1,18 @@
+EC-SW3-ACCESS-A# show interfaces trunk
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi0/2       on               802.1q         trunking      99
+Po20        on               802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi0/2       1,10,20,30,99
+Po20        1,10,20,30,99
+
+Port        Vlans allowed and active in management domain
+Gi0/2       1,10,20,30,99
+Po20        1,10,20,30,99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi0/2       1,10,20,30,99
+Po20        1,10,20,30,99
+EC-SW3-ACCESS-A#

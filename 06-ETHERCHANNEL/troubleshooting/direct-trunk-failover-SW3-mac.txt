@@ -1,0 +1,4 @@
+Total Mac Addresses for this criterion: 1
+EC-SW3-ACCESS-A#$dress-table dynamic vlan 10 | include 5254.0019.800a       &#x20;
+&#x20; 10    5254.0019.800a    DYNAMIC     Po20
+EC-SW3-ACCESS-A#
