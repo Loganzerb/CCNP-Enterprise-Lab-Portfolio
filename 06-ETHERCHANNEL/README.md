@@ -10,6 +10,10 @@ This module is built only from the uploaded final CML export and command output 
 
 ## Topology
 
+![Final EtherChannel lab topology](topology.png)
+
+PC-B is shown only as an unused endpoint position; it is absent from the final CML export. Its bootstrap was unreliable, so final reachability tests use SW4's Vlan10 SVI at 10.10.10.20/24.
+
 ```text
                           Static Po10
 EC-SW1-DIST-A ================================= EC-SW2-DIST-B
@@ -104,6 +108,7 @@ The image supports MAC- and IP-based algorithms but no TCP/UDP-port algorithm. R
 ```text
 06-ETHERCHANNEL/
 ├── README.md
+├── topology.png
 ├── CML-LAB.yaml
 ├── configs/
 ├── verification/
