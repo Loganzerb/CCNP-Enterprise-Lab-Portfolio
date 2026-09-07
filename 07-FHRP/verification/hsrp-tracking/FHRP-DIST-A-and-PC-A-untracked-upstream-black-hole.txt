@@ -1,0 +1,39 @@
+Enter configuration commands, one per line.  End with CNTL/Z.
+FHRP-DIST-A(config)#int gi0/0
+FHRP-DIST-A(config-if)#shutdown
+FHRP-DIST-A(config-if)#en
+\*Sep  5 22:18:39.183: %OSPF-5-ADJCHG: Process 10, Nbr 10.255.255.1 on GigabitEthernet0/0 from FULL to DOWN, Neighbor Down: Interface down or detachedd
+FHRP-DIST-A#
+\*Sep  5 22:18:41.152: %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to administratively down
+\*Sep  5 22:18:41.963: %SYS-5-CONFIG\_I: Configured from console by console
+\*Sep  5 22:18:42.152: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to down
+FHRP-DIST-A#
+FHRP-DIST-A#show standby brief
+&#x20;                    P indicates configured to preempt.
+&#x20;                    |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   120 P Active  local           10.10.10.3      10.10.10.1
+Vl20        20   100 P Standby 10.20.20.3      local           10.20.20.1
+FHRP-DIST-A#show ip ospf neighbor
+FHRP-DIST-A#show ip route 10.255.255.1
+% Subnet not in table
+FHRP-DIST-A#show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     10.255.0.2      YES manual administratively down down   &#x20;
+GigabitEthernet0/1     unassigned      YES unset  up                    up     &#x20;
+GigabitEthernet0/2     unassigned      YES unset  up                    up     &#x20;
+GigabitEthernet0/3     unassigned      YES unset  up                    up     &#x20;
+Port-channel10         unassigned      YES unset  up                    up     &#x20;
+Vlan10                 10.10.10.2      YES manual up                    up     &#x20;
+Vlan20                 10.20.20.2      YES manual up                    up     &#x20;
+FHRP-DIST-A#
+PC-A:\~$ ping -c 10 10.255.255.1
+PING 10.255.255.1 (10.255.255.1): 56 data bytes
+
+\--- 10.255.255.1 ping statistics ---
+10 packets transmitted, 0 packets received, 100% packet loss
+PC-A:\~$ traceroute 10.255.255.1
+traceroute to 10.255.255.1 (10.255.255.1), 30 hops max, 46 byte packets
+&#x20;1  10.10.10.2 (10.10.10.2)  2.401 ms  2.547 ms  2.658 ms
+&#x20;2  10.10.10.2 (10.10.10.2)  2.392 ms !H  2.658 ms !H  \*
+PC-A:\~$

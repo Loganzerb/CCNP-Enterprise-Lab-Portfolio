@@ -1,0 +1,16 @@
+PC-B:\~$ ping -c 5 10.255.255.1
+PING 10.255.255.1 (10.255.255.1): 56 data bytes
+64 bytes from 10.255.255.1: seq=0 ttl=42 time=5.388 ms
+64 bytes from 10.255.255.1: seq=1 ttl=42 time=4.841 ms
+64 bytes from 10.255.255.1: seq=2 ttl=42 time=4.311 ms
+64 bytes from 10.255.255.1: seq=3 ttl=42 time=4.852 ms
+64 bytes from 10.255.255.1: seq=4 ttl=42 time=4.925 ms
+
+\--- 10.255.255.1 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 4.311/4.863/5.388 ms
+PC-B:\~$ traceroute 10.255.255.1
+traceroute to 10.255.255.1 (10.255.255.1), 30 hops max, 46 byte packets
+&#x20;1  10.20.20.3 (10.20.20.3)  3.977 ms  3.722 ms  4.385 ms
+&#x20;2  10.255.0.5 (10.255.0.5)  4.881 ms  4.428 ms  \*
+PC-B:\~$

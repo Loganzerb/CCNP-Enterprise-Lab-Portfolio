@@ -1,0 +1,48 @@
+GLBP-R1#show glbp
+GigabitEthernet0/1 - Group 30
+&#x20; State is Active
+&#x20;   1 state change, last state change 00:19:46
+&#x20; Virtual IP address is 10.30.30.1
+&#x20; Hello time 3 sec, hold time 10 sec
+&#x20;   Next hello sent in 2.048 secs
+&#x20; Redirect time 600 sec, forwarder timeout 14400 sec
+&#x20; Preemption enabled, min delay 0 sec
+&#x20; Active is local
+&#x20; Standby is 10.30.30.3, priority 110 (expires in 8.512 sec)
+&#x20; Priority 130 (configured)
+&#x20; Weighting 60 (configured 60), thresholds: lower 30, upper 40
+&#x20;   Track object 10 state Up decrement 35
+&#x20; Load balancing: host-dependent
+&#x20; Group members:
+&#x20;   5254.0005.8e7b (10.30.30.4)
+&#x20;   5254.0007.cc5b (10.30.30.2) local
+&#x20;   5254.000c.83f3 (10.30.30.3)
+&#x20; There are 3 forwarders (1 active)
+&#x20; Forwarder 1
+&#x20;   State is Active
+&#x20;     1 state change, last state change 00:19:35
+&#x20;   MAC address is 0007.b400.1e01 (default)
+&#x20;   Owner ID is 5254.0007.cc5b
+&#x20;   Redirection enabled
+&#x20;   Preemption enabled, min delay 30 sec
+&#x20;   Active is local, weighting 60
+&#x20;   Client selection count: 3
+&#x20; Forwarder 2
+&#x20;   State is Listen
+&#x20;   MAC address is 0007.b400.1e02 (learnt)
+&#x20;   Owner ID is 5254.000c.83f3
+&#x20;   Redirection enabled, 598.528 sec remaining (maximum 600 sec)
+&#x20;   Time to live: 14398.528 sec (maximum 14400 sec)
+&#x20;   Preemption enabled, min delay 30 sec
+&#x20;   Active is 10.30.30.3 (primary), weighting 30 (expires in 8.544 sec)
+&#x20;   Client selection count: 1
+&#x20; Forwarder 3
+&#x20;   State is Listen
+&#x20;   MAC address is 0007.b400.1e03 (learnt)
+&#x20;   Owner ID is 5254.0005.8e7b
+&#x20;   Redirection enabled, 597.280 sec remaining (maximum 600 sec)
+&#x20;   Time to live: 14397.280 sec (maximum 14400 sec)
+&#x20;   Preemption enabled, min delay 30 sec
+&#x20;   Active is 10.30.30.4 (primary), weighting 10 (expires in 8.928 sec)
+&#x20;   Client selection count: 1
+GLBP-R1#

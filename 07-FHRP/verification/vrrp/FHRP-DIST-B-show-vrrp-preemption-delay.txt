@@ -1,0 +1,15 @@
+FHRP-DIST-B#show v
+\*Sep  6 21:04:23.030: %SYS-5-CONFIG\_I: Configured from console by consolerrp
+Vlan20 - Group 20&#x20;
+&#x20; State is Master &#x20;
+&#x20; Virtual IP address is 10.20.20.1
+&#x20; Virtual MAC address is 0000.5e00.0114
+&#x20; Advertisement interval is 1.000 sec
+&#x20; Preemption enabled, delay min 10 secs
+&#x20; Priority is 120&#x20;
+&#x20;   Track object 2 state Up decrement 21
+&#x20; Master Router is 10.20.20.3 (local), priority is 120&#x20;
+&#x20; Master Advertisement interval is 1.000 sec
+&#x20; Master Down interval is 3.531 sec
+
+FHRP-DIST-B#

@@ -1,0 +1,16 @@
+HRP-DIST-A#
+\*Sep  6 19:51:12.157: %HSRP-5-STATECHANGE: Vlan20 Grp 20 state Standby -> Activeshow standby vlan 20
+Vlan20 - Group 20 (version 2)
+&#x20; State is Active
+&#x20;   10 state changes, last state change 00:00:16
+&#x20; Virtual IP address is 10.20.20.1
+&#x20; Active virtual MAC address is 0000.0c9f.f014 (MAC In Use)
+&#x20;   Local virtual MAC address is 0000.0c9f.f014 (v2 default)
+&#x20; Hello time 1 sec, hold time 4 sec
+&#x20;   Next hello sent in 0.656 secs
+&#x20; Preemption enabled
+&#x20; Active router is local
+&#x20; Standby router is unknown
+&#x20; Priority 100 (default 100)
+&#x20; Group name is "hsrp-Vl20-20" (default)
+FHRP-DIST-A#

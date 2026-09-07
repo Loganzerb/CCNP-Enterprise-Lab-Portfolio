@@ -1,0 +1,21 @@
+GLBP-R1#show logging | include GLBP|AUTH|auth
+\*Sep  7 19:44:37.610: %GLBP-6-STATECHANGE: GigabitEthernet0/1 Grp 30 state Speak -> Active
+\*Sep  7 19:44:48.362: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 1 state Listen -> Active
+\*Sep  7 20:13:07.778: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 2 state Listen -> Active
+\*Sep  7 20:13:08.619: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 2 state Active -> Listen
+\*Sep  7 20:28:13.969: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:28:22.460: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 3 state Listen -> Active
+\*Sep  7 20:28:30.274: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 3 state Active -> Listen
+\*Sep  7 20:30:31.175: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:30:38.542: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 3 state Listen -> Active
+\*Sep  7 20:30:39.355: %GLBP-6-FWDSTATECHANGE: GigabitEthernet0/1 Grp 30 Fwd 3 state Active -> Listen
+\*Sep  7 20:31:02.716: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:31:32.813: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:32:04.992: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:32:37.283: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:33:09.566: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:33:41.540: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:34:13.394: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:34:45.125: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+\*Sep  7 20:35:17.402: %GLBP-4-BADAUTH: Bad authentication received from 10.30.30.4, group 30
+GLBP-R1#

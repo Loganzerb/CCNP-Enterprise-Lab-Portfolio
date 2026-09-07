@@ -1,0 +1,163 @@
+FHRP-DIST-A#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+FHRP-DIST-A(config)#interface GigabitEthernet0/0
+FHRP-DIST-A(config-if)# no shutdown
+FHRP-DIST-A(config-if)#end
+FHRP-DIST-A#
+\*Sep  5 23:06:43.518: %TRACK-6-STATE: 1 interface Gi0/0 line-protocol Down -> Up
+\*Sep  5 23:06:44.378: %SYS-5-CONFIG\_I: Configured from console by console
+\*Sep  5 23:06:44.937: %LINK-3-UPDOWN: Interface GigabitEthernet0/0, changed state to up
+\*Sep  5 23:06:45.937: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+\*Sep  5 23:06:50.690: %OSPF-5-ADJCHG: Process 10, Nbr 10.255.255.1 on GigabitEthernet0/0 from LOADING to FULL, Loading Done
+\*Sep  5 23:06:55.125: %HSRP-5-STATECHANGE: Vlan10 Grp 10 state Standby -> Active
+FHRP-DIST-A#show track 1
+Track 1
+Interface GigabitEthernet0/0 line-protocol
+Line protocol is Up
+6 changes, last change 00:00:24
+Tracked by:
+HSRP Vlan10 10
+FHRP-DIST-A#show standby vlan 10
+Vlan10 - Group 10 (version 2)
+State is Active
+13 state changes, last state change 00:00:12
+Virtual IP address is 10.10.10.1
+Active virtual MAC address is 0000.0c9f.f00a (MAC In Use)
+Local virtual MAC address is 0000.0c9f.f00a (v2 default)
+Hello time 3 sec, hold time 10 sec
+Next hello sent in 1.072 secs
+Preemption enabled, delay min 10 secs
+Active router is local
+Standby router is 10.10.10.3, priority 100 (expires in 8.768 sec)
+Priority 120 (configured 120)
+Track object 1 state Up decrement 21
+Group name is "hsrp-Vl10-10" (default)
+FHRP-DIST-A#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.255.255.1      1   FULL/DR         00:00:36    10.255.0.1      GigabitEthernet0/0
+FHRP-DIST-A#show ip route 10.255.255.1
+Routing entry for 10.255.255.1/32
+Known via "ospf 10", distance 110, metric 2, type intra area
+Last update from 10.255.0.1 on GigabitEthernet0/0, 00:00:09 ago
+Routing Descriptor Blocks:
+
+- 10.255.0.1, from 10.255.255.1, 00:00:09 ago, via GigabitEthernet0/0
+  Route metric is 2, traffic share count is 1
+  FHRP-DIST-A#
+  FHRP-DIST-A#
+- PC-A:\~$ ping 10.255.255.1
+
+  PING 10.255.255.1 (10.255.255.1): 56 data bytes
+
+  64 bytes from 10.255.255.1: seq=0 ttl=42 time=4.151 ms
+
+  64 bytes from 10.255.255.1: seq=1 ttl=42 time=4.781 ms
+
+  64 bytes from 10.255.255.1: seq=2 ttl=42 time=5.127 ms
+
+  64 bytes from 10.255.255.1: seq=3 ttl=42 time=4.835 ms
+
+  64 bytes from 10.255.255.1: seq=4 ttl=42 time=4.422 ms
+
+  64 bytes from 10.255.255.1: seq=5 ttl=42 time=5.183 ms
+
+  64 bytes from 10.255.255.1: seq=6 ttl=42 time=4.595 ms
+
+  64 bytes from 10.255.255.1: seq=7 ttl=42 time=4.498 ms
+
+  64 bytes from 10.255.255.1: seq=8 ttl=42 time=4.361 ms
+
+  64 bytes from 10.255.255.1: seq=9 ttl=42 time=5.442 ms
+
+  64 bytes from 10.255.255.1: seq=10 ttl=42 time=5.221 ms
+
+  64 bytes from 10.255.255.1: seq=11 ttl=42 time=4.421 ms
+
+  64 bytes from 10.255.255.1: seq=12 ttl=42 time=4.653 ms
+
+  64 bytes from 10.255.255.1: seq=13 ttl=42 time=35.097 ms
+
+  64 bytes from 10.255.255.1: seq=14 ttl=42 time=4.448 ms
+
+  64 bytes from 10.255.255.1: seq=15 ttl=42 time=6.229 ms
+
+  64 bytes from 10.255.255.1: seq=16 ttl=42 time=4.911 ms
+
+  64 bytes from 10.255.255.1: seq=17 ttl=42 time=5.159 ms
+
+  64 bytes from 10.255.255.1: seq=18 ttl=42 time=5.284 ms
+
+  64 bytes from 10.255.255.1: seq=19 ttl=42 time=4.947 ms
+
+  64 bytes from 10.255.255.1: seq=20 ttl=42 time=4.297 ms
+
+  64 bytes from 10.255.255.1: seq=21 ttl=42 time=4.752 ms
+
+  64 bytes from 10.255.255.1: seq=22 ttl=42 time=7.394 ms
+
+  64 bytes from 10.255.255.1: seq=23 ttl=42 time=4.336 ms
+
+  64 bytes from 10.255.255.1: seq=24 ttl=42 time=4.759 ms
+
+  64 bytes from 10.255.255.1: seq=25 ttl=42 time=4.340 ms
+
+  64 bytes from 10.255.255.1: seq=32 ttl=42 time=3.965 ms
+
+  64 bytes from 10.255.255.1: seq=33 ttl=42 time=3.490 ms
+
+  64 bytes from 10.255.255.1: seq=34 ttl=42 time=4.813 ms
+
+  64 bytes from 10.255.255.1: seq=35 ttl=42 time=3.311 ms
+
+  64 bytes from 10.255.255.1: seq=36 ttl=42 time=3.280 ms
+
+  64 bytes from 10.255.255.1: seq=37 ttl=42 time=3.597 ms
+
+  64 bytes from 10.255.255.1: seq=38 ttl=42 time=3.293 ms
+
+  64 bytes from 10.255.255.1: seq=39 ttl=42 time=3.231 ms
+
+  64 bytes from 10.255.255.1: seq=40 ttl=42 time=3.976 ms
+
+  64 bytes from 10.255.255.1: seq=41 ttl=42 time=3.644 ms
+
+  64 bytes from 10.255.255.1: seq=42 ttl=42 time=3.284 ms
+
+  64 bytes from 10.255.255.1: seq=43 ttl=42 time=3.503 ms
+
+  64 bytes from 10.255.255.1: seq=44 ttl=42 time=3.398 ms
+
+  64 bytes from 10.255.255.1: seq=45 ttl=42 time=3.148 ms
+
+  64 bytes from 10.255.255.1: seq=46 ttl=42 time=3.135 ms
+
+  64 bytes from 10.255.255.1: seq=47 ttl=42 time=4.233 ms
+
+  64 bytes from 10.255.255.1: seq=48 ttl=42 time=3.393 ms
+
+  64 bytes from 10.255.255.1: seq=49 ttl=42 time=3.201 ms
+
+  64 bytes from 10.255.255.1: seq=50 ttl=42 time=3.291 ms
+
+  64 bytes from 10.255.255.1: seq=51 ttl=42 time=3.403 ms
+
+  64 bytes from 10.255.255.1: seq=52 ttl=42 time=3.539 ms
+
+  64 bytes from 10.255.255.1: seq=53 ttl=42 time=3.646 ms
+
+  64 bytes from 10.255.255.1: seq=54 ttl=42 time=3.205 ms
+
+  64 bytes from 10.255.255.1: seq=55 ttl=42 time=3.407 ms
+
+  64 bytes from 10.255.255.1: seq=56 ttl=42 time=3.335 ms
+
+  ^C
+
+  \--- 10.255.255.1 ping statistics ---
+
+  57 packets transmitted, 51 packets received, 10% packet loss
+
+  round-trip min/avg/max = 3.135/4.811/35.097 ms
+
+  PC-A:\~$
