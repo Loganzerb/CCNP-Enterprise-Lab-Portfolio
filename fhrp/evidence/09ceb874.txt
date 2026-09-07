@@ -1,3 +1,0 @@
-FHRP-DIST-A#show startup-config | include spanning-tree vlan 20
-spanning-tree vlan 20 priority 28672
-FHRP-DIST-A#

@@ -1,5 +1,0 @@
-HOST-A#show arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.30.30.1             13   0007.b400.1e02  ARPA   GigabitEthernet0/0
-Internet  10.30.30.10             -   5254.0012.18ec  ARPA   GigabitEthernet0/0
-HOST-A#

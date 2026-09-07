@@ -1,8 +1,0 @@
-HOST-C#show arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.30.30.1              7   0007.b400.1e03  ARPA   GigabitEthernet0/0
-Internet  10.30.30.2             48   5254.0007.cc5b  ARPA   GigabitEthernet0/0
-Internet  10.30.30.3             48   5254.000c.83f3  ARPA   GigabitEthernet0/0
-Internet  10.30.30.4             48   5254.0005.8e7b  ARPA   GigabitEthernet0/0
-Internet  10.30.30.30             -   5254.0015.7d21  ARPA   GigabitEthernet0/0
-HOST-C#
