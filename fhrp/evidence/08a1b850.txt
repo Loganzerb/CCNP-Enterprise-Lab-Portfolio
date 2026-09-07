@@ -1,0 +1,64 @@
+FHRP-DIST-A#show track 1
+Track 1
+&#x20; Interface GigabitEthernet0/0 line-protocol
+&#x20; Line protocol is Down ((hw admin-down))
+&#x20;   5 changes, last change 00:01:06
+&#x20; Tracked by:
+&#x20;   HSRP Vlan10 10
+FHRP-DIST-A#show standby vlan 10
+Vlan10 - Group 10 (version 2)
+&#x20; State is Standby
+&#x20;   12 state changes, last state change 00:00:54
+&#x20; Virtual IP address is 10.10.10.1
+&#x20; Active virtual MAC address is 0000.0c9f.f00a (MAC Not In Use)
+&#x20;   Local virtual MAC address is 0000.0c9f.f00a (v2 default)
+&#x20; Hello time 3 sec, hold time 10 sec
+&#x20;   Next hello sent in 1.888 secs
+&#x20; Preemption enabled, delay min 10 secs
+&#x20; Active router is 10.10.10.3, priority 100 (expires in 10.400 sec)
+&#x20;   MAC address is 5254.0015.800a
+&#x20; Standby router is local
+&#x20; Priority 99 (configured 120)
+&#x20;   Track object 1 state Down decrement 21
+&#x20; Group name is "hsrp-Vl10-10" (default)
+FHRP-DIST-A#
+PC-A:\~$ ping 10.255.255.1
+PING 10.255.255.1 (10.255.255.1): 56 data bytes
+64 bytes from 10.255.255.1: seq=0 ttl=42 time=3.331 ms
+64 bytes from 10.255.255.1: seq=1 ttl=42 time=3.113 ms
+64 bytes from 10.255.255.1: seq=2 ttl=42 time=3.494 ms
+64 bytes from 10.255.255.1: seq=3 ttl=42 time=3.430 ms
+64 bytes from 10.255.255.1: seq=4 ttl=42 time=3.892 ms
+64 bytes from 10.255.255.1: seq=5 ttl=42 time=3.684 ms
+64 bytes from 10.255.255.1: seq=6 ttl=42 time=3.244 ms
+64 bytes from 10.255.255.1: seq=7 ttl=42 time=3.411 ms
+64 bytes from 10.255.255.1: seq=8 ttl=42 time=3.565 ms
+64 bytes from 10.255.255.1: seq=9 ttl=42 time=3.337 ms
+64 bytes from 10.255.255.1: seq=10 ttl=42 time=3.641 ms
+64 bytes from 10.255.255.1: seq=11 ttl=42 time=3.718 ms
+64 bytes from 10.255.255.1: seq=12 ttl=42 time=3.679 ms
+64 bytes from 10.255.255.1: seq=13 ttl=42 time=3.254 ms
+64 bytes from 10.255.255.1: seq=14 ttl=42 time=4.020 ms
+64 bytes from 10.255.255.1: seq=15 ttl=42 time=3.401 ms
+64 bytes from 10.255.255.1: seq=16 ttl=42 time=4.826 ms
+64 bytes from 10.255.255.1: seq=17 ttl=42 time=3.477 ms
+64 bytes from 10.255.255.1: seq=54 ttl=42 time=5.114 ms
+64 bytes from 10.255.255.1: seq=55 ttl=42 time=4.425 ms
+64 bytes from 10.255.255.1: seq=56 ttl=42 time=5.216 ms
+64 bytes from 10.255.255.1: seq=57 ttl=42 time=4.387 ms
+64 bytes from 10.255.255.1: seq=58 ttl=42 time=5.548 ms
+64 bytes from 10.255.255.1: seq=59 ttl=42 time=5.386 ms
+64 bytes from 10.255.255.1: seq=60 ttl=42 time=4.655 ms
+64 bytes from 10.255.255.1: seq=61 ttl=42 time=5.395 ms
+64 bytes from 10.255.255.1: seq=62 ttl=42 time=5.296 ms
+64 bytes from 10.255.255.1: seq=63 ttl=42 time=4.765 ms
+64 bytes from 10.255.255.1: seq=64 ttl=42 time=5.021 ms
+64 bytes from 10.255.255.1: seq=65 ttl=42 time=4.738 ms
+64 bytes from 10.255.255.1: seq=66 ttl=42 time=5.651 ms
+64 bytes from 10.255.255.1: seq=67 ttl=42 time=4.495 ms
+64 bytes from 10.255.255.1: seq=68 ttl=42 time=4.354 ms
+^C
+\--- 10.255.255.1 ping statistics ---
+69 packets transmitted, 33 packets received, 52% packet loss
+round-trip min/avg/max = 3.113/4.211/5.651 ms
+PC-A:\~$

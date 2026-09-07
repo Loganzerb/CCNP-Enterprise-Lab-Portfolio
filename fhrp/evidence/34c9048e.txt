@@ -1,0 +1,11 @@
+HOST-A#clear arp-cache
+HOST-A#ping 10.255.255.1 repeat 1
+Type escape sequence to abort.
+Sending 1, 100-byte ICMP Echos to 10.255.255.1, timeout is 2 seconds:
+!
+Success rate is 100 percent (1/1), round-trip min/avg/max = 1005/1005/1005 ms
+HOST-A#show arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.30.30.1              0   0007.b400.1e02  ARPA   GigabitEthernet0/0
+Internet  10.30.30.10             -   5254.0012.18ec  ARPA   GigabitEthernet0/0
+HOST-A#

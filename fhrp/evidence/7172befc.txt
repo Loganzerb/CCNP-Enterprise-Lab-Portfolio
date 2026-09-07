@@ -1,0 +1,43 @@
+FHRP-DIST-A#show standby vlan 20
+Vlan20 - Group 20 (version 2)
+&#x20; State is Standby
+&#x20;   6 state changes, last state change 00:00:29
+&#x20; Virtual IP address is 10.20.20.1
+&#x20; Active virtual MAC address is 0000.0c9f.f014 (MAC Not In Use)
+&#x20;   Local virtual MAC address is 0000.0c9f.f014 (v2 default)
+&#x20; Hello time 3 sec, hold time 10 sec
+&#x20;   Next hello sent in 2.704 secs
+&#x20; Preemption enabled
+&#x20; Active router is 10.20.20.3, priority 120 (expires in 7.504 sec)
+&#x20;   MAC address is 5254.0015.8014
+&#x20; Standby router is local
+&#x20; Priority 100 (default 100)
+&#x20; Group name is "hsrp-Vl20-20" (default)
+FHRP-DIST-A#show standby brief
+&#x20;                    P indicates configured to preempt.
+&#x20;                    |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   120 P Active  local           10.10.10.3      10.10.10.1
+Vl20        20   100 P Standby 10.20.20.3      local           10.20.20.1
+FHRP-DIST-A#
+FHRP-DIST-B#show standby vlan 20
+Vlan20 - Group 20 (version 2)
+&#x20; State is Active
+&#x20;   2 state changes, last state change 00:16:45
+&#x20; Virtual IP address is 10.20.20.1
+&#x20; Active virtual MAC address is 0000.0c9f.f014 (MAC In Use)
+&#x20;   Local virtual MAC address is 0000.0c9f.f014 (v2 default)
+&#x20; Hello time 3 sec, hold time 10 sec
+&#x20;   Next hello sent in 0.272 secs
+&#x20; Preemption enabled
+&#x20; Active router is local
+&#x20; Standby router is 10.20.20.2, priority 100 (expires in 10.560 sec)
+&#x20; Priority 120 (configured 120)
+&#x20; Group name is "hsrp-Vl20-20" (default)
+FHRP-DIST-B#show standby brief
+&#x20;                    P indicates configured to preempt.
+&#x20;                    |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   100 P Standby 10.10.10.2      local           10.10.10.1
+Vl20        20   120 P Active  local           10.20.20.2      10.20.20.1
+FHRP-DIST-B#

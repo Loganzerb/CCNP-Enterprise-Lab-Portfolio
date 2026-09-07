@@ -1,0 +1,11 @@
+FHRP-ACCESS-1#show mac address-table address 0000.0c9f.f014
+Mac Address Table
+-----------------
+
+Vlan    Mac Address       Type        Ports
+
+---
+
+20    0000.0c9f.f014    DYNAMIC     Gi0/1
+Total Mac Addresses for this criterion: 1
+FHRP-ACCESS-1#

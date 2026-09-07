@@ -1,0 +1,19 @@
+HOST-A#show arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.30.30.2             37   5254.0007.cc5b  ARPA   GigabitEthernet0/0
+Internet  10.30.30.3             37   5254.000c.83f3  ARPA   GigabitEthernet0/0
+Internet  10.30.30.4             37   5254.0005.8e7b  ARPA   GigabitEthernet0/0
+Internet  10.30.30.10             -   5254.0012.18ec  ARPA   GigabitEthernet0/0
+HOST-A#ping 10.255.255.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.255.255.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 5/205/1006 ms
+HOST-A#show arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.30.30.1              0   0007.b400.1e01  ARPA   GigabitEthernet0/0
+Internet  10.30.30.2             37   5254.0007.cc5b  ARPA   GigabitEthernet0/0
+Internet  10.30.30.3             37   5254.000c.83f3  ARPA   GigabitEthernet0/0
+Internet  10.30.30.4             37   5254.0005.8e7b  ARPA   GigabitEthernet0/0
+Internet  10.30.30.10             -   5254.0012.18ec  ARPA   GigabitEthernet0/0
+HOST-A#

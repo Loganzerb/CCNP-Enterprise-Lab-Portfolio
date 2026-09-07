@@ -1,0 +1,7 @@
+GLBP-R2#show glbp brief
+Interface   Grp  Fwd Pri State    Address         Active router   Standby router
+Gi0/1       30   -   110 Active   10.30.30.1      local           10.30.30.4
+Gi0/1       30   1   -   Listen   0007.b400.1e01  10.30.30.4      -
+Gi0/1       30   2   -   Active   0007.b400.1e02  local           -
+Gi0/1       30   3   -   Listen   0007.b400.1e03  10.30.30.4      -
+GLBP-R2#

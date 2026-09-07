@@ -1,0 +1,40 @@
+Enter configuration commands, one per line.  End with CNTL/Z.
+FHRP-DIST-A(config)#int vlan 20&#x20;
+FHRP-DIST-A(config-if)#s&#x20;
+FHRP-DIST-A(config-if)#st
+FHRP-DIST-A(config-if)#standby 20 au
+FHRP-DIST-A(config-if)#standby 20 authentication ?
+&#x20; WORD  Plain text authentication string (8 chars max)
+&#x20; md5   Use MD5 authentication
+&#x20; text  Plain text authentication
+
+FHRP-DIST-A(config-if)#standby 20 authentication TESTKEY ?
+&#x20; \<cr>
+
+FHRP-DIST-A(config-if)#standby 20 authentication TESTKEY&#x20;
+FHRP-DIST-A(config-if)#
+\*Sep  6 19:31:32.152: %HSRP-4-BADAUTH2: Bad authentication from 10.20.20.3end
+FHRP-DIST-A#
+\*Sep  6 19:31:33.915: %SYS-5-CONFIG\_I: Configured from console by consoleshow standby v
+\*Sep  6 19:31:39.868: %HSRP-5-STATECHANGE: Vlan20 Grp 20 state Standby -> Activelan 20
+Vlan20 - Group 20 (version 2)
+&#x20; State is Active
+&#x20;   7 state changes, last state change 00:00:02
+&#x20; Virtual IP address is 10.20.20.1
+&#x20; Active virtual MAC address is 0000.0c9f.f014 (MAC In Use)
+&#x20;   Local virtual MAC address is 0000.0c9f.f014 (v2 default)
+&#x20; Hello time 3 sec, hold time 10 sec
+&#x20;   Next hello sent in 0.192 secs
+&#x20; Authentication text, string "TESTKEY"
+&#x20; Preemption enabled
+&#x20; Active router is local
+&#x20; Standby router is unknown
+&#x20; Priority 100 (default 100)
+&#x20; Group name is "hsrp-Vl20-20" (default)
+FHRP-DIST-A#show standby brief
+&#x20;                    P indicates configured to preempt.
+&#x20;                    |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   120 P Active  local           10.10.10.3      10.10.10.1
+Vl20        20   100 P Active  local           unknown         10.20.20.1
+FHRP-DIST-A#
