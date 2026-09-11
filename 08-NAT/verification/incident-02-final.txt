@@ -1,0 +1,102 @@
+EVIDENCE: Preserves final interface PAT configuration, both clients’ 20/20 and 50/50 pings, simultaneous ICMP and TCP tables, and 642 hits with 0 misses.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message cec66685-7fbd-475f-9a0b-df2d31dc3896 ===
+
+
+NAT-EDGE#show running-config | include ^ip nat
+ip nat pool DYNAMIC-NAT 192.0.2.10 192.0.2.11 netmask 255.255.255.0
+ip nat inside source list NAT-SOURCES interface GigabitEthernet0/0 overload
+NAT-EDGE#show access-lists NAT-SOURCES
+Standard IP access list NAT-SOURCES
+    10 permit 10.10.10.0, wildcard bits 0.0.0.255 (14 matches)
+NAT-EDGE#show running-config interface GigabitEthernet0/0
+Building configuration...
+
+Current configuration : 193 bytes
+!
+interface GigabitEthernet0/0
+ description NAT-OUTSIDE-TO-ISP
+ ip address 198.51.100.2 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ media-type rj45
+end
+
+NAT-EDGE#show running-config interface GigabitEthernet0/1
+Building configuration...
+
+Current configuration : 190 bytes
+!
+interface GigabitEthernet0/1
+ description NAT-INSIDE-TO-NAT-SW
+ ip address 10.10.10.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ media-type rj45
+end
+
+NAT-EDGE#                     
+CLIENT-A#ping 203.0.113.10 repeat 20
+Type escape sequence to abort.
+Sending 20, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!!!!!!!!!!!!!!!!
+Success rate is 100 percent (20/20), round-trip min/avg/max = 3/3/5 ms
+CLIENT-A#ping 203.0.113.10 repeat 50
+Type escape sequence to abort.
+Sending 50, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Success rate is 100 percent (50/50), round-trip min/avg/max = 3/4/5 ms
+CLIENT-A#
+               
+CLIENT-B#ping 203.0.113.10 repeat 20
+Type escape sequence to abort.
+Sending 20, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!!!!!!!!!!!!!!!!
+Success rate is 100 percent (20/20), round-trip min/avg/max = 4/4/5 ms
+CLIENT-B#ping 203.0.113.10 repeat 50
+Type escape sequence to abort.
+Sending 50, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Success rate is 100 percent (50/50), round-trip min/avg/max = 4/4/6 ms
+CLIENT-B#
+            NAT-EDGE#show ip nat translations                        
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 198.51.100.2:4    10.10.10.10:4      203.0.113.10:4     203.0.113.10:4
+icmp 198.51.100.2:5    10.10.10.10:5      203.0.113.10:5     203.0.113.10:5
+icmp 198.51.100.2:6    10.10.10.20:6      203.0.113.10:6     203.0.113.10:6
+icmp 198.51.100.2:7    10.10.10.20:7      203.0.113.10:7     203.0.113.10:7
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+tcp 198.51.100.2:15271 10.10.10.10:15271  203.0.113.10:23    203.0.113.10:23
+tcp 198.51.100.2:43627 10.10.10.20:43627  203.0.113.10:23    203.0.113.10:23
+NAT-EDGE#show ip nat statistics  
+Total active translations: 2 (0 static, 2 dynamic; 2 extended)
+Peak translations: 5, occurred 00:10:03 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 642  Misses: 0
+CEF Translated packets: 642, CEF Punted packets: 0
+Expired translations: 12
+Dynamic mappings:
+-- Inside Source
+[Id: 2] access-list NAT-SOURCES interface GigabitEthernet0/0 refcount 2
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+I have also included telnet connections for extra supporting evidence for the github

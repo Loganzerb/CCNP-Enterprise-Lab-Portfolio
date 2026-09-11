@@ -1,0 +1,133 @@
+EVIDENCE: Shows the permanent static mapping, ISP host route, and successful inside- and outside-initiated tests for CLIENT-A.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 10091e16-3698-40ee-ae69-8ca5262b6e66 ===
+
+
+NAT-EDGE#show ip nat translations 
+
+Pro Inside global      Inside local       Outside local      Outside global
+
+--- 198.51.100.10      10.10.10.10        ---                ---
+
+NAT-EDGE#show ip nat st
+
+NAT-EDGE#show ip nat statistics 
+
+Total active translations: 1 (1 static, 0 dynamic; 0 extended)
+
+Peak translations: 1, occurred 00:00:51 ago
+
+Outside interfaces:
+
+  GigabitEthernet0/0
+
+Inside interfaces: 
+
+  GigabitEthernet0/1
+
+Hits: 0  Misses: 0
+
+CEF Translated packets: 0, CEF Punted packets: 0
+
+Expired translations: 0
+
+Dynamic mappings:
+
+
+
+Total doors: 0
+
+Appl doors: 0
+
+Normal doors: 0
+
+Queued Packets: 0
+
+NAT-EDGE#
+
+ISP#show ip route 198.51.100.10
+Routing entry for 198.51.100.10/32
+Known via "static", distance 1, metric 0
+Routing Descriptor Blocks:
+
+- 198.51.100.2
+  Route metric is 0, traffic share count is 1
+  ISP#show ip route 10.10.10.10\
+  % Network not in table
+  ISP#
+
+
+=== Source user message ec782537-4633-463e-885a-da683d1b1dd1 ===
+
+
+NAT-EDGE#show ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 198.51.100.10:5   10.10.10.10:5      203.0.113.10:5     203.0.113.10:5
+--- 198.51.100.10      10.10.10.10        ---                ---
+NAT-EDGE#show ip nat statistics   
+Total active translations: 2 (1 static, 1 dynamic; 1 extended)
+Peak translations: 2, occurred 00:00:08 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 10  Misses: 0
+CEF Translated packets: 10, CEF Punted packets: 0
+Expired translations: 0
+Dynamic mappings:
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/5 ms
+CLIENT-A#
+OUTSIDE-SRV#sho arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  203.0.113.1            25   5254.0010.ef5b  ARPA   GigabitEthernet0/0
+Internet  203.0.113.10            -   5254.0004.a07b  ARPA   GigabitEthernet0/0
+OUTSIDE-SRV#
+
+
+=== Source user message 07f461dc-0853-4aea-9b18-b8ddac7147d2 ===
+
+
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 198.51.100.10:2   10.10.10.10:2      203.0.113.10:2     203.0.113.10:2
+--- 198.51.100.10      10.10.10.10        ---                ---
+NAT-EDGE#show ip nat statistics
+Total active translations: 2 (1 static, 1 dynamic; 1 extended)
+Peak translations: 2, occurred 00:04:44 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 20  Misses: 0
+CEF Translated packets: 20, CEF Punted packets: 0
+Expired translations: 1
+Dynamic mappings:
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+OUTSIDE-SRV#ping 198.51.100.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 198.51.100.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/5 ms
+OUTSIDE-SRV#

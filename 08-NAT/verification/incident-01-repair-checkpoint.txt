@@ -1,0 +1,85 @@
+EVIDENCE: Captures the temporary DYANIMIC-NAT typo: ACL matches and repaired routes were present, but the rule referenced DYNAMIC-NAT and no translations formed.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 5e2ae44c-1555-4b20-81cc-3cdf71bb687f ===
+
+
+NAT-EDGE#show running-config | section ip nat
+ ip nat outside
+ ip nat inside
+ip nat pool DYANIMIC-NAT 192.0.2.10 192.0.2.11 netmask 255.255.255.0
+ip nat inside source list NAT-SOURCES pool DYNAMIC-NAT
+NAT-EDGE#show access-lists NAT-SOURCES
+Standard IP access list NAT-SOURCES
+    10 permit 10.10.10.0, wildcard bits 0.0.0.255 (10 matches)
+NAT-EDGE#show ip nat translations
+NAT-EDGE#show ip nat statistics
+Total active translations: 0 (0 static, 0 dynamic; 0 extended)
+Peak translations: 0
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 0  Misses: 0
+CEF Translated packets: 0, CEF Punted packets: 5
+Expired translations: 0
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 198.51.100.1 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 198.51.100.1
+      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C        10.10.10.0/24 is directly connected, GigabitEthernet0/1
+L        10.10.10.1/32 is directly connected, GigabitEthernet0/1
+      198.51.100.0/24 is variably subnetted, 2 subnets, 2 masks
+C        198.51.100.0/30 is directly connected, GigabitEthernet0/0
+L        198.51.100.2/32 is directly connected, GigabitEthernet0/0
+NAT-EDGE#
+ISP#show running-config | section ip nat
+ISP#show access-lists NAT-SOURCES
+ISP#show ip nat translations
+ISP#show ip nat statistics
+ISP#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is not set
+
+S     192.0.2.0/24 [1/0] via 198.51.100.2
+      198.51.100.0/24 is variably subnetted, 2 subnets, 2 masks
+C        198.51.100.0/30 is directly connected, GigabitEthernet0/0
+L        198.51.100.1/32 is directly connected, GigabitEthernet0/0
+      203.0.113.0/24 is variably subnetted, 2 subnets, 2 masks
+C        203.0.113.0/24 is directly connected, GigabitEthernet0/1
+L        203.0.113.1/32 is directly connected, GigabitEthernet0/1
+ISP#

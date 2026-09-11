@@ -1,0 +1,122 @@
+EVIDENCE: Shows PAT-POOL overload and three inside source addresses sharing 192.0.2.10 while only one of two pool addresses is allocated.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 83c95401-8e47-4882-b5f7-aa990440231f ===
+
+
+NAT-EDGE#sh ip nat ttr
+NAT-EDGE#sh ip nat t  
+NAT-EDGE#sh ip nat translations 
+NAT-EDGE#sh ip nat st
+NAT-EDGE#sh ip nat statistics 
+Total active translations: 0 (0 static, 0 dynamic; 0 extended)
+Peak translations: 3, occurred 00:13:19 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 228  Misses: 0
+CEF Translated packets: 228, CEF Punted packets: 0
+Expired translations: 6
+Dynamic mappings:
+-- Inside Source
+[Id: 3] access-list NAT-SOURCES pool PAT-POOL refcount 0
+ pool PAT-POOL: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 0 (0%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#sh run | in
+NAT-EDGE#sh run | include ip nat
+ ip nat outside
+ ip nat inside
+ip nat pool PAT-POOL 192.0.2.10 192.0.2.11 netmask 255.255.255.0
+ip nat inside source list NAT-SOURCES pool PAT-POOL overload
+NAT-EDGE#
+
+
+=== Source user message 3c57d5c7-200f-41cd-9734-ca4fa0142dc8 ===
+
+
+CLIENT-B#show running-config interface GigabitEthernet0/0
+Building configuration...
+
+Current configuration : 206 bytes
+!
+interface GigabitEthernet0/0
+ description TO-NAT-SW
+ ip address 10.10.10.30 255.255.255.0 secondary
+ ip address 10.10.10.20 255.255.255.0
+ no ip route-cache
+ duplex auto
+ speed auto
+ media-type rj45
+end
+
+CLIENT-B#
+
+
+=== Source user message 0f79c5c4-ebe5-45ce-9091-a0b0363109e1 ===
+
+
+NAT-EDGE#sh ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:1      10.10.10.10:1      203.0.113.10:1     203.0.113.10:1
+icmp 192.0.2.10:2      10.10.10.20:2      203.0.113.10:2     203.0.113.10:2
+icmp 192.0.2.10:3      10.10.10.30:3      203.0.113.10:3     203.0.113.10:3
+NAT-EDGE#sh ip nat st           
+NAT-EDGE#sh ip nat statistics 
+Total active translations: 3 (0 static, 3 dynamic; 3 extended)
+Peak translations: 3, occurred 00:16:53 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 278  Misses: 0
+CEF Translated packets: 278, CEF Punted packets: 0
+Expired translations: 6
+Dynamic mappings:
+-- Inside Source
+[Id: 3] access-list NAT-SOURCES pool PAT-POOL refcount 3
+ pool PAT-POOL: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 1 (50%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+
+
+=== Source user message 42febcd5-7946-4e07-aadf-3dda1604760b ===
+
+
+CLIENT-B#ping 203.0.113.10 repeat 10
+Type escape sequence to abort.
+Sending 10, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!!!!!!
+Success rate is 100 percent (10/10), round-trip min/avg/max = 3/4/5 ms
+CLIENT-B#ping 203.0.113.10 source 10.10.10.30
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+Packet sent with a source address of 10.10.10.30 
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/9 ms
+CLIENT-B#
+CLIENT-A#ping 203.0.113.10 re
+CLIENT-A#ping 203.0.113.10 repeat 10
+Type escape sequence to abort.
+Sending 10, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!!!!!!
+Success rate is 100 percent (10/10), round-trip min/avg/max = 3/4/5 ms
+CLIENT-A#

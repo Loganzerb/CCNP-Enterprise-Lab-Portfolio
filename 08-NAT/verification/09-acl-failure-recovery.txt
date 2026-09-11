@@ -1,0 +1,79 @@
+EVIDENCE: Shows CLIENT-A succeeding while CLIENT-B fails under a host-only NAT ACL, then CLIENT-B recovering after subnet eligibility is restored.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 61265ac6-4056-4b0e-8112-d28f4e9127de ===
+
+
+NAT-EDGE#show access-lists NAT-SOURCES
+Standard IP access list NAT-SOURCES
+    10 permit 10.10.10.10 (1 match)
+NAT-EDGE#
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/5 ms
+CLIENT-A#
+CLIENT-B#ping 203.0.113.10                   
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+CLIENT-B#
+
+
+=== Source user message 4d1a7665-52d0-484f-9b8a-5da1eec1b81c ===
+
+
+NAT-EDGE#SHOW IP NAT TRANslations 
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:3      10.10.10.10:3      203.0.113.10:3     203.0.113.10:3
+NAT-EDGE#show ip nat st
+NAT-EDGE#show ip nat statistics 
+Total active translations: 1 (0 static, 1 dynamic; 1 extended)
+Peak translations: 3, occurred 00:30:17 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 298  Misses: 0
+CEF Translated packets: 298, CEF Punted packets: 0
+Expired translations: 10
+Dynamic mappings:
+-- Inside Source
+[Id: 3] access-list NAT-SOURCES pool PAT-POOL refcount 1
+ pool PAT-POOL: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 1 (50%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+
+
+=== Source user message f2da5ccc-cc0a-436d-8444-3d0e6e16b78b ===
+
+
+NAT-EDGE#show access-lists NAT-SOURCES
+Standard IP access list NAT-SOURCES
+    10 permit 10.10.10.0, wildcard bits 0.0.0.255
+NAT-EDGE#
+CLIENT-B#PING 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/5 ms
+CLIENT-B#
+NAT-EDGE#SH IP NAT TRAN
+NAT-EDGE#SH IP NAT TRANslations 
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:6      10.10.10.20:6      203.0.113.10:6     203.0.113.10:6
+NAT-EDGE#

@@ -1,0 +1,10 @@
+--- incident-01-original/ISP
++++ incident-01-final/ISP
+@@ -90,6 +90,7 @@
+  media-type rj45
+ !
+ ip forward-protocol nd
++ip route 192.0.2.0 255.255.255.0 198.51.100.2
+ !
+ !
+ no ip http server

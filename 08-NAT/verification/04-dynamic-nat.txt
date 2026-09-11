@@ -1,0 +1,138 @@
+EVIDENCE: Shows an empty dynamic pool before traffic and allocation of separate global addresses to CLIENT-A and CLIENT-B.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 8df4e3ca-1f1a-491f-9ea0-2ccb50977b36 ===
+
+
+NAT-EDGE#show ip nat tra
+NAT-EDGE#show ip nat translations 
+NAT-EDGE#sh ip nat st
+NAT-EDGE#sh ip nat statistics 
+Total active translations: 0 (0 static, 0 dynamic; 0 extended)
+Peak translations: 8, occurred 00:07:50 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 41  Misses: 0
+CEF Translated packets: 33, CEF Punted packets: 2
+Expired translations: 3
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 0
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 0 (0%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#show acc
+NAT-EDGE#show access-l 
+NAT-EDGE#show access-lists NAT-SOURCES
+Standard IP access list NAT-SOURCES
+    10 permit 10.10.10.0, wildcard bits 0.0.0.255
+NAT-EDGE#
+
+
+=== Source user message fc77902a-ea27-4c7e-8b98-07a202694321 ===
+
+
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/6 ms
+CLIENT-A#
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:6      10.10.10.10:6      203.0.113.10:6     203.0.113.10:6
+--- 192.0.2.10         10.10.10.10        ---                ---
+NAT-EDGE#show ip nat statistics
+Total active translations: 2 (0 static, 2 dynamic; 1 extended)
+Peak translations: 8, occurred 00:11:27 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 51  Misses: 0
+CEF Translated packets: 43, CEF Punted packets: 2
+Expired translations: 3
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 2
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 1 (50%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+OUTSIDE-SRV#traceroute 198.51.100.10
+Type escape sequence to abort.
+Tracing the route to 198.51.100.10
+VRF info: (vrf in name/id, vrf out name/id)
+  1 203.0.113.1 2 msec 1 msec 1 msec
+  2 198.51.100.2 3 msec 3 msec 3 msec
+  3 198.51.100.10 4 msec 5 msec * 
+OUTSIDE-SRV#sh ip route 192.0.2.10
+Default gateway is 203.0.113.1
+
+Host               Gateway           Last Use    Total Uses  Interface
+ICMP redirect cache is empty
+OUTSIDE-SRV#
+
+
+=== Source user message 121cbaeb-5d38-42b9-8312-9f425fa2a508 ===
+
+
+CLIENT-B#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/204/1007 ms
+CLIENT-B#
+v
+
+
+=== Source user message 02bd2d90-496c-4198-90a5-c07131a26aa6 ===
+
+
+NAT-EDGE#show ip nat tran
+NAT-EDGE#show ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+--- 192.0.2.10         10.10.10.10        ---                ---
+icmp 192.0.2.11:0      10.10.10.20:0      203.0.113.10:0     203.0.113.10:0
+--- 192.0.2.11         10.10.10.20        ---                ---
+NAT-EDGE#sh ip nat st
+NAT-EDGE#sh ip nat statistics 
+Total active translations: 3 (0 static, 3 dynamic; 1 extended)
+Peak translations: 8, occurred 00:19:53 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 61  Misses: 0
+CEF Translated packets: 53, CEF Punted packets: 2
+Expired translations: 4
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 3
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 2 (100%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#

@@ -1,0 +1,129 @@
+EVIDENCE: Shows 0/5 and an alternating ISP/NAT-EDGE traceroute after removing the static mapping, then 5/5 after restoration.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 13462cff-ef6b-4d29-ac30-fd0d2ec67b57 ===
+
+
+NAT-EDGE#show ip nat translations 
+
+NAT-EDGE#
+
+ISP#show ip route 198.51.100.10
+Routing entry for 198.51.100.10/32
+Known via "static", distance 1, metric 0
+Routing Descriptor Blocks:
+
+- 198.51.100.2
+  Route metric is 0, traffic share count is 1
+  ISP#
+
+OUTSIDE-SRV#ping 198.51.100.10
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to 198.51.100.10, timeout is 2 seconds:
+
+.....
+
+Success rate is 0 percent (0/5)
+
+OUTSIDE-SRV#trace
+
+OUTSIDE-SRV#traceroute 198.51.100.10
+
+Type escape sequence to abort.
+
+Tracing the route to 198.51.100.10
+
+VRF info: (vrf in name/id, vrf out name/id)
+
+  1 203.0.113.1 2 msec 1 msec 1 msec
+
+  2 198.51.100.2 2 msec 4 msec 3 msec
+
+  3 198.51.100.1 3 msec 3 msec 2 msec
+
+  4 198.51.100.2 3 msec 4 msec 4 msec
+
+  5 198.51.100.1 3 msec 3 msec 3 msec
+
+  6 198.51.100.2 3 msec 4 msec 4 msec
+
+  7 198.51.100.1 4 msec 4 msec 4 msec
+
+  8 198.51.100.2 5 msec 5 msec 5 msec
+
+  9 198.51.100.1 5 msec 4 msec 4 msec
+
+ 10 198.51.100.2 6 msec 5 msec 5 msec
+
+ 11 198.51.100.1 5 msec 5 msec 4 msec
+
+ 12 198.51.100.2 5 msec 6 msec 5 msec
+
+ 13 198.51.100.1 5 msec 6 msec 5 msec
+
+ 14 198.51.100.2 5 msec 6 msec 5 msec
+
+ 15 198.51.100.1 6 msec 6 msec 6 msec
+
+ 16 198.51.100.2 6 msec 7 msec 6 msec
+
+ 17 198.51.100.1 7 msec 6 msec 6 msec
+
+ 18 198.51.100.2 7 msec 7 msec 7 msec
+
+ 19 198.51.100.1 6 msec 8 msec 8 msec
+
+ 20 198.51.100.2 8 msec 9 msec 8 msec
+
+ 21 198.51.100.1 7 msec 7 msec 7 msec
+
+ 22 198.51.100.2 8 msec 8 msec 7 msec
+
+ 23 198.51.100.1 8 msec 8 msec 8 msec
+
+ 24 198.51.100.2 8 msec 9 msec 8 msec
+
+ 25 198.51.100.1 8 msec 8 msec 8 msec
+
+ 26 198.51.100.2 9 msec 10 msec 9 msec
+
+ 27 198.51.100.1 8 msec 9 msec 8 msec
+
+ 28 198.51.100.2 9 msec 11 msec 10 msec
+
+ 29 198.51.100.1 9 msec 10 msec 10 msec
+
+ 30 198.51.100.2 12 msec 11 msec 10 msec
+
+OUTSIDE-SRV#
+
+
+=== Source user message 02d457fc-0bbe-47a6-b960-078a0cf20437 ===
+
+
+NAT-EDGE#show ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+--- 198.51.100.10      10.10.10.10        ---                ---
+NAT-EDGE#
+OUTSIDE-SRV#ping 198.51.100.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 198.51.100.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/5 ms
+OUTSIDE-SRV#
+OUTSIDE-SRV#traceroute 198.51.100.10
+Type escape sequence to abort.
+Tracing the route to 198.51.100.10
+VRF info: (vrf in name/id, vrf out name/id)
+  1 203.0.113.1 2 msec 1 msec 1 msec
+  2 198.51.100.2 3 msec 3 msec 3 msec
+  3 198.51.100.10 4 msec 5 msec * 
+OUTSIDE-SRV#

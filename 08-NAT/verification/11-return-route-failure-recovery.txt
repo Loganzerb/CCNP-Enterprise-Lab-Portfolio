@@ -1,0 +1,89 @@
+EVIDENCE: Shows a PAT entry existing during 0/5 failure with no ISP route to its global address, then route restoration and 5/5 recovery.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message d16a84a0-4f26-4f0c-bf84-40e5df18cca0 ===
+
+
+ISP#$                                                  configure terminal    
+Enter configuration commands, one per line.  End with CNTL/Z.
+ISP(config)#no ip route 192.0.2.0 255.255.255.0 198.51.100.2
+ISP(config)#end
+ISP#show ip route 192.0.2.10
+% Network not in table
+ISP#
+
+
+=== Source user message 0395a5ad-0157-441b-8f94-bc26dab06f3a ===
+
+
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:7      10.10.10.10:7      203.0.113.10:7     203.0.113.10:7
+NAT-EDGE#show ip nat statistics
+Total active translations: 1 (0 static, 1 dynamic; 1 extended)
+Peak translations: 3, occurred 00:50:07 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 331  Misses: 0
+CEF Translated packets: 331, CEF Punted packets: 0
+Expired translations: 14
+Dynamic mappings:
+-- Inside Source
+[Id: 3] access-list NAT-SOURCES pool PAT-POOL refcount 1
+ pool PAT-POOL: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 1 (50%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+CLIENT-A#
+
+
+=== Source user message 9f287905-faeb-494f-b58c-65fe6e1b42b3 ===
+
+
+ISP#show ip route 192.0.2.10
+Routing entry for 192.0.2.0/24
+Known via "static", distance 1, metric 0
+Routing Descriptor Blocks:
+
+- 198.51.100.2
+  Route metric is 0, traffic share count is 1
+  ISP#show ip route 192.0.2.10
+  Routing entry for 192.0.2.0/24
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+- 198.51.100.2
+  Route metric is 0, traffic share count is 1
+  ISP#
+
+
+=== Source user message f6be7497-7e2e-48a3-b3fe-f5abe32f4618 ===
+
+
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/5 ms
+CLIENT-A#
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:8      10.10.10.10:8      203.0.113.10:8     203.0.113.10:8
+NAT-EDGE#

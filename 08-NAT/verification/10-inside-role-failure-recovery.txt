@@ -1,0 +1,120 @@
+EVIDENCE: Shows Gi0/1 missing its NAT inside role, an empty inside-interface list and 0/5, then restored classification, 5/5, and a translation.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 3c3e98d5-1dde-484f-bf42-4fa469fd3f62 ===
+
+
+NAT-EDGE#show running-config interface GigabitEthernet0/1
+Building configuration...
+
+Current configuration : 175 bytes
+!
+interface GigabitEthernet0/1
+ description NAT-INSIDE-TO-NAT-SW
+ ip address 10.10.10.1 255.255.255.0
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ media-type rj45
+end
+
+NAT-EDGE#show running-config interface GigabitEthernet0/0
+Building configuration...
+
+Current configuration : 193 bytes
+!
+interface GigabitEthernet0/0
+ description NAT-OUTSIDE-TO-ISP
+ ip address 198.51.100.2 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ media-type rj45
+end
+
+NAT-EDGE#
+also what is the output ip virtual-reassembly in
+
+
+=== Source user message 180f84aa-3b90-43cc-8af4-1b3141ff916c ===
+
+
+NAT-EDGE#show ip nat statistics 
+Total active translations: 0 (0 static, 0 dynamic; 0 extended)
+Peak translations: 3, occurred 00:41:13 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+Hits: 318  Misses: 0
+CEF Translated packets: 318, CEF Punted packets: 0
+Expired translations: 13
+Dynamic mappings:
+-- Inside Source
+[Id: 3] access-list NAT-SOURCES pool PAT-POOL refcount 0
+ pool PAT-POOL: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 0 (0%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+
+
+=== Source user message 1c834d72-a6e5-44e5-92a7-f2cbaf77cf4b ===
+
+
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+CLIENT-A#
+NAT-EDGE#show ip nat translations 
+NAT-EDGE#
+
+
+=== Source user message 6abbd9f5-3f3f-416a-8bf0-aa63983d748b ===
+
+
+NAT-EDGE#show ip nat statistics 
+Total active translations: 0 (0 static, 0 dynamic; 0 extended)
+Peak translations: 3, occurred 00:43:54 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 318  Misses: 0
+CEF Translated packets: 318, CEF Punted packets: 0
+Expired translations: 13
+Dynamic mappings:
+-- Inside Source
+[Id: 3] access-list NAT-SOURCES pool PAT-POOL refcount 0
+ pool PAT-POOL: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 0 (0%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/5 ms
+CLIENT-A#
+Queued Packets: 0
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 192.0.2.10:6      10.10.10.10:6      203.0.113.10:6     203.0.113.10:6
+NAT-EDGE#

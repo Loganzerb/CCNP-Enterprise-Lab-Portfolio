@@ -1,0 +1,46 @@
+EVIDENCE: Shows a successful routed baseline when ISP had a route to the private subnet, followed by 0/5 after that route was removed to make NAT necessary.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message a8f1a6c7-0968-4b3d-a84a-5abb6a940644 ===
+
+
+CLIENT-A#ping 203.0.113.10
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+
+!!!!!
+
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/5 ms
+
+CLIENT-A#
+
+ISP#show ip route 10.10.10.10
+Routing entry for 10.10.10.0/24
+Known via "static", distance 1, metric 0
+Routing Descriptor Blocks:
+
+- 198.51.100.2
+  Route metric is 0, traffic share count is 1
+  ISP#
+
+
+=== Source user message 417996ed-0556-49a9-bc5c-42fc140e1550 ===
+
+
+ISP#show ip route 10.10.10.10
+% Network not in table
+ISP#
+CLIENT-A#ping 203.0.113.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+CLIENT-A#

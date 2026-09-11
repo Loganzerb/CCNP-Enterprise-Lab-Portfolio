@@ -1,0 +1,181 @@
+EVIDENCE: Shows two addresses fully allocated, failure from the third source 10.10.10.30, and successful reuse of an address after one mapping was deliberately cleared.
+
+Source: user-pasted CLI in MASTERCLASS CCNP LAB PART 3
+
+Conversation: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+
+Chat escaping and line endings normalized. Source messages below are separate captures, in the order listed. No device output has been generated.
+
+
+=== Source user message 25162830-7856-42f6-9d58-73b2943a843e ===
+
+
+CLIENT-B(config)#interface GigabitEthernet0/0
+CLIENT-B(config-if)# ip address 10.10.10.30 255.255.255.0 secondary
+CLIENT-B(config-if)#end
+CLIENT-B#show ip interface brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         10.10.10.20     YES NVRAM  up                    up      
+GigabitEthernet0/1         unassigned      YES NVRAM  administratively down down    
+GigabitEthernet0/2         unassigned      YES NVRAM  administratively down down    
+GigabitEthernet0/3         unassigned      YES NVRAM  administratively down down    
+CLIENT-B#sh run int g0/0
+Building configuration...
+
+Current configuration : 206 bytes
+!
+interface GigabitEthernet0/0
+ description TO-NAT-SW
+ ip address 10.10.10.30 255.255.255.0 secondary
+ ip address 10.10.10.20 255.255.255.0
+ no ip route-cache
+ duplex auto
+ speed auto
+ media-type rj45
+end
+
+CLIENT-B#
+
+
+=== Source user message 62dcf64a-bc48-458c-8519-2812c789525e ===
+
+
+NAT-EDGE#show ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+--- 192.0.2.10         10.10.10.10        ---                ---
+--- 192.0.2.11         10.10.10.20        ---                ---
+NAT-EDGE#show ip nat st
+NAT-EDGE#show ip nat statistics 
+Total active translations: 2 (0 static, 2 dynamic; 0 extended)
+Peak translations: 8, occurred 00:28:11 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 61  Misses: 0
+CEF Translated packets: 53, CEF Punted packets: 2
+Expired translations: 5
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 2
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 2 (100%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+
+
+=== Source user message e029ba94-4166-4bb0-bb6a-b5aa00d701f6 ===
+
+
+CLIENT-B#ping 203.0.113.10 source 10.10.10.30
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+Packet sent with a source address of 10.10.10.30 
+.U.U.
+Success rate is 0 percent (0/5)
+CLIENT-B#
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+--- 192.0.2.10         10.10.10.10        ---                ---
+--- 192.0.2.11         10.10.10.20        ---                ---
+NAT-EDGE#show ip nat statistics
+Total active translations: 2 (0 static, 2 dynamic; 0 extended)
+Peak translations: 8, occurred 00:29:42 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 61  Misses: 0
+CEF Translated packets: 53, CEF Punted packets: 7
+Expired translations: 5
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 2
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 2 (100%), misses 10
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+
+
+=== Source user message ebf030ca-14bc-458a-9e1c-37a2eaec60b5 ===
+
+
+NAT-EDGE# clear ip nat translation inside 192.0.2.10 10.10.10.10
+NAT-EDGE#
+NAT-EDGE#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+--- 192.0.2.11         10.10.10.20        ---                ---
+NAT-EDGE#show ip nat statistics
+Total active translations: 1 (0 static, 1 dynamic; 0 extended)
+Peak translations: 8, occurred 00:33:05 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 61  Misses: 0
+CEF Translated packets: 53, CEF Punted packets: 7
+Expired translations: 5
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 1
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 1 (50%), misses 10
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#
+
+
+=== Source user message 40960ea5-3f3a-4c07-b6ce-ebe552a1bcdd ===
+
+
+CLIENT-B#ping 203.0.113.10 source 10.10.10.30
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 203.0.113.10, timeout is 2 seconds:
+Packet sent with a source address of 10.10.10.30 
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/5 ms
+CLIENT-B#
+NAT-EDGE#show ip nat tran
+NAT-EDGE#show ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+--- 192.0.2.11         10.10.10.20        ---                ---
+icmp 192.0.2.10:2      10.10.10.30:2      203.0.113.10:2     203.0.113.10:2
+--- 192.0.2.10         10.10.10.30        ---                ---
+NAT-EDGE#show ip natstst
+NAT-EDGE#show ip nat st 
+NAT-EDGE#show ip nat statistics 
+Total active translations: 3 (0 static, 3 dynamic; 1 extended)
+Peak translations: 8, occurred 00:34:35 ago
+Outside interfaces:
+  GigabitEthernet0/0
+Inside interfaces: 
+  GigabitEthernet0/1
+Hits: 71  Misses: 0
+CEF Translated packets: 63, CEF Punted packets: 7
+Expired translations: 5
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list NAT-SOURCES pool DYNAMIC-NAT refcount 3
+ pool DYNAMIC-NAT: netmask 255.255.255.0
+        start 192.0.2.10 end 192.0.2.11
+        type generic, total addresses 2, allocated 2 (100%), misses 10
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+NAT-EDGE#

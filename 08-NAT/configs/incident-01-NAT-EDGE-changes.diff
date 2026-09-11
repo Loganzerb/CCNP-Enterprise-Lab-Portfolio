@@ -1,0 +1,25 @@
+--- incident-01-original/NAT-EDGE
++++ incident-01-final/NAT-EDGE
+@@ -73,6 +73,7 @@
+ interface GigabitEthernet0/1
+  description NAT-INSIDE-TO-NAT-SW
+  ip address 10.10.10.1 255.255.255.0
++ ip nat inside
+  ip virtual-reassembly in
+  duplex auto
+  speed auto
+@@ -97,12 +98,12 @@
+ !
+ no ip http server
+ no ip http secure-server
+-ip nat pool DYNAMIC-NAT 192.0.2.10 192.0.2.10 netmask 255.255.255.0
++ip nat pool DYNAMIC-NAT 192.0.2.10 192.0.2.11 netmask 255.255.255.0
+ ip nat inside source list NAT-SOURCES pool DYNAMIC-NAT
+ ip route 0.0.0.0 0.0.0.0 198.51.100.1
+ !
+ ip access-list standard NAT-SOURCES
+- permit host 10.10.10.10
++ permit 10.10.10.0 0.0.0.255
+ !
+ ipv6 ioam timestamp
+ !

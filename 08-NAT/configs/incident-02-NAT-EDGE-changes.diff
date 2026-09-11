@@ -1,0 +1,13 @@
+--- incident-02-original/NAT-EDGE
++++ incident-02-final/NAT-EDGE
+@@ -96,9 +96,7 @@
+ !
+ no ip http server
+ no ip http secure-server
+-ip nat pool DYNAMIC-NAT 192.0.2.10 192.0.2.11 netmask 255.255.255.0
+-ip nat inside source list NAT-SOURCES interface GigabitEthernet0/1 overload
+-ip nat translation max-entries 1
++ip nat inside source list NAT-SOURCES interface GigabitEthernet0/0 overload
+ ip route 0.0.0.0 0.0.0.0 198.51.100.1
+ !
+ ip access-list standard NAT-SOURCES
