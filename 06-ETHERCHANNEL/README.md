@@ -1,118 +1,88 @@
-# 06 — EtherChannel
+# 06 — EtherChannel: Bundles, Resilience, and Fault Isolation
 
-CCNP ENCOR portfolio lab demonstrating static EtherChannel, LACP, PAgP, 802.1Q trunking, PVST interaction, member resiliency, hashing behavior, and fault isolation on Cisco IOSvL2 in CML.
+This Cisco Modeling Labs project connects four switches using static EtherChannel, LACP, and PAgP, then examines what happens when a member fails, trunk settings disagree, or a bundle looks operational while traffic fails.
+
+The work demonstrates three separate checks: **can the links bundle, can the VLAN forward, and can the endpoint receive traffic?** Configurations establish intent; protocol and spanning-tree output explain state; endpoint tests show the recorded service result.
+
+## Start here
+
+| Case | Problem and result | What it demonstrates |
+|---|---|---|
+| [01 — Member VLAN-mask mismatch](troubleshooting/case-01-vlan-mask-mismatch.md) | Removing VLAN 99 from one member suspended that member. Restoring the list returned both members to `(P)`. | Isolating a configuration inconsistency while the logical bundle remains up |
+| [02 — Forwarding anomaly after max-bundle](troubleshooting/case-02-max-bundle-forwarding-anomaly.md) | A one-active/one-standby bundle appeared operational, but the retained endpoint test failed 0/5. The recovery capture shows 5/5. | Comparing bundle state with actual forwarding and keeping an unresolved platform diagnosis within the evidence |
+| [Guided resilience exercises](verification/guided-labs.md) | Direct-trunk failure interrupted traffic; a separate single-member failure test retained 60/60 replies. | Distinguishing path reconvergence from member degradation |
+
+The cases expand existing controlled experiments. They are not newly performed blind incidents.
+
+## Topology and intended design
+
+![EtherChannel lab topology](topology.png)
+
+SW1–SW4 below abbreviate the `EC-SW1-DIST-A`, `EC-SW2-DIST-B`, `EC-SW3-ACCESS-A`, and `EC-SW4-ACCESS-B` device names.
+
+| Connection | Member interfaces | Final configuration |
+|---|---|---|
+| Static Po10: SW1 ↔ SW2 | Gi0/0 and Gi0/1 on both switches | `on` ↔ `on` |
+| LACP Po20: SW1 ↔ SW3 | SW1 Gi0/2–3; SW3 Gi0/0–1 | SW1 `active`; SW3 `passive` |
+| PAgP Po30: SW2 ↔ SW4 | SW2 Gi0/2–3; SW4 Gi0/0–1 | SW2 `desirable`; SW4 `auto` |
+| Direct trunk: SW3 ↔ SW4 | Gi0/2 on both switches | Independent 802.1Q trunk |
+| PC-A ↔ SW3 | PC-A eth0; SW3 Gi0/3 | Access VLAN 10 |
+
+Infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`. The saved switch configurations use **classic PVST**, rather than Rapid PVST+.
+
+PC-A is `10.10.10.10/24`. Tests target SW4's VLAN 10 switch interface at `10.10.10.20/24`. PC-B appears in the supplied diagram as an unused endpoint position; it is absent from the [final CML export](CML-LAB.yaml). The diagram provides design context, not additional experimental proof.
+
+## Final verification highlights
+
+| Check | Retained result | Interpretation |
+|---|---|---|
+| Bundle membership | Po10, Po20, and Po30 are `SU`; intended members are `P` | The logical bundles are Layer 2/in use and their members are bundled |
+| Trunk policy | Native VLAN 99; allowed/active VLANs `1,10,20,30,99` | The captured trunk settings match the design |
+| SW2 Po30 spanning tree | Alternate/Blocked for all five carried VLANs | A healthy bundle can be intentionally blocked by spanning tree |
+| Endpoint reachability | PC-A receives 10/10 replies from SW4 | This final test establishes reachability during its ten probes |
+| Load-balancing setting | SW3 reports `src-dst-ip` | The capture identifies the selected algorithm; it does not measure member utilization or throughput |
+
+The [verification guide](verification/README.md) links every final-state capture and explains the fields to inspect. A successful final ping does not demonstrate that every redundant path carried that test.
+
+## Configuration and evidence navigation
+
+| Guide | Contents |
+|---|---|
+| [Configuration guide](configs/README.md) | Four exported switch configurations, device roles, important settings, and replay notes |
+| [Final verification index](verification/README.md) | Fifteen captures covering bundles, trunks, peers, spanning tree, VLANs, load-balancing settings, and endpoint replies |
+| [Guided lab narrative](verification/guided-labs.md) | Direct-trunk failover, member failure/recovery, and capability experiments |
+| [Troubleshooting index](troubleshooting/README.md) | Two detailed cases and all 27 supporting fault, recovery, and capability captures |
+| [CML lab export](CML-LAB.yaml) | Final node/link map and embedded configuration material |
+| [Topology image](topology.png) | Visual overview of the supplied design |
+
+## Coverage and boundaries
+
+| Area | What this package supports |
+|---|---|
+| Static, LACP, and PAgP formation | Saved configurations and final bundle summaries; LACP and PAgP peer captures |
+| Direct-trunk failover | Interrupted ping run and MAC learning through Po20 → Po10 → Po30; return to the direct trunk |
+| Single LACP member failure | One down member, continued Po20 forwarding, 60/60 failure-run replies, and 75/75 recovery-run replies |
+| Member VLAN consistency | Captured configuration change, explicit incompatibility log, suspension, and recovered membership |
+| `max-bundle 1` | Captured enable transition, failed endpoint probes, and recovery evidence; internal defect mechanism remains unproven |
+| Hashing | CLI lists MAC/IP choices and the final capture selects `src-dst-ip`. The earlier lab summary reported traffic-counter experiments, but those counter captures are absent |
+| LACP system priority | Captured removal of priority 1, restored system ID priority 32768, and subsequent link/bundle transitions |
+| LACP port priority | Earlier summary reports a selection experiment; no dedicated priority-change capture is retained |
+| Negotiation variants and static asymmetry | Earlier summary reports active/active, passive/passive, auto/auto, and asymmetric-static tests; separate raw test records are not included |
+| LACP fast rate and Layer 4 hashing | Captured CLI help does not offer these choices in the shown contexts on this image |
+| `min-links` and `test etherchannel load-balance` | Unsupported-command reports are retained in the earlier summary only; raw rejection captures are absent |
+| Fast switchover and standalone forwarding | Fast switchover was skipped; standalone-disable configuration was inspected, but a standalone forwarding-failure test was not performed |
+| Layer 3 EtherChannel | Temporary routed Po40 configuration and removal are captured; no addressed, physically bundled Layer 3 forwarding test |
+
+## Reuse the lab
+
+Import [CML-LAB.yaml](CML-LAB.yaml) into a separate lab and check its image mappings: the export uses `iosvl2-2020` switches and a `desktop-3-13-2-xfce` endpoint. Verify VLANs, interface mappings, PC-A addressing, and SW4's VLAN 10 interface before testing. The saved switch blocks do not contain explicit VLAN-creation stanzas; confirm the VLAN database after import.
+
+Start with the [final-state checks](verification/README.md), then reproduce a documented experiment. The export is the final saved lab, not a pre-fault snapshot for either case.
 
 ## Evidence policy
 
-This module is built only from the uploaded final CML export and command output preserved in the referenced lab conversation. Raw captures are stored as text without invented lines. Where the conversation discussed a feature but did not provide a reusable raw capture, the coverage matrix says so explicitly.
+The source is the supplied September 11 portfolio ZIP. Its 42 evidence captures, four configuration text files, topology image, and CML export are preserved unchanged. The configuration files were supplied as de-indented extracts from the export; they are not fresh device captures.
 
-`CML-LAB.yaml` is the final exported topology and configuration source of truth. The files under `configs/` are verbatim, de-indented copies of the four IOSvL2 configuration blocks embedded in that export, separated for easier review. Earlier user-posted console captures were used to cross-check the intended state but are not presented as the source of those four extracted files.
+Narrative excerpts normalize chat escaping and whitespace for readability. Original files retain prompts, partial commands, formatting artifacts, and counters. Tables explain those observations without creating missing terminal output. The investigations below organize the available evidence; they do not claim a complete chronological console recording.
 
-## Topology
-
-![Final EtherChannel lab topology](topology.png)
-
-PC-B is shown only as an unused endpoint position; it is absent from the final CML export. Its bootstrap was unreliable, so final reachability tests use SW4's Vlan10 SVI at 10.10.10.20/24.
-
-```text
-                          Static Po10
-EC-SW1-DIST-A ================================= EC-SW2-DIST-B
-      ||                                                   ||
-      || LACP Po20                               PAgP Po30 ||
-      ||                                                   ||
-EC-SW3-ACCESS-A -------- Gi0/2 trunk -------- EC-SW4-ACCESS-B
-      |
-    PC-A
-```
-
-| Bundle/link | Endpoints | Members | Final mode |
-|---|---|---|---|
-| Po10 | SW1 ↔ SW2 | Gi0/0, Gi0/1 | Static `on` ↔ `on` |
-| Po20 | SW1 ↔ SW3 | SW1 Gi0/2–3, SW3 Gi0/0–1 | LACP `active` ↔ `passive` |
-| Po30 | SW2 ↔ SW4 | SW2 Gi0/2–3, SW4 Gi0/0–1 | PAgP `desirable` ↔ `auto` |
-| Direct trunk | SW3 ↔ SW4 | Gi0/2 ↔ Gi0/2 | 802.1Q trunk |
-
-All infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`. PC-A is `10.10.10.10/24` in VLAN 10. The final test endpoint is SW4 `Vlan10`, `10.10.10.20/24`.
-
-## Final known-good state
-
-- Po10, Po20, and Po30 are Layer 2/in-use (`SU`), with every intended member bundled (`P`).
-- Po20 negotiation is SW1 active to SW3 passive; Po30 negotiation is SW2 desirable to SW4 auto.
-- Every logical Port-channel is an 802.1Q trunk with native VLAN 99 and VLANs `1,10,20,30,99` allowed and active.
-- On SW2, Po30 is a healthy trunk and bundle but is PVST alternate/blocking for all carried VLANs. STP is blocking the logical Port-channel, not individual members.
-- The final PC-A-to-SW4 check completed 10/10 replies with 0% loss.
-- Load balancing is restored to `src-dst-ip`.
-- Temporary secondary IP addresses and advanced-LACP test settings were removed before export.
-
-See `verification/` for the raw final-state captures and `configs/` for the final configurations extracted from the export.
-
-## Troubleshooting highlights
-
-### Direct trunk failure and STP failover
-
-Shutting the SW3–SW4 direct trunk caused a visible classic-PVST convergence outage. The continuous ping missed approximately sequences 8–53, then recovered. MAC learning proved the alternate forwarding path hop by hop:
-
-```text
-SW3 Po20 (LACP) → SW1 Po10 (static) → SW2 Po30 (PAgP) → SW4
-```
-
-After the direct trunk returned and STP reconverged, SW3 relearned the SW4 endpoint MAC on Gi0/2.
-
-### Single LACP member failure
-
-With traffic forced through Po20, shutting SW3 Gi0/1 changed the member from `(P)` to `(D)` while Po20 remained `(SU)`. The live ping completed 60/60 with 0% loss. PVST cost changed from 3 (two 1-Gb members) to 4 (one member), then returned to 3 after recovery; the Port-channel stayed forwarding.
-
-### Member VLAN-mask mismatch
-
-Removing VLAN 99 from only SW3 Gi0/0 produced `%EC-5-CANNOT_BUNDLE2` with `vlan mask is different`. Gi0/0 became suspended `(s)`, while Po20 remained operational on Gi0/1. Restoring the allowed VLAN list returned Gi0/0 to `(P)`.
-
-### `lacp max-bundle 1` IOSv anomaly
-
-The CLI accepted `lacp max-bundle 1` and displayed the expected active/hot-standby states, but real forwarding failed: PC-A saw 100% loss and both ends showed zero received BPDUs on Po20. Symmetric configuration did not repair forwarding. Removing only `max-bundle` restored both members to `(P)`, ping to 0% loss, and received BPDU counters above zero. Treat this as an IOSvL2 image limitation, not expected production LACP behavior.
-
-### Hashing verification
-
-The image supports MAC- and IP-based algorithms but no TCP/UDP-port algorithm. Real traffic plus member counters showed one source/destination IP flow selecting one member and several different IP inputs still mapping to the same member. This proves deterministic per-flow hashing and explains why a healthy bundle can be unevenly utilized.
-
-## Coverage matrix
-
-| Area | Status | Evidence / boundary |
-|---|---|---|
-| Static Po10 formation | Configured / proven | Final configs and all-switch summary captures |
-| LACP Po20 active/passive | Configured / proven | Final configs, summaries, and `show lacp neighbor` |
-| PAgP Po30 desirable/auto | Configured / proven | Final configs, summaries, and `show pagp neighbor` |
-| LACP active/active and passive/passive behavior | Configured / proven in conversation | Lab summary records both; no separate raw failure capture is included here |
-| PAgP auto/auto failure | Configured / proven in conversation | Lab summary records the test; no separate raw failure capture is included here |
-| Static asymmetric-member risk | Configured / proven in conversation | Lab summary records the test; no separate raw capture is included here |
-| 802.1Q/native VLAN 99/allowed VLANs | Configured / proven | All four trunk captures and final configs |
-| VLAN database | Configured / proven | SW1 `show vlan brief` capture |
-| STP treats a bundle as one link | Configured / proven | SW2 Po30 alternate/blocking capture |
-| Direct-trunk failover through all three bundles | Configured / proven | Ping outage/recovery and hop-by-hop MAC learning |
-| One-member LACP failure/recovery | Configured / proven | Live pings, summaries, and STP cost 3 → 4 → 3 |
-| Inconsistent allowed-VLAN member | Configured / proven | Syslog, suspended member, switchport output, and recovery |
-| LACP system priority | Configured / proven, then removed | `32768 → 1 → 32768`; IOSv caused a temporary Po20 renegotiation/flap |
-| LACP port priority/member selection | Configured / proven, then removed | Priority `1` moved the preferred bundled member under max-bundle testing |
-| Load-balancing algorithms and per-flow hashing | Configured / proven | Capability output, counters, and final `src-dst-ip` state |
-| Single-flow aggregate-bandwidth limitation | Discussed | One flow hashes to one member; no throughput generator result was captured |
-| LACP Fast (`lacp rate fast`) | Platform-limited | Per-interface CLI exposed only `lacp port-priority` |
-| `port-channel min-links` | Platform-limited | Conversation records the command as rejected by IOSvL2; no raw rejection capture included here |
-| Layer-4 port hashing | Platform-limited | Capability output lists only MAC/IP algorithms |
-| `test etherchannel load-balance` | Platform-limited | Conversation records the command as unsupported; counters were used instead |
-| `lacp max-bundle 1` forwarding | Platform-limited / unreliable | Expected `(P)/(H)` state appeared, but traffic and BPDUs failed until removed |
-| `lacp fast-switchover` | Skipped | CLI present, but depends on unreliable `max-bundle 1` behavior on this image |
-| Standalone forwarding failure test | Skipped | Default/non-default config behavior was verified; destructive forwarding test avoided due loop risk |
-| Full Layer 3 EtherChannel | Skipped | Routed Port-channel CLI support proven with temporary Po40; no spare links for a physical L3 bundle |
-
-## Artifact map
-
-```text
-06-ETHERCHANNEL/
-├── README.md
-├── topology.png
-├── CML-LAB.yaml
-├── configs/
-├── verification/
-└── troubleshooting/
-```
-
-The exported YAML contains the complete node/link map and final embedded configurations. Raw verification filenames are descriptive so each claim can be traced without reformatting the device output.
+Configuration, reported lab history, observed output, and suggested replay commands are identified separately. No new CML execution, performance benchmark, or save confirmation is implied by this documentation.
