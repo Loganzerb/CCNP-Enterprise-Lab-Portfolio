@@ -1,32 +1,42 @@
-# Case 10 — Path-cost and port-priority engineering
+# Case 10 — Choosing a Preferred Path Deliberately
 
-## Experiment
+## Why this matters
 
-Redundant equal-speed links were manipulated without changing cabling. Path cost was changed first to alter the preferred Root Port. In equal-cost conditions, port priority was used to influence the final sender-port-ID comparison.
+Redundant cabling creates choices. An engineer needs to explain which path should be preferred and verify that the switch makes that choice.
 
-## Decision chain
+## Documented exercise
 
-For Root Port selection, the lab applied the relevant sequence:
+The original notes describe changing interface path cost to alter a root-port decision, then using port priority in equal-cost conditions. The purpose was to distinguish the main path-selection controls from later tie-breaks.
 
-1. Lowest received Root Path Cost
-2. Lowest sender Bridge ID
-3. Lowest sender Port ID (port priority plus port number)
-4. Lowest local receiving Port ID if still tied
+## Read the controls in order
 
-## Verification
+First establish the intended root bridge. When comparing paths toward that same root, compare total root-path cost, including the receiving interface's contribution. Remaining ties depend on the sender bridge ID, sender port ID, and finally the receiving port ID.
 
-```text
-show spanning-tree vlan <id>
-show spanning-tree interface <interface> detail
-show running-config interface <interface>
-```
+| Control | Question it answers |
+|---|---|
+| Root bridge priority/ID | Which switch provides the spanning-tree reference? |
+| Total path cost | Which available route toward that root is preferred? |
+| Sender port priority/ID | Which otherwise tied advertisement is preferred? |
+| Receiving port ID | Which local port wins if the earlier comparisons still tie? |
 
-The retained VLAN 10 capture shows SW3 selecting `Gi0/0` at long cost `20000` and keeping `Gi0/2` as `Altn BLK`.
+A lower port priority is not a substitute for understanding the cost and bridge comparisons that precede it.
 
-## Recovery
+## What the files establish
 
-Remove temporary interface cost/priority overrides or document them as intentional design. Re-verify all affected VLANs because Rapid PVST+ makes an independent decision per VLAN.
+The [SW3 VLAN 10 capture](../verification/root-election/SW3-show-spanning-tree-vlan-10.txt) shows Gi0/0 Root/FWD at long cost 20000 and Gi0/2 Alternate/Blocked. It establishes the selected result at that stage, not a before/after record of the priority exercise.
 
-## Lesson
+The [SW5 setting capture](../verification/path-engineering/SW5-pathcost-method-long.txt) confirms long cost at a later check. In contrast, the [temporary LACP sequence](../verification/etherchannel/README.md) shows local cost 3 with two members and 4 with one member, while total root costs are 11 and 12 respectively.
 
-Cost is the primary path-engineering tool. Port priority is a lower-order tie-break and should not be expected to override a worse root-path cost.
+Those distinctions prevent both a local-versus-total cost error and a comparison between incompatible experiment stages.
+
+## Recovery and verification
+
+The original recovery guidance is to remove temporary cost/priority overrides or record them as intentional design, then recheck affected VLANs. Reference checks are `show spanning-tree vlan 10`, interface-level STP detail, and the corresponding interface configuration.
+
+The exact cost/priority changes and dedicated before/after output are not retained. The saved baseline and selected-port capture should not be presented as direct proof that a particular override caused the path change.
+
+## Engineering takeaway
+
+Explain the intended root and route first, then interpret the numerical fields in that context. A selected path is observable evidence; the cause of a change requires a change record and comparable before/after state.
+
+[Case index](README.md) · [Path-engineering guide](../verification/path-engineering/README.md) · [Module overview](../README.md)

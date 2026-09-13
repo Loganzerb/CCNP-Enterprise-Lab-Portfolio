@@ -1,27 +1,46 @@
-# Case 05 — Trunk/access Port Type Inconsistent
+# Case 05 — One Side Expects a Trunk, the Other an Access Port
 
-## Failure injection
+## Why this matters
 
-One side of a switch-to-switch link was configured as an 802.1Q trunk while the opposite side behaved as an access port.
+An access link serves one VLAN; a trunk carries multiple VLANs. A switch-to-switch connection needs a consistent intended role at both ends.
 
-## Observed behavior
+## Documented exercise
 
-STP reported a Port Type Inconsistent condition. The devices disagreed about whether the segment represented a shared access VLAN or a tagged multi-VLAN infrastructure link.
+The original notes describe configuring one end as a trunk while the other behaved as an access port. STP reported a Port Type Inconsistent condition.
 
-## Diagnosis
+## Evidence available
+
+The exercise account is retained, but its exact peer/interface pair, mismatched operating modes, failure table, and recovery transcript are absent. The [configuration guide](../configs/README.md) explains the saved trunk and endpoint roles.
+
+## How to investigate
+
+The following explains the diagnostic approach; it is not a retained chronological console session.
+
+| Question | What to inspect |
+|---|---|
+| What mode is each interface actually using? | Compare switchport operational mode on both ends, alongside the configured mode. |
+| Does the intended connection carry one VLAN or several? | Use the topology and design to choose the correct role. |
+| Which STP state reflects the disagreement? | Correlate inconsistent-port output and logs with those interfaces. |
+
+Reference commands:
 
 ```text
-show spanning-tree inconsistentports
 show interfaces trunk
 show interfaces switchport
-show running-config interface <interface>
+show spanning-tree inconsistentports
 show logging
 ```
 
-## Recovery
+Use the actual affected VLAN and interface when replaying the exercise. The command list is guidance, not newly captured output.
 
-Make both ends intentional trunks with matching encapsulation/native/allowed VLAN settings, or make both ends intentional access ports in the same VLAN.
+## Recovery and verification
 
-## Lesson
+The documented method is to restore a consistent intended role: matching infrastructure trunks or an intentional same-VLAN access connection. For this lab's infrastructure, use the saved trunk design as the reference.
 
-Interface mode is part of the Layer 2 contract. A cable can be up while the spanning-tree interpretation of the segment is unsafe.
+The saved access-VLAN line alone does not prove access-port operation: SW4 Gi0/2 and SW5 Gi0/0 retain such a line alongside explicit trunk mode. A replay needs operational before/after checks on the actual affected interfaces.
+
+## Engineering takeaway
+
+Read the operating mode and the complete interface configuration. An isolated line can suggest a different role from the one the interface is actually configured to use.
+
+[Case index](README.md) · [Verification guide](../verification/README.md) · [Module overview](../README.md)

@@ -1,27 +1,45 @@
-# Case 03 — Loop Guard after BPDU suppression
+# Case 03 — A Link Is Up but Expected Control Messages Stop
 
-## Failure injection
+## Why this matters
 
-BPDU reception was suppressed on a link/instance where the local non-designated port was expected to continue receiving BPDUs while the physical link remained up.
+A physical link can stay up while the control messages used to maintain a safe topology disappear. The switch needs to avoid making an unsafe forwarding decision based on that missing information.
 
-## Observed behavior
+## Documented exercise
 
-Loop Guard prevented the port from aging into forwarding and placed the affected instance in `loop-inconsistent`.
+The original exercise suppressed BPDU reception on a non-designated port that was expected to keep receiving those messages. Loop Guard placed the affected instance in `loop-inconsistent`.
 
-## Diagnosis
+## Evidence available
+
+This case preserves the original exercise account. No dedicated failure, BPDU-loss timeline, or recovery capture is included. The [final configurations](../configs/README.md) do not retain the temporary Loop Guard interface policy. The [SW3 summary](../verification/convergence/SW3-show-spanning-tree-summary.txt) reports the global Loopguard default as disabled.
+
+## How to investigate
+
+The following explains the diagnostic approach; it is not a retained chronological console session.
+
+| Question | What to inspect |
+|---|---|
+| Is the physical link actually down? | Compare interface status with the reported STP condition. |
+| Which instance lost expected information? | Identify the inconsistent VLAN/port and its prior role. |
+| Why are BPDUs missing? | Inspect peer state and the deliberate suppression condition; do not infer a specific physical defect from the condition name alone. |
+
+Reference commands:
 
 ```text
 show spanning-tree inconsistentports
-show spanning-tree interface <interface> detail
+show spanning-tree detail
 show logging
 ```
 
-The critical distinction was “link up, expected BPDUs missing,” rather than a physical link failure.
+Use the actual affected VLAN and interface when replaying the exercise. The command list is guidance, not newly captured output.
 
-## Recovery
+## Recovery and verification
 
-Restore bidirectional BPDU delivery and remove the suppression condition. Loop Guard automatically returns the instance to normal STP processing once valid BPDUs resume.
+The documented recovery method is to restore BPDU delivery and remove the test's suppression condition. Then verify that the affected instance returns to its intended role.
 
-## Lesson
+No exact suppression command, elapsed detection time, or recovery transcript is retained. Those details would require fresh capture during a replay.
 
-Loop Guard protects a port role that depends on received BPDUs. It is not an edge-port feature and does not err-disable the physical interface.
+## Engineering takeaway
+
+Physical connectivity and control-message health are separate checks. A protective inconsistent state explains why a link can be up without being allowed to forward.
+
+[Case index](README.md) · [Verification guide](../verification/README.md) · [Module overview](../README.md)

@@ -1,32 +1,38 @@
-# Case 08 — Bridge Assurance inconsistency
+# Case 08 — A Network Link Stops Participating in Control-Message Exchange
 
-## Baseline
+## Why this matters
 
-SW3 Gi0/1 and SW4 Gi0/1 were made point-to-point STP network ports on both ends. The final CML configuration preserves `spanning-tree portfast network` on this link.
+An infrastructure link can remain physically operational while one side stops contributing the control information needed for a safe spanning tree. The documented Bridge Assurance exercise examines the protective response to that condition.
 
-## Failure injection
+## Documented exercise
 
-Continuous BPDU participation was broken on one side while the infrastructure link remained operational.
+The original notes identify SW3 Gi0/1 and SW4 Gi0/1 as a pair of point-to-point network ports. BPDU participation was deliberately broken on one side. The notes report a `*BA_Inc` inconsistency rather than normal forwarding.
 
-## Observed behavior
+## What the retained artifacts show
 
-The protected peer placed the link/instances into Bridge Assurance inconsistency (`*BA_Inc`) instead of allowing a silent STP participant to forward.
+| Artifact | Supported observation |
+|---|---|
+| [SW3 Gi0/1 before the change](../verification/bridge-assurance/SW3-Gi0-1-detail-before-network-port.txt) | Per-VLAN roles, point-to-point link detail, and BPDU counters before the network-port relationship was enabled |
+| [SW3 configuration](../configs/SW3-ACCESS-B.cfg) | Gi0/1 later retains spanning-tree portfast network |
+| [SW4 configuration](../configs/SW4-DIST-B.cfg) | Its corresponding Gi0/1 retains the same network-port setting |
+| [SW3 summary](../verification/convergence/SW3-show-spanning-tree-summary.txt) | Bridge Assurance is shown as enabled at the summary level |
 
-## Diagnosis
+The pre-change capture has **no `*BA_Inc` failure state**. The exact fault action, affected-instance output, and post-repair clearing were not retained.
 
-```text
-show spanning-tree interface gigabitEthernet 0/1 detail
-show spanning-tree inconsistentports
-show spanning-tree summary
-show logging
-```
+## How to investigate
 
-See the exact [pre-network-port interface detail](../verification/bridge-assurance/SW3-Gi0-1-detail-before-network-port.txt), which shows the point-to-point link and per-VLAN BPDU counters before the network-port relationship was enabled.
+Compare both peers' configuration and interface detail. Determine whether they are intended network ports, whether the physical link is up, and what each side reports about BPDU exchange. Use inconsistent-port output and logs to identify the condition.
 
-## Recovery
+Reference checks include `show spanning-tree interface gigabitEthernet 0/1 detail`, `show spanning-tree inconsistentports`, and `show logging`. These are replay checks, not an invented troubleshooting transcript.
 
-Restore network-port configuration and bidirectional BPDU exchange on both ends. Verify the `*BA_Inc` marker clears and normal per-VLAN roles return.
+## Recovery and verification
 
-## Lesson
+The documented method is to restore the intended network-port relationship and BPDU exchange, then verify that the inconsistency clears and expected per-VLAN roles return.
 
-“Bridge Assurance is enabled” in the global summary does not prove an arbitrary trunk is protected. Both ends must operate as compatible STP network ports.
+A full evidence set would include the failure state on the affected port, peer context, the corrective action, and subsequent forwarding/client checks. The retained files provide configuration and starting-state context only for those steps.
+
+## Engineering takeaway
+
+A global feature status and a later saved configuration answer different questions from an observed protection event. Use the right artifact for each claim.
+
+[Case index](README.md) · [Bridge Assurance guide](../verification/bridge-assurance/README.md) · [Module overview](../README.md)
