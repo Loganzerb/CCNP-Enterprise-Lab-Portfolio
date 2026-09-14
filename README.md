@@ -1,10 +1,10 @@
 # CCNP Enterprise Lab Portfolio
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, switching, gateway redundancy, and address translation, documented through configurations, device output, and troubleshooting case studies.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, switching, gateway redundancy, address translation, and DHCP services, documented through configurations, device output, and troubleshooting case studies.
 
 I built these labs to understand how networks behave when configurations change and components fail. The work includes designing redundant paths, establishing healthy baselines, introducing controlled faults, investigating symptoms, and verifying recovery. Each module connects technical decisions to the evidence retained from the lab.
 
-**8 technology modules · 219 text evidence files · 9 topology diagrams · 5 CML lab exports**
+**9 technology modules · 233 text evidence files · 10 topology diagrams · 5 CML lab exports**
 
 ## Start with these three cases
 
@@ -34,7 +34,7 @@ Removing that override restored **FULL adjacency on both routers**, without clea
 
 **Review:** [OSPF MTU case study and captured excerpts](02-OSPF/troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md) · [OSPF verification guide](02-OSPF/verification/README.md)
 
-## Explore all eight modules
+## Explore all nine modules
 
 | Module | Engineering focus | A useful starting point |
 |---|---|---|
@@ -46,6 +46,7 @@ Removing that override restored **FULL adjacency on both routers**, without clea
 | [06 — EtherChannel](06-ETHERCHANNEL/README.md) | Static, LACP, and PAgP bundles; trunk consistency; member resilience; and forwarding checks | [Troubleshooting evidence](06-ETHERCHANNEL/troubleshooting/README.md): member suspension, alternate-path forwarding, and the observed `max-bundle` anomaly |
 | [07 — FHRP](07-FHRP/README.md) | HSRP, VRRP, and GLBP gateway redundancy, upstream tracking, and recovery behavior | [HSRP version mismatch](07-FHRP/troubleshooting/scenario-2-hsrp-version-mismatch.md): substantial ping success conceals a broken redundancy pair |
 | [08 — NAT/PAT](08-NAT/README.md) | Static and dynamic translation, address-pool exhaustion, shared-address translation, and integrated incidents | [PAT migration incident](08-NAT/troubleshooting/incident-02-pat-migration.md): repair the selected interface and translation limit, then verify both clients sharing one address |
+| [09 — DHCP](09-DHCP/README.md) | Address assignment, DHCP relay, lease behavior, and client/server troubleshooting | [Incorrect gateway case](09-DHCP/troubleshooting/02-incorrect-default-gateway.md): trace failed remote access to a DHCP-supplied gateway and verify recovery |
 
 ## How I approach the work
 
@@ -58,7 +59,7 @@ Guided exercises isolate individual behaviors. Integrated NAT incidents combine 
 - **Service checks:** whether the relevant endpoints receive replies and whether the intended path or redundancy has returned.
 - **Repair scope:** which change addresses the cause and what the available post-change evidence establishes.
 
-The cases demonstrate that a working ping, established routing neighbor, or active gateway can coexist with a fault. They also distinguish restored steady-state service from measured behavior during a failure or recovery.
+The cases demonstrate that a working ping, established routing neighbor, active gateway, or assigned IP address can coexist with a fault. They also distinguish restored steady-state service from measured behavior during a failure or recovery.
 
 ## Find the supporting artifacts
 
@@ -80,6 +81,7 @@ Each module contains a README, topology diagram, and three supporting directorie
 | EtherChannel | [Configurations](06-ETHERCHANNEL/configs/README.md) | [Final-state evidence](06-ETHERCHANNEL/verification/README.md) | [Failure evidence](06-ETHERCHANNEL/troubleshooting/README.md) |
 | FHRP | [Configuration excerpts](07-FHRP/configs/README.md) | [Protocol guides and evidence](07-FHRP/verification/README.md) | [Case index](07-FHRP/troubleshooting/README.md) |
 | NAT/PAT | [Original and repaired states](08-NAT/configs/README.md) | [Evidence](08-NAT/verification/README.md) | [Incident index](08-NAT/troubleshooting/README.md) |
+| DHCP | [Working configurations and captured pools](09-DHCP/configs/README.md) | [Evidence](09-DHCP/verification/README.md) | [Case index](09-DHCP/troubleshooting/README.md) |
 
 For a technical review, follow one case from its topology and expected behavior to the decisive output, repair, and recovery checks. The module guides provide context for longer captures.
 
@@ -97,7 +99,7 @@ The repository includes the following CML exports. Their starting states differ:
 
 Import the selected export into a separate CML lab, check node/image mappings and VLAN availability, and establish its starting state before following the relevant case. STP and MSTP exports require particular attention to VLAN creation because their saved configuration blocks do not include explicit VLAN-creation stanzas. Record fresh verification after applying repairs.
 
-EIGRP, OSPF, and BGP have sanitized configuration extracts but no CML export in this snapshot. FHRP provides selected configuration evidence without a complete configuration set or export. These materials support review and reconstruction with additional setup; their configuration guides describe the boundaries.
+EIGRP, OSPF, and BGP have sanitized configuration extracts but no CML export in this snapshot. FHRP provides selected configuration evidence without a complete configuration set or export. DHCP includes four reconstructed working configurations and a captured server-pool excerpt, but no CML export. These materials support review and reconstruction with additional setup; their configuration guides describe the boundaries.
 
 ## Evidence scope
 
@@ -111,5 +113,6 @@ This portfolio records controlled CML lab work. Captures vary from standalone tr
 | EtherChannel | The `max-bundle` forwarding anomaly is scoped to the observed lab behavior. Capability output and selected hashing configuration do not measure throughput |
 | FHRP | Captures span separate experiment stages. Recovery tests retain packet loss, and complete final device configurations are not supplied |
 | NAT/PAT | Final configuration files are labeled reconstructions from original exports and documented repairs. Incident 02 lacks a time-ordered record of both ping start orders, intervening clears/reloads, and a save confirmation |
+| DHCP | Guided relay, gateway, and lease-state experiments retain client/server output. Configurations are reconstructed; server-generated DHCPNAK output does not establish client receipt. Natural T2/lease expiry, DNS resolution, and Internet access were not demonstrated |
 
-The snapshot totals count `.txt` files under verification and troubleshooting, excluding four EtherChannel configuration files stored as `.txt`. They do not count independent tests or imply complete coverage of every configured feature. Additional evidence appears inside Markdown case studies. Topology diagrams illustrate the lab designs; device captures establish the recorded behavior.
+The snapshot totals count `.txt` files under verification and troubleshooting, excluding four EtherChannel configuration files and one DHCP configuration excerpt stored as `.txt`. They do not count independent tests or imply complete coverage of every configured feature. Additional evidence appears inside Markdown case studies. Topology diagrams illustrate the lab designs; device captures establish the recorded behavior.
