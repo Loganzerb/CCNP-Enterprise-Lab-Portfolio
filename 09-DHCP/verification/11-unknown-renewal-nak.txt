@@ -1,0 +1,76 @@
+A policy change makes the server explicitly reject .22
+======================================================
+
+Summary: With renew deny unknown present, the server logs that .22 is not leased and generates a DHCPNAK. CLIENT-B still shows Renewing afterward.
+
+Reading note: Server generation does not prove delivery or processing by the client.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 3b2f753a-2385-4f3b-970c-04d8db073b6e
+--- BEGIN CAPTURE ---
+DHCP-SRV(config)#ip dhcp pool USERS-B
+DHCP-SRV(dhcp-config)#renew deny unk
+DHCP-SRV(dhcp-config)#renew deny unknown 
+DHCP-SRV(dhcp-config)#end
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 4188eac1-b913-4e3a-b122-149b65064720
+--- BEGIN CAPTURE ---
+DHCP-SRV#sh running-config | section ip dhcp
+ip dhcp excluded-address 10.10.10.1 10.10.10.20
+ip dhcp excluded-address 10.10.20.1 10.10.20.20
+ip dhcp pool USERS-A
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1 
+ dns-server 8.8.8.8 
+ip dhcp pool USERS-B
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.1 
+ dns-server 8.8.8.8 
+ renew deny unknown
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: b43cafb0-b703-495a-a567-230f4207e271
+--- BEGIN CAPTURE ---
+*Sep 13 19:37:26.191: DHCPD: client's VPN is .
+*Sep 13 19:37:26.191: DHCPD: No option 125
+*Sep 13 19:37:26.191: DHCPD: DHCPREQUEST received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30.DHCPD: denying requested address 10.10.20.22: not currently leased to any client.
+*Sep 13 19:37:26.191: DHCPD: Sending DHCPNAK to client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30.
+*Sep 13 19:37:26.192: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:37:26.192: DHCPD: no option 125
+*Sep 13 19:37:26.192: DHCPD: broadcasting BOOTREPLY to client 5254.001c.99ab.
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 3e065828-cda5-4897-8471-4ecf59208da7
+--- BEGIN CAPTURE ---
+CLIENT-B#sh dhcp lease
+Temp IP addr: 10.10.20.22  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 7 Renewing
+   DHCP transaction id: C17
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.1
+   Next timer fires after: 01:06:00
+   Retry count: 3   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+

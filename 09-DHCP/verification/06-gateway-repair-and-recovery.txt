@@ -1,0 +1,108 @@
+Corrected server settings take effect after the client refreshes
+================================================================
+
+Summary: USERS-B changes from gateway .254 to .1. The client initially retains .254, then learns .1, reaches the remote server with 5/5 replies, and shows a healthy Bound lease.
+
+Reading note: The configuration before/after and final client state are captured. The repair commands are reconstructed in the case study; the renewal was reported as producing no output.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: ec09f585-4c7b-4cf4-a51c-91586361848e
+--- BEGIN CAPTURE ---
+DHCP-SRV#show running-config | section ip dhcp
+ip dhcp excluded-address 10.10.10.1 10.10.10.20
+ip dhcp excluded-address 10.10.20.1 10.10.20.20
+ip dhcp pool USERS-A
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1 
+ dns-server 8.8.8.8 
+ip dhcp pool USERS-B
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.254 
+ dns-server 8.8.8.8 
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: af643e56-0cb9-44cf-a39a-327472de6ede
+--- BEGIN CAPTURE ---
+DHCP-SRV#
+*Sep 12 21:47:17.165: %SYS-5-CONFIG_I: Configured from console by consoleshow running-config | section ip dhcp
+ip dhcp excluded-address 10.10.10.1 10.10.10.20
+ip dhcp excluded-address 10.10.20.1 10.10.20.20
+ip dhcp pool USERS-A
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1 
+ dns-server 8.8.8.8 
+ip dhcp pool USERS-B
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.1 
+ dns-server 8.8.8.8 
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 4a7a42d1-ec79-4289-bc14-2384c54ed191
+--- BEGIN CAPTURE ---
+CLIENT-B#sh ip route
+Default gateway is 10.10.20.254
+
+Host               Gateway           Last Use    Total Uses  Interface
+ICMP redirect cache is empty
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 2eaf3bac-bb7c-4a96-908b-3f1e74ac012d
+--- BEGIN CAPTURE ---
+CLIENT-B#sh ip route
+Default gateway is 10.10.20.1
+
+Host               Gateway           Last Use    Total Uses  Interface
+ICMP redirect cache is empty
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: dafc1f60-fc48-4561-b99b-b7c2c9d3c0c0
+--- BEGIN CAPTURE ---
+CLIENT-B#ping 10.99.99.50
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.99.99.50, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/202/1003 ms
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: aeea46c3-7670-486e-8da2-57e478c88470
+--- BEGIN CAPTURE ---
+CLIENT-B#show dhcp lease
+Temp IP addr: 10.10.20.21  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 5 Bound
+   DHCP transaction id: 79C
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.1
+   Next timer fires after: 11:56:07
+   Retry count: 0   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+

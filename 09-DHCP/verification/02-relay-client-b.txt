@@ -1,0 +1,138 @@
+Second subnet joins the same DHCP service
+=========================================
+
+Summary: CLIENT-B is DHCP-enabled but unassigned before its relay is added. Later it receives 10.10.20.21, and the server holds one lease for each client subnet.
+
+Reading note: Cumulative counters corroborate activity; they are not a packet capture.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 3
+Conversation ID: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+Message ID: 3a87b8d0-59bd-419e-856f-c7d511105855
+--- BEGIN CAPTURE ---
+CLIENT-B#show ip in
+*Sep 12 20:48:47.695: %SYS-5-CONFIG_I: Configured from console by consolet brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         unassigned      YES DHCP   up                    up      
+GigabitEthernet0/1         unassigned      YES unset  administratively down down    
+GigabitEthernet0/2         unassigned      YES unset  administratively down down    
+GigabitEthernet0/3         unassigned      YES unset  administratively down down    
+CLIENT-B#
+DHCP-SRV#show ip dhcp server statistics 
+Memory usage         33778
+Address pools        2
+Database agents      0
+Automatic bindings   1
+Manual bindings      0
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         1
+DHCPREQUEST          1
+DHCPDECLINE          0
+DHCPRELEASE          0
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            1
+DHCPACK              1
+DHCPNAK              0
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 3
+Conversation ID: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+Message ID: 08334a52-b802-4493-bfee-b53d26f2b536
+--- BEGIN CAPTURE ---
+CLIENT-B#
+*Sep 12 20:53:33.882: %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/0 assigned DHCP address 10.10.20.21, mask 255.255.255.0, hostname CLIENT-B
+sh ip int brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         10.10.20.21     YES DHCP   up                    up      
+GigabitEthernet0/1         unassigned      YES unset  administratively down down    
+GigabitEthernet0/2         unassigned      YES unset  administratively down down    
+GigabitEthernet0/3         unassigned      YES unset  administratively down down    
+CLIENT-B#
+DHCP-SRV#show ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+10.10.10.21         0063.6973.636f.2d35.    Sep 13 2026 08:28 PM    Automatic
+                    3235.342e.3030.3035.
+                    2e36.3763.332d.4769.
+                    302f.30
+10.10.20.21         0063.6973.636f.2d35.    Sep 13 2026 08:53 PM    Automatic
+                    3235.342e.3030.3163.
+                    2e39.3961.622d.4769.
+                    302f.30
+DHCP-SRV#show ip dhcp ser
+DHCP-SRV#show ip dhcp server stat
+DHCP-SRV#show ip dhcp server statistics 
+Memory usage         42257
+Address pools        2
+Database agents      0
+Automatic bindings   2
+Manual bindings      0
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         2
+DHCPREQUEST          2
+DHCPDECLINE          0
+DHCPRELEASE          0
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            2
+DHCPACK              2
+DHCPNAK              0
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 3
+Conversation ID: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+Message ID: 7cb03146-5343-4eb3-995a-10ac129200d5
+--- BEGIN CAPTURE ---
+DHCP-SRV#sh ip dhcp pool ?
+  WORD  Pool name
+  |     Output modifiers
+  <cr>  <cr>
+
+DHCP-SRV#sh ip dhcp pool 
+
+Pool USERS-A :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 1
+ Pending event                  : none
+ 1 subnet is currently in the pool :
+ Current index        IP address range                    Leased addresses
+ 10.10.10.22          10.10.10.1       - 10.10.10.254      1
+
+Pool USERS-B :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 1
+ Pending event                  : none
+ 1 subnet is currently in the pool :
+ Current index        IP address range                    Leased addresses
+ 10.10.20.22          10.10.20.1       - 10.10.20.254      1
+DHCP-SRV#
+--- END CAPTURE ---
+

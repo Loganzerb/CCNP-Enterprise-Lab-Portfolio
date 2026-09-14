@@ -1,0 +1,93 @@
+The client tries to resolve the incorrect next hop
+==================================================
+
+Summary: During a failed remote ping, CLIENT-B repeatedly requests a hardware address for 10.10.20.254. The local ARP table includes the real gateway 10.10.20.1.
+
+Reading note: The retained debug contains no successful resolution for .254. It is console output, not a capture from every link.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 847914ee-1d2d-4a58-bb2d-2f3dede63189
+--- BEGIN CAPTURE ---
+CLIENT-B#ping 10.99.99.50
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.99.99.50, timeout is 2 seconds:
+
+*Sep 12 21:36:34.912: IP ARP: creating incomplete entry for IP address: 10.10.20.254 interface GigabitEthernet0/0 tableid 0
+*Sep 12 21:36:34.912: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:35.913: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:36.913: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:37.914: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:37.914: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:38.914: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0.
+*Sep 12 21:36:39.915: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:40.915: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:40.916: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:41.917: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:42.917: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:43.918: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:43.918: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:44.918: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0.
+*Sep 12 21:36:45.919: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:46.919: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:46.920: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:47.920: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:48.920: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:49.922: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:49.922: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:50.922: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0.
+*Sep 12 21:36:51.923: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:52.923: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:52.924: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:53.924: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:54.925: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:55.926: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:55.927: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:56.927: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0.
+*Sep 12 21:36:57.928: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:58.928: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:36:58.929: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:36:59.929: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:37:00.929: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+*Sep 12 21:37:01.930: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:37:01.930: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:37:02.930: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0.
+Success rate is 0 percent (0/5)
+CLIENT-B#
+*Sep 12 21:37:03.931: IP ARP throttled out the ARP Request for 10.10.20.254 tableid 0
+*Sep 12 21:37:04.931: IP ARP: sent req src 10.10.20.21 5254.001c.99ab,
+                 dst 10.10.20.254 0000.0000.0000 GigabitEthernet0/0
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: e96f5b74-a52c-49ab-965f-87e041b40045
+--- BEGIN CAPTURE ---
+CLIENT-B#show arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.10.20.1             25   5254.0001.8014  ARPA   GigabitEthernet0/0
+Internet  10.10.20.21             -   5254.001c.99ab  ARPA   GigabitEthernet0/0
+CLIENT-B#
+--- END CAPTURE ---
+

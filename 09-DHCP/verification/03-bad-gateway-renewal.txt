@@ -1,0 +1,95 @@
+Renewal delivers the incorrect gateway without changing the client address
+==========================================================================
+
+Summary: CLIENT-B initially retains gateway 10.10.20.1 after the server setting changes. A forced renewal changes the gateway to 10.10.20.254 while retaining 10.10.20.21.
+
+Reading note: The client still prints Renewing. The later captures establish actual reachability and recovery; counters alone do not establish receipt of an ACK.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 3
+Conversation ID: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+Message ID: 65044181-813d-4a9b-b085-15ae75279217
+--- BEGIN CAPTURE ---
+CLIENT-B#show dhcp lease
+Temp IP addr: 10.10.20.21  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 5 Bound
+   DHCP transaction id: 2033
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.1
+   Next timer fires after: 11:38:04
+   Retry count: 0   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 3
+Conversation ID: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+Message ID: a0dd92f0-9eb9-450d-bb80-7af6eeddf554
+--- BEGIN CAPTURE ---
+CLIENT-B#renew dhcp gigabitEthernet 0/0
+CLIENT-B#show dhcp lease               
+Temp IP addr: 10.10.20.21  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 7 Renewing
+   DHCP transaction id: 2033
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.254
+   Next timer fires after: 04:30:01
+   Retry count: 1   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 3
+Conversation ID: 6a94caeb-6ca4-83ea-93e3-f4eccdd6cbb5
+Message ID: 25f2d0e1-a2fc-467b-ab70-d28597e2491a
+--- BEGIN CAPTURE ---
+CLIENT-B#show dhcp lease
+Temp IP addr: 10.10.20.21  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 7 Renewing
+   DHCP transaction id: 2033
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.254
+   Next timer fires after: 04:28:17
+   Retry count: 1   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+DHCP-SRV#show ip dhcp server statistics
+Memory usage         42257
+Address pools        2
+Database agents      0
+Automatic bindings   2
+Manual bindings      0
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         2
+DHCPREQUEST          3
+DHCPDECLINE          0
+DHCPRELEASE          0
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            2
+DHCPACK              3
+DHCPNAK              0
+DHCP-SRV#
+--- END CAPTURE ---
+

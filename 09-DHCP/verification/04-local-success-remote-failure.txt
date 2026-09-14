@@ -1,0 +1,41 @@
+Local communication works while remote access fails
+===================================================
+
+Summary: CLIENT-B reaches the real local gateway with 5/5 replies but the remote DHCP server with 0/5. Its learned gateway points to 10.10.20.254.
+
+Reading note: This establishes the symptom; the ARP trace and server configuration explain the cause.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 9f443ec4-dca5-4835-a35b-f54c49c456eb
+--- BEGIN CAPTURE ---
+CLIENT-B#ping 10.10.20.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.10.20.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+CLIENT-B#ping 10.99.99.50
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.99.99.50, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: dfd38688-bee4-4c57-a6fb-fb6634a0a3e8
+--- BEGIN CAPTURE ---
+CLIENT-B#show ip route
+Default gateway is 10.10.20.254
+
+Host               Gateway           Last Use    Total Uses  Interface
+ICMP redirect cache is empty
+CLIENT-B#
+--- END CAPTURE ---
+

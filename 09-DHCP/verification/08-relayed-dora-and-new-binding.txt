@@ -1,0 +1,89 @@
+A fresh exchange assigns .22 through the relay
+==============================================
+
+Summary: Server debug records Discover, Offer, Request and ACK, with relay 10.10.20.1 and offered address 10.10.20.22. The client assignment and server binding agree.
+
+Reading note: Device clocks are not proven synchronized. Read messages in their recorded device sequence; do not infer cross-device latency from timestamps.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 5185d927-d29d-4feb-a0a5-81b1f5177481
+--- BEGIN CAPTURE ---
+CLIENT-B#renew dhcp gigabitEthernet 0/0
+CLIENT-B#
+*Sep 13 19:05:20.516: %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/0 assigned DHCP address 10.10.20.22, mask 255.255.255.0, hostname CLIENT-B
+DHCP-SRV#
+*Sep 13 19:05:14.095: DHCPD: client's VPN is .
+*Sep 13 19:05:14.095: DHCPD: No option 125
+*Sep 13 19:05:14.095: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:14.095: DHCPD: DHCPDISCOVER received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 through relay 10.10.20.1.
+*Sep 13 19:05:14.095: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:14.096: DHCPD: Allocate an address without class information (10.10.20.0)
+*Sep 13 19:05:14.096: DHCPD: Saving workspace (ID=0x52000003)
+*Sep 13 19:05:16.096: DHCPD: Reprocessing saved workspace (ID=0x52000003)
+*Sep 13 19:05:16.097: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:16.097: DHCPD: DHCPDISCOVER received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 through relay 10.10.20.1.
+*Sep 13 19:05:16.097: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:16.097: DHCPD: Sending DHCPOFFER to client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 (10.10.20.22).DHCPD: Setting only requested parameters
+
+*Sep 13 19:05:16.097: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:16.097: DHCPD: no option 125
+*Sep 13 19:05:16.098: DHCPD: unicasting BOOTREPLY for client 5254.001c.99ab to relay 10.10.20.1.
+*Sep 13 19:05:16.103: DHCPD: New packet workspace 0xD37F928 (ID=0x36000004)
+*Sep 13 19:05:16.103: DHCPD: client's VPN is .
+*Sep 13 19:05:16.103: DHCPD: No option 125
+*Sep 13 19:05:16.103: DHCPD: DHCPREQUEST received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30.
+*Sep 13 19:05:16.103: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:16.103: DHCPD: No default domain to append - abort update
+*Sep 13 19:05:16.104: DHCPD: Sending DHCPACK to client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 (10.10.20.22).DHCPD: Setting only requested parameters
+
+*Sep 13 19:05:16.104: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:05:16.104: DHCPD: no option 125
+*Sep 13 19:05:16.104: DHCPD: unicasting BOOTREPLY for client 5254.001c.99ab to relay 10.10.20.1.
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: a7e87d46-ade1-4cb4-b5fb-5d63f36e57f4
+--- BEGIN CAPTURE ---
+DHCP-SRV#sh ip dhcp binding 
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+10.10.10.21         0063.6973.636f.2d35.    Sep 14 2026 06:36 PM    Automatic
+                    3235.342e.3030.3035.
+                    2e36.3763.332d.4769.
+                    302f.30
+10.10.20.22         0063.6973.636f.2d35.    Sep 14 2026 07:05 PM    Automatic
+                    3235.342e.3030.3163.
+                    2e39.3961.622d.4769.
+                    302f.30
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 09c24ca5-0b42-49a5-95f3-09ca03df7ab4
+--- BEGIN CAPTURE ---
+DHCP-SRV#sh ip dhcp pool USERS-B
+
+Pool USERS-B :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 1
+ Pending event                  : none
+ 1 subnet is currently in the pool :
+ Current index        IP address range                    Leased addresses
+ 10.10.20.23          10.10.20.1       - 10.10.20.254      1
+DHCP-SRV#
+--- END CAPTURE ---
+

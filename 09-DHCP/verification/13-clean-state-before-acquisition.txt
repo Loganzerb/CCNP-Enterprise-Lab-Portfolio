@@ -1,0 +1,78 @@
+Resetting the client creates a clean allocation test
+====================================================
+
+Summary: The temporary renewal policy is removed, the client releases its lease, and neither the client nor USERS-B shows an active lease. The pool's current index is 10.10.20.23.
+
+Reading note: The separate captured pool configuration confirms the policy is absent. .23 is an observed allocation candidate, not a guaranteed address on every replay.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 760bd371-80ae-48bf-9aed-2e0fc7c3e70d
+--- BEGIN CAPTURE ---
+DHCP-SRV#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+DHCP-SRV(config)#ip dhcp pool USERS-B
+DHCP-SRV(dhcp-config)# no renew deny unknown
+DHCP-SRV(dhcp-config)#end
+DHCP-SRV#
+*Sep 13 19:45:55.562: %SYS-5-CONFIG_I: Configured from console by console
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: c097cc0c-66b5-4015-b669-13eb69972b38
+--- BEGIN CAPTURE ---
+CLIENT-B#release dhcp GigabitEthernet0/0
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 143f93b9-38c5-4268-bc0c-13ff02e170cd
+--- BEGIN CAPTURE ---
+DHCP-SRV#show ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+10.10.10.21         0063.6973.636f.2d35.    Sep 14 2026 06:36 PM    Automatic
+                    3235.342e.3030.3035.
+                    2e36.3763.332d.4769.
+                    302f.30
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 5280e56e-8910-497e-83ee-05f8632b8f75
+--- BEGIN CAPTURE ---
+DHCP-SRV#sh ip dhcp pool USERS-B
+
+Pool USERS-B :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 0
+ Pending event                  : none
+ 1 subnet is currently in the pool :
+ Current index        IP address range                    Leased addresses
+ 10.10.20.23          10.10.20.1       - 10.10.20.254      0
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: eb620098-c3a0-4a15-a7a4-58c2d8830fed
+--- BEGIN CAPTURE ---
+CLIENT-B#sh dhcp lease
+CLIENT-B#
+--- END CAPTURE ---
+

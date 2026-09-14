@@ -1,0 +1,56 @@
+Removing a server record does not erase the client's lease
+==========================================================
+
+Summary: The .22 binding is deliberately cleared. The server table no longer lists it, but CLIENT-B remains Bound with 10.10.20.22.
+
+Reading note: This is a controlled state experiment, not an independently diagnosed production incident.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: eb4ceada-bcf0-4a57-99de-4752a4b1a038
+--- BEGIN CAPTURE ---
+DHCP-SRV#clear ip dhcp binding 10.10.20.22
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 71d5abb7-97dc-4092-a0cb-c290330cff03
+--- BEGIN CAPTURE ---
+DHCP-SRV#show ip dhcp binding 
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+10.10.10.21         0063.6973.636f.2d35.    Sep 14 2026 06:36 PM    Automatic
+                    3235.342e.3030.3035.
+                    2e36.3763.332d.4769.
+                    302f.30
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: acced671-2dee-439b-9790-97e4f7851863
+--- BEGIN CAPTURE ---
+CLIENT-B#sh dhcp lease
+Temp IP addr: 10.10.20.22  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 5 Bound
+   DHCP transaction id: C17
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.1
+   Next timer fires after: 11:38:23
+   Retry count: 0   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+

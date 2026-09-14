@@ -1,0 +1,33 @@
+The server receives an explicit release of .21
+==============================================
+
+Summary: Server debug records DHCPRELEASE for CLIENT-B's 10.10.20.21 address before the next acquisition.
+
+Reading note: The following DORA and binding capture establish the new .22 allocation.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: cfb6f84f-4a50-41e2-8cf8-e033bcad800d
+--- BEGIN CAPTURE ---
+*Sep 13 19:04:18.432: DHCPD: client's VPN is .
+*Sep 13 19:04:18.432: DHCPD: No option 125
+*Sep 13 19:04:18.432: DHCPD: DHCPRELEASE message received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 (10.10.20.21).
+*Sep 13 19:04:18.433: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:04:18.433: DHCPD: removing ARP entry (10.10.20.21 vrf default).
+*Sep 13 19:04:18.588: DHCPD: client's VPN is .
+*Sep 13 19:04:18.588: DHCPD: No option 125
+*Sep 13 19:04:18.588: DHCPD: DHCPRELEASE message received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 (10.10.20.21).
+*Sep 13 19:04:18.588: DHCPD: Finding a relay for client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 on interface GigabitEthernet0/0.
+*Sep 13 19:04:18.588: DHCPD: Option 125 not present in the msg.
+*Sep 13 19:04:20.591: DHCPD: client's VPN is .
+*Sep 13 19:04:20.591: DHCPD: No option 125
+*Sep 13 19:04:20.591: DHCPD: DHCPRELEASE message received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 (10.10.20.21).
+*Sep 13 19:04:20.592: DHCPD: Finding a relay for client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 on interface GigabitEthernet0/0.
+*Sep 13 19:04:20.592: DHCPD: Option 125 not present in the msg.
+DHCP-SRV#
+--- END CAPTURE ---
+

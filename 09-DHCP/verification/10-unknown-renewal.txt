@@ -1,0 +1,55 @@
+Renewal requests do not restore the missing binding
+===================================================
+
+Summary: The server logs DHCPREQUEST messages without an ACK or NAK in the supplied excerpts. CLIENT-B remains Renewing with retry count 2.
+
+Reading note: Absence in a debug excerpt is limited evidence. This records the observed interval rather than proving every packet on the path.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 713092e6-68f9-4d9f-a068-00c049011c62
+--- BEGIN CAPTURE ---
+DHCP-SRV#
+*Sep 13 19:29:39.192: DHCPD: client's VPN is .
+*Sep 13 19:29:39.192: DHCPD: No option 125
+*Sep 13 19:29:39.192: DHCPD: DHCPREQUEST received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30.
+*Sep 13 19:29:39.192: DHCPD: Finding a relay for client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 on interface GigabitEthernet0/0.
+*Sep 13 19:29:39.193: DHCPD: Option 125 not present in the msg.
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 0a49f740-b55c-4024-b74a-c0adab378ab7
+--- BEGIN CAPTURE ---
+*Sep 13 19:30:51.202: DHCPD: client's VPN is .
+*Sep 13 19:30:51.202: DHCPD: No option 125
+*Sep 13 19:30:51.202: DHCPD: DHCPREQUEST received from client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30.
+*Sep 13 19:30:51.202: DHCPD: Finding a relay for client 0063.6973.636f.2d35.3235.342e.3030.3163.2e39.3961.622d.4769.302f.30 on interface GigabitEthernet0/0.
+*Sep 13 19:30:51.202: DHCPD: Option 125 not present in the msg.
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: a29d20e7-c1ad-4797-a2c6-3913d20702b3
+--- BEGIN CAPTURE ---
+CLIENT-B#show dhcp lease 
+Temp IP addr: 10.10.20.22  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 7 Renewing
+   DHCP transaction id: C17
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.1
+   Next timer fires after: 02:12:56
+   Retry count: 2   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+

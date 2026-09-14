@@ -1,0 +1,29 @@
+Captured DHCP pool configuration after cleanup
+==============================================
+
+Summary: The server's actual configuration excerpt shows USERS-A and USERS-B with the correct gateways, exclusions and DNS option, and no renew deny unknown.
+
+Reading note: This is a pool excerpt, not a complete device configuration.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 7fe3e865-2f96-4373-a7af-5960e1bdbe82
+--- BEGIN CAPTURE ---
+DHCP-SRV#show running-config | section ip dhcp
+ip dhcp excluded-address 10.10.10.1 10.10.10.20
+ip dhcp excluded-address 10.10.20.1 10.10.20.20
+ip dhcp pool USERS-A
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1 
+ dns-server 8.8.8.8 
+ip dhcp pool USERS-B
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.1 
+ dns-server 8.8.8.8 
+DHCP-SRV#
+--- END CAPTURE ---
+

@@ -1,0 +1,46 @@
+Client-side debug supplies a second observation point
+=====================================================
+
+Summary: A later renewal logs SRequest with ciaddr 10.10.20.22 and closes its socket without an incoming ACK or NAK in the supplied output. Both devices' debugging is turned off.
+
+Reading note: Server and client debug excerpts are from separate attempts. They do not localize a packet drop or prove an IOS defect.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: f6d7da74-65a8-4641-93bf-af69b6b6f756
+--- BEGIN CAPTURE ---
+DHCP-SRV#undebug all
+All possible debugging has been turned off
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 95ad2da9-7656-4e8d-8cfd-1041009b86bb
+--- BEGIN CAPTURE ---
+CLIENT-B#renew dhcp GigabitEthernet0/0
+CLIENT-B#
+*Sep 13 19:43:13.925: DHCP: Attempting to speed up renewal timer
+*Sep 13 19:43:14.499: DHCP: Client socket is opened
+*Sep 13 19:43:15.499: DHCP: SRequest attempt # 4 for entry:
+*Sep 13 19:43:15.499: DHCP: SRequest - ciaddr: 10.10.20.22
+*Sep 13 19:43:15.499: DHCP: SRequest: 307 bytes
+*Sep 13 19:43:15.499: DHCP: SRequest: 307 bytes
+*Sep 13 19:43:26.499: DHCP: Client socket is closed
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: ce3b3b7f-b9a2-4b41-869d-91f48a0673be
+--- BEGIN CAPTURE ---
+CLIENT-B#undebug all
+All possible debugging has been turned off
+CLIENT-B#
+--- END CAPTURE ---
+

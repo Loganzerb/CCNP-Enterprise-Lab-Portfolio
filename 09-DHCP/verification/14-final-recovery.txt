@@ -1,0 +1,76 @@
+Client, server and remote reachability agree again
+==================================================
+
+Summary: CLIENT-B receives .23, is Bound with gateway .1 and zero retries, appears in the server binding table, and reaches 10.99.99.50 with 5/5 replies.
+
+Reading note: This validates the tested client-to-server path. It does not establish Internet access, DNS resolution or sustained performance.
+
+Evidence: User-pasted console output; chat spacing/escape formatting normalized.
+No device results have been added. Each source message is preserved below.
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 986294df-f12d-4a68-a2c6-8e132c3bf2bf
+--- BEGIN CAPTURE ---
+CLIENT-B#renew dhcp gigabitEthernet 0/0
+CLIENT-B#
+*Sep 13 19:50:24.641: %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/0 assigned DHCP address 10.10.20.23, mask 255.255.255.0, hostname CLIENT-B
+
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 6e184431-4f6d-4743-ad4d-a0c74f20bf6d
+--- BEGIN CAPTURE ---
+CLIENT-B#sh dhcp lease
+Temp IP addr: 10.10.20.23  for peer on Interface: GigabitEthernet0/0
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 10.99.99.50, state: 5 Bound
+   DHCP transaction id: 1B2A
+   Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+Temp default-gateway addr: 10.10.20.1
+   Next timer fires after: 11:58:16
+   Retry count: 0   Client-ID: cisco-5254.001c.99ab-Gi0/0
+   Client-ID hex dump: 636973636F2D353235342E303031632E
+                       393961622D4769302F30
+   Hostname: CLIENT-B
+CLIENT-B#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 9f7109bb-018c-4539-aa0e-d6ca11bfb110
+--- BEGIN CAPTURE ---
+DHCP-SRV#sh ip dhcp binding 
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+10.10.10.21         0063.6973.636f.2d35.    Sep 14 2026 06:36 PM    Automatic
+                    3235.342e.3030.3035.
+                    2e36.3763.332d.4769.
+                    302f.30
+10.10.20.23         0063.6973.636f.2d35.    Sep 14 2026 07:50 PM    Automatic
+                    3235.342e.3030.3163.
+                    2e39.3961.622d.4769.
+                    302f.30
+DHCP-SRV#
+--- END CAPTURE ---
+
+--- SOURCE MESSAGE ---
+Conversation: MASTERCLASS CCNP LAB PART 4
+Conversation ID: 6aa5c2bf-f760-83ea-854e-97c2bb242eff
+Message ID: 1318c36f-371a-43d3-9706-97cdf373f186
+--- BEGIN CAPTURE ---
+CLIENT-B#ping 10.99.99.50
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.99.99.50, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/203/1004 ms
+CLIENT-B#
+--- END CAPTURE ---
+
