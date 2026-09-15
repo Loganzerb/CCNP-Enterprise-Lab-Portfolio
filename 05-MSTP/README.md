@@ -1,95 +1,58 @@
-# CCNP Enterprise MSTP Masterclass
+# 05 — MSTP: Predictable Paths and Boundary Protection
 
-This lab is an evidence-driven Multiple Spanning Tree Protocol engineering project: **build → verify → break → diagnose → restore**. It moves beyond a working configuration to prove region identity, per-instance root engineering, boundary behavior, CIST operation, and MST-to-Rapid-PVST+ consistency handling with captured IOS evidence.
+Redundant switch links keep a network flexible, but they also need loop prevention. Multiple Spanning Tree Protocol (MSTP) lets groups of VLANs share a spanning-tree instance, with different groups using different preferred paths.
 
-![CCNP Enterprise MSTP Lab Topology](topology.png)
+I built a five-switch Cisco Modeling Labs environment to verify those paths, test what makes switches belong to the same MST region, and investigate protection at a boundary with Rapid PVST+. The work connects configuration choices to observed switch behavior.
 
-## Topology and design
+**5 switches · 2 configured VLAN-group instances · 7 documented cases · 9 retained evidence files**
 
-The four-switch `CCNP_MST` region forms a redundant diamond: **MST1-DIST-A** is top center, **MST2-ACCESS-A** is left, **MST3-ACCESS-B** is right, and **MST4-DIST-B** is bottom center. The access switches also have a lateral link. **MST5-BOUNDARY** connects below MST4 and is used first as another MST region, then as a Rapid PVST+ interoperability node.
+## Results at a glance
 
-| Region setting | Value |
+| Engineering question | Observed result |
 |---|---|
-| Name | `CCNP_MST` |
-| Revision | `1` |
-| MSTI 1 | VLANs `10,20` |
-| MSTI 2 | VLANs `30,40` |
-| MSTI 1 root | `MST1-DIST-A` (priority 24576) |
-| MSTI 2 root | `MST4-DIST-B` (priority 24576) |
-| MST0 / IST | All VLANs not explicitly mapped |
+| Can VLAN groups use different preferred paths? | MST2-ACCESS-A selects Gi0/0 toward MST1 for VLANs 10/20 and Gi0/1 toward MST4 for VLANs 30/40 |
+| Is a matching configuration digest enough to establish region membership? | Changing the revision or region name leaves the mapping digest unchanged but produces boundary roles |
+| How does the region reach an external spanning-tree root? | MST4 uses the same boundary link as Root for MST0 and Master for the two VLAN-group instances |
+| What happens when the external VLAN information is inconsistent? | MST4 blocks the boundary; Case 06 records the failure, the subsequent clear message and zero remaining inconsistent entries |
 
-This produces real per-instance path diversity: MST2-ACCESS-A reaches MSTI 1 through `Gi0/0` toward MST1, but reaches MSTI 2 through `Gi0/1` toward MST4.
+## Start here
 
-## What this lab demonstrates
+[Case 06 — A boundary blocked by inconsistent root information](troubleshooting/scenario-6-pvst-sim-inferior-vlan/README.md) is the strongest failure-and-recovery record. It explains why protection blocked the link and what the captured recovery actually establishes.
 
-- **MST0 / IST:** instance 0 exists in every region and carries unmapped VLANs.
-- **CIST:** the Common and Internal Spanning Tree connects MST regions and external STP domains.
-- **MSTI roots:** each instance elects independently, allowing VLAN groups to use different Layer 2 paths.
-- **CIST Root vs. CIST Regional Root:** the global root and the best bridge inside a region toward that root are distinct roles.
-- **Master Port:** the MSTI representation of a region's best external CIST path; observed as `Mstr FWD`.
-- **Boundary Port:** a link to a different MST region (`Bound(RSTP)`) or PVST/Rapid PVST+ domain (`Bound(PVST)`).
-- **Configuration digest:** a fingerprint of the VLAN-to-instance mapping. Name and revision are evaluated separately.
-- **Max Hops:** MST's internal BPDU lifetime; captured as configured `max hops 20` and `rem hops 19/18`.
-- **Long path cost:** IOS reports short as configured but long as operational under MST; 1-Gb links display cost `20000`.
-- **MST/PVST Simulation:** boundary consistency checks can logically block an up link as `*PVST_Inc` and recover automatically.
+For a quick design review, see [different paths over the same wiring](verification/instances/README.md). For deeper troubleshooting, compare the [three region-identity mismatches](verification/region-mismatch/README.md).
 
-## Engineering workflow
+## Lab topology
 
-1. Created VLANs and trunks, then staged the same region configuration on MST1-MST4.
-2. Verified name, revision, mapping, and digest before enabling MST mode.
-3. Engineered MST1 as the MSTI 1 root and MST4 as the MSTI 2 root.
-4. Verified distinct access-switch root ports and instance-specific forwarding.
-5. Used MST5 as a separate region and lower-priority external CIST root to expose Boundary, Regional Root, Root, and Master roles.
-6. Broke region membership independently through revision, mapping/digest, and name changes.
-7. Converted MST5 to Rapid PVST+ and triggered both PVST Simulation consistency failure directions.
-8. Restored each condition and verified automatic forwarding recovery.
+![Five-switch MSTP topology: four switches in CCNP_MST and MST5 outside the region, connected by six trunks](topology.png)
 
-## Repository map
+| Device | Responsibility |
+|---|---|
+| MST1-DIST-A | Preferred root for instance 1: VLANs 10 and 20 |
+| MST2-ACCESS-A / MST3-ACCESS-B | Access-side switches with redundant internal paths |
+| MST4-DIST-B | Preferred root for instance 2: VLANs 30 and 40; attachment to MST5 |
+| MST5-BOUNDARY | External test switch: a separate MST region in earlier exercises, Rapid PVST+ in the saved configuration |
 
-```text
-05-MSTP/
-├── README.md
-├── CCNP_MASTERCLASS_MSTP.yaml
-├── topology.png
-├── configs/
-│   ├── README.md
-│   └── five per-device running configurations
-├── verification/
-│   ├── region/
-│   ├── instances/
-│   ├── root-engineering/
-│   ├── boundary-master/
-│   ├── region-mismatch/
-│   ├── pvst-simulation/
-│   └── operational/
-└── troubleshooting/
-    ├── scenario-1-revision-mismatch/
-    ├── scenario-2-mapping-digest-mismatch/
-    ├── scenario-3-region-name-mismatch/
-    ├── scenario-4-external-cist-root-boundary/
-    ├── scenario-5-pvst-sim-superior-vlan/
-    ├── scenario-6-pvst-sim-inferior-vlan/
-    └── scenario-7-transient-dispute/
-```
+The main region is **CCNP_MST, revision 1**. Instance 0, the Internal Spanning Tree (IST), contains VLANs not assigned to instances 1 or 2. [The topology guide](topology.md) provides exact ports, trunk VLAN lists and the distinction between saved and experimental states.
 
-## Evidence guide
+## What this work demonstrates
 
-| Area | Principal commands | What it proves |
-|---|---|---|
-| [Region](verification/region/) | `show spanning-tree mst configuration`, `... digest` | Matching region definition and digest |
-| [Instances](verification/instances/) | `show spanning-tree mst`, `mst 0`, `mst 1`, `mst 2` | IST, mappings, roles, and independent topologies |
-| [Root engineering](verification/root-engineering/) | `show spanning-tree mst 1/2` | Intended roots and access-layer path selection |
-| [Boundary/Master](verification/boundary-master/) | `show spanning-tree mst` | Regional Root plus `Root`/`Mstr` boundary behavior |
-| [Region mismatch](verification/region-mismatch/) | configuration digest and MST output | Revision, mapping, and name failure signatures |
-| [PVST Simulation](verification/pvst-simulation/) | MST, VLAN, inconsistent-port output, syslog | `Bound(PVST)`, failure, logical block, and recovery |
-| [Operational](verification/operational/) | summary and MST instance output | Max Hops, remaining hops, long costs, transient Dispute |
+- **Intentional path selection:** configure roots and verify their effect at an access switch.
+- **Fault isolation:** compare region identity, operating mode and port roles instead of relying on one matching field.
+- **Interoperability troubleshooting:** distinguish normal boundary operation from a consistency failure.
+- **Evidence-based reporting:** identify captured recovery separately from a correction described in the lab notes.
 
-## Lab files
+## Explore the files
 
-- [Device configurations](configs/)
-- [Verification evidence](verification/)
-- [Troubleshooting case studies](troubleshooting/)
-- [CML topology](CCNP_MASTERCLASS_MSTP.yaml)
-- [Topology image](topology.png)
+| Location | What the reader gets |
+|---|---|
+| [Configurations](configs/README.md) | Five saved device files explained by role, important settings and experiment stage |
+| [Verification](verification/README.md) | An index of every retained capture with a short interpretation |
+| [Troubleshooting](troubleshooting/README.md) | Seven cases with symptoms, reasoning and the available recovery evidence |
+| [CML export](CCNP_MASTERCLASS_MSTP.yaml) | Original saved five-switch lab; read the configuration guide before import |
+| [Technical references](references.md) | Cisco explanations supporting the protocol interpretation |
 
-> Evidence policy: `.txt` files labeled **captured output** reproduce console material observed during the masterclass. Scenario READMEs may summarize command sequences when the exact console block was not retained; they do not fabricate IOS output.
+## Evidence scope
+
+The original nine text files, five device configurations and CML export are preserved unchanged. Some text files combine console excerpts with explicitly identified observations. This revision improves their context and redraws the topology from the saved wiring.
+
+Case 06 proves that the reported inconsistency cleared; it does not include a post-repair forwarding table or endpoint traffic test. Other cases retain different amounts of failure and recovery evidence. No new lab results, throughput measurements or convergence timings are claimed.

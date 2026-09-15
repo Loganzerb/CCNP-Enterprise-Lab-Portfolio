@@ -1,17 +1,25 @@
-# Scenario 5 — Superior Rapid-PVST+ VLAN
+# Case 05 — An external VLAN claim blocks a designated boundary
 
-## Fault injected
+The CIST root was inside the MST region, but the Rapid PVST+ side advertised a superior root for VLAN 10. The inconsistency caused protection to block the boundary.
 
-MST5 was running Rapid PVST+. While the CIST root was inside the MST region, VLAN 10 on the Rapid-PVST+ side was made superior to the MST CIST information.
+## Follow the evidence
 
-## Observation and diagnosis
+The [failure capture](../../verification/pvst-simulation/superior-vlan-failure.txt) shows MST4 Gi0/2 as:
 
-MST4 `Gi0/2` was a designated `Bound(PVST)` boundary but changed to `Desg BKN* ... *PVST_Inc`. `show spanning-tree inconsistentports` reported MST0, MST1, and MST2 as `PVST Sim. Inconsistent`.
+```text
+Desg BKN* ... Bound(PVST) *PVST_Inc
+```
 
-The physical link was still up; PVST Simulation logically blocked it because a VLAN 2-and-above root claim contradicted the CIST assumptions represented through VLAN 1.
+The inconsistent-port output lists MST0, MST1 and MST2 against **that same interface**. The original excerpt identifies the CIST root as remaining inside MST while the external VLAN became superior.
 
-## Fix and validation
+## Diagnosis and correction
 
-Remove the superior VLAN 10 root condition. IOS clears the inconsistency automatically; verify zero inconsistent ports and `Desg FWD ... Bound(PVST)`.
+This is a PVST Simulation consistency failure at a designated boundary. The required correction is to remove the conflicting external VLAN 10 root preference and restore a consistent root design.
 
-Evidence: [superior-VLAN failure](../../verification/pvst-simulation/superior-vlan-failure.txt).
+The original notes report that the inconsistency cleared after correction. The retained text file contains only the failed state; it does not include the correction command, a clear log or a subsequent forwarding table.
+
+For a replay, confirm zero inconsistent entries and the expected Gi0/2 role after correcting the external root information. Add a traffic check if claiming service recovery.
+
+**Takeaway:** classify which side owns the CIST root before interpreting a boundary inconsistency. The [next case](../scenario-6-pvst-sim-inferior-vlan/README.md) demonstrates the opposite direction and includes captured clearing evidence.
+
+[All cases](../README.md) · [PVST evidence comparison](../../verification/pvst-simulation/README.md)

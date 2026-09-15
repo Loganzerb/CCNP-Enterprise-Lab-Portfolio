@@ -1,17 +1,29 @@
-# Scenario 4 — External CIST root and boundary failure
+# Case 04 — Identify the region's path to an external root
 
-## Fault injected
+This experiment explains expected boundary operation. An external switch became the overall CIST root, while the main region retained its own instance-root choices.
 
-MST5-BOUNDARY remained in the separate `BOUNDARY_MST` region and was given a lower MST0 priority, making it the overall CIST root.
+## Establish the stage
 
-## Observation and diagnosis
+MST5 was operating in the separate `BOUNDARY_MST` region with a temporary MST0 priority of **16384**. This predates its saved Rapid PVST+ configuration.
 
-MST4 became `Regional Root this switch`. Its MST5-facing `Gi0/2` was `Root FWD ... Bound(RSTP)` in MST0 and `Mstr FWD ... Bound(RSTP)` in MSTI 1 and 2. This is the canonical signature of the region's best path to an external CIST root.
+The [MST4 capture](../../verification/boundary-master/external-cist-root.txt) reports:
 
-When the boundary link was shut, that external path disappeared and the remaining component elected a new CIST root. Restoration re-established the Root/Master roles.
+| Scope | Gi0/2 role | Meaning |
+|---|---|---|
+| MST0 | Root FWD, Bound(RSTP) | Path toward the external CIST root |
+| MSTI 1 | Mstr FWD, Bound(RSTP) | External connection for instance 1 |
+| MSTI 2 | Mstr FWD, Bound(RSTP) | External connection for instance 2 |
 
-## Fix and validation
+MST4 also reports `Regional Root this switch`, while its instance 1 root remains MST1. The external CIST path and internal instance election are distinct.
 
-Bring the link back up and verify MST0 Root plus MSTI Master on the boundary. The fail/recovery experiment changed reachability, not the region configuration.
+## Link-failure experiment and evidence limit
 
-Evidence: [external CIST root output](../../verification/boundary-master/external-cist-root.txt).
+The original case notes describe shutting the boundary link, allowing the remaining component to elect a new CIST root, and restoring the link to re-establish the roles.
+
+Only the external-root role snapshot is retained. There is no separate link-down or post-restoration transcript, and no endpoint reachability measurement. The case therefore demonstrates the role relationship directly; the fail/restore sequence remains documented narrative.
+
+For a replay, compare MST0 and both instances before shutdown, during isolation and after restoration. Record the changed root IDs and roles at each stage.
+
+**Takeaway:** a boundary and a Master port can be normal design behavior; they are not inherently faults.
+
+[All cases](../README.md) · [Saved versus experimental topology](../../topology.md)

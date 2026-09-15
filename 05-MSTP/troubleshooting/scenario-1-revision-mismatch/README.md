@@ -1,17 +1,26 @@
-# Scenario 1 — Revision mismatch
+# Case 01 — Matching mappings, different regions
 
-## Fault injected
+MST3 retained the expected name and VLAN mapping but used a different revision number. Its neighbors were therefore treated as external to its region.
 
-MST3-ACCESS-B kept region name `CCNP_MST` and the original VLAN mapping, but its revision was changed from 1 to 2.
+## Change and symptom
 
-## Observation and diagnosis
+The documented change was revision **1 → 2** on MST3-ACCESS-B. The [retained capture](../../verification/region-mismatch/revision-mismatch.txt) shows:
 
-The digest remained `0xCA136A235706B316C8DB8F921067A68F`, proving that the digest alone does not encode the revision. MST3 behaved as a one-switch region: links toward MST1, MST2, and MST4 displayed `Bound(RSTP)`, MST3 identified itself as Regional Root, and its best external link was Root for MST0 and Master for MSTIs.
+- Name `CCNP_MST`, revision `2`, and the original mapping digest.
+- All three links toward the main region marked `Bound(RSTP)`.
+- MST3 as Regional Root and as the local root for instances 1 and 2.
+- Gi0/2 as Root in MST0 and Master in instances 1 and 2.
 
-Compare name, revision, mapping, and digest on both ends; matching mappings do not override a revision mismatch.
+## Diagnosis
 
-## Fix and validation
+The matching digest confirmed the mapping fingerprint, not the complete region identity. Revision was the distinguishing field. Comparing the [baseline definition](../../verification/region/main-region-configuration-and-digest.txt) with the failure capture isolates that difference.
 
-Restore revision 1 on MST3. After reconvergence, boundary labels clear and normal internal roles return without a reboot.
+## Correction and evidence status
 
-Evidence: [captured revision mismatch](../../verification/region-mismatch/revision-mismatch.txt).
+The documented correction restores revision 1 on MST3. Its [saved configuration](../../configs/MST3-ACCESS-B.cfg) contains that restored value.
+
+For a replay, verify the revision and then confirm that the internal neighbor links no longer appear as boundaries. The original notes describe that recovery, but no post-repair interface transcript is retained here.
+
+**Takeaway:** verify every region-identity field before treating a matching digest as proof of membership.
+
+[All cases](../README.md) · [Mismatch comparison](../../verification/region-mismatch/README.md)

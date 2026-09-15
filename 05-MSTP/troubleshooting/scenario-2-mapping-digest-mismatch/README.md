@@ -1,17 +1,26 @@
-# Scenario 2 — Mapping and digest mismatch
+# Case 02 — A VLAN moves into the wrong instance
 
-## Fault injected
+Moving VLAN 20 changed how MST3 grouped its VLANs and made its region definition differ from the other switches.
 
-On MST3-ACCESS-B, VLAN 20 was removed from MSTI 1 and placed into MSTI 2. Its effective mapping became MSTI 1 → VLAN 10 and MSTI 2 → VLANs 20,30,40.
+## Change and evidence
 
-## Observation and diagnosis
+| Mapping | Intended | During the fault |
+|---|---|---|
+| Instance 1 | 10,20 | 10 |
+| Instance 2 | 30,40 | 20,30,40 |
 
-The digest changed from `0xCA136A...` to `0x181335...`, and interfaces facing the main region showed `Bound(RSTP)`. Unlike a path-cost or bridge-priority change, a mapping change changes region identity.
+The [combined mismatch file](../../verification/region-mismatch/mapping-and-name-mismatch.txt) records a changed digest, `0x181335FABF16F125760ABD9E58549D1A`, while name and revision remain `CCNP_MST` and `1`.
 
-Use `show spanning-tree mst configuration` to locate the exact mapping difference after the digest warns that one exists.
+The mapping and boundary behavior in this part of the file are an observed-state summary. They should not be mistaken for a complete raw interface transcript.
 
-## Fix and validation
+## Diagnosis and correction
 
-Restore MSTI 1 → VLANs 10,20 and MSTI 2 → VLANs 30,40. Verify the original digest and disappearance of boundary roles.
+The digest directs attention to the mapping. The exact VLAN assignment identifies the mistake: VLAN 20 belongs with VLAN 10 in instance 1.
 
-Evidence: [mapping and name mismatch captures](../../verification/region-mismatch/mapping-and-name-mismatch.txt).
+Restore instance 1 to VLANs 10/20 and instance 2 to VLANs 30/40. The [saved MST3 configuration](../../configs/MST3-ACCESS-B.cfg) contains those mappings.
+
+In a replay, check the complete mapping, the original digest and normal internal port roles. The archive does not retain a separate post-repair capture for this test.
+
+**Takeaway:** a fingerprint can reveal a mismatch; the readable configuration identifies what to correct.
+
+[All cases](../README.md) · [Baseline region](../../verification/region/README.md)

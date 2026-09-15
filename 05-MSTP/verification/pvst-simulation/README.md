@@ -1,8 +1,16 @@
-# MST to Rapid PVST+ interoperability
+# PVST Simulation: a protection state at the boundary
 
-MST5 was converted to Rapid PVST+ and the MST4-facing link changed to `Bound(PVST)`. Two consistency directions were tested:
+When the MST region meets Rapid PVST+, inconsistent root information can cause the boundary to block. These two captures show different starting conditions and different amounts of recovery evidence.
 
-- With the CIST root inside MST, a superior Rapid-PVST+ VLAN 10 root caused a designated boundary to enter `PVST_Inc`.
-- With the CIST root in the Rapid-PVST+ domain, an inferior VLAN 10 BPDU caused the MST root port to enter `PVST_Inc` and emitted `%SPANTREE-2-PVSTSIM_FAIL`.
+| Test | Starting condition | Captured blocked role | Recovery evidence |
+|---|---|---|---|
+| [Superior VLAN 10](superior-vlan-failure.txt) | CIST root inside MST; external VLAN 10 claims a better root | Gi0/2 `Desg BKN*`, `Bound(PVST)`, `PVST_Inc` | Failure capture only |
+| [Inferior VLAN 10](inferior-vlan-failure-and-recovery.txt) | CIST root reached through the external domain; VLAN 10 supplies worse information | Gi0/2 `Root BKN*`, `Bound(PVST)`, `PVST_Inc` | FAIL and OK logs; inconsistent-entry count returns to 0 |
 
-Both recovered automatically after root information was made consistent, with `%SPANTREE-2-PVSTSIM_OK` and zero inconsistent ports.
+**Read the count correctly:** the failure output lists MST0, MST1 and MST2 against the same physical interface, Gi0/2. The displayed total of three is not evidence of three failed physical links.
+
+Cisco documents these as boundary consistency checks involving the VLAN 1/CIST information and other PVST VLANs. [Cisco PVST Simulation reference](https://www.cisco.com/c/en/us/support/docs/lan-switching/multiple-instance-stp-mistp-8021s/116464-configure-pvst-00.html).
+
+The original notes describe correcting both conditions. Only the inferior-VLAN file contains a clear message and a zero-inconsistency check. Neither file retains endpoint tests, and the cleared condition in Case 06 should not be presented as measured application recovery.
+
+[Case 05](../../troubleshooting/scenario-5-pvst-sim-superior-vlan/README.md) · [Featured Case 06](../../troubleshooting/scenario-6-pvst-sim-inferior-vlan/README.md) · [Evidence index](../README.md)
