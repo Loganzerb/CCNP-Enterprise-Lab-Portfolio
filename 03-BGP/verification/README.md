@@ -26,4 +26,4 @@ The general captures were collected at different stages. Uptime, prefix counts, 
 
 The extracts include policy exercises that are not attached in the saved configuration. IPv6 and VRF configuration is present, but these dedicated verification files cover global IPv4. RIB-failure entries do not include a dedicated `show ip bgp rib-failure` capture establishing every cause.
 
-[Module overview](../README.md) · [Configuration guide](../configs/README.md) · [Technical references](../references.md)
+[Module overview](../README.md) · [Configuration guide](../configs/README.md)
