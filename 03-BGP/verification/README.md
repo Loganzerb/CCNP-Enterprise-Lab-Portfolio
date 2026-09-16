@@ -1,30 +1,29 @@
-# BGP Verification
+# BGP verification guide
 
-This section captures healthy-state verification for the completed BGP lab. The evidence demonstrates stable peerings, correct route propagation and policy behavior, and successful forwarding decisions across the topology.
+Verification follows four questions: **Is the peer established? What paths were learned? Which route was installed? What did the traffic probe actually show?**
 
-## Verification Evidence
+The twenty original text captures below are unchanged. Incident excerpts are preserved separately so the general snapshots are not mistaken for fault or recovery stages.
 
-| Category | What the Evidence Proves |
-| --- | --- |
-| [Neighbors](neighbors/) | All expected BGP sessions reached the **Established** state after the managed switch was restored. |
-| [BGP Table](bgp-table/) | Full BGP tables were captured on **O1, O2, O4, B1, B2, and X1**, confirming route visibility across the lab. |
-| [Policy](policy/) | Targeted checks confirm local origination, iBGP propagation, external path diversity, community-driven path selection, and aggregate suppression. |
-| [Forwarding](forwarding/) | Data-plane lookups confirm the selected routes resolve through the intended BGP and physical next hops. |
+| Evidence group | Files | What to inspect |
+|---|---:|---|
+| [Neighbor sessions](neighbors/README.md) | 6 | Peer identity, session state, and received-prefix counts |
+| [BGP tables](bgp-table/README.md) | 6 | Candidate paths, selected paths, suppressed routes, and RIB-failure markers |
+| [Detailed policy results](policy/README.md) | 5 | Prefix origin, path attributes, communities, and aggregate suppression |
+| [Routes and traceroutes](forwarding/README.md) | 3 | Installed next hop, first responding hop, and where the trace stops |
+| [Incident evidence](incidents/README.md) | 3 Markdown pages | All 31 original setup, fault, diagnostic, repair, and recovery blocks |
 
-## Policy Highlights
+## Read the checks together
 
-- **O2** locally originates `172.31.250.0/24`.
-- **O4** learns `172.31.250.0/24` through iBGP via O2.
-- **X1** sees multiple external paths.
-- **B1** applies community-based Local Preference behavior to `198.51.100.0/24`; the observed route includes community `65300:100` and `no-export`.
-- **X1** suppresses the more-specific `192.0.2.0/25` under its aggregate policy.
+A numeric `State/PfxRcd` value indicates an established session and the number of received prefixes. It does not establish that each path can be used.
 
-## Forwarding Highlights
+The BGP table identifies candidates and the selected BGP path. An IP route lookup checks installation in the routing table. A traffic test then supplies evidence about forwarding; the traces here do not reach successful destination replies.
 
-- **O4** forwards toward **B2** for `203.0.113.0/24`.
-- **X1** forwards toward **B1** for `172.31.250.0/24`.
-- **B1** recursively resolves BGP next hop `10.255.3.3` through physical next hop `10.250.3.2` for `198.51.100.0/24`.
+This distinction is visible in [Case 02](../troubleshooting/scenario-2-ibgp-next-hop-reachability.md): sessions stayed established while one next hop was inaccessible and the alternate remained installed.
 
-## Validation Note
+## Snapshot boundaries
 
-Traceroute timeout and `!H` responses were expected for some advertised prefixes. Those prefixes are backed by `Null0` routes rather than reachable end hosts, so this behavior does not contradict the verified BGP control-plane or forwarding decisions.
+The general captures were collected at different stages. Uptime, prefix counts, and selected paths need not match across files. Use each incident's own before/after excerpts for its recovery claim.
+
+The extracts include policy exercises that are not attached in the saved configuration. IPv6 and VRF configuration is present, but these dedicated verification files cover global IPv4. RIB-failure entries do not include a dedicated `show ip bgp rib-failure` capture establishing every cause.
+
+[Module overview](../README.md) · [Configuration guide](../configs/README.md) · [Technical references](../references.md)

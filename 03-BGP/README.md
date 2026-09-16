@@ -1,43 +1,49 @@
-# BGP — Multi-AS Routing, Policy, and Troubleshooting
+# BGP — Route selection, policy, and recovery
 
-This lab implements a multi-AS BGP environment that combines enterprise route reflection with redundant external connectivity. It demonstrates IPv4 unicast BGP, iBGP route reflection, conventional eBGP, eBGP multihop, IPv6 peering, and an IPv4 VRF customer example—then validates the healthy control and forwarding planes and documents three focused break/fix scenarios.
+A network can maintain its routing connections while losing an intended path. In this six-router lab, I investigated three different causes: a peer configured with the wrong autonomous system, an unreachable next hop, and an outbound policy that silently excluded routes.
 
-![BGP lab topology](topology.png)
+The work demonstrates how I separate a connection problem from a route-selection or policy problem, make a targeted correction, and verify the result at the affected devices.
 
-## Architecture
+**Six routers · Four autonomous systems · Three troubleshooting cases**
 
-The enterprise runs AS 65000 across **O1-CORE**, **O2-ABR**, and **O4-EDGE**. O2 (router ID `10.100.2.2`) is the route reflector; O1 (`10.100.1.1`) and O4 (`10.100.4.4`) are RR clients. These iBGP sessions use Loopback0 addresses and `update-source Loopback0`.
+**Start here:** [A healthy session with an unusable path](troubleshooting/scenario-2-ibgp-next-hop-reachability.md). Both internal BGP sessions stayed established, but one advertised next hop was unreachable. The alternate route remained installed; restoring `next-hop-self` made the original path eligible again.
 
-External reachability is deliberately redundant:
+## Lab design
 
-- O1 peers with **B1-ISP-A** (AS 65100) on `10.250.1.0/30`.
-- O4 peers with both **B2-ISP-B** (AS 65200) and B1 on the shared `10.250.2.0/29` segment.
-- B1 peers with **X1-OUTSIDE** (AS 65300) using direct IPv4 and loopback-based eBGP multihop sessions. The same B1–X1 path also carries IPv6 eBGP and a CUSTOMER-A IPv4 VRF session.
-- B2 peers directly with X1 on `10.250.4.0/30`.
+![BGP topology showing six routers across four autonomous systems and their IPv4 BGP sessions](topology.png)
 
-This design makes BGP path selection, next-hop behavior, route reflection, redundancy, and policy effects visible without obscuring them behind unnecessary underlay detail.
+The enterprise uses two edge routers and a central route reflector to exchange routes with two simulated providers. An outside router supplies additional destinations and policy exercises. An autonomous system (AS) is a routing domain with its own routing policy.
 
-## Routing and policy highlights
+[Topology, addressing, and peering details](topology.md)
 
-- O2 originates `172.31.250.0/24`, B1 originates `172.31.251.0/24`, and B2 originates `203.0.113.0/24`; each network statement is supported by an exact static route to Null0.
-- X1 aggregates `192.0.2.0/24` from more-specific routes with `summary-only`, originates `198.51.100.0/24`, and redistributes `10.50.50.0/24` through the `STATIC-REDIST` route-map.
-- Toward B1's direct session, X1 tags `198.51.100.0/24` with community `65300:100`; B1 matches that community and lowers Local Preference to 50.
-- Toward B1's loopback multihop session, X1 advertises the same prefix with `no-export`.
+## Troubleshooting results
 
-The configurations also retain selected prefix-lists and route-maps from study exercises. Objects that were present but not attached to a neighbor or redistribution process in the captured running state are lab artifacts—not claimed here as active baseline policy.
+| Case | What went wrong | Captured recovery |
+|---|---|---|
+| [01 — Wrong remote AS](troubleshooting/scenario-1-wrong-remote-as.md) | B2 expected O4 to belong to AS 65001 instead of 65000; the session was rejected | Both peers resumed exchanging routes, and O4 installed the route to `203.0.113.0/24` through B2 |
+| [02 — Unreachable next hop](troubleshooting/scenario-2-ibgp-next-hop-reachability.md) | O1 advertised a provider address that O2 could not resolve, despite an established session | O2 could resolve both candidate paths again and installed the path through O1 |
+| [03 — Incomplete outbound policy](troubleshooting/scenario-3-route-map-implicit-deny.md) | A route map allowed one prefix and implicitly excluded the rest | O4's advertised set increased from one to five prefixes; B2 regained the missing path while retaining its existing best path |
 
-## Verification
+Each case links the symptom, decisive evidence, repair, and recovery. Original command blocks are retained in linked evidence pages.
 
-The [verification guide](verification/) organizes healthy-state checks for neighbor establishment, the BGP table, policy attributes, and forwarding. The evidence emphasizes both control-plane correctness and route installation rather than treating an Established session alone as proof of end-to-end health.
+## What the supporting evidence shows
 
-## Troubleshooting
+- **Routing relationships:** internal route reflection, external peering, and a second B1–X1 session using loopback addresses.
+- **Route decisions:** multiple candidate paths, next-hop resolution, and the difference between a BGP best path and an installed IP route.
+- **Policy behavior:** aggregate suppression, community-based preference, and a selected path carrying `no-export`.
+- **Forwarding observations:** installed routes and recorded traceroute responses, with the limits explained alongside the output.
 
-The [troubleshooting case studies](troubleshooting/) document three reproducible failures and their recovery:
+| Review path | Contents |
+|---|---|
+| [Configuration guide](configs/README.md) | Six device extracts, their roles, and which policy objects are actually attached |
+| [Verification guide](verification/README.md) | Twenty original text captures organized by the question they answer |
+| [Case index](troubleshooting/README.md) | Three investigations and direct links to their retained command blocks |
+| [Technical references](references.md) | Supporting protocol documentation |
 
-- **Wrong remote AS / Bad Peer AS** — corrected an eBGP adjacency failure caused by a mismatched neighbor AS.
-- **iBGP next-hop reachability (`next-hop-self`)** — restored a reachable next hop while redundant paths preserved service.
-- **Route-map implicit deny** — recovered unintentionally filtered advertisements by adding the required catch-all permit.
+## Evidence scope
 
-## Configurations
+This is controlled lab work. The configuration extracts omit parts of the supporting network and are not complete deployment files; no BGP CML export is included. IPv6 and CUSTOMER-A VRF settings are present, but dedicated verification here covers global IPv4 BGP.
 
-The [device configurations](configs/) contain the captured router configurations for O1-CORE, O2-ABR, O4-EDGE, B1-ISP-A, B2-ISP-B, and X1-OUTSIDE. They are the authoritative source for interface-level and address-family detail; the topology intentionally focuses on BGP relationships.
+Several test destinations are originated through discard routes (`Null0`). The traceroutes do not demonstrate successful endpoint delivery, and the troubleshooting cases establish routing recovery rather than measured application availability. General captures and incident excerpts come from different stages, so prefix counts and selected paths can differ.
+
+[Back to portfolio](../README.md)

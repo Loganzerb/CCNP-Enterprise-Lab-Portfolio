@@ -40,7 +40,7 @@ Removing that override restored **FULL adjacency on both routers**, without clea
 |---|---|---|
 | [01 — EIGRP](01-EIGRP/README.md) | Internal routing, loop-free backup paths, summarization, and route control across five routers | [Inconsistent summaries](01-EIGRP/troubleshooting/scenario-3-inconsistent-eigrp-summarization.md): more-specific routes change the intended path while reachability can remain available |
 | [02 — OSPF](02-OSPF/README.md) | Multi-area routing, neighbor synchronization, routing databases, and policy at area boundaries | [ABR filtering](02-OSPF/troubleshooting/scenario-3-abr-route-filtering-control-plane.md): a branch route disappears while every captured adjacency remains FULL |
-| [03 — BGP](03-BGP/README.md) | Routing between autonomous systems, route reflection, next-hop resolution, and advertisement policy | [Unreachable next hop](03-BGP/troubleshooting/scenario-2-ibgp-next-hop-reachability.md): a route becomes unusable through one peer while an alternate route remains installed |
+| [03 — BGP](03-BGP/README.md) | Routing between autonomous systems, route reflection, next-hop resolution, and advertisement policy | [Healthy session, unusable path](03-BGP/troubleshooting/scenario-2-ibgp-next-hop-reachability.md): diagnose an unreachable next hop, retain the installed alternate, and verify the original path's recovery |
 | [04 — STP](04-STP/README.md) | Loop prevention, predictable switch-root placement, protection features, and link-bundle interaction | [LACP member and negotiation failures](04-STP/troubleshooting/11-lacp-negotiation-and-member-failure.md): distinguish a degraded bundle from one that cannot form |
 | [05 — MSTP](05-MSTP/README.md) | VLAN-to-instance mapping, region membership, independent forwarding paths, and interoperability | [Boundary protection case](05-MSTP/troubleshooting/scenario-6-pvst-sim-inferior-vlan/README.md): trace a blocked root port to conflicting VLAN information and verify that the inconsistency clears |
 | [06 — EtherChannel](06-ETHERCHANNEL/README.md) | Static, LACP, and PAgP bundles; trunk consistency; member resilience; and forwarding checks | [Troubleshooting evidence](06-ETHERCHANNEL/troubleshooting/README.md): member suspension, alternate-path forwarding, and the observed `max-bundle` anomaly |
@@ -75,7 +75,7 @@ Each module contains a README, topology diagram, and three supporting directorie
 |---|---|---|---|
 | EIGRP | [Configurations](01-EIGRP/configs/README.md) | [Evidence](01-EIGRP/verification/README.md) | [Cases](01-EIGRP/troubleshooting/) |
 | OSPF | [Configurations](02-OSPF/configs/README.md) | [Evidence](02-OSPF/verification/README.md) | [Cases](02-OSPF/troubleshooting/) |
-| BGP | [Configurations](03-BGP/configs/README.md) | [Evidence](03-BGP/verification/README.md) | [Case index](03-BGP/troubleshooting/README.md) |
+| BGP | [Device roles and active policies](03-BGP/configs/README.md) | [Peer, path, and forwarding evidence](03-BGP/verification/README.md) | [Three cases and original command blocks](03-BGP/troubleshooting/README.md) |
 | STP | [Configurations](04-STP/configs/README.md) | [Evidence](04-STP/verification/README.md) | [Cases](04-STP/troubleshooting/) |
 | MSTP | [Configurations](05-MSTP/configs/README.md) | [Evidence](05-MSTP/verification/README.md) | [Case index](05-MSTP/troubleshooting/README.md) |
 | EtherChannel | [Configurations](06-ETHERCHANNEL/configs/README.md) | [Final-state evidence](06-ETHERCHANNEL/verification/README.md) | [Failure evidence](06-ETHERCHANNEL/troubleshooting/README.md) |
@@ -108,7 +108,7 @@ This portfolio records controlled CML lab work. Captures vary from standalone tr
 | Module or artifact | Interpretation boundary |
 |---|---|
 | EIGRP recalculation case | Direct Active/Query/Reply output was not retained; the case does not establish a captured Stuck-in-Active event |
-| BGP | Dedicated verification is IPv4-focused; IPv6 and VRF settings also appear in configs. Some test prefixes terminate at Null0, so route-selection evidence does not establish delivery to an application |
+| BGP | Three cases establish session, next-hop, and advertisement recovery. General captures cover global IPv4; IPv6 and VRF settings have no dedicated verification. Null0-backed test prefixes and incomplete traceroutes do not establish endpoint delivery |
 | STP | Several experiments have partial failure or recovery records; protection configuration and baseline output do not substitute for a captured failure |
 | MSTP | Case 06 captures the inconsistency clearing, without a post-repair forwarding table or endpoint test. Other cases distinguish observed roles, documented corrections and saved configuration |
 | EtherChannel | The `max-bundle` forwarding anomaly is scoped to the observed lab behavior. Capability output and selected hashing configuration do not measure throughput |
