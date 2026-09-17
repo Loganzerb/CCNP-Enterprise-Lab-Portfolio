@@ -1,52 +1,40 @@
-# OSPF Configuration Reference
+# OSPF configuration guide
 
-This directory contains the sanitized Cisco IOS configurations used in the five-router, multi-area OSPF lab. The files preserve the protocol design and policy needed to understand, reproduce, and verify the implementation while removing platform-generated and operationally sensitive content.
+These five sanitized extracts describe the routing design behind the lab. They retain relevant interfaces, OSPF settings, and route policy. Authentication values are redacted; the files are not complete CML exports.
 
-## Included Configurations
+| Configuration | Role | Settings worth reviewing |
+|---|---|---|
+| [O1-CORE](O1-CORE.cfg) | Backbone router | Area 0 interfaces, router ID, passive-interface policy |
+| [O2-ABR](O2-ABR.cfg) | Area border router | Area 10 `nssa no-summary`, branch `/22` range, authenticated point-to-point link to O3 |
+| [O3-BRANCH](O3-BRANCH.cfg) | Branch prefix origin | Four `/24` loopbacks, NSSA membership, authentication toward O2, `maximum-paths 2` |
+| [O4-EDGE](O4-EDGE.cfg) | NSSA external-route origin | Two static test prefixes redistributed through a prefix-list/route-map policy |
+| [O5-TRANSIT](O5-TRANSIT.cfg) | Alternate internal path | Point-to-point connections to O3 and O4 in Area 10 |
 
-| Configuration | Lab role |
+## Connect the settings to the evidence
+
+| Configuration decision | Result to inspect |
 |---|---|
-| [`O1-CORE.cfg`](O1-CORE.cfg) | Core and backbone OSPF router |
-| [`O2-ABR.cfg`](O2-ABR.cfg) | Area Border Router connecting Area 0 and Area 10 |
-| [`O3-BRANCH.cfg`](O3-BRANCH.cfg) | Branch-side OSPF router |
-| [`O4-EDGE.cfg`](O4-EDGE.cfg) | Edge router used for external-route and policy behavior |
-| [`O5-TRANSIT.cfg`](O5-TRANSIT.cfg) | Transit-side router at the lab boundary |
+| O2: `area 10 nssa no-summary`; O3/O4/O5: `area 10 nssa` | [Database captures](../verification/database/README.md) show Area 10 external Type 7 LSAs and a default Type 3 LSA from O2 |
+| O2: `area 10 range 172.20.32.0 255.255.252.0` | [Routing captures](../verification/routing/README.md) show the local summary and O1's inter-area `/22` |
+| O3: point-to-point network type on branch loopbacks | The four branch networks are advertised as `/24` prefixes |
+| All five: reference bandwidth 10000 | [Interface captures](../verification/interfaces/README.md) show transit cost 10 and loopback cost 1 |
+| O3: `maximum-paths 2` | The configured limit is supported by captured two-next-hop routes; it does not measure traffic distribution |
+| O4: static redistribution, metric 20, metric type 1, `STATIC-TO-OSPF` | [External route evidence](../verification/routing/README.md) shows `O N1` inside Area 10 and `O E1` on O1 |
 
-Together, these configurations document OSPF process **1**, the **Area 0 / Area 10** hierarchy, and the routing-policy features exercised throughout the lab.
+O4's `OSPF-EXTERNALS` prefix list permits only `192.0.2.0/24` and `198.51.100.0/24`. Its attached route map permits those matches and denies the rest. Both source routes point to Null0; they are test advertisements, not live external services.
 
-## Preserved Content
+## Settings that need context
 
-The sanitized files retain the configuration required to evaluate the OSPF control plane:
+**Default route:** O4 retains `default-information originate`, but the saved Area 10 default is a Type 3 advertisement from O2. O3, O4, and O5 install `O*IA` defaults toward O2. The presence of O4's command alone does not establish default origination by O4.
 
-- OSPF-relevant interfaces and IPv4 addressing
-- `router ospf 1`, router IDs, and Area 0 / Area 10 assignments
-- Passive-interface policy and interface network types
-- Authentication structure, key chains, key IDs, and interface bindings where applicable
-- OSPF timers where explicitly configured
-- Area 10 NSSA and totally NSSA behavior
-- Area ranges and inter-area summarization
-- Route filtering and external-route policy
-- Static-route redistribution into OSPF
-- OSPF-related route maps, prefix lists, and route tags
+**Fault settings:** O2's saved extract has neither the injected `ip mtu 1400` override nor the `AREA10-TO-AREA0` filter attachment. O4's saved extract includes `area 10 nssa`. Use the [incident commands](../verification/incidents/README.md) for the fault and repair stages.
 
-These elements are intentionally preserved so the configurations can be compared with the healthy-state evidence in [`../verification/`](../verification/) and the fault analysis in [`../troubleshooting/`](../troubleshooting/).
+**Authentication:** The O2–O3 link uses message-digest authentication with key ID 1. Keys are redacted. An authentication failure experiment is not retained here.
 
-## Sanitization and Redaction
+**Wider topology:** O1 Gi0/1 and O4 Gi0/2 have additional OSPF configuration but no neighbors in the saved interface captures. O4 Gi0/3 has an external-link address but does not appear as an OSPF interface. See the [topology scope](../topology.md#connections-outside-the-five-router-view).
 
-Authentication secrets were replaced with clearly marked redacted placeholders. Where applicable, the surrounding key-chain names, key IDs, authentication modes, and interface bindings remain intact so the design can be reviewed without exposing credentials.
+## Rebuilding the lab
 
-The following nonessential content was removed:
+No OSPF CML YAML is included. A rebuild needs suitable router images, the interface connections in the topology guide, and matching replacement authentication values. Establish a fresh baseline before introducing a documented fault; the extracts and captured output are review material, not a synchronized full-device backup.
 
-- CML and YAML metadata
-- IOS boot, image, and licensing boilerplate
-- Console and VTY configuration
-- Unrelated service and platform defaults
-- Unused interfaces and other configuration not relevant to the OSPF lab
-
-## Usage Note
-
-These files are portfolio and lab artifacts, not production-ready templates. Redacted values must be replaced and all addressing, interface mappings, authentication, routing policy, and platform-specific syntax must be validated before reuse in another environment.
-
----
-
-This configuration set is part of the **CCNP Enterprise Lab Portfolio** and demonstrates practical multi-area OSPF design, security, summarization, route control, and redistribution policy using reproducible Cisco Modeling Labs artifacts.
+[Module overview](../README.md) · [Verification guide](../verification/README.md)

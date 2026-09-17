@@ -1,20 +1,17 @@
-# OSPF Interface Verification
+# Interfaces — where does OSPF participate?
 
-## Command Collected
+Each capture contains `show ip ospf interface brief`: process ID, area, local address, cost, state, and full/current neighbor counts.
 
-```cisco
-show ip ospf interface brief
-```
+| Capture | What to inspect |
+|---|---|
+| [O1-CORE](O1-show-ip-ospf-interface-brief.txt) | Area 0; Gi0/0 is BDR with one full neighbor; the additional Gi0/1 has `0/0` neighbors |
+| [O2-ABR](O2-show-ip-ospf-interface-brief.txt) | Area 0 on Gi0/0 and Loopback0; Area 10 on Gi0/1 and Gi0/2 |
+| [O3-BRANCH](O3-show-ip-ospf-interface-brief.txt) | Two point-to-point neighbors and four branch loopbacks with `/24` masks |
+| [O4-EDGE](O4-show-ip-ospf-interface-brief.txt) | Gi0/0 is DR toward O2; Gi0/1 is point-to-point toward O5; extra Gi0/2 has `0/0` neighbors |
+| [O5-TRANSIT](O5-show-ip-ospf-interface-brief.txt) | Two point-to-point interfaces, each with one full neighbor |
 
-This command provides a compact interface-level view of the OSPF process ID, area assignment, interface address and mask, cost, network state, and full-neighbor count.
+The five primary transit links have cost 10; loopbacks have cost 1. `P2P` is a network/interface state, not proof that a neighbor exists: O3's branch loopbacks and the two extra transit interfaces show `0/0`.
 
-## Healthy-State Observations
+This command does not display IP MTU, authentication keys, or detailed Hello/Dead timers. [Case 01](../../troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md) uses `show ip interface` and configuration output to expose the MTU mismatch.
 
-- All displayed interfaces run OSPF process `1` with the intended area assignments.
-- `O1-CORE` is in Area 0; `O2-ABR` has interfaces in both Area 0 and Area 10; `O3-BRANCH`, `O4-EDGE`, and `O5-TRANSIT` are in Area 10.
-- The `O1`–`O2` segment shows `O1` as BDR and `O2` as DR. The `O2`–`O4` segment shows `O2` as BDR and `O4` as DR.
-- The `O2`–`O3`, `O3`–`O5`, and `O4`–`O5` links use point-to-point state and each reports one full neighbor.
-- `O3-BRANCH` advertises loopbacks `172.20.32.1/24` through `172.20.35.1/24` in Area 10.
-- OSPF costs are consistent in the captures: transit links use cost `10`, while loopbacks use cost `1`.
-
-The output aligns interface participation with the neighbor evidence and confirms the intended ABR boundary.
+[Verification guide](../README.md) · [Addressing table](../../topology.md)

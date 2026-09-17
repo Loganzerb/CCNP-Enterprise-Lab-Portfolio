@@ -1,231 +1,46 @@
-# Scenario 1: OSPF Adjacency Stuck in EXSTART Because of an IP MTU Mismatch
+# Case 01 — Repair OSPF while ping still works
 
-## Objective
+O2 could ping O4 successfully, but their OSPF relationship stalled before the routers could synchronize routing information. The physical interface view looked consistent. The IP-specific view revealed a one-sided MTU override, and removing it restored the adjacency.
 
-Diagnose and remediate an Open Shortest Path First (OSPF) neighbor adjacency that stopped progressing beyond `EXSTART`, while preserving evidence of the failure and validating that the protocol recovered without restarting the OSPF process.
+## Expected behavior and fault
 
-This case demonstrates a key troubleshooting principle: successful OSPF Hellos and basic Layer 3 connectivity do not prove that two neighbors can synchronize their link-state databases.
+O2-ABR Gi0/2 (`10.100.24.1/30`) connects to O4-EDGE Gi0/0 (`10.100.24.2/30`) in Area 10. The healthy adjacency is `FULL`, with O4 as designated router and O2 as backup.
 
-## Lab Context
+The controlled fault set `ip mtu 1400` on O2's interface and bounced that interface. Its physical MTU remained 1500. The original record describes both neighbors stalling in `EXSTART`; the retained failure-state neighbor excerpt is from O4.
 
-| Device | Interface | IPv4 address | OSPF area | Healthy role |
-|---|---|---:|---:|---|
-| `O2-ABR` | `GigabitEthernet0/2` | `10.100.24.1/30` | Area 10 | Backup Designated Router (BDR) |
-| `O4-EDGE` | `GigabitEthernet0/0` | `10.100.24.2/30` | Area 10 | Designated Router (DR) |
+[Fault commands](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-1) · [O4's stalled neighbor](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-2)
 
-Router IDs used in the neighbor relationship were `10.100.2.2` for O2-ABR and `10.100.4.4` for O4-EDGE.
+## How I isolated the cause
 
-## Healthy Baseline
+| Check | Captured result | Why it mattered |
+|---|---|---|
+| Ping from O2 to O4 | **5/5 replies**, using 100-byte probes | Basic IP connectivity worked despite the OSPF failure |
+| `show interfaces` on both ends | MTU 1500 | This view did not expose O2's IP override |
+| `show ip interface` on O2 | IP MTU 1400 | Revealed the effective Layer 3 setting |
+| O2's interface configuration | `ip mtu 1400` | Identified the source of the mismatch |
+| O4's OSPF debug excerpt | Received DBD with MTU 1400; smaller-neighbor-MTU message; retransmission | Connected the setting to database-description negotiation |
 
-Before fault injection, the OSPF adjacency was `FULL`. O4-EDGE was the Designated Router (DR), and O2-ABR was the Backup Designated Router (BDR). Both physical interfaces reported a Maximum Transmission Unit (MTU) of 1500 bytes.
+[Ping and MTU comparisons](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-3) · [Debug excerpt](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-7)
 
-The healthy state established that addressing, Area 10 membership, OSPF neighbor formation, and DR/BDR election were functioning before the controlled change.
+The small ping proved that those probes could cross the link. It did not test database synchronization or full-size packet handling.
 
-## Fault Injection
+## Repair and verification
 
-The fault was introduced on O2-ABR by lowering only the Layer 3 IP MTU on `GigabitEthernet0/2` and then bouncing the interface:
+I removed the override with `no ip mtu` on O2 Gi0/2. The documented repair did not clear the OSPF process or bounce the interface again.
 
-```cisco
-configure terminal
-interface GigabitEthernet0/2
- ip mtu 1400
- shutdown
- no shutdown
-end
-```
+| Post-change check | Captured result |
+|---|---|
+| O2 IP MTU | 1500 bytes |
+| O2's neighbor view of O4 | `FULL`, retransmission queue length 0 |
+| O4's neighbor view of O2 | `FULL`, retransmission queue length 0 |
+| DR/BDR roles | O4 remained DR; O2 remained BDR |
 
-The command did not change the physical interface MTU. It changed the IP MTU used by Layer 3 protocols on O2-ABR's link to O4-EDGE.
+[Repair commands](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-8) · [Recovery output from both devices](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-9)
 
-## Observed Symptoms
+The evidence establishes adjacency recovery. No timed convergence measurement or post-repair application test was retained.
 
-After the interface returned, the OSPF adjacency stalled in `EXSTART` on both routers instead of returning to `FULL`.
+## Engineering takeaway
 
-O4-EDGE reported:
+Different commands can describe different settings on the same interface. Comparing the physical MTU, effective IP MTU, configuration, and protocol debug exposed a mismatch that successful ping and the standard interface view had missed.
 
-```text
-Neighbor 10.100.2.2, interface address 10.100.24.1
-   In the area 10 via interface GigabitEthernet0/0
-   Neighbor priority is 1, State is EXSTART, 9 state changes
-   DR is 10.100.24.2 BDR is 10.100.24.1
-   Number of retransmissions for last database description packet 20
-```
-
-Despite the failed adjacency, O2-ABR could still reach O4-EDGE at `10.100.24.2`:
-
-```text
-O2-ABR#ping 10.100.24.2
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.100.24.2, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
-```
-
-This separated basic IP reachability from OSPF database synchronization. OSPF Hellos were exchanged successfully enough to discover and maintain the neighbor, but Database Description (DBD) negotiation could not complete.
-
-## Troubleshooting Process
-
-### 1. Confirm the adjacency state
-
-Detailed neighbor output showed that both routers were stuck in `EXSTART`. On O4-EDGE, the repeated DBD count provided an early indication that the failure occurred during database exchange rather than neighbor discovery.
-
-### 2. Verify Layer 3 reachability
-
-A five-packet ping from O2-ABR to O4-EDGE succeeded at 100 percent. This ruled out a complete link failure, but it did not prove that OSPF could complete database synchronization.
-
-### 3. Compare the physical interface MTU
-
-The standard interface command still showed 1500 bytes on both ends:
-
-```text
-O2-ABR#show interfaces GigabitEthernet0/2 | include MTU
-  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
-
-O4-EDGE#show interfaces GigabitEthernet0/0 | include MTU
-  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
-```
-
-This output reflected the physical interface MTU. It did not reveal the lower IP MTU configured on O2-ABR.
-
-### 4. Inspect the Layer 3 IP MTU and interface configuration
-
-The IP-specific command exposed the mismatch:
-
-```text
-O2-ABR#show ip interface GigabitEthernet0/2 | include MTU
-  MTU is 1400 bytes
-```
-
-The running configuration confirmed the source of that value:
-
-```text
-O2-ABR#show running-config interface GigabitEthernet0/2
-interface GigabitEthernet0/2
- description LINK-TO-O4-EDGE
- ip address 10.100.24.1 255.255.255.252
- ip mtu 1400
- duplex auto
- speed auto
- media-type rj45
-```
-
-This was the decisive distinction: `show interfaces` reported a physical MTU of 1500, while `show ip interface` reported the effective Layer 3 IP MTU of 1400.
-
-### 5. Correlate the configuration with OSPF debug output
-
-Adjacency debugging on O4-EDGE explicitly identified the failure during DBD negotiation:
-
-```text
-Rcv DBD from 10.100.2.2 ... mtu 1400 state EXSTART
-Nbr 10.100.2.2 has smaller interface MTU
-Retransmitting DBD to 10.100.2.2
-```
-
-The advertised DBD MTU matched O2-ABR's configured IP MTU. Repeated DBD retransmissions explained why the adjacency remained in `EXSTART` even though Hellos and ICMP traffic continued to work.
-
-## Root Cause
-
-O2-ABR advertised an IP MTU of 1400 bytes in its OSPF DBD packets, while O4-EDGE expected 1500 bytes. The Layer 3 MTU mismatch prevented the neighbors from completing the database synchronization phase, leaving both sides in `EXSTART`.
-
-The physical interface MTUs remained 1500 bytes throughout the incident. The fault existed only at the IP MTU layer on O2-ABR.
-
-## Remediation
-
-The injected IP MTU override was removed from O2-ABR:
-
-```cisco
-configure terminal
-interface GigabitEthernet0/2
- no ip mtu
-end
-```
-
-The OSPF process was not cleared, and the interface was not bounced during remediation. The protocol was allowed to recover naturally after the actual mismatch was removed.
-
-## Post-Fix Verification
-
-O2-ABR's IP MTU returned to 1500 bytes:
-
-```text
-O2-ABR#show ip interface GigabitEthernet0/2 | include MTU
-  MTU is 1500 bytes
-```
-
-The adjacency then returned to `FULL` on O2-ABR:
-
-```text
-O2-ABR#show ip ospf neighbor 10.100.4.4
- Neighbor 10.100.4.4, interface address 10.100.24.2
-   In the area 10 via interface GigabitEthernet0/2
-   Neighbor priority is 1, State is FULL, 6 state changes
-   DR is 10.100.24.2 BDR is 10.100.24.1
-   retransmission queue length 0, number of retransmission 0
-```
-
-O4-EDGE independently confirmed the same recovery:
-
-```text
-O4-EDGE#show ip ospf neighbor 10.100.2.2
- Neighbor 10.100.2.2, interface address 10.100.24.1
-   In the area 10 via interface GigabitEthernet0/0
-   Neighbor priority is 1, State is FULL, 9 state changes
-   DR is 10.100.24.2 BDR is 10.100.24.1
-   retransmission queue length 0, number of retransmission 0
-```
-
-The original DR/BDR roles were preserved: O4-EDGE remained DR and O2-ABR remained BDR.
-
-## Key Technical Takeaways
-
-- A neighbor in `EXSTART` has progressed beyond Hello-based discovery but has not completed DBD negotiation and link-state database synchronization.
-- Successful ICMP reachability does not prove that OSPF adjacency formation will succeed. In this case, O2-to-O4 ping remained 100 percent successful while OSPF was stuck in `EXSTART`.
-- `show interfaces` and `show ip interface` answer different MTU questions. The former continued to show the physical interface MTU of 1500; the latter exposed O2-ABR's Layer 3 IP MTU of 1400.
-- OSPF DBD packets carry an interface MTU value. O4-EDGE's debug tied the received value of 1400 directly to the failed negotiation and repeated retransmissions.
-- Removing the faulty configuration was sufficient. Clearing the OSPF process was unnecessary because the adjacency recovered naturally once both sides used a compatible IP MTU.
-- Troubleshooting should correlate protocol state, data-plane tests, interface views, running configuration, and targeted debug output rather than relying on a single command.
-
-## Commands Used
-
-### Baseline and neighbor-state validation
-
-```cisco
-show ip ospf neighbor 10.100.4.4
-show ip ospf neighbor 10.100.2.2
-```
-
-### Reachability testing
-
-```cisco
-ping 10.100.24.2
-```
-
-### MTU comparison and configuration validation
-
-```cisco
-show interfaces GigabitEthernet0/2 | include MTU
-show interfaces GigabitEthernet0/0 | include MTU
-show ip interface GigabitEthernet0/2 | include MTU
-show running-config interface GigabitEthernet0/2
-```
-
-### Protocol-level diagnosis
-
-```cisco
-debug ip ospf adj
-```
-
-### Remediation
-
-```cisco
-configure terminal
-interface GigabitEthernet0/2
- no ip mtu
-end
-```
-
-### Post-fix verification
-
-```cisco
-show ip interface GigabitEthernet0/2 | include MTU
-show ip ospf neighbor 10.100.4.4
-show ip ospf neighbor 10.100.2.2
-```
+[All original excerpts and commands](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md) · [Case index](README.md)

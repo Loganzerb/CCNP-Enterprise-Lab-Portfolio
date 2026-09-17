@@ -28,7 +28,7 @@ The alternate path then delivered **10/10 replies**. Recovery testing exposed a 
 
 ### 3. Repair an OSPF adjacency when ping still works
 
-Two routers could ping each other, but their OSPF relationship stalled in `EXSTART`, preventing database synchronization. Both physical interfaces reported an MTU of 1500 bytes; the IP-specific check exposed a one-sided setting of 1400.
+O2 received replies to all five ping probes sent to O4, but their OSPF relationship stalled in `EXSTART`, preventing database synchronization. Both physical interfaces reported an MTU of 1500 bytes; the IP-specific check exposed a one-sided setting of 1400.
 
 Removing that override restored **FULL adjacency on both routers**, without clearing the OSPF process. The case demonstrates how comparing different views of the same interface can reveal a fault that a successful ping misses.
 
@@ -74,7 +74,7 @@ Each module contains a README, topology diagram, and three supporting directorie
 | Module | Configuration guide | Verification guide | Troubleshooting |
 |---|---|---|---|
 | EIGRP | [Configurations](01-EIGRP/configs/README.md) | [Evidence](01-EIGRP/verification/README.md) | [Cases](01-EIGRP/troubleshooting/) |
-| OSPF | [Configurations](02-OSPF/configs/README.md) | [Evidence](02-OSPF/verification/README.md) | [Cases](02-OSPF/troubleshooting/) |
+| OSPF | [Device roles and area policy](02-OSPF/configs/README.md) | [Interfaces, neighbors, databases, and routes](02-OSPF/verification/README.md) | [Three cases and original excerpts](02-OSPF/troubleshooting/README.md) |
 | BGP | [Device roles and active policies](03-BGP/configs/README.md) | [Peer, path, and forwarding evidence](03-BGP/verification/README.md) | [Three cases and original command blocks](03-BGP/troubleshooting/README.md) |
 | STP | [Configurations](04-STP/configs/README.md) | [Evidence](04-STP/verification/README.md) | [Cases](04-STP/troubleshooting/) |
 | MSTP | [Configurations](05-MSTP/configs/README.md) | [Evidence](05-MSTP/verification/README.md) | [Case index](05-MSTP/troubleshooting/README.md) |
@@ -108,6 +108,7 @@ This portfolio records controlled CML lab work. Captures vary from standalone tr
 | Module or artifact | Interpretation boundary |
 |---|---|
 | EIGRP recalculation case | Direct Active/Query/Reply output was not retained; the case does not establish a captured Stuck-in-Active event |
+| OSPF | MTU and filtering cases retain failure and recovery excerpts. The NSSA case retains two recovery output excerpts; its other observations are described in narrative. Equal-cost routes establish installation, not measured traffic distribution |
 | BGP | Three cases establish session, next-hop, and advertisement recovery. General captures cover global IPv4; IPv6 and VRF settings have no dedicated verification. Null0-backed test prefixes and incomplete traceroutes do not establish endpoint delivery |
 | STP | Several experiments have partial failure or recovery records; protection configuration and baseline output do not substitute for a captured failure |
 | MSTP | Case 06 captures the inconsistency clearing, without a post-repair forwarding table or endpoint test. Other cases distinguish observed roles, documented corrections and saved configuration |

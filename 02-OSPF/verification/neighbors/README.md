@@ -1,19 +1,19 @@
-# OSPF Neighbor Verification
+# Neighbors — did the expected adjacencies form?
 
-## Command Collected
+The five `show ip ospf neighbor` captures show all five expected links in `FULL` state, viewed from both ends.
 
-```cisco
-show ip ospf neighbor
-```
+| Capture | Neighbors in the retained baseline |
+|---|---|
+| [O1-CORE](O1-show-ip-ospf-neighbor.txt) | O2: `FULL/DR` |
+| [O2-ABR](O2-show-ip-ospf-neighbor.txt) | O1: `FULL/BDR`; O4: `FULL/DR`; O3: `FULL/-` |
+| [O3-BRANCH](O3-show-ip-ospf-neighbor.txt) | O2 and O5: `FULL/-` |
+| [O4-EDGE](O4-show-ip-ospf-neighbor.txt) | O2: `FULL/BDR`; O5: `FULL/-` |
+| [O5-TRANSIT](O5-show-ip-ospf-neighbor.txt) | O3 and O4: `FULL/-` |
 
-This command validates neighbor discovery, peer router IDs, adjacency state, dead timers, neighbor addresses, local interfaces, and Designated Router/Backup Designated Router (DR/BDR) roles where elections apply.
+The role after the slash belongs to the **neighbor**. O1 seeing O2 as `FULL/DR` means O2 is the designated router on that segment. The local interface view in the [interface captures](../interfaces/README.md) provides the complementary perspective.
 
-## Healthy-State Observations
+`FULL/-` is normal on the point-to-point links in this design. Router IDs identify peers; the Address column gives the peer's address on the connecting link.
 
-- Every expected relationship is in a `FULL` state; no neighbor is stuck in an intermediate adjacency state.
-- On the `O1-CORE` to `O2-ABR` segment, `O2` is the DR and `O1` is the BDR.
-- On the `O2-ABR` to `O4-EDGE` segment, `O4` is the DR and `O2` is the BDR.
-- The `O2`–`O3`, `O3`–`O5`, and `O4`–`O5` relationships display `FULL/-`, matching their point-to-point operation.
-- The observed topology is complete: `O1` has one neighbor, `O2` has three, and `O3`, `O4`, and `O5` each have two.
+A full adjacency is one check, not a guarantee of every expected route. Compare [Case 01](../../troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md), where synchronization stalls, with [Case 03](../../troubleshooting/scenario-3-abr-route-filtering-control-plane.md), where all captured O2 neighbors stay full while a summary disappears.
 
-Together, the five captures establish the healthy adjacency baseline for the lab.
+[Verification guide](../README.md)
