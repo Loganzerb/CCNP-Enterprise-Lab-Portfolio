@@ -1,154 +1,25 @@
-# EIGRP Troubleshooting Scenarios
+# EIGRP troubleshooting
 
-This directory documents intentional failure scenarios performed within the EIGRP AS 100 lab environment.
+The first two cases compare backup eligibility for the same branch summary, `172.16.40.0/22`. The third follows a route-policy inconsistency across the two distribution routers.
 
-The purpose of these exercises is to demonstrate EIGRP troubleshooting methodology beyond basic configuration validation.
+| Case | Decisive evidence | Original blocks |
+|---|---|---|
+| [01 — Qualified backup takes over](scenario-1-feasible-successor-promotion.md) | R3's reported distance is below R1's feasible distance; the replacement route is then installed | [31 blocks](../verification/incidents/scenario-1-feasible-successor-promotion.md) |
+| [02 — Alternate fails the feasibility condition](scenario-2-no-feasible-successor-dual-recalculation.md) | The values are equal before failure; R3 becomes successor afterward | [35 blocks](../verification/incidents/scenario-2-no-feasible-successor-dual-recalculation.md) |
+| [03 — Different summaries on redundant uplinks](scenario-3-inconsistent-eigrp-summarization.md) | Exact `/22` and `/24` lookups expose different sources; reapplying the summary restores the intended advertisements | [11 blocks](../verification/incidents/scenario-3-inconsistent-eigrp-summarization.md) |
 
-Each scenario follows a structured troubleshooting process:
+## Compare the failover experiments
 
-1. Identify the reported issue
-2. Establish expected network behavior
-3. Analyze symptoms using Cisco IOS verification commands
-4. Determine the root cause
-5. Apply corrective action
-6. Validate network recovery
+| At R1 before failure | Case 01 | Case 02 |
+|---|---:|---:|
+| Destination feasible distance (FD) | 131072 | 131072 |
+| R3's reported distance (RD) | 130816 | 131072 |
+| Strict test: RD < FD | Pass | Fail |
+| R3 qualifies as the backup | Yes | No |
+| Installed metric through R3 after failure | 156416 | 156672 |
 
----
+A failed feasibility test does not prove that a path contains a loop. It means that this test does not qualify it for use as a precomputed loop-free alternative.
 
-# Troubleshooting Methodology
+Neither experiment measures convergence time or packet loss. Case 02 retains no direct Active-state or Query/Reply event. The original 77 blocks include command lists and explanatory calculations as well as selected device output; they are not 77 independent captures.
 
-The troubleshooting approach used throughout these scenarios follows a layered methodology.
-
-## 1. Verify Physical and Logical Connectivity
-
-Initial validation includes confirming:
-
-- Interface status
-- IP addressing
-- Layer 3 reachability
-- Neighbor connectivity
-
-Common commands:
-show ip interface brief
-show interfaces
-ping
-
----
-
-## 2. Verify EIGRP Neighbor Relationships
-
-EIGRP relies on stable neighbor adjacencies to exchange routing information.
-
-Verification commands:
-show ip eigrp neighbors
-
-Items reviewed:
-
-- Neighbor state
-- Hold timers
-- Interface relationships
-- Uptime stability
-
----
-
-## 3. Analyze the EIGRP Topology Table
-
-The EIGRP topology table provides information used by the Diffusing Update Algorithm (DUAL) to select paths.
-
-Verification commands:
-show ip eigrp topology
-
-show ip eigrp topology all-links
-
-Items reviewed:
-
-- Successor routes
-- Feasible successors
-- Feasible Distance (FD)
-- Reported Distance (RD)
-- Route state
-
----
-
-## 4. Verify Routing Table Installation
-
-The routing table confirms which EIGRP routes were installed into the forwarding table.
-
-Verification command:
-show ip route eigrp
-
-Items reviewed:
-
-- Installed paths
-- Administrative Distance
-- Metric values
-- Next-hop selection
-
----
-
-# Lab Troubleshooting Scenarios
-
-# Scenario Documentation Format
-
-Each troubleshooting scenario contains:
-
-- Problem Statement
-- Failure Injection
-- Expected Behavior
-- Initial Symptoms
-- Troubleshooting Process
-- Root Cause Analysis
-- Corrective Action
-- Verification After Fix
-- Key EIGRP Concepts Demonstrated
-
-The following CCNP Enterprise level scenarios are documented:
-
----
-
-## Scenario 1 — Feasible Successor Failure and DUAL Convergence
-
-Focus areas:
-
-- Successor selection
-- Feasible successor operation
-- Feasibility Condition
-- DUAL route recalculation
-- Active/passive route states
-
----
-
-## Scenario 2 — EIGRP Stuck-In-Active (SIA)
-
-Focus areas:
-
-- EIGRP query propagation
-- Reply processing
-- Active route states
-- Query boundaries
-- Stub router behavior
-
----
-
-## Scenario 3 — EIGRP Route Summarization Failure
-
-Focus areas:
-
-- Manual summarization
-- Summary route advertisement
-- Null0 behavior
-- Route advertisement troubleshooting
-
----
-
-# Verification Philosophy
-
-The goal of these scenarios is not only to restore connectivity, but to understand why EIGRP behaves the way it does.
-
-Each troubleshooting exercise documents:
-
-- The failure introduced
-- The commands used to isolate the problem
-- The evidence collected
-- The final resolution
-- The EIGRP concept demonstrated
+[Module overview](../README.md) · [Topology](../topology.md) · [Verification guide](../verification/README.md)

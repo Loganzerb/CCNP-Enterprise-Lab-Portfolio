@@ -1,267 +1,46 @@
-# EIGRP Lab
+# EIGRP — Backup paths, failover, and consistent route policy
 
-## Overview
+A second path is useful only if the routing protocol can use it when the preferred path fails. In this five-router lab, I compared a qualified EIGRP backup with an alternate that failed the protocol's loop-free eligibility check, then verified the replacement route after each controlled failure.
 
-This project documents the Enhanced Interior Gateway Routing Protocol (EIGRP) portion of my CCNP Enterprise lab environment.
+A third case examines inconsistent summarization: removing one setting on a branch uplink introduced more-specific routes and changed the path the routing table would select.
 
-The lab was built using Cisco Modeling Labs (CML) to develop practical experience designing, configuring, verifying, and troubleshooting enterprise routing environments.
+**Five routers · EIGRP AS 100 · Three troubleshooting cases**
 
-The focus of this project was understanding EIGRP behavior beyond configuration, including convergence, path selection, failure recovery, and troubleshooting methodology.
+**Start here:** [A qualified backup takes over](troubleshooting/scenario-1-feasible-successor-promotion.md). The case connects the eligibility calculation to the installed replacement route and the restored baseline.
 
----
+## Lab design
 
-# Lab Objectives
+![EIGRP topology showing core, two distribution routers, branch, and remote stub](topology.png)
 
-The goals of this lab were:
+R1 reaches the branch through two distribution routers, which also connect to each other. R4 summarizes four branch networks and filters advertisements toward R5. R5 uses named EIGRP, advertises its remote summary, and operates as a stub.
 
-- Build an enterprise EIGRP routing domain
-- Understand EIGRP neighbor formation
-- Analyze Diffusing Update Algorithm (DUAL) behavior
-- Validate successor and feasible successor operation
-- Test routing convergence during failures
-- Implement EIGRP authentication
-- Practice summarization and route control techniques
+[Topology, addressing, and device roles](topology.md)
 
----
+## Troubleshooting results
 
-# Lab Topology
+| Case | Question investigated | Captured result |
+|---|---|---|
+| [01 — Feasible successor promotion](troubleshooting/scenario-1-feasible-successor-promotion.md) | Does the alternate satisfy EIGRP's backup-path condition? | The qualified R3 path replaced R2 in R1's routing table; restoring the test settings returned two equal-cost successors |
+| [02 — No feasible successor](troubleshooting/scenario-2-no-feasible-successor-dual-recalculation.md) | What changes when the alternate fails that condition? | R3 was installed after the R2 path failed; the transient Active/Query/Reply sequence was not captured |
+| [03 — Inconsistent summaries](troubleshooting/scenario-3-inconsistent-eigrp-summarization.md) | Can two uplinks advertise the same networks differently? | Summary and component routes coexisted; restoring the missing summary returned the distribution tables to the documented summary-only view |
 
-The EIGRP lab consisted of a multi-router enterprise topology designed to simulate core, distribution, and branch routing relationships.
+## What this work demonstrates
 
-The topology was used to validate:
+- **Backup-path analysis:** compare advertised and local metrics before relying on an alternate.
+- **Failure verification:** check the replacement route and restore the original topology.
+- **Route-policy diagnosis:** follow exact prefixes and next hops across redundant uplinks.
+- **Operational context:** interpret classic and named EIGRP, summaries, a remote stub, and default-only filtering.
 
-- EIGRP neighbor formation
-- Route propagation
-- Redundant path selection
-- Routing convergence during failures
-- Dynamic routing troubleshooting
+| Review path | Contents |
+|---|---|
+| [Configuration guide](configs/README.md) | Five device extracts, active policy, authentication, and wider-lab connections |
+| [Verification guide](verification/README.md) | Twenty original text captures with a README for each evidence group |
+| [Troubleshooting index](troubleshooting/README.md) | Three cases, a direct comparison of the two failover experiments, and original excerpts |
 
-## Topology Diagram
+## Evidence scope
 
-![EIGRP AS 100 Topology](topology.png)
+These are controlled Cisco Modeling Labs exercises. The sanitized configurations have redacted authentication values and no accompanying EIGRP CML export.
 
+The cases establish metric eligibility, route changes, and restoration. They do not retain endpoint ping/traceroute results or measured failover times. Case 02 is a route-recalculation exercise, not a captured Stuck-in-Active incident. Authentication and timer settings are present, but dedicated mismatch cases are not included.
 
-
----
-
-# Technologies Practiced
-
-## EIGRP Fundamentals
-
-- Classic EIGRP configuration
-- Named EIGRP configuration
-- Autonomous System (AS) operation
-- Neighbor relationships
-- Hello and hold timers
-- Routing table verification
-
-## DUAL and Path Selection
-
-- Feasible Distance (FD)
-- Reported Distance (RD)
-- Successor routes
-- Feasible Successor routes
-- Feasibility Condition
-- Passive and Active states
-
-## Design Features
-
-- EIGRP authentication
-- Route summarization
-- Stub routing
-- Route filtering
-- Default route propagation
-
----
-
-# Skills Demonstrated
-
-- Enterprise routing design
-- Dynamic routing troubleshooting
-- Network convergence analysis
-- Cisco IOS verification methodology
-- Failure scenario testing
-- Routing protocol optimization
-- Network behavior analysis
-- Troubleshooting methodology
-
----
-
-# Troubleshooting Scenarios
-
-This lab included deliberate failure testing to observe EIGRP convergence behavior.
-
-The goal was to understand how EIGRP reacts to network changes and how DUAL determines the best available path.
-
-## Failure Testing Performed
-
-### Successor Failure
-
-Tested primary path failure and observed:
-
-- Successor route removal
-- Feasible Successor promotion
-- Routing convergence behavior
-
-### Feasible Successor Validation
-
-Analyzed alternate paths by comparing:
-
-- Feasible Distance (FD)
-- Reported Distance (RD)
-- Feasibility Condition
-
-### Loss of Feasible Successor
-
-Manipulated path characteristics to remove the Feasible Successor condition and observed:
-
-- Route transition into Active state
-- Query propagation
-- EIGRP convergence process
-
-### Neighbor Troubleshooting
-
-Validated common EIGRP adjacency issues including:
-
-- Authentication mismatches
-- Timer mismatches
-- Interface participation
-- Neighbor state verification
-
-Detailed troubleshooting scenarios will be documented in the troubleshooting directory.
-
----
-
-# Verification
-
-The following Cisco IOS commands were used to validate EIGRP operation.
-
-## Neighbor Verification
-
-```text
-show ip eigrp neighbors
-```
-
-Used to verify:
-
-- EIGRP neighbor relationships
-- Adjacency status
-- Interface participation
-- Neighbor uptime
-
-
-## Topology Verification
-
-```text
-show ip eigrp topology
-```
-
-Used to verify:
-
-- Successor routes
-- Feasible Successor routes
-- Feasibility Condition
-- Feasible Distance (FD)
-- Reported Distance (RD)
-- EIGRP metric calculations
-
-
-## Detailed Topology Verification
-
-```text
-show ip eigrp topology all-links
-```
-
-Used to verify:
-
-- All available paths
-- Successor and non-successor routes
-- Alternate paths not installed in the Routing Information Base (RIB)
-
-
-## Routing Table Verification
-
-```text
-show ip route eigrp
-```
-
-Used to verify:
-
-- Installed EIGRP routes
-- Administrative Distance
-- Metric selection
-- Active forwarding paths
-
-
-## Protocol Verification
-
-```text
-show ip protocols
-```
-
-Used to verify:
-
-- EIGRP Autonomous System (AS) configuration
-- Network statements
-- Passive interfaces
-- Redistribution settings
-
-
-## Failure Analysis Verification
-
-The following commands were used during failure testing and convergence analysis:
-
-```text
-show ip eigrp topology <prefix>
-show ip route <prefix>
-show logging
-```
-
-These commands were used to analyze:
-
-- Successor changes
-- Feasible Successor promotion
-- Route convergence
-- Neighbor events
-- EIGRP Active state behavior
-
----
-
-# Repository Structure
-
-```text
-01-EIGRP
-
-├── configs
-│   └── Sanitized Cisco IOS configurations
-
-├── verification
-│   └── Show command outputs and validation results
-
-└── troubleshooting
-    └── Failure scenarios and analysis
-```
-
----
-
-# Lab Environment
-
-Tools used:
-
-- Cisco Modeling Labs (CML)
-- Cisco IOSv routers
-- GitHub documentation workflow
-
----
-
-# Lessons Learned
-
-Key takeaways from this lab:
-
-- EIGRP maintains loop-free backup paths through DUAL
-- Understanding Feasible Distance (FD) and Reported Distance (RD) is critical for troubleshooting convergence
-- Verification commands are essential for validating expected network behavior
-- Network failures should be tested intentionally to understand protocol operation
-- Troubleshooting routing protocols requires understanding both configuration and protocol decision-making
-
-
+[Back to portfolio](../README.md)

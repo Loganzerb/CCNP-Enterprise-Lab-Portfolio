@@ -38,7 +38,7 @@ Removing that override restored **FULL adjacency on both routers**, without clea
 
 | Module | Engineering focus | A useful starting point |
 |---|---|---|
-| [01 — EIGRP](01-EIGRP/README.md) | Internal routing, loop-free backup paths, summarization, and route control across five routers | [Inconsistent summaries](01-EIGRP/troubleshooting/scenario-3-inconsistent-eigrp-summarization.md): more-specific routes change the intended path while reachability can remain available |
+| [01 — EIGRP](01-EIGRP/README.md) | Internal routing, loop-free backup paths, summarization, and route control across five routers | [Inconsistent summaries](01-EIGRP/troubleshooting/scenario-3-inconsistent-eigrp-summarization.md): compare a direct summary with an indirect more-specific route and restore consistent advertisements |
 | [02 — OSPF](02-OSPF/README.md) | Multi-area routing, neighbor synchronization, routing databases, and policy at area boundaries | [ABR filtering](02-OSPF/troubleshooting/scenario-3-abr-route-filtering-control-plane.md): a branch route disappears while every captured adjacency remains FULL |
 | [03 — BGP](03-BGP/README.md) | Routing between autonomous systems, route reflection, next-hop resolution, and advertisement policy | [Healthy session, unusable path](03-BGP/troubleshooting/scenario-2-ibgp-next-hop-reachability.md): diagnose an unreachable next hop, retain the installed alternate, and verify the original path's recovery |
 | [04 — STP](04-STP/README.md) | Loop prevention, predictable switch-root placement, protection features, and link-bundle interaction | [LACP member and negotiation failures](04-STP/troubleshooting/11-lacp-negotiation-and-member-failure.md): distinguish a degraded bundle from one that cannot form |
@@ -73,7 +73,7 @@ Each module contains a README, topology diagram, and three supporting directorie
 
 | Module | Configuration guide | Verification guide | Troubleshooting |
 |---|---|---|---|
-| EIGRP | [Configurations](01-EIGRP/configs/README.md) | [Evidence](01-EIGRP/verification/README.md) | [Cases](01-EIGRP/troubleshooting/) |
+| EIGRP | [Device roles and route policy](01-EIGRP/configs/README.md) | [Neighbors, metrics, and installed routes](01-EIGRP/verification/README.md) | [Three cases and original excerpts](01-EIGRP/troubleshooting/README.md) |
 | OSPF | [Device roles and area policy](02-OSPF/configs/README.md) | [Interfaces, neighbors, databases, and routes](02-OSPF/verification/README.md) | [Three cases and original excerpts](02-OSPF/troubleshooting/README.md) |
 | BGP | [Device roles and active policies](03-BGP/configs/README.md) | [Peer, path, and forwarding evidence](03-BGP/verification/README.md) | [Three cases and original command blocks](03-BGP/troubleshooting/README.md) |
 | STP | [Configurations](04-STP/configs/README.md) | [Evidence](04-STP/verification/README.md) | [Cases](04-STP/troubleshooting/) |
@@ -107,7 +107,7 @@ This portfolio records controlled CML lab work. Captures vary from standalone tr
 
 | Module or artifact | Interpretation boundary |
 |---|---|
-| EIGRP recalculation case | Direct Active/Query/Reply output was not retained; the case does not establish a captured Stuck-in-Active event |
+| EIGRP | Cases establish backup eligibility and route changes, without captured Active/Query/Reply processing or measured failover time. The summary case flags a recovery-excerpt interface discrepancy |
 | OSPF | MTU and filtering cases retain failure and recovery excerpts. The NSSA case retains two recovery output excerpts; its other observations are described in narrative. Equal-cost routes establish installation, not measured traffic distribution |
 | BGP | Three cases establish session, next-hop, and advertisement recovery. General captures cover global IPv4; IPv6 and VRF settings have no dedicated verification. Null0-backed test prefixes and incomplete traceroutes do not establish endpoint delivery |
 | STP | Several experiments have partial failure or recovery records; protection configuration and baseline output do not substitute for a captured failure |

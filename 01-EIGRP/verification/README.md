@@ -1,85 +1,29 @@
-# EIGRP Verification
+# EIGRP verification guide
 
-This directory contains verification outputs collected from the EIGRP AS 100 lab environment.
+Verification connects four views: **the neighbors exchanging routes, the paths EIGRP knows, the routes installed, and the policy explaining those results.**
 
-The purpose of these outputs is to validate EIGRP operation beyond configuration by demonstrating:
+All twenty original text files are retained unchanged.
 
-- Neighbor adjacency formation
-- EIGRP topology database operation
-- Successor and Feasible Successor selection
-- Route installation
-- EIGRP process configuration
-- Route summarization
-- Stub routing behavior
+| Evidence group | Files | Question answered |
+|---|---:|---|
+| [Neighbors](neighbors/README.md) | 5 | Which routers were peers, on which interfaces? |
+| [Topology tables](topology/README.md) | 5 | Which destinations and successor paths appear in the saved excerpts? |
+| [Routing tables](routing/README.md) | 5 | Which summaries, defaults, external routes, and equal-cost next hops were installed? |
+| [Protocol settings](protocols/README.md) | 5 | Which AS, summary, stub, filter, and metric settings were reported? |
+| [Incident excerpts](incidents/README.md) | 3 Markdown pages | What was retained from the three controlled experiments? |
 
-## Verification Commands
+## A useful reading sequence
 
-The following Cisco IOS commands were used:
+Start with R1's branch summary: the topology excerpt shows two successors, and the routing table lists both next hops. Then read [Case 01](../troubleshooting/scenario-1-feasible-successor-promotion.md) to see one path become a qualified backup and later the installed replacement.
 
-- `show ip eigrp neighbors`
-- `show ip eigrp topology`
-- `show ip route eigrp`
-- `show ip protocols`
+For route policy, compare R4's summary/filter settings with the route listings on R2, R3, and R5. [Case 03](../troubleshooting/scenario-3-inconsistent-eigrp-summarization.md) traces how removing a summary on one interface changes the other routers' views.
 
-## Verification Categories
+## Evidence boundaries
 
-### Neighbor Verification
+The general captures are separate from the incident excerpts. Several topology files end mid-entry or contain only part of the known route set. A missing line in those files does not establish that a route was absent from the router.
 
-Located in:
+A passive route is not undergoing a diffusing computation at the time of the check. This differs from a passive interface, which suppresses neighbor formation. Neither state alone proves endpoint delivery.
 
-neighbors/
+Case 02 has no captured Active/Query/Reply event and no Stuck-in-Active event. The saved data establishes pre-failure eligibility and the post-failure route, not the duration or packet-level sequence between them.
 
-Validates:
-
-- EIGRP neighbor relationships
-- Autonomous System (AS) matching
-- Adjacency uptime
-- Interface relationships
-
----
-
-### Topology Verification
-
-Located in:
-
-topology/
-
-Validates:
-
-- Successor routes
-- Feasible Successor routes
-- Feasible Distance (FD)
-- Reported Distance (RD)
-- DUAL (Diffusing Update Algorithm) behavior
-
----
-
-### Routing Verification
-
-Located in:
-
-routing/
-
-Validates:
-
-- EIGRP routes installed into the Routing Information Base (RIB)
-- Next-hop selection
-- Administrative Distance
-- Metric calculations
-
----
-
-### Protocol Verification
-
-Located in:
-
-protocols/
-
-Validates:
-
-- EIGRP Autonomous System (AS) configuration
-- Router IDs
-- Network statements
-- Passive interfaces
-- Summarization
-- Stub routing
+[Module overview](../README.md) · [Configuration guide](../configs/README.md) · [Case index](../troubleshooting/README.md)
