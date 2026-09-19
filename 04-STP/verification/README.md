@@ -1,4 +1,4 @@
-# Verification Guide — Read the Result Behind the Command
+# STP verification guide
 
 A verification file records what a switch reported at one point in the lab. This guide identifies the question each file answers and the part of the output worth inspecting.
 

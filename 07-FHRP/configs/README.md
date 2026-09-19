@@ -1,4 +1,4 @@
-# Configuration evidence
+# FHRP configuration guide
 
 The supplied FHRP package contains selected configuration commands and one explicit `show running-config interface Vlan10` excerpt. It does not contain full per-device running configurations or an importable CML YAML export.
 

@@ -1,4 +1,4 @@
-# Troubleshooting cases
+# DHCP troubleshooting
 
 These cases show how a network can fail at different stages: before an address is assigned, after incorrect settings are delivered, or when client and server records disagree.
 

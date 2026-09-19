@@ -1,4 +1,4 @@
-# Case 05 — One Side Expects a Trunk, the Other an Access Port
+# Case 05 — One side expects a trunk, the other an access port
 
 ## Why this matters
 
@@ -31,7 +31,7 @@ show spanning-tree inconsistentports
 show logging
 ```
 
-Use the actual affected VLAN and interface when replaying the exercise. The command list is guidance, not newly captured output.
+For a replay, use the affected VLAN and interface. These are suggested checks.
 
 ## Recovery and verification
 

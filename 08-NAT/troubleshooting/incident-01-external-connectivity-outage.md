@@ -15,10 +15,10 @@ The target result was two coexisting base mappings and successful traffic from b
 ## Evidence and its limits
 
 - [Original fault lab](../configs/incident-01-original.yaml): direct configuration evidence for all four starting faults. It is not a transcript of initial device commands.
-- [Repair checkpoint](../verification/incident-01-repair-checkpoint.txt): user-pasted configuration, ACL, NAT state, and routing after several repairs, while the typo still prevented allocation.
+- [Repair checkpoint](../verification/incident-01-repair-checkpoint.txt): captured configuration, ACL, NAT state, and routing after several repairs, while the typo still prevented allocation.
 - [Final verification](../verification/incident-01-final.txt): original client pings, translation table, and statistics.
 
-The complete command-by-command repair history was not pasted. The analysis below groups the evidence by dependency; it does not invent a chronological command log or initial counter values.
+The complete repair history is unavailable. The analysis groups the retained evidence by dependency.
 
 ## Diagnosis 1 — Inside NAT role missing
 
@@ -120,7 +120,7 @@ Review the [NAT-EDGE final configuration](../configs/incident-01-NAT-EDGE-final.
 | Pool | 2 addresses; 2 allocated (100%); 0 misses | Both required allocations were available without allocation misses in this snapshot. |
 | Other counters | 29 CEF translated; 15 CEF punted; 0 queued | Actual reported values; the nonzero punt count is retained. |
 
-The pings establish reachability and the same translation table establishes coexistence. The retained text does not time-stamp both ping runs to prove their exact overlap. It does support two simultaneously allocated identities. No new save confirmation, packet capture, or long-duration stability test is implied.
+The pings establish reachability and the same translation table establishes coexistence. The retained text does not time-stamp both ping runs to prove their exact overlap. It does support two simultaneously allocated identities. Save confirmation, packet captures, and long-duration stability measurements are unavailable.
 
 ## Lessons carried forward
 

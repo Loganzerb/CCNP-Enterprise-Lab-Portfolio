@@ -1,4 +1,4 @@
-# Troubleshooting Guide — What Went Wrong and How to Read Each Case
+# STP troubleshooting
 
 These eleven exercises explain how the lab responds to changed topology, inconsistent settings, and missing control information. They retain the original filenames so existing portfolio links continue to work.
 
@@ -6,7 +6,7 @@ These eleven exercises explain how the lab responds to changed topology, inconsi
 
 ## Case index
 
-| Case | Question in plain English | Evidence available |
+| Case | Diagnostic question | Evidence available |
 |---|---|---|
 | [01 — BPDU Guard](01-bpdu-guard-rogue-switch.md) | What happens when an expected client port receives switch messages? | Saved edge policy and exercise account; failure/recovery transcript absent |
 | [02 — Root Guard](02-root-guard-root-inconsistent.md) | How is an unwanted root direction rejected? | Intended root design and exercise account; temporary guard setting and event captures absent |
@@ -35,8 +35,8 @@ The label narrows the investigation but does not replace the configuration, peer
 
 ## Reading method
 
-Each case explains the operational concern, the documented exercise, the retained evidence, and the recovery approach. **Reference commands are guidance for a replay.** They are not presented as commands newly executed during this documentation update.
+Each case explains the operational concern, the documented exercise, the retained evidence, and the recovery approach. **Reference commands are suggested checks for a replay.**
 
-Where only an account survives, the case remains an explained exercise rather than an invented full incident. The [verification index](../verification/README.md) links every original capture so a technical reviewer can examine the underlying record.
+Cases supported only by lab notes are identified as documented exercises. The [verification index](../verification/README.md) links every original capture so a technical reviewer can examine the underlying record.
 
 [Module overview](../README.md) · [Configuration guide](../configs/README.md)

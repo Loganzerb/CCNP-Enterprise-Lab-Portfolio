@@ -1,4 +1,4 @@
-# Troubleshooting: symptoms, decisions and evidence
+# MSTP troubleshooting
 
 The cases cover configuration mismatches, external-root behavior and protection at a protocol boundary. Start with Case 06 for the most complete failure-and-clear record, then use the identity cases to examine diagnostic reasoning.
 

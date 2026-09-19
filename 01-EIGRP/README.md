@@ -1,4 +1,4 @@
-# EIGRP — Backup paths, failover, and consistent route policy
+# 01 — EIGRP: Backup paths and route policy
 
 A second path is useful only if the routing protocol can use it when the preferred path fails. In this five-router lab, I compared a qualified EIGRP backup with an alternate that failed the protocol's loop-free eligibility check, then verified the replacement route after each controlled failure.
 
@@ -31,7 +31,9 @@ R1 reaches the branch through two distribution routers, which also connect to ea
 - **Route-policy diagnosis:** follow exact prefixes and next hops across redundant uplinks.
 - **Operational context:** interpret classic and named EIGRP, summaries, a remote stub, and default-only filtering.
 
-| Review path | Contents |
+## Explore the files
+
+| Guide | Contents |
 |---|---|
 | [Configuration guide](configs/README.md) | Five device extracts, active policy, authentication, and wider-lab connections |
 | [Verification guide](verification/README.md) | Twenty original text captures with a README for each evidence group |

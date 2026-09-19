@@ -1,4 +1,4 @@
-# Case 06 — A Bundle Member Has Different VLAN Settings
+# Case 06 — A bundle member has different VLAN settings
 
 ## Why this matters
 
@@ -31,7 +31,7 @@ show interfaces switchport
 show logging
 ```
 
-Use the actual affected VLAN and interface when replaying the exercise. The command list is guidance, not newly captured output.
+For a replay, use the affected VLAN and interface. These are suggested checks.
 
 ## Recovery and verification
 

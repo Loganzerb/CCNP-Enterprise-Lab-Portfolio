@@ -1,4 +1,4 @@
-# Case 01 — A VLAN-Mask Mismatch Suspends One LACP Member
+# Case 01 — A VLAN-mask mismatch suspends one LACP member
 
 ## Problem and impact
 
@@ -89,7 +89,7 @@ The original lab documentation reports restoration of the list; the post-repair 
 
 These observations establish repaired member compatibility and restored two-member operation. They do not measure recovered bandwidth. The separate [final 10/10 ping](../verification/PC-A-final-ping.txt) is a module-level steady-state check, not a dedicated before/after service test for this fault.
 
-A replay should capture the member state, relevant VLAN forwarding, and client probes while the intended test path is in use. No such additional measurements or save confirmation are invented here.
+A replay should capture the member state, relevant VLAN forwarding, and client probes while the intended test path is in use. Those measurements and a save confirmation are not included in the retained record.
 
 ## Engineering takeaway
 

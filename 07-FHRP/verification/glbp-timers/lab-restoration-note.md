@@ -1,6 +1,6 @@
 # Lab restoration note
 
-This is a user-reported completion note retained from the supplied package. It is not terminal output or a post-cleanup configuration export.
+This note records reported completion of lab cleanup. It is not terminal output or a post-cleanup configuration export.
 
 > the lab is back to its original state
 

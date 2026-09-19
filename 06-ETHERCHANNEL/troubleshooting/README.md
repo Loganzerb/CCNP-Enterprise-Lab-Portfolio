@@ -1,6 +1,6 @@
-# Troubleshooting Cases and Evidence
+# EtherChannel troubleshooting
 
-Start with the detailed cases, then use the artifact tables to inspect the underlying record. All 27 original text captures remain unchanged.
+Start with the detailed cases, then use the artifact tables to inspect the underlying record. All 28 original text captures are linked below.
 
 ## Detailed cases
 

@@ -1,4 +1,4 @@
-# Configuration Guide
+# EtherChannel configuration guide
 
 These four text files preserve the switch configurations supplied with the portfolio. They were extracted from the embedded configuration blocks in [CML-LAB.yaml](../CML-LAB.yaml), with YAML indentation removed. They represent the final exported state, including platform boilerplate.
 
@@ -26,5 +26,11 @@ The exported SW1/SW3 Po20 configurations do not retain a `lacp max-bundle` overr
 The separate [load-balancing capture](../verification/EC-SW3-ACCESS-A-load-balance.txt) reports `src-dst-ip`. The configuration extracts do not explicitly print that command; an omitted default should not be rewritten into the original files as though it was captured.
 
 For replay, use the complete [CML export](../CML-LAB.yaml), which also contains PC-A and the wiring. Confirm image mappings and VLAN creation after import. The retained configuration text includes console headers and platform boilerplate and should be read as an exported artifact.
+
+## Reuse the lab
+
+Import [CML-LAB.yaml](../CML-LAB.yaml) into a separate lab and check its image mappings: the export uses `iosvl2-2020` switches and a `desktop-3-13-2-xfce` endpoint. Verify VLANs, interface mappings, PC-A addressing, and SW4's VLAN 10 interface before testing. The saved switch blocks do not contain explicit VLAN-creation stanzas; confirm the VLAN database after import.
+
+Start with the [final-state checks](../verification/README.md), then reproduce a documented experiment. The export is the final saved lab, not a pre-fault snapshot for either case.
 
 [Module overview](../README.md) · [Verification guide](../verification/README.md) · [Troubleshooting](../troubleshooting/README.md)

@@ -1,8 +1,8 @@
-# Verification evidence
+# FHRP verification guide
 
-The 80 `.txt` files retain the supplied user-pasted console captures byte for byte, including source prompts, typographical errors, chat escaping, and occasional user commentary. They are conversation captures rather than direct device exports. Filenames identify the device, command or test, and observed state.
+The 80 text files preserve console output recorded during the lab, including original prompts, formatting, and occasional notes. Filenames identify the device, test, and observed state. The files were collected through the lab conversation rather than direct device exports.
 
-These captures span baseline, failure, and recovery stages; the directory is not a single final-state snapshot. One separate Markdown file preserves the user-reported cleanup confirmation.
+These captures span baseline, failure, and recovery stages; the directory is not a single final-state snapshot. A separate Markdown note records cleanup confirmation without a post-cleanup device export.
 
 ## Protocol guides
 
@@ -26,12 +26,33 @@ These captures span baseline, failure, and recovery stages; the directory is not
 | [GLBP AVG and AVF failover](glbp-failover/) | 13 | Gateway election, inherited-forwarder service, client ARP continuity, ping results, and independent AVG/AVF recovery. |
 | [GLBP weighting and upstream tracking](glbp-tracking/) | 2 | The captured threshold experiment uses weighting 100 to 70 and back to 100. It demonstrates AVF withdrawal while the router remains AVG. |
 | [GLBP authentication](glbp-authentication/) | 4 | Authentication rejection, conflicting gateway/forwarder claims, and restored group placement. |
-| [GLBP timers and recovery](glbp-timers/) | 5 | Default/custom timer runs, configured versus operational timer values, and restored AVF ownership. The separate restoration note is user confirmation, not a device capture. |
+| [GLBP timers and recovery](glbp-timers/) | 5 | Default/custom timer runs, configured versus operational timer values, and restored AVF ownership. The separate restoration note records completion without a device capture. |
 
 ## Provenance and interpretation
 
 The [source map](source-map.md) records each original archive path, its source turn ID as listed in the supplied evidence index, its new location, and a SHA-256 digest of the original bytes. This preserves traceability without using conversation IDs as filenames.
 
 Narrative excerpts retain whitespace and chat-escaping normalization from the supplied guides. Full captures remain unchanged. Configuration implications, illustrative diagrams, user reports, and limits on measurement are identified separately from observed CLI.
+
+## Coverage and evidence limits
+
+| Area | Captured result | Boundary |
+|---|---|---|
+| HSRP placement and tracking | Peer state, tracked priority, routes, and client forwarding | Recovery runs contained loss; no fast-convergence guarantee |
+| HSRP version mismatch | Dual-active state, different virtual MACs, duplicate-address logs, and repair | No claim of repeated ARP oscillation or alternating loss |
+| STP/HSRP alignment | Changed root port, MAC learning across Po10, and restored direct path | Small ping samples do not quantify a latency penalty |
+| HSRP authentication and timers | Rejected peer authentication, repaired roles, operational 1/4 timers, and takeover | No precise elapsed takeover measurement |
+| VRRP recovery delay | OSPF FULL preceded the delayed Master transition | Combined failure/recovery ping includes loss and unusually high RTT; no clean recovery-only outage measure |
+| GLBP round-robin | Three hosts received different forwarder MACs and completed upstream pings | Does not measure equal bandwidth use |
+| GLBP weighted mode | Configured 60/30/10 weights; ten ARP observations counted 4/3/3 | Does not establish a long-run 60/30/10 ratio |
+| GLBP host-dependent mode | Three HOST-A trials retained AVF2; HOST-B used AVF2 and HOST-C used AVF3 | Different hosts sharing an AVF is not itself a fault |
+| GLBP AVG and AVF failover | Gateway election, inherited virtual-MAC service, and independent role recovery | Packet losses are reported per capture without assigning unsupported causes |
+| GLBP weighting and tracking | Weighting 100 → 70 withdrew AVF1 while R1 remained AVG | Later 60 − 35 = 25 is a configuration implication, not the captured threshold test |
+| GLBP authentication | Rejection logs, conflicting group views, and recovered placement | Claims remain tied to the captured device views |
+| GLBP hello/hold timers | Default run had a six-loss cluster; custom run had a three-loss cluster | Separate runs do not prove a percentage improvement or convert loss counts into seconds |
+| GLBP configured/operational timers | R2 displayed operational 3/10 with local configured 1/4 | Final all-router default cleanup was confirmed in the lab notes without a full post-cleanup export |
+| Redirect and forwarder timers | Displayed values of 600 and 14400 seconds | Timer expiration was not observed |
+
+Unrelated endpoint persistence problems and the accidentally powered-off access switch are excluded from the FHRP fault conclusions, as in the supplied package.
 
 [FHRP overview](../README.md) · [Troubleshooting cases](../troubleshooting/README.md)

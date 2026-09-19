@@ -1,4 +1,11 @@
-# GLBP client assignment  Weighted and host-dependent settings and recorded ARP observations. Weighted trial numbers follow the supplied guide; the ten observations do not prove long-run 60/30/10 distribution.  ## Retained captures  | File | What it records | |---|---|
+# GLBP client assignment
+
+Weighted and host-dependent settings and recorded ARP observations. Weighted trial numbers follow the supplied guide; the ten observations do not prove long-run 60/30/10 distribution.
+
+## Retained captures
+
+| File | What it records |
+|---|---|
 | [GLBP-R1-show-glbp-host-dependent-settings.txt](GLBP-R1-show-glbp-host-dependent-settings.txt) | Host-dependent mode and forwarder settings |
 | [GLBP-R1-show-glbp-weighted-selection-counters.txt](GLBP-R1-show-glbp-weighted-selection-counters.txt) | Weighted client-selection counter snapshot |
 | [GLBP-R1-show-glbp-weighted-settings.txt](GLBP-R1-show-glbp-weighted-settings.txt) | Weighted mode and 60/30/10 forwarder weights |
@@ -17,7 +24,5 @@
 | [HOST-A-show-arp-weighted-trial-07.txt](HOST-A-show-arp-weighted-trial-07.txt) | Weighted client assignment observation 7 |
 | [HOST-B-ping-and-arp-host-dependent.txt](HOST-B-ping-and-arp-host-dependent.txt) | HOST-B maps to AVF2 in host-dependent mode |
 | [HOST-C-ping-and-arp-host-dependent.txt](HOST-C-ping-and-arp-host-dependent.txt) | HOST-C maps to AVF3 in host-dependent mode |
-
-The `.txt` contents are unchanged from the supplied FHRP archive. File names and surrounding explanations are editorial labels; they do not add measured output.
 
 [Verification index](../README.md) · [Source mapping](../source-map.md) · [FHRP overview](../../README.md)

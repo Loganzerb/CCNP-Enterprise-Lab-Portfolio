@@ -4,7 +4,7 @@
 
 Open [the original VLAN 10 output](SW3-show-spanning-tree-vlan-10.txt) alongside this table:
 
-| Captured field | Plain-English interpretation |
+| Captured field | Interpretation |
 |---|---|
 | Root address 5254.0007.0f1b, priority 24586 | Identifies the root recorded for VLAN 10; the lab documentation maps it to SW1 |
 | Root priority 24586 | Combines the configured base priority 24576 with VLAN ID 10 |

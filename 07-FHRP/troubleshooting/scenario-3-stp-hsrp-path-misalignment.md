@@ -1,4 +1,4 @@
-# Scenario 3 — STP/HSRP Path Misalignment
+# Case 03 — STP and HSRP select an indirect path
 
 ## Problem
 

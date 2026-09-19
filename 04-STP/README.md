@@ -1,85 +1,56 @@
-# 04 — Spanning Tree: Safe Redundancy in a Switched Network
+# 04 — STP: Safe redundancy and predictable paths
 
-A network needs backup links to survive failures. Those extra links also create a risk: without loop prevention, traffic can circulate through the switches and disrupt service. This lab explores how Spanning Tree Protocol (STP) keeps redundant links safe, chooses predictable paths, and responds to inconsistent or unsafe conditions.
+Backup links let a switched network survive failures, but they also create opportunities for loops. This lab examines how Spanning Tree Protocol (STP) selects forwarding paths and responds to unsafe or inconsistent conditions.
 
-I built a five-switch Cisco Modeling Labs environment, assigned preferred switching roots for different VLAN groups, examined the resulting port roles, and documented controlled protection and link-bundle experiments.
+I built a five-switch Cisco Modeling Labs environment, assigned preferred roots for different VLAN groups, and documented protection and link-bundle exercises.
 
-**Five switches · Two lab endpoints · Eleven documented exercises · Nine retained CLI captures**
+**Five switches · Two lab endpoints · Eleven documented exercises · Nine retained captures**
 
-## Start here
+**Start here:** [One member fails, then the whole bundle stops forming](troubleshooting/11-lacp-negotiation-and-member-failure.md). The captured sequence distinguishes a degraded bundle that still forwards from a negotiation failure that removes the logical link.
 
-| If you want to understand… | Read this | Main result |
-|---|---|---|
-| How the network chooses a safe path | [Root selection explained](verification/root-election/README.md) | SW3 uses Gi0/0 as its VLAN 10 root port and keeps Gi0/2 as an alternate blocked path |
-| What happens when a bundled link loses a member | [Case 11 — LACP formation and failures](troubleshooting/11-lacp-negotiation-and-member-failure.md) | One member down leaves the logical link forwarding; a separate negotiation failure leaves the whole bundle down |
-| How an unexpected switch is handled | [Case 01 — BPDU Guard](troubleshooting/01-bpdu-guard-rogue-switch.md) | Explains the documented edge-port protection exercise, supported by the saved policy; its failure transcript was not retained |
+## Lab design
 
-The first two reading paths include direct device output. Several other exercises retain explanations and configuration context rather than complete failure-and-recovery transcripts.
+![STP topology with redundant distribution and access switches, two endpoints, and a controlled test switch](topology.png)
 
-## The lab at a glance
+SW1 is the preferred root for VLANs 10/20; SW4 is preferred for VLANs 30/40. SW2 and SW3 connect the endpoints and provide redundant paths. SW5 is a controlled test switch connected to SW4.
 
-![STP lab: two distribution switches, two access switches, two endpoints, and a dedicated test switch](topology.png)
+The saved design uses Rapid PVST+ and long path costs. The topology shows physical wiring; forwarding roles vary by VLAN and experiment.
 
-| Device | Role in everyday language |
+[Topology, device roles, and terminology](topology.md)
+
+## Results at a glance
+
+| Question | Retained result |
 |---|---|
-| SW1-DIST-A | Distribution switch preferred as the spanning-tree root for VLANs 10 and 20 |
-| SW4-DIST-B | Distribution switch preferred as root for VLANs 30 and 40 |
-| SW2-ACCESS-A | Connects PC1 and provides redundant paths toward the distribution switches |
-| SW3-ACCESS-B | Connects PC2 and provides a second access-side observation point |
-| SW5-ROGUE | Deliberately controlled test switch used to introduce conditions the network should detect |
-| PC1 and PC2 | VLAN 10 endpoints included in the topology; no standalone endpoint ping capture is retained in this section |
+| Which path does an access switch select? | SW3 uses Gi0/0 as its VLAN 10 root port and keeps Gi0/2 Alternate/Blocked |
+| What changes when parallel links are bundled? | SW5 sees logical Po1 as its Root/Forwarding interface |
+| Does losing one member remove the logical path? | Gi0/1 is down while Po1 remains in use and forwarding |
+| What happens when negotiation fails? | Both members are suspended and Po1 is down |
 
-The infrastructure trunks carry VLANs 10, 20, 30, and 40. The diagram shows physical wiring; forwarding and blocked states change with the VLAN and experiment.
+[Root-selection evidence](verification/root-election/README.md) · [Bundle and failure sequence](verification/etherchannel/README.md)
 
-### A few terms that make the files easier to read
+## What this work demonstrates
 
-| Term | Meaning in this lab |
-|---|---|
-| VLAN | A logical network carried through the switches |
-| Trunk | A switch link that carries multiple VLANs |
-| Root bridge | The reference switch used to calculate a VLAN's spanning tree; it is not necessarily the path for every packet |
-| Root port | A switch's selected path toward that root |
-| Alternate / blocked | A redundant path kept out of normal forwarding to prevent a loop |
-| BPDU | A control message switches exchange to maintain spanning-tree information |
-| EtherChannel / port-channel | Several physical links represented as one logical link |
-| Inconsistent / err-disabled | Protective states; the cases explain whether an STP instance or an interface is affected |
-
-## Design choices and observed results
-
-| Design choice | Why it matters | Available evidence |
-|---|---|---|
-| Split preferred roots between SW1 and SW4 | Makes path selection intentional for different VLAN groups | [Saved root priorities](configs/README.md) and [SW3's per-VLAN interface detail](verification/bridge-assurance/README.md) |
-| Retain alternate links | Provides redundant topology while avoiding active switching loops | [SW3 VLAN 10 roles](verification/root-election/README.md) show a Root/FWD port and an Alternate/Blocked port |
-| Configure edge protection | Helps contain an unexpected switch connection at a client-facing port | [SW2/SW3 configuration guide](configs/README.md) identifies PortFast edge and BPDU Guard |
-| Examine STP over a bundle | Separates a physical-member problem from loss of the logical path | [LACP evidence sequence](verification/etherchannel/README.md) |
-| Compare state with evidence | Avoids treating a feature setting or an up interface as sufficient proof | [Verification guide](verification/README.md) explains each capture and its limits |
-
-The saved priorities make SW1 primary at 24576 for VLANs 10/20, with SW4 secondary at 28672. For VLANs 30/40, those preferences are reversed. The [configuration guide](configs/README.md) connects those settings to the device roles.
+- **Intentional path selection:** connect root priorities and port roles to the design.
+- **Fault isolation:** distinguish normal blocking, protective inconsistency, and bundle failure.
+- **Configuration review:** compare saved protection settings with the evidence for a particular exercise.
+- **Verification:** separate an operational state from a measured service result.
 
 ## Explore the files
 
-| Location | What the reader gets |
+| Guide | Contents |
 |---|---|
-| [Configurations](configs/README.md) | Five device files explained by role, important settings, and relationship to the captured output |
-| [Verification](verification/README.md) | An index of all nine original captures, with plain-English explanations of what to inspect |
-| [Troubleshooting](troubleshooting/README.md) | Eleven linked exercises covering protection, consistency, path selection, and bundle behavior |
-| [CML export](CCNP_MASTERCLASS_STP.yaml) | The saved topology and embedded configurations for lab reuse |
-| [Topology image](topology.png) | An overview of the physical design |
+| [Configurations](configs/README.md) | Five switch files, root priorities, protection settings, and import notes |
+| [Verification](verification/README.md) | All nine captures, with interpretation guides for each topic |
+| [Troubleshooting](troubleshooting/README.md) | Eleven exercises covering protection, consistency, path selection, and bundles |
+| [CML export](CCNP_MASTERCLASS_STP.yaml) | Saved topology and embedded device configurations |
 
-For an interview, follow one question through its expected behavior, observed output, explanation, and available recovery evidence. The technical commands remain available for deeper inspection without requiring every reader to interpret a console dump first.
+For a first technical review, follow the LACP sequence through its baseline, member failure, and negotiation failure. The protection cases explain their documented exercises and identify which event captures are unavailable.
 
-## Understand the different lab stages
+## Evidence scope
 
-The saved configuration files use **Rapid PVST+ and the long path-cost method**. SW4 and SW5 are saved with separate trunk interfaces; their final files do not contain Po1 or channel-group commands.
+The LACP experiment is an earlier stage than the saved configuration: SW4 and SW5's final files contain separate trunks rather than Po1. Its short-cost values should not be combined with later long-cost examples. [Configuration stage notes](configs/README.md#experiment-stages) explain these differences.
 
-The LACP captures preserve an earlier temporary bundle experiment. They show local costs of 3 and 4, while the later long-cost examples show 20000. These values belong to different retained stages and should not be combined into one final-state snapshot.
+The retained record establishes port roles, settings, and selected failures. Several protection exercises have narrative or configuration support without complete failure/recovery transcripts. No standalone endpoint ping capture or measured convergence comparison is included.
 
-The SW3 Gi0/1 detail was captured **before** the Bridge Assurance network-port change. It explains root roles and BPDU activity at that point; the later configurations preserve the network-port setting. Neither replaces a missing Bridge Assurance failure capture.
-
-## Reuse and evidence scope
-
-Import [CCNP_MASTERCLASS_STP.yaml](CCNP_MASTERCLASS_STP.yaml) into a separate CML lab. Its image references are `iosvl2-2020` and `desktop-3-13-2-xfce`. Check image mappings, VLAN creation, and the intended baseline before recreating an exercise. The switch configuration blocks do not include explicit VLAN-creation stanzas. The export is a saved lab, not a ready-made fault state for every case.
-
-All original device captures, five configurations, and the CML export are preserved unchanged from the supplied portfolio ZIP. The topology image redraws the same physical wiring in the EtherChannel/FHRP visual style; it is not additional experimental evidence. Explanations distinguish **captured output**, **saved configuration**, and **documented observations**. Reference checks describe what to verify in a replay, not newly collected results.
-
-The retained evidence demonstrates port roles, settings, and selected failures. It does not establish measured endpoint availability, exact convergence times, or complete recovery for every exercise. Missing output is identified in the relevant case rather than filled with hypothetical results.
+[Back to portfolio](../README.md)

@@ -1,4 +1,4 @@
-# Case 04 — The Two Ends of a Trunk Disagree
+# Case 04 — The two ends of a trunk disagree
 
 ## Why this matters
 
@@ -30,7 +30,7 @@ show spanning-tree inconsistentports
 show logging
 ```
 
-Use the actual affected VLAN and interface when replaying the exercise. The command list is guidance, not newly captured output.
+For a replay, use the affected VLAN and interface. These are suggested checks.
 
 ## Recovery and verification
 

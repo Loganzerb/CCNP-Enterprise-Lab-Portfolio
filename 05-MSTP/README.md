@@ -1,4 +1,4 @@
-# 05 — MSTP: Predictable Paths and Boundary Protection
+# 05 — MSTP: Predictable paths and boundary protection
 
 Redundant switch links keep a network flexible, but they also need loop prevention. Multiple Spanning Tree Protocol (MSTP) lets groups of VLANs share a spanning-tree instance, with different groups using different preferred paths.
 
@@ -21,7 +21,7 @@ I built a five-switch Cisco Modeling Labs environment to verify those paths, tes
 
 For a quick design review, see [different paths over the same wiring](verification/instances/README.md). For deeper troubleshooting, compare the [three region-identity mismatches](verification/region-mismatch/README.md).
 
-## Lab topology
+## Lab design
 
 ![Five-switch MSTP topology: four switches in CCNP_MST and MST5 outside the region, connected by six trunks](topology.png)
 
@@ -53,6 +53,8 @@ The main region is **CCNP_MST, revision 1**. Instance 0, the Internal Spanning T
 
 ## Evidence scope
 
-The original nine text files, five device configurations and CML export are preserved unchanged. Some text files combine console excerpts with explicitly identified observations. This revision improves their context and redraws the topology from the saved wiring.
+The original nine text files, five device configurations and CML export are preserved unchanged. Some text files combine console excerpts with explicitly identified observations. The topology follows the saved wiring.
 
-Case 06 proves that the reported inconsistency cleared; it does not include a post-repair forwarding table or endpoint traffic test. Other cases retain different amounts of failure and recovery evidence. No new lab results, throughput measurements or convergence timings are claimed.
+Case 06 proves that the reported inconsistency cleared; it does not include a post-repair forwarding table or endpoint traffic test. Other cases retain different amounts of failure and recovery evidence. Throughput and convergence timing were not measured in these captures.
+
+[Back to portfolio](../README.md)

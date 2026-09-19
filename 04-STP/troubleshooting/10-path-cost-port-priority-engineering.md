@@ -1,4 +1,4 @@
-# Case 10 — Choosing a Preferred Path Deliberately
+# Case 10 — Choose a preferred path deliberately
 
 ## Why this matters
 

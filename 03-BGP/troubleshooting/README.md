@@ -10,6 +10,6 @@ These three controlled faults affect different parts of routing: establishing th
 
 **Recommended first read:** Case 02. It shows why a healthy peer summary is only one part of verification.
 
-All original configuration and output blocks are preserved in the linked evidence pages. They are excerpts from the recorded experiments, not newly executed tests. Each case identifies what its recovery captures establish.
+All original configuration and output blocks are preserved in the linked evidence pages. They are excerpts from the recorded experiments. Each case identifies what its recovery captures establish.
 
 [Module overview](../README.md) · [Topology](../topology.md) · [Verification guide](../verification/README.md)

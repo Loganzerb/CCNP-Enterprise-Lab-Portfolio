@@ -1,4 +1,4 @@
-# Verification: read the result before the console
+# MSTP verification guide
 
 The nine original evidence files answer different questions about the design and its failure modes. Each folder guide points to the relevant fields and states what the capture can establish.
 

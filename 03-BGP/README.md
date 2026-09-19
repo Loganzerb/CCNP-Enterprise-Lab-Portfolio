@@ -1,4 +1,4 @@
-# BGP — Route selection, policy, and recovery
+# 03 — BGP: Route selection, policy, and recovery
 
 A network can maintain its routing connections while losing an intended path. In this six-router lab, I investigated three different causes: a peer configured with the wrong autonomous system, an unreachable next hop, and an outbound policy that silently excluded routes.
 
@@ -33,7 +33,9 @@ Each case links the symptom, decisive evidence, repair, and recovery. Original c
 - **Policy behavior:** aggregate suppression, community-based preference, and a selected path carrying `no-export`.
 - **Forwarding observations:** installed routes and recorded traceroute responses, with the limits explained alongside the output.
 
-| Review path | Contents |
+## Explore the files
+
+| Guide | Contents |
 |---|---|
 | [Configuration guide](configs/README.md) | Six device extracts, their roles, and which policy objects are actually attached |
 | [Verification guide](verification/README.md) | Twenty original text captures organized by the question they answer |

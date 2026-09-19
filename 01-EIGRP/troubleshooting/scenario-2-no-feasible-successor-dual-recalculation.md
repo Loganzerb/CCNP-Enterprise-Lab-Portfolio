@@ -2,7 +2,7 @@
 
 R1 knew an alternate path through R3, but that path did not satisfy EIGRP's feasibility condition. After the R2 path was shut down, the saved output showed R3 as the new successor with a higher metric.
 
-The case demonstrates the difference between knowing an alternate and having a qualified backup. It does not retain the transient Active/Query/Reply sequence.
+The case demonstrates the difference between knowing an alternate and having a qualified backup.
 
 ## Establish the pre-failure condition
 
@@ -45,6 +45,6 @@ The documented cleanup re-enabled R1 Gi0/0 and removed temporary delay settings 
 
 ## Engineering takeaway
 
-An alternate path in the topology table is not automatically ready for backup use. Check its reported distance against the destination's FD, then verify the actual installed route after failure. This case establishes route recovery; it does not measure packet delivery or transient convergence behavior.
+An alternate path in the topology table is not automatically ready for backup use. Check its reported distance against the destination's FD, then verify the actual installed route after failure. The installed route is the recovery check for this experiment.
 
 [All original blocks](../verification/incidents/scenario-2-no-feasible-successor-dual-recalculation.md) · [Compare Case 01](scenario-1-feasible-successor-promotion.md) · [Case index](README.md)

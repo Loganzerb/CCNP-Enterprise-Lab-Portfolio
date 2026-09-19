@@ -1,4 +1,4 @@
-# OSPF — Neighbor recovery and routing across areas
+# 02 — OSPF: Neighbor recovery and routing across areas
 
 A successful ping does not guarantee that routers can exchange routing information. A healthy routing relationship does not guarantee that every expected route is being advertised.
 
@@ -33,7 +33,9 @@ The case studies explain the diagnosis and link directly to the original excerpt
 - **Verification:** compare interfaces, neighbors, routing databases, and installed routes.
 - **Targeted repair:** correct the relevant setting and verify the affected behavior.
 
-| Review path | What you will find |
+## Explore the files
+
+| Guide | What you will find |
 |---|---|
 | [Configuration guide](configs/README.md) | Five device extracts, active policies, and reconstruction notes |
 | [Verification guide](verification/README.md) | Twenty-five original captures, with a README for each evidence group |

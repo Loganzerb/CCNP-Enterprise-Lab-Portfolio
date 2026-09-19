@@ -1,4 +1,4 @@
-# Case 07 — The Peers Disagree About the Logical Bundle
+# Case 07 — The peers disagree about the logical bundle
 
 ## Why this matters
 
@@ -30,7 +30,7 @@ show etherchannel summary
 show logging
 ```
 
-Use the actual affected VLAN and interface when replaying the exercise. The command list is guidance, not newly captured output.
+For a replay, use the affected VLAN and interface. These are suggested checks.
 
 ## Recovery and verification
 

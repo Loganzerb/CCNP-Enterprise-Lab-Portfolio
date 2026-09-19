@@ -1,4 +1,4 @@
-# Configuration Guide — What Each Switch Is Doing
+# STP configuration guide
 
 These five files are the configuration snapshots supplied with the CML export. They retain their original headers, defaults, and lab settings. Start with the role descriptions below, then inspect the linked device file for the exact commands.
 
@@ -16,7 +16,7 @@ The word “rogue” describes SW5's role in deliberate lab exercises. It does n
 
 ## Configuration translated into intent
 
-| Setting | Plain-English purpose | What it does not establish by itself |
+| Setting | Purpose | What it does not establish by itself |
 |---|---|---|
 | `spanning-tree mode rapid-pvst` | Runs a rapid spanning-tree instance for each VLAN | An exact failover time |
 | `spanning-tree pathcost method long` | Selects the long numerical scale used to compare path costs | Which interface wins without looking at the full topology |
@@ -49,5 +49,13 @@ This is the client-facing port policy discussed in [Case 01](../troubleshooting/
 Use [the CML export](../CCNP_MASTERCLASS_STP.yaml) for its complete node and link map. These separate files make the embedded switch settings easier to inspect. They contain console headers and platform boilerplate and have not been converted into clean paste-ready scripts.
 
 Check VLAN creation after import: allowed-VLAN lists alone do not create the VLAN database. Establish a fresh baseline before applying a case's temporary changes.
+
+## Experiment stages
+
+The saved configuration files use **Rapid PVST+ and the long path-cost method**. SW4 and SW5 are saved with separate trunk interfaces; their final files do not contain Po1 or channel-group commands.
+
+The LACP captures preserve an earlier temporary bundle experiment. They show local costs of 3 and 4, while the later long-cost examples show 20000. These values belong to different retained stages and should not be combined into one final-state snapshot.
+
+The SW3 Gi0/1 detail was captured **before** the Bridge Assurance network-port change. It explains root roles and BPDU activity at that point; the later configurations preserve the network-port setting. Neither replaces a missing Bridge Assurance failure capture.
 
 [Module overview](../README.md) · [Verification](../verification/README.md) · [Cases](../troubleshooting/README.md)

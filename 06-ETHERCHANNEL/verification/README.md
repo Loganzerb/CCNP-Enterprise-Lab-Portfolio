@@ -1,6 +1,6 @@
-# Final Verification Guide
+# EtherChannel verification guide
 
-These fifteen files are the retained final-state evidence set. Read bundle membership, trunk eligibility, spanning-tree state, and endpoint reachability together. The [guided lab narrative](guided-labs.md) covers failure and recovery experiments separately.
+These 14 files are the retained final-state evidence set. Read bundle membership, trunk eligibility, spanning-tree state, and endpoint reachability together. The [guided lab narrative](guided-labs.md) covers failure and recovery experiments separately.
 
 ## Read the key fields
 
@@ -43,5 +43,23 @@ This is why bundle formation and VLAN forwarding are separate checks. The final 
 The original text files are unchanged, including chat escapes, partial prompts, and formatting artifacts. Explanations in this guide are editorial context. These captures are separate observations, not a synchronized all-device snapshot.
 
 For failure-specific validation, use the [troubleshooting index](../troubleshooting/README.md). For the selected algorithm's actual CLI choices, see the [capability capture](../troubleshooting/platform-load-balance-options.txt). Neither it nor the final setting establishes per-member load distribution.
+
+## Coverage and boundaries
+
+| Area | What this package supports |
+|---|---|
+| Static, LACP, and PAgP formation | Saved configurations and final bundle summaries; LACP and PAgP peer captures |
+| Direct-trunk failover | Interrupted ping run and MAC learning through Po20 → Po10 → Po30; return to the direct trunk |
+| Single LACP member failure | One down member, continued Po20 forwarding, 60/60 failure-run replies, and 75/75 recovery-run replies |
+| Member VLAN consistency | Captured configuration change, explicit incompatibility log, suspension, and recovered membership |
+| `max-bundle 1` | Captured enable transition, failed endpoint probes, and recovery evidence; internal defect mechanism remains unproven |
+| Hashing | CLI lists MAC/IP choices and the final capture selects `src-dst-ip`. The earlier lab summary reported traffic-counter experiments, but those counter captures are absent |
+| LACP system priority | Captured removal of priority 1, restored system ID priority 32768, and subsequent link/bundle transitions |
+| LACP port priority | Earlier summary reports a selection experiment; no dedicated priority-change capture is retained |
+| Negotiation variants and static asymmetry | Earlier summary reports active/active, passive/passive, auto/auto, and asymmetric-static tests; separate raw test records are not included |
+| LACP fast rate and Layer 4 hashing | Captured CLI help does not offer these choices in the shown contexts on this image |
+| `min-links` and `test etherchannel load-balance` | Unsupported-command reports are retained in the earlier summary only; raw rejection captures are absent |
+| Fast switchover and standalone forwarding | Fast switchover was skipped; standalone-disable configuration was inspected, but a standalone forwarding-failure test was not performed |
+| Layer 3 EtherChannel | Temporary routed Po40 configuration and removal are captured; no addressed, physically bundled Layer 3 forwarding test |
 
 [Module overview](../README.md) · [Configuration guide](../configs/README.md)

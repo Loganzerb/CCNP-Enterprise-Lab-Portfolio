@@ -1,4 +1,4 @@
-# Scenario 1 — HSRP Upstream Black Hole
+# Case 01 — An active HSRP gateway loses its upstream path
 
 ## Problem
 

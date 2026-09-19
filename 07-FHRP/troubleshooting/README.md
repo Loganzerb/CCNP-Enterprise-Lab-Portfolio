@@ -1,4 +1,4 @@
-# FHRP Troubleshooting Case Studies
+# FHRP troubleshooting
 
 Three cases demonstrate different failure classes:
 

@@ -1,4 +1,4 @@
-# Scenario 2 — HSRP Version Mismatch
+# Case 02 — An HSRP version mismatch breaks peer recognition
 
 ## Problem
 

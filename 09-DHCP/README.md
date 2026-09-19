@@ -1,4 +1,4 @@
-# 09 — DHCP: Reliable Addressing and Troubleshooting
+# 09 — DHCP: Address assignment and recovery
 
 DHCP gives devices the network settings they need to communicate. This lab examines what happens when those settings are missing, incorrect, or out of sync—and how to verify that service has actually recovered.
 
@@ -20,7 +20,7 @@ For a quick review, read [Case 02 — An address without remote access](troubles
 
 For deeper technical discussion, read [Case 03 — Client and server disagree about a lease](troubleshooting/03-lease-state-mismatch.md). It compares evidence from both devices and distinguishes a server sending a response from a client processing it.
 
-## Lab topology
+## Lab design
 
 ![DHCP lab: two clients connect through DIST-SW to a server on VLAN 99; all three links are access links](topology.png)
 
@@ -41,7 +41,7 @@ CLIENT-A received `10.10.10.21/24`. CLIENT-B progressed from `10.10.20.21` to `.
 - **Recovery verification:** confirm the client's settings, the server's matching record and communication across the network boundary.
 - **Technical judgment:** separate observed results from explanations that still require more evidence.
 
-## Explore the section
+## Explore the files
 
 | Location | What you will find |
 |---|---|
@@ -52,7 +52,8 @@ CLIENT-A received `10.10.10.21/24`. CLIENT-B progressed from `10.10.20.21` to `.
 
 ## Evidence scope
 
-The cases use console output pasted during the September 12–13 lab in **MASTERCLASS CCNP LAB PART 3** and **MASTERCLASS CCNP LAB PART 4**. The 15 evidence files retain 45 source messages, with chat formatting normalized and source IDs recorded. These were guided, controlled exercises.
+These guided exercises retain 15 evidence files, including the captured server-pool settings. The [verification guide](verification/README.md) explains their source and the client address progression.
 
 Configuration files reconstruct the working setup from the lab record; they are not complete running-config exports. No DHCP CML export was attached. The recorded results establish address assignment, selected protocol behavior and CLIENT-B-to-server reachability. DNS resolution, Internet access, natural T2/lease-expiry behavior and a DHCPDECLINE incident were not demonstrated.
 
+[Back to portfolio](../README.md)

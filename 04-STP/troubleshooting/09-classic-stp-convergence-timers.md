@@ -1,4 +1,4 @@
-# Case 09 — Understanding Recovery Without Inventing a Stopwatch Result
+# Case 09 — STP recovery: timer settings and observed behavior
 
 ## Why this matters
 

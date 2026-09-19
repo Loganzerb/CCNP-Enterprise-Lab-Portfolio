@@ -1,4 +1,4 @@
-# Case 02 — Forwarding Fails After Enabling LACP Max-Bundle
+# Case 02 — Forwarding fails after enabling LACP max-bundle
 
 ## Problem and impact
 

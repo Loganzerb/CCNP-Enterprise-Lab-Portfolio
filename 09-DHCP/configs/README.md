@@ -1,4 +1,4 @@
-# Configurations: roles and reconstruction
+# DHCP configuration guide
 
 The switch connects three networks, the server supplies two address pools, and the clients request their settings automatically. These files make the setup reviewable and provide a starting point for rebuilding it in CML.
 

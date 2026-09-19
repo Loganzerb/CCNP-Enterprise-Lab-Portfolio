@@ -1,6 +1,6 @@
-# Case 11 — One Member Fails, Then the Whole Bundle Stops Forming
+# Case 11 — One member fails, then the whole bundle stops forming
 
-## Problem in plain English
+## Problem and impact
 
 Two physical links can operate as one logical connection. Losing one member does not necessarily remove that logical path. A separate failure that prevents the bundle from forming can remove it entirely.
 

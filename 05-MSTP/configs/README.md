@@ -1,4 +1,4 @@
-# Configurations: what each device contributes
+# MSTP configuration guide
 
 These five original files preserve the saved switch configurations. Read them alongside the evidence: a saved setting explains the design, while a capture shows what the switch reported at a particular experiment stage.
 

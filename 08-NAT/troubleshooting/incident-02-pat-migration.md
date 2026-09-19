@@ -17,10 +17,10 @@ The successful NAT-EDGE check is part of the original incident brief. No origina
 ## Evidence sources
 
 - [Original Incident 02 YAML](../configs/incident-02-original.yaml): direct evidence of the faulty overload statement, global limit, existing interface roles, ACL, and routing.
-- [Final user-pasted verification](../verification/incident-02-final.txt): corrected NAT configuration, interface definitions, ACL, four ping runs, simultaneous ICMP and TCP tables, and final statistics.
+- [Final verification](../verification/incident-02-final.txt): corrected NAT configuration, interface definitions, ACL, four ping runs, simultaneous ICMP and TCP tables, and final statistics.
 - [Exact configuration changes](../configs/incident-02-NAT-EDGE-changes.diff): reconstructed repairs plus removal of the unused pool for the clean deliverable.
 
-The user reported the repair complete before posting final outputs. No intermediate Incident 02 failure table or exact edit sequence was pasted. The analysis below explains the original faults and final proof without fabricating intermediate symptoms or commands.
+The retained Incident 02 output begins with post-repair verification. Intermediate failure tables and the exact edit sequence are unavailable; the analysis uses the original fault configuration and final captures.
 
 ## Diagnosis 1 — PAT selected the wrong interface address
 
@@ -66,7 +66,7 @@ ISP's route to `192.0.2.0/24` was inherited from the pooled NAT exercises. It wa
 
 ## Repair reference and cleanup
 
-This is a reference sequence, not a transcript of the user's edits. During a lab mode change, stop existing test traffic and clear affected dynamic translations if IOS requires it before replacing an in-use rule. Resume tests after the rule change; do not treat repeated clearing as the solution.
+This reference sequence summarizes the repair; it is not a captured command transcript. During a lab mode change, stop existing test traffic and clear affected dynamic translations if IOS requires it before replacing an in-use rule. Resume tests after the rule change; do not treat repeated clearing as the solution.
 
 ```cisco
 configure terminal
@@ -138,7 +138,7 @@ These counters support the successful endpoint and state evidence. They do not m
 
 The retained evidence verifies the corrected interface rule, subnet eligibility, both client identities sharing the intended global address, successful 20/20 and 50/50 runs, and two active translations after removal of the one-entry ceiling.
 
-The original ticket also requested overlapping ping runs in both start orders and continued stability without repeated clearing/reloads. Exact start order, absence of intervening clears/reloads, and a saved-configuration confirmation are not independently documented in the retained output. They remain evidence gaps, not fabricated passes or evidence of a known ongoing fault. For a strict ticket audit, a fresh time-ordered capture of both start orders and save confirmation would complete those points.
+The original ticket also requested overlapping ping runs in both start orders and continued stability without repeated clearing/reloads. Exact start order, absence of intervening clears/reloads, and a saved-configuration confirmation are not independently documented in the retained output. The retained output does not resolve those requirements. For a strict ticket audit, a fresh time-ordered capture of both start orders and save confirmation would complete those points.
 
 ## Lessons carried forward
 

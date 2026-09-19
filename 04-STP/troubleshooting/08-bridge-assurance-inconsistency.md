@@ -1,4 +1,4 @@
-# Case 08 — A Network Link Stops Participating in Control-Message Exchange
+# Case 08 — A network link stops exchanging control messages
 
 ## Why this matters
 
@@ -23,7 +23,7 @@ The pre-change capture has **no `*BA_Inc` failure state**. The exact fault actio
 
 Compare both peers' configuration and interface detail. Determine whether they are intended network ports, whether the physical link is up, and what each side reports about BPDU exchange. Use inconsistent-port output and logs to identify the condition.
 
-Reference checks include `show spanning-tree interface gigabitEthernet 0/1 detail`, `show spanning-tree inconsistentports`, and `show logging`. These are replay checks, not an invented troubleshooting transcript.
+Reference checks include `show spanning-tree interface gigabitEthernet 0/1 detail`, `show spanning-tree inconsistentports`, and `show logging`. These are suggested replay checks.
 
 ## Recovery and verification
 

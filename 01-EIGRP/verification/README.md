@@ -24,6 +24,6 @@ The general captures are separate from the incident excerpts. Several topology f
 
 A passive route is not undergoing a diffusing computation at the time of the check. This differs from a passive interface, which suppresses neighbor formation. Neither state alone proves endpoint delivery.
 
-Case 02 has no captured Active/Query/Reply event and no Stuck-in-Active event. The saved data establishes pre-failure eligibility and the post-failure route, not the duration or packet-level sequence between them.
+For Case 02, compare the pre-failure eligibility check with the installed replacement route. Its [case study](../troubleshooting/scenario-2-no-feasible-successor-dual-recalculation.md) explains the uncaptured transition.
 
 [Module overview](../README.md) · [Configuration guide](../configs/README.md) · [Case index](../troubleshooting/README.md)

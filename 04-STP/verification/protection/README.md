@@ -2,7 +2,7 @@
 
 The lab uses protection mechanisms to respond to unsafe switching conditions. Their names are similar, but they react to different signals.
 
-| Feature | Plain-English purpose in the documented exercise | Evidence retained here |
+| Feature | Purpose in the documented exercise | Evidence retained here |
 |---|---|---|
 | BPDU Guard | Respond when a supposed endpoint connection receives switch control messages | [SW2/SW3 edge policy](../../configs/README.md); [exercise account](../../troubleshooting/01-bpdu-guard-rogue-switch.md) |
 | Root Guard | Prevent an attached switch from taking over the intended root direction | [Exercise account](../../troubleshooting/02-root-guard-root-inconsistent.md); no dedicated failure/recovery capture |

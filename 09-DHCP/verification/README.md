@@ -1,4 +1,4 @@
-# Verification: what the evidence establishes
+# DHCP verification guide
 
 The evidence follows the lab from failed address assignment to confirmed recovery. Each text file starts with a short explanation, then preserves the console output and source-message identifiers.
 
@@ -51,7 +51,7 @@ These are displayed timer values. Renewals were forced during the lab; natural T
 
 ## Evidence handling
 
-Captures contain user-pasted output from Parts 3 and 4, rather than assistant-written examples. HTML space entities, Markdown escapes and line endings are normalized; prompts, abbreviated commands, timestamps and device messages are retained. Source conversation and message IDs accompany each block.
+Captures contain console output recorded during Parts 3 and 4. HTML space entities, Markdown escapes and line endings are normalized; prompts, abbreviated commands, timestamps and device messages are retained. Source conversation and message IDs accompany each block.
 
 Device clocks were not verified as synchronized. Server counters are cumulative, and separate debug attempts are identified as such. A server pinging itself is excluded from the final proof; the retained final ping originates from CLIENT-B.
 

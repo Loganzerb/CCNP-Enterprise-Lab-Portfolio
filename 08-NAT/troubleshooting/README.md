@@ -7,4 +7,4 @@
 
 Both cases separate original configuration evidence, retained repair checkpoints, and final measurements. Suggested reproduction commands are labelled as such; they are not substituted for missing terminal history.
 
-The shorter controlled failures are covered in the [guided labs](../verification/guided-labs.md). The [top-level artifact index](../README.md#artifact-index) explains every technical file in plain English.
+The [guided labs](../verification/guided-labs.md) cover the shorter controlled failures. Use the [capture index](../verification/README.md#capture-index) for original output and the [configuration guide](../configs/README.md) for exports and repairs.

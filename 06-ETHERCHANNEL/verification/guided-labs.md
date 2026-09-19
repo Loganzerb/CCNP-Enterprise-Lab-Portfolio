@@ -53,6 +53,6 @@ Contrast this with [Case 01](../troubleshooting/case-01-vlan-mask-mismatch.md): 
 | [Nondefault standalone setting](../troubleshooting/standalone-disable-nondefault-config.txt) / [restored setting](../troubleshooting/standalone-disable-restored-config.txt) | The no-form appears before restoration; the restored default is omitted from the later config | The IOS message about already-standalone ports is advisory, not evidence that such a forwarding test occurred |
 | [Temporary routed Po40](../troubleshooting/layer3-port-channel-capability.txt) / [cleanup](../troubleshooting/layer3-port-channel-cleanup.txt) | Po40 accepts no switchport and has no IP address; the later section query is empty | This proves a configuration capability and removal, not a working physical Layer 3 EtherChannel |
 
-The earlier summary reported additional negotiation and hashing experiments for which raw captures were not supplied. Their status is retained in the [module coverage table](../README.md#coverage-and-boundaries), without promoting those reports to measured proof.
+The earlier summary reported additional negotiation and hashing experiments for which raw captures were not supplied. Their status is retained in the [coverage table](README.md#coverage-and-boundaries), without promoting those reports to measured proof.
 
 [Module overview](../README.md) · [Final evidence index](README.md) · [Troubleshooting index](../troubleshooting/README.md)
