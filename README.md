@@ -1,10 +1,10 @@
 # CCNP Enterprise Lab Portfolio
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, switching, gateway redundancy, address translation, and DHCP services.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, switching, gateway redundancy, address translation, DHCP, and time synchronization.
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
 
-**9 technology modules · 233 text evidence files · 10 topology diagrams · 5 CML lab exports**
+**10 technology modules · 233 text evidence files · 11 topology diagrams · 6 CML lab exports**
 
 ## Start with these three cases
 
@@ -39,6 +39,7 @@ O2 received replies to all five probes sent to O4, but OSPF stalled in `EXSTART`
 | [07 — FHRP](07-FHRP/README.md) | Gateway redundancy, upstream tracking, and recovery | [Successful traffic conceals a version mismatch](07-FHRP/troubleshooting/scenario-2-hsrp-version-mismatch.md) |
 | [08 — NAT/PAT](08-NAT/README.md) | Translation, address sharing, and integrated faults | [Restore access after PAT migration](08-NAT/troubleshooting/incident-02-pat-migration.md) |
 | [09 — DHCP](09-DHCP/README.md) | Address assignment, relay, and lease-state diagnosis | [A valid address without remote access](09-DHCP/troubleshooting/02-incorrect-default-gateway.md) |
+| [10 — NTP](10-NTP/README.md) | Time hierarchy, source failover, and service-specific diagnosis | [Ping works while time updates stop](10-NTP/troubleshooting/03-acl-udp123.md) |
 
 ## How to review the work
 
@@ -56,7 +57,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 
 ## Reuse a lab
 
-CML exports are available for [STP](04-STP/CCNP_MASTERCLASS_STP.yaml), [MSTP](05-MSTP/CCNP_MASTERCLASS_MSTP.yaml), [EtherChannel](06-ETHERCHANNEL/CML-LAB.yaml), and the two NAT fault states: [Incident 01](08-NAT/configs/incident-01-original.yaml) and [Incident 02](08-NAT/configs/incident-02-original.yaml).
+CML exports are available for [STP](04-STP/CCNP_MASTERCLASS_STP.yaml), [MSTP](05-MSTP/CCNP_MASTERCLASS_MSTP.yaml), [EtherChannel](06-ETHERCHANNEL/CML-LAB.yaml), [NTP](10-NTP/CCNP_MASTERCLASS_LAB_September_18th.yaml), and the two NAT fault states: [Incident 01](08-NAT/configs/incident-01-original.yaml) and [Incident 02](08-NAT/configs/incident-02-original.yaml).
 
 Read the module's configuration guide before import. Exports represent different experiment stages; check image mappings, interface wiring, and VLAN creation before establishing a fresh baseline. Other modules provide extracts, selected settings, or reconstructed configurations, with their scope explained in the guides.
 
@@ -64,4 +65,4 @@ Read the module's configuration guide before import. Exports represent different
 
 This portfolio records controlled lab work. Cases identify whether a result comes from captured output, a recorded observation, or configuration analysis. Missing measurements and reconstructed commands are labeled where relevant.
 
-The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown. Diagrams explain the designs; the linked captures establish the recorded behavior.
+The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP evidence blocks. Diagrams explain the designs; the linked captures establish the recorded behavior.
