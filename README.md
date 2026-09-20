@@ -1,10 +1,10 @@
 # CCNP Enterprise Lab Portfolio
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, switching, gateway redundancy, address translation, DHCP, and time synchronization.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, traffic policy, switching, gateway redundancy, address translation, DHCP, and time synchronization.
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
 
-**10 technology modules · 233 text evidence files · 11 topology diagrams · 6 CML lab exports**
+**11 technology modules · 233 text evidence files · 12 topology diagrams · 6 CML lab exports**
 
 ## Start with these three cases
 
@@ -40,6 +40,7 @@ O2 received replies to all five probes sent to O4, but OSPF stalled in `EXSTART`
 | [08 — NAT/PAT](08-NAT/README.md) | Translation, address sharing, and integrated faults | [Restore access after PAT migration](08-NAT/troubleshooting/incident-02-pat-migration.md) |
 | [09 — DHCP](09-DHCP/README.md) | Address assignment, relay, and lease-state diagnosis | [A valid address without remote access](09-DHCP/troubleshooting/02-incorrect-default-gateway.md) |
 | [10 — NTP](10-NTP/README.md) | Time hierarchy, source failover, and service-specific diagnosis | [Ping works while time updates stop](10-NTP/troubleshooting/03-acl-udp123.md) |
+| [11 — PBR](11-PBR/README.md) | Selective forwarding, policy logic, and next-hop recovery | [A next-hop route remains while the policy path changes](11-PBR/troubleshooting/02-next-hop-failure.md) |
 
 ## How to review the work
 
@@ -65,4 +66,4 @@ Read the module's configuration guide before import. Exports represent different
 
 This portfolio records controlled lab work. Cases identify whether a result comes from captured output, a recorded observation, or configuration analysis. Missing measurements and reconstructed commands are labeled where relevant.
 
-The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP evidence blocks. Diagrams explain the designs; the linked captures establish the recorded behavior.
+The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks and 30 numbered PBR blocks. Diagrams explain the designs; the linked captures establish the recorded behavior.
