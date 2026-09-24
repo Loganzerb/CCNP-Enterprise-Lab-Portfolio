@@ -25,7 +25,7 @@ The same helper was then added under Vlan20. [The second capture](../verificatio
 
 ## Why the correction fits the evidence
 
-A new client's DHCP broadcast is local to its network. The relay forwards it to the remote server and identifies the client subnet. Cisco documents that role for [ip helper-address and the giaddr field](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_dhcp/configuration/15-s/dhcp-15-s-book/dhcp-relay-agent.html).
+A new client's DHCP broadcast is local to its network. The relay forwards it to the remote server and identifies the client subnet. Cisco documents that role for ip helper-address and the giaddr field.
 
 A [later server debug](../verification/08-relayed-dora-and-new-binding.txt) directly records CLIENT-B's Discover through relay `10.10.20.1`, followed by Offer, Request and ACK.
 

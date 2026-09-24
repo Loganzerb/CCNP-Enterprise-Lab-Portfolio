@@ -54,6 +54,6 @@ Run endpoint tests as well as router checks. In the final PAT exercise, persiste
 
 ## Protocol references
 
-Cisco describes overload as sharing global addresses through protocol/port state; both interface and pool forms are supported. See the [Cisco NAT FAQ](https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/26704-nat-faq-00.pdf). The global translation limit is documented in the [IOS IP Addressing Services Command Reference](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-i4.html). These references explain mechanisms; the lab captures above establish this project's measured results.
+Cisco describes overload as sharing global addresses through protocol/port state; both interface and pool forms are supported. See the Cisco NAT FAQ. The global translation limit is documented in the IOS IP Addressing Services Command Reference. These references explain mechanisms; the lab captures above establish this project's measured results.
 
 [Module overview](../README.md) · [Case index](../troubleshooting/README.md)

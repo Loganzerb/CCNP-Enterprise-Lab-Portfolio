@@ -52,7 +52,7 @@ ip nat translation max-entries 1
 
 PAT allows address sharing but still requires translation state for flows. A one-entry limit conflicts with the requirement to sustain multiple concurrent translations. Correcting only the interface reference would leave this separate capacity constraint in place.
 
-**Inspection:** include global NAT settings in the review; the overload line alone does not describe the entire policy. [Cisco's command reference](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-i4.html) defines `ip nat translation max-entries` as a maximum NAT table size.
+**Inspection:** include global NAT settings in the review; the overload line alone does not describe the entire policy. defines `ip nat translation max-entries` as a maximum NAT table size.
 
 **Repair:** remove the one-entry limit using the corresponding `no ip nat translation max-entries` command.
 

@@ -47,7 +47,7 @@ The final client lease reports:
 | Renewal / T1 | 43200 | 12 hours |
 | Rebind / T2 | 75600 | 21 hours |
 
-These are displayed timer values. Renewals were forced during the lab; natural T1/T2 expiration was not observed. The standard describes renewal with the original server at T1, broadcast rebinding at T2, and stopping use of the address when the lease expires. [RFC 2131, section 4.4.5](https://datatracker.ietf.org/doc/html/rfc2131#section-4.4.5).
+These are displayed timer values. Renewals were forced during the lab; natural T1/T2 expiration was not observed. The standard describes renewal with the original server at T1, broadcast rebinding at T2, and stopping use of the address when the lease expires.
 
 ## Evidence handling
 

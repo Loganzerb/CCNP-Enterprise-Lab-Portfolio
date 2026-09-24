@@ -35,7 +35,7 @@ flowchart LR
     R3 -->|"RP-Discovery<br/>224.0.1.40"| Domain["PIM routers<br/>learn the selected RP"]
 ```
 
-The Candidate RP advertises its candidacy; the Mapping Agent distributes the selected group-to-RP mapping. In this sparse-mode-only lab, `ip pim autorp listener` supplies dense-mode forwarding treatment for the two Auto-RP control groups. It does not make a router a Mapping Agent or change the test group's ordinary sparse-mode forwarding. [Cisco Auto-RP behavior](https://www.cisco.com/c/en/us/support/docs/ip/multicast/118405-config-rp-00.html)
+The Candidate RP advertises its candidacy; the Mapping Agent distributes the selected group-to-RP mapping. In this sparse-mode-only lab, `ip pim autorp listener` supplies dense-mode forwarding treatment for the two Auto-RP control groups. It does not make a router a Mapping Agent or change the test group's ordinary sparse-mode forwarding.
 
 ## Migration from the working static baseline
 
@@ -80,13 +80,13 @@ The final source path is **10.1.1.10 → R1 → R3 → R4 → 10.4.4.10**. R4 re
 
 ### Registration versus native forwarding
 
-At startup, the first-hop router encapsulates original multicast data in a unicast PIM Register toward the RP. In normal PIM-SM operation, Register-Stop suppresses continued data registration once the relevant native forwarding conditions are met. Periodic registration checks can still occur. [Cisco PIM troubleshooting](https://www.cisco.com/c/en/us/support/docs/ip/ip-multicast/13726-57.html)
+At startup, the first-hop router encapsulates original multicast data in a unicast PIM Register toward the RP. In normal PIM-SM operation, Register-Stop suppresses continued data registration once the relevant native forwarding conditions are met. Periodic registration checks can still occur.
 
 The lab captured `Registering` and its later absence, along with the outgoing-branch change. That is **consistent with Register-Stop behavior**; no Register-Stop packet or debug message was supplied. The remaining `F` flag alone is not proof of continuous data encapsulation. The physical Gi0/1 branch disappearing and the registration label clearing are related observations, not the same event.
 
 ### Unicast routes still matter
 
-`show ip route 239.1.1.1` returned [Network not in table](verification/07-autorp-forwarding.md#block-05). Group state belongs in `show ip mroute`. Unicast routes still determine the reverse paths toward the source and RP, which is why the two entries can select different interfaces. [Cisco multicast forwarding overview](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmulti_pim/configuration/15-mt/imc-pim-15-mt-book/imc_tech_oview.html)
+`show ip route 239.1.1.1` returned [Network not in table](verification/07-autorp-forwarding.md#block-05). Group state belongs in `show ip mroute`. Unicast routes still determine the reverse paths toward the source and RP, which is why the two entries can select different interfaces.
 
 ## Engineering lessons learned
 
@@ -103,7 +103,7 @@ The lab captured `Registering` and its later absence, along with the outgoing-br
 
 The 30 new blocks combine 20 retrieved CLI captures with 10 selected excerpts/field summaries supplied in the completed lab handoff. The **19/20** traffic result belongs to the Auto-RP-only migration test. Post-repair validation retains recovered counters, dynamic mapping and forwarding state; no separate complete post-repair ping transcript was supplied.
 
-This lab develops the PIM-SM, source-registration, SPT, RPF and Auto-RP topics in Chapter 13 of the *ENCOR 350-401 Official Cert Guide, Second Edition*. The publisher's [contents](https://ptgmedia.pearsoncmg.com/images/9780138216764/samplepages/9780138216764_Sample.pdf) identify those topics; the Cisco documents linked beside the explanations support the protocol details used here. BSR remains the next lab.
+This lab develops the PIM-SM, source-registration, SPT, RPF and Auto-RP topics in Chapter 13 of the *ENCOR 350-401 Official Cert Guide, Second Edition*. BSR remains the next lab.
 
 [Back to PIM-SM](README.md) · [Back to Multicast](../README.md)
 

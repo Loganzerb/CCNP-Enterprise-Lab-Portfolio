@@ -9,7 +9,7 @@ When the MST region meets Rapid PVST+, inconsistent root information can cause t
 
 **Read the count correctly:** the failure output lists MST0, MST1 and MST2 against the same physical interface, Gi0/2. The displayed total of three is not evidence of three failed physical links.
 
-Cisco documents these as boundary consistency checks involving the VLAN 1/CIST information and other PVST VLANs. [Cisco PVST Simulation reference](https://www.cisco.com/c/en/us/support/docs/lan-switching/multiple-instance-stp-mistp-8021s/116464-configure-pvst-00.html).
+Cisco documents these as boundary consistency checks involving the VLAN 1/CIST information and other PVST VLANs.
 
 The original notes describe correcting both conditions. Only the inferior-VLAN file contains a clear message and a zero-inconsistency check. Neither file retains endpoint tests, and the cleared condition in Case 06 should not be presented as measured application recovery.
 

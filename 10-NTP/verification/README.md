@@ -18,9 +18,9 @@ The evidence is grouped by the question each test answers. Read a short interpre
 | Is the source accepted? | Association markers and detail | A responding source could still be x, insane or invalid |
 | Is the local clock synchronized? | show ntp status | Initial and backup hierarchy captures explicitly report synchronized |
 
-**Reach** is an eight-bit history displayed in octal, not a percentage or a total packet count. **377** represents eight successful recent polls. **1** and **17** show partial rebuilt history; a positive value alone does not prove synchronization. Confirm local state with `show ntp status`. [Cisco's association-output guide](https://www.cisco.com/c/en/us/support/docs/technical-details/220303-verify-ntp-status-with-the-show-ntp-asso.html)
+**Reach** is an eight-bit history displayed in octal, not a percentage or a total packet count. **377** represents eight successful recent polls. **1** and **17** show partial rebuilt history; a positive value alone does not prove synchronization. Confirm local state with `show ntp status`.
 
-The association's **st** field describes the remote source. Local stratum appears in `show ntp status`. In these captures, `*` marks the system peer, `+` a candidate, `x` a falseticker and `~` a configured association. Detailed `insane, invalid` output means the source's time is not accepted. [Cisco's NTP troubleshooting guide](https://www.cisco.com/c/en/us/support/docs/ip/network-time-protocol-ntp/116161-trouble-ntp-00.html)
+The association's **st** field describes the remote source. Local stratum appears in `show ntp status`. In these captures, `*` marks the system peer, `+` a candidate, `x` a falseticker and `~` a configured association. Detailed `insane, invalid` output means the source's time is not accepted.
 
 The [R3 baseline pair](01-hierarchy.md#block-03) is particularly useful: the association had a selected marker while local status still said unsynchronized and FREQ. A [later status](01-hierarchy.md#block-05) explicitly recorded synchronized and CTRL.
 

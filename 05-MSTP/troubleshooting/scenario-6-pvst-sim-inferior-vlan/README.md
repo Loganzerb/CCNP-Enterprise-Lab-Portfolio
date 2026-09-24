@@ -20,7 +20,7 @@ A BPDU is the control message switches use to select spanning-tree paths. Here, 
 
 This directs the investigation toward root-information consistency across the MST/Rapid-PVST+ boundary. The output does not justify treating the problem as three separate failed links.
 
-Cisco's [PVST Simulation explanation](https://www.cisco.com/c/en/us/support/docs/lan-switching/multiple-instance-stp-mistp-8021s/116464-configure-pvst-00.html) describes the consistency requirement between VLAN 1/CIST and the other external VLANs.
+Cisco's PVST Simulation explanation describes the consistency requirement between VLAN 1/CIST and the other external VLANs.
 
 ## Correction and captured recovery
 

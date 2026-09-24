@@ -38,7 +38,7 @@ ip pim autorp listener
 end
 ```
 
-R2 retained the Candidate RP role and R3 retained the restored Mapping Agent role. The listener supplies the forwarding treatment needed by the two Auto-RP control groups in this sparse-mode design; it does not assign either role. [Cisco listener behavior](https://www.cisco.com/c/en/us/support/docs/ip/multicast/118405-config-rp-00.html)
+R2 retained the Candidate RP role and R3 retained the restored Mapping Agent role. The listener supplies the forwarding treatment needed by the two Auto-RP control groups in this sparse-mode design; it does not assign either role.
 
 The available record does not establish why commands disappeared or why R4's static command reappeared. No IOS defect or unsaved-configuration cause is asserted.
 

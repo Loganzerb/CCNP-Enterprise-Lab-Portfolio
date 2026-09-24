@@ -23,7 +23,7 @@ The captured traceroute omitted R3. [Block 02](../verification/03-next-hop-failu
 
 ## Interpretation
 
-This is consistent with ordinary PBR falling back to destination-based routing when its directly connected next hop is no longer usable. Cisco documents recursive next-hop support as a separate feature for resolving a nonadjacent policy next hop. [Cisco recursive next-hop guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/xe-16-9/iri-xe-16-9-book/iri-pbr-rec-next-hop-support.pdf)
+This is consistent with ordinary PBR falling back to destination-based routing when its directly connected next hop is no longer usable. Cisco documents recursive next-hop support as a separate feature for resolving a nonadjacent policy next hop.
 
 The installed indirect route is a control-plane observation, not a successful probe to 10.23.1.3. Also, a trace through R4 alone cannot expose the internal decision: an indirect lookup toward R3 would initially use R4 too. The ordinary policy configuration and Cisco's documented behavior support the fallback interpretation; no packet-level PBR debug was captured during the fault.
 

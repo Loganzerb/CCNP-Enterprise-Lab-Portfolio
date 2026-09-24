@@ -30,7 +30,7 @@ This isolated the issue to independent lease records rather than assuming the cl
 
 [Default-policy capture](../verification/10-unknown-renewal.txt) · [Rejection-policy capture](../verification/11-unknown-renewal-nak.txt).
 
-Cisco's [command reference](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-l1.html) describes this policy difference: the default ignores the unknown request, while the configured policy sends a rejection.
+Cisco's command reference describes this policy difference: the default ignores the unknown request, while the configured policy sends a rejection.
 
 ## Check the client independently
 

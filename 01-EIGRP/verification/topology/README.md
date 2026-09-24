@@ -14,7 +14,7 @@ These files contain saved `show ip eigrp topology` output. Several are partial e
 
 In `via 10.13.0.2 (156416/130816)`, the first number is the local total path metric; the second is the neighbor's reported distance (RD). To evaluate a feasible successor, compare that RD with the destination's feasible distance (FD).
 
-FD records the lowest known total distance since the last Active-to-Passive transition. It need not equal today's selected path metric. This distinction follows the [EIGRP specification](https://www.rfc-editor.org/rfc/rfc7868.html#section-2) and is visible in Case 01's post-failure values.
+FD records the lowest known total distance since the last Active-to-Passive transition. It need not equal today's selected path metric. This distinction follows the EIGRP specification and is visible in Case 01's post-failure values.
 
 | Field | Interpretation |
 |---|---|
@@ -30,6 +30,6 @@ In [Case 01](../../troubleshooting/scenario-1-feasible-successor-promotion.md), 
 
 R1 and R2's files stop at a default-route heading; R3's stops at a prefix heading. Some routes in the routing files are absent from these excerpts. Do not interpret that as confirmed withdrawal.
 
-R5 reports topology metric 9175040 for its default. Its protocol file reports RIB scale 128, and its IP route metric is 71680: **9175040 ÷ 128 = 71680**. That matches [Cisco's documented wide-metric scaling](https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_ire-wid-met.html). The different display values do not indicate conflicting routes.
+R5 reports topology metric 9175040 for its default. Its protocol file reports RIB scale 128, and its IP route metric is 71680: **9175040 ÷ 128 = 71680**. That matches Cisco's documented wide-metric scaling. The different display values do not indicate conflicting routes.
 
 [Verification guide](../README.md) · [Routing guide](../routing/README.md)

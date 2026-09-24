@@ -25,7 +25,7 @@ These seven pages retain **69 numbered blocks**: 39 for static RP and 30 for Aut
 | `show ip pim autorp` | Which discovery messages have been sent or received, and is listener forwarding enabled? |
 | Source-to-group ping | Did the receiver reply to the submitted probes? |
 
-For shared-tree state, the reverse-path lookup is toward the RP; for source-tree state, it is toward the source. A matching interface alone does not tell you which tree is in use. [Cisco PIM and RPF behavior](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/multicast/multicast-configuration-guide/pim.html)
+For shared-tree state, the reverse-path lookup is toward the RP; for source-tree state, it is toward the source. A matching interface alone does not tell you which tree is in use.
 
 ## Decode the entries
 

@@ -33,7 +33,7 @@ The [captured policy — Block 01](../verification/04-route-map-sequencing.md#bl
 
 Source A matched the ACL, but the route-map action was deny. Its traffic used normal routing rather than continuing to the later permit. Source B did not match sequence 10 and was eligible for the catch-all sequence.
 
-Cisco distinguishes these steps: a matching route-map deny ends PBR evaluation and uses normal forwarding; a sequence without a match clause applies to all packets reaching it. [Cisco IOS PBR guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/15-mt/iri-15-mt-book/iri-pbr.html)
+Cisco distinguishes these steps: a matching route-map deny ends PBR evaluation and uses normal forwarding; a sequence without a match clause applies to all packets reaching it.
 
 ## Restoration
 

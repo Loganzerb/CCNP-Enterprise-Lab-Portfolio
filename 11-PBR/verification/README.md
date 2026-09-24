@@ -31,7 +31,7 @@ The [before route](01-baseline.md#block-06) and [after route](01-baseline.md#blo
 | Packet reaches a permit sequence with no match clause | It matches that sequence |
 | No policy sequence matches | Use normal routing |
 
-These rules concern an ACL referenced by a PBR route map. They do not describe an interface filtering ACL. [Cisco IOS PBR behavior](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/15-mt/iri-15-mt-book/iri-pbr.html)
+These rules concern an ACL referenced by a PBR route map. They do not describe an interface filtering ACL.
 
 The sequencing exercise recorded **nine ACL matches**, **zero policy-routing packets on deny 10**, and **39 policy-routing packets on permit 20**. Those are separate cumulative counters, not a one-to-one packet ledger.
 
