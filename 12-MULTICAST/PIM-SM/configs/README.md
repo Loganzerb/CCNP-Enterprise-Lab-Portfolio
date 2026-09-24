@@ -1,6 +1,6 @@
 # PIM-SM configuration guide
 
-The six files reconstruct the **static-RP baseline after cleanup** from the lab's setup commands and verification. They are relevant configuration templates, not exported running-configs. No multicast CML YAML was available in the retrieved record.
+The six files reconstruct the **static-RP baseline after cleanup** from the lab's setup commands and verification. They are relevant configuration templates, not exported running-configs. These files preserve the original static checkpoint. Continue with the [Auto-RP migration guide](auto-rp.md) for the completed dynamic-discovery phase.
 
 ## Device files
 
@@ -44,5 +44,5 @@ These templates have been checked against the retained addressing, commands and 
 
 [Exercise commands](exercise-commands.md) contains the temporary static route, the two RP faults, recovery commands and receiver cleanup. Those changes are excluded from the baseline files.
 
-[Back to PIM-SM](../README.md)
+[Auto-RP configuration and rollback](auto-rp.md) · [Back to PIM-SM](../README.md)
 

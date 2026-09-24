@@ -41,7 +41,7 @@ O2 received replies to all five probes sent to O4, but OSPF stalled in `EXSTART`
 | [09 — DHCP](09-DHCP/README.md) | Address assignment, relay, and lease-state diagnosis | [A valid address without remote access](09-DHCP/troubleshooting/02-incorrect-default-gateway.md) |
 | [10 — NTP](10-NTP/README.md) | Time hierarchy, source failover, and service-specific diagnosis | [Ping works while time updates stop](10-NTP/troubleshooting/03-acl-udp123.md) |
 | [11 — PBR](11-PBR/README.md) | Selective forwarding, policy logic, and next-hop recovery | [A next-hop route remains while the policy path changes](11-PBR/troubleshooting/02-next-hop-failure.md) |
-| [12 — Multicast (in progress)](12-MULTICAST/README.md) | Receiver membership, source registration, and multicast path diagnosis | [A ready receiver with no replies](12-MULTICAST/PIM-SM/troubleshooting/03-source-rp-failure.md) |
+| [12 — Multicast (in progress)](12-MULTICAST/README.md) | Static RP, Auto-RP discovery, source registration, and path diagnosis | [Auto-RP discovery cannot recover](12-MULTICAST/PIM-SM/troubleshooting/04-autorp-listener-recovery.md) |
 
 ## How to review the work
 
@@ -67,4 +67,4 @@ Read the module's configuration guide before import. Exports represent different
 
 This portfolio records controlled lab work. Cases identify whether a result comes from captured output, a recorded observation, or configuration analysis. Missing measurements and reconstructed commands are labeled where relevant.
 
-The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 39 numbered Multicast blocks. Diagrams explain the designs; the linked captures establish the recorded behavior.
+The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 69 numbered Multicast blocks, including labeled Auto-RP handoff excerpts. Diagrams explain the designs; the linked captures establish the recorded behavior.

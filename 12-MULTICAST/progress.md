@@ -1,26 +1,30 @@
 # Multicast progress
 
-**Snapshot: September 22, 2026.** This page tracks what is ready to review and what still needs lab evidence.
+**Snapshot: September 23, 2026.** Auto-RP is the latest completed phase. BSR is the next lab.
 
 | Work | Current position |
 |---|---|
-| Six-node topology and OSPF underlay | Built; source and RP paths verified |
-| Static-RP PIM-SM | Receiver membership, shared-tree state, source state and receiver replies captured |
-| RPF path change | Changed and restored the source tree with a temporary unicast route |
-| Receiver-side RP fault | Captured missing mapping, local membership and tree recovery |
-| Source-side RP fault | Captured twenty timeouts and recovered device state; a post-repair reply was reported |
-| Cleanup | Removed the two temporary receiver joins; retained 239.1.1.1 |
-| Auto-RP | Next lab checkpoint; R2 is planned as candidate RP and R3 as mapping agent |
-| BSR | Planned after Auto-RP |
+| Six-node topology and OSPF underlay | Built; different source and RP paths verified |
+| Static-RP PIM-SM | Membership, tree state, receiver replies and three controlled cases documented |
+| RPF path change | Source tree moved with a temporary unicast route and restored |
+| Static RP faults | Receiver-side tree recovery and source-side failure/recovery documented |
+| Auto-RP migration | Listener, Candidate RP and Mapping Agent configured; dynamic mapping verified before static removal across R1–R4 |
+| Auto-RP-only traffic | Captured 19 replies from 20 probes |
+| Auto-RP troubleshooting | Mapping Agent withdrawal distinguished from missing-listener recovery fault |
+| Auto-RP recovery | Listener restored across the domain; R3 counters, R4 dynamic mapping and final source-tree state verified |
+| BSR | Next section when the lab resumes; not completed |
 | IGMPv2/v3, SSM, Bidir-PIM, MSDP | Planned dedicated labs |
 
-## Next evidence to retain
+## Evidence retained
 
-For Auto-RP and BSR, save the configuration changes, learned RP mappings and their origin, receiver membership, source-specific forwarding state and a complete source-to-group ping transcript. Record the baseline before each change and retain the rollback checks.
+The PIM-SM section now contains **69 numbered blocks**: 39 from the original static-RP checkpoint and 30 for Auto-RP. The Auto-RP material combines original CLI captures with selected excerpts supplied in the completed handoff.
 
-For a stronger close to the static-RP work, capture a fresh post-repair ping to 239.3.3.3 during a repeat of the source-side fault, and a source-to-receiver test for 239.2.2.2 after the receiver-side repair. These would add direct traffic verification to the recovery state already retained.
+The Auto-RP migration has a complete 20-probe transcript. Later recovery has counters, mapping and forwarding-state excerpts, without a separate complete post-fix ping transcript. Registration state is captured; receipt of a Register-Stop packet is inferred from the state transition rather than directly captured.
 
-Keep dynamic-RP evidence in a separate phase under PIM-SM so the static-RP baseline and its cases remain reproducible. Add other topic directories when they contain a lab, configuration guide and evidence.
+## Next checkpoint
 
-[Back to Multicast](README.md)
+Begin BSR from a saved, verified Auto-RP baseline. Retain the starting configuration and RP mapping, each intentional phase change, the new mapping origin, traffic results and rollback checks. Keep BSR evidence distinct from this completed Auto-RP phase.
 
+A full final running-config set, CML export and complete post-fix traffic transcript would make the Auto-RP checkpoint easier to reproduce independently. These are additional artifacts, not reasons to mark the completed lab phase as unfinished.
+
+[Read Auto-RP](PIM-SM/auto-rp.md) · [Back to Multicast](README.md)

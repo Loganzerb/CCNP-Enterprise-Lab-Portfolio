@@ -4,6 +4,10 @@ The diamond separates the path toward the Rendezvous Point from the baseline pat
 
 ![Static-RP multicast topology](topology.png)
 
+## Auto-RP phase
+
+The physical diagram above depicts the original static-RP baseline. Auto-RP retains the same wiring and RP address: R2 becomes the Candidate RP and R3 the Mapping Agent. R3 still carries the native source-tree traffic through Gi0/1 toward R4. [Discovery roles and control-message flow](auto-rp.md#same-topology-separate-discovery-roles)
+
 ## Wiring
 
 | Endpoint A | Interface and address | Endpoint B | Interface and address | Subnet |

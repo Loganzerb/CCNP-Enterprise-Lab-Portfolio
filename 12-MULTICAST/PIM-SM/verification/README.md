@@ -1,6 +1,6 @@
 # PIM-SM verification guide
 
-These four pages retain **39 numbered blocks**. Each block gives a short interpretation before the original CLI output, so a reader can inspect the evidence without having to infer why the command was run.
+These seven pages retain **69 numbered blocks**: 39 for static RP and 30 for Auto-RP. Each block identifies its purpose before the evidence. Auto-RP combines original CLI captures with clearly labeled selected handoff excerpts.
 
 | Page | Blocks | What to look for |
 |---|---:|---|
@@ -8,6 +8,9 @@ These four pages retain **39 numbered blocks**. Each block gives a short interpr
 | [02 — RPF path change](02-rpf-path-change.md) | 7 | Static-route selection, changed tree and rollback across R4, R3 and R2 |
 | [03 — Receiver-side RP failure](03-receiver-rp-failure.md) | 6 | Local membership survives while the upstream tree is missing |
 | [04 — Source-side RP failure](04-source-rp-failure.md) | 11 | Healthy receiver tree, missing registration mechanism, timeouts and restored state |
+| [05 — Auto-RP migration](05-autorp-migration.md) | 11 | Candidate/Mapping-Agent setup, coexistence, static removal and 19/20 replies |
+| [06 — Auto-RP failure and recovery](06-autorp-recovery.md) | 11 | Initial outage, stalled recovery, listener diagnosis and recovered discovery |
+| [07 — Auto-RP forwarding](07-autorp-forwarding.md) | 8 | Shared tree, SPT, neighbors, unicast-table distinction, RP prune and FHR registration state |
 
 ## Read the checks together
 
@@ -19,6 +22,7 @@ These four pages retain **39 numbered blocks**. Each block gives a short interpr
 | `show ip pim tunnel` | Does this IOSv router show its PIM registration mechanism? |
 | `show ip rpf <address>` | Which reverse path does the router select toward that source or RP? |
 | `show ip mroute <group>` | What incoming and outgoing interfaces are installed for the group and source? |
+| `show ip pim autorp` | Which discovery messages have been sent or received, and is listener forwarding enabled? |
 | Source-to-group ping | Did the receiver reply to the submitted probes? |
 
 For shared-tree state, the reverse-path lookup is toward the RP; for source-tree state, it is toward the source. A matching interface alone does not tell you which tree is in use. [Cisco PIM and RPF behavior](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/multicast/multicast-configuration-guide/pim.html)
@@ -32,11 +36,10 @@ For shared-tree state, the reverse-path lookup is toward the RP; for source-tree
 
 ## Evidence handling
 
-Output is taken from the submitted lab captures. Cleanup normalizes line endings, decodes escaped spaces and removes Markdown escapes from CLI characters. It does not alter addresses, flags, counters, timeout markers or interleaved logs. Blocks are separate snapshots, not simultaneous measurements.
+Pages 01–05 and Blocks 01–09 of Page 06 retain retrieved lab CLI. Blocks 10–11 of Page 06 and Page 07 retain selected excerpts or field summaries from the completed Auto-RP handoff; missing prompts, timers and fields have not been invented. Cleanup normalizes line endings, decodes escaped spaces and removes Markdown escapes from CLI characters. It does not alter addresses, flags, counters, timeout markers or interleaved logs. Blocks are separate snapshots, not simultaneous measurements.
 
-The baseline multicast ping includes an initial timeout marker and duplicate replies to one request. Their cause was not established by a packet capture. The source-side repair has a reported reply and captured recovered state, but no complete post-repair ping transcript. The receiver-side repair establishes tree recovery only.
+In the static-RP phase, the baseline multicast ping includes an initial timeout marker and duplicate replies to one request. Their cause was not established by a packet capture. The source-side repair has a reported reply and captured recovered state, but no complete post-repair ping transcript. The receiver-side repair establishes tree recovery only.
 
-Configuration commands are reconstructed in the [exercise guide](../configs/exercise-commands.md). They are distinct from these captured results. The presence of `224.0.1.40` in IGMP output is not proof that the planned Auto-RP lab has been completed.
+Configuration commands are reconstructed in the [exercise guide](../configs/exercise-commands.md). They are distinct from these captured results. Membership in `224.0.1.40` alone does not prove dynamic discovery. Auto-RP is established here by role counters and `elected via Auto-RP` mappings after static removal. The captured 19/20 ping belongs to migration; later recovery includes forwarding-state excerpts without a separate complete traffic transcript. Register-Stop is a protocol interpretation consistent with the captured transition, not a retained packet capture.
 
-[Back to cases](../troubleshooting/README.md) · [Back to PIM-SM](../README.md)
-
+[Auto-RP overview](../auto-rp.md) · [Auto-RP configuration](../configs/auto-rp.md) · [Back to cases](../troubleshooting/README.md) · [Back to PIM-SM](../README.md)
