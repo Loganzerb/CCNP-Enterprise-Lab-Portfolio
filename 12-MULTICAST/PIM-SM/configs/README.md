@@ -29,19 +29,6 @@ For BSR, use the [seven-node checkpoint and completion guide](bsr.md). The saved
 
 The RP uses Loopback0; R2's unused Gi0/2 is not part of PIM. During setup, PIM was briefly placed on Gi0/2, then removed and applied to Loopback0. These files reflect the corrected state.
 
-## Rebuild and verify
-
-1. Create six IOSv nodes and follow the [wiring table](../topology.md#wiring).
-2. Apply the appropriate template to each fresh node, using its configuration mode.
-3. Verify interfaces, OSPF neighbors and receiver-to-source unicast reachability.
-4. Check static RP mappings and PIM neighbors. On R4, verify the source RPF via R3 and RP RPF via R2.
-5. Inspect receiver membership and shared-tree state before sending multicast probes from MCAST-SOURCE.
-6. Compare the resulting source entries and replies with the [baseline evidence](../verification/01-baseline.md).
-
-To reproduce the recorded sequence before receiver interest, temporarily remove the baseline join on MCAST-RECEIVER, check the group state after old entries expire, then add the join again. The templates intentionally represent the later clean baseline.
-
-These templates have been checked against the retained addressing, commands and output. They have not been imported and rerun in CML as part of this documentation work. IOS image defaults can affect the initial state; establish a fresh baseline before reproducing the exercises.
-
 ## Exercise changes
 
 [Exercise commands](exercise-commands.md) contains the temporary static route, the two RP faults, recovery commands and receiver cleanup. Those changes are excluded from the baseline files.
