@@ -4,7 +4,7 @@ Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, traffi
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
 
-**12 technology modules · 233 text evidence files · 13 topology diagrams · 6 CML lab exports**
+**12 technology modules · 233 text evidence files · 14 topology diagrams · 7 CML lab exports**
 
 ## Start with these three cases
 
@@ -41,7 +41,7 @@ O2 received replies to all five probes sent to O4, but OSPF stalled in `EXSTART`
 | [09 — DHCP](09-DHCP/README.md) | Address assignment, relay, and lease-state diagnosis | [A valid address without remote access](09-DHCP/troubleshooting/02-incorrect-default-gateway.md) |
 | [10 — NTP](10-NTP/README.md) | Time hierarchy, source failover, and service-specific diagnosis | [Ping works while time updates stop](10-NTP/troubleshooting/03-acl-udp123.md) |
 | [11 — PBR](11-PBR/README.md) | Selective forwarding, policy logic, and next-hop recovery | [A next-hop route remains while the policy path changes](11-PBR/troubleshooting/02-next-hop-failure.md) |
-| [12 — Multicast (in progress)](12-MULTICAST/README.md) | Static RP, Auto-RP discovery, source registration, and path diagnosis | [Auto-RP discovery cannot recover](12-MULTICAST/PIM-SM/troubleshooting/04-autorp-listener-recovery.md) |
+| [12 — Multicast (in progress)](12-MULTICAST/README.md) | Static RP, Auto-RP, BSR resilience, and path diagnosis | [OSPF reaches the BSR, but RP discovery stops](12-MULTICAST/PIM-SM/troubleshooting/07-bsr-propagation.md) |
 
 ## How to review the work
 
@@ -61,10 +61,12 @@ The cases distinguish configured intent, observed device state, and tested servi
 
 CML exports are available for [STP](04-STP/CCNP_MASTERCLASS_STP.yaml), [MSTP](05-MSTP/CCNP_MASTERCLASS_MSTP.yaml), [EtherChannel](06-ETHERCHANNEL/CML-LAB.yaml), [NTP](10-NTP/CCNP_MASTERCLASS_LAB_September_18th.yaml), and the two NAT fault states: [Incident 01](08-NAT/configs/incident-01-original.yaml) and [Incident 02](08-NAT/configs/incident-02-original.yaml).
 
+The [Multicast BSR export](12-MULTICAST/PIM-SM/configs/PIM-SM_BSR_September_24th.yaml) preserves an intermediate seven-node checkpoint; its [configuration guide](12-MULTICAST/PIM-SM/configs/bsr.md) supplies the later completion steps.
+
 Read the module's configuration guide before import. Exports represent different experiment stages; check image mappings, interface wiring, and VLAN creation before establishing a fresh baseline. Other modules provide extracts, selected settings, or reconstructed configurations, with their scope explained in the guides.
 
 ## Evidence scope
 
 This portfolio records controlled lab work. Cases identify whether a result comes from captured output, a recorded observation, or configuration analysis. Missing measurements and reconstructed commands are labeled where relevant.
 
-The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 69 numbered Multicast blocks, including labeled Auto-RP handoff excerpts. Diagrams explain the designs; the linked captures establish the recorded behavior.
+The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 105 numbered Multicast blocks, including labeled Auto-RP handoff excerpts and BSR operator/configuration evidence. Diagrams explain the designs; the linked captures establish the recorded behavior.

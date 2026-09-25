@@ -1,6 +1,6 @@
 # PIM-SM verification guide
 
-These seven pages retain **69 numbered blocks**: 39 for static RP and 30 for Auto-RP. Each block identifies its purpose before the evidence. Auto-RP combines original CLI captures with clearly labeled selected handoff excerpts.
+These twelve pages retain **105 numbered blocks**: 39 for static RP, 30 for Auto-RP and 36 for BSR. Each block identifies its purpose before the evidence. Auto-RP combines original CLI captures with clearly labeled selected handoff excerpts.
 
 | Page | Blocks | What to look for |
 |---|---:|---|
@@ -11,6 +11,11 @@ These seven pages retain **69 numbered blocks**: 39 for static RP and 30 for Aut
 | [05 — Auto-RP migration](05-autorp-migration.md) | 11 | Candidate/Mapping-Agent setup, coexistence, static removal and 19/20 replies |
 | [06 — Auto-RP failure and recovery](06-autorp-recovery.md) | 11 | Initial outage, stalled recovery, listener diagnosis and recovered discovery |
 | [07 — Auto-RP forwarding](07-autorp-forwarding.md) | 8 | Shared tree, SPT, neighbors, unicast-table distinction, RP prune and FHR registration state |
+| [08 — BSR transition](08-bsr-transition.md) | 13 | Remove prior mechanisms, add R5 and verify underlay/PIM participation |
+| [09 — BSR election](09-bsr-election.md) | 9 | Candidate omission, priority, equal-priority tie, isolation and recovery |
+| [10 — BSR propagation](10-bsr-propagation.md) | 7 | Candidate RP with no BSR knowledge, missing PIM and recovered mappings |
+| [11 — BSR forwarding](11-bsr-forwarding.md) | 3 | Receiver shared tree, R4 source tree and R2 source prune |
+| [12 — BSR RP selection](12-bsr-rp-selection.md) | 4 | Two candidates, equal-priority hash selection and final cleanup |
 
 ## Read the checks together
 
@@ -23,6 +28,8 @@ These seven pages retain **69 numbered blocks**: 39 for static RP and 30 for Aut
 | `show ip rpf <address>` | Which reverse path does the router select toward that source or RP? |
 | `show ip mroute <group>` | What incoming and outgoing interfaces are installed for the group and source? |
 | `show ip pim autorp` | Which discovery messages have been sent or received, and is listener forwarding enabled? |
+| `show ip pim bsr-router` | Which BSR is elected, and does this device have a candidate role? |
+| `show ip pim rp-hash <group>` | Which RP wins for this group, and what hash values explain it? |
 | Source-to-group ping | Did the receiver reply to the submitted probes? |
 
 For shared-tree state, the reverse-path lookup is toward the RP; for source-tree state, it is toward the source. A matching interface alone does not tell you which tree is in use.
@@ -42,4 +49,6 @@ In the static-RP phase, the baseline multicast ping includes an initial timeout 
 
 Configuration commands are reconstructed in the [exercise guide](../configs/exercise-commands.md). They are distinct from these captured results. Membership in `224.0.1.40` alone does not prove dynamic discovery. Auto-RP is established here by role counters and `elected via Auto-RP` mappings after static removal. The captured 19/20 ping belongs to migration; later recovery includes forwarding-state excerpts without a separate complete traffic transcript. Register-Stop is a protocol interpretation consistent with the captured transition, not a retained packet capture.
 
-[Auto-RP overview](../auto-rp.md) · [Auto-RP configuration](../configs/auto-rp.md) · [Back to cases](../troubleshooting/README.md) · [Back to PIM-SM](../README.md)
+BSR Pages 08–12 retain Part 5 CLI, a labeled operator report in Page 09 Block 03, and an original CML configuration excerpt in Page 10 Block 05. The repair keystrokes are reconstructed separately. BSR takeover was tested before Candidate RP setup; later forwarding validation has state captures without a complete multicast ping transcript. The Auto-RP 19/20 result is not reused as BSR evidence.
+
+[BSR overview](../bsr.md) · [BSR configuration](../configs/bsr.md) · [Auto-RP overview](../auto-rp.md) · [Auto-RP configuration](../configs/auto-rp.md) · [Back to cases](../troubleshooting/README.md) · [Back to PIM-SM](../README.md)

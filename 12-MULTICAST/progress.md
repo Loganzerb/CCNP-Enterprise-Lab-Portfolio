@@ -1,30 +1,35 @@
 # Multicast progress
 
-**Snapshot: September 23, 2026.** Auto-RP is the latest completed phase. BSR is the next lab.
+**Snapshot: September 25, 2026.** BSR is the latest completed PIM-SM lab phase. The next dedicated topic is IGMPv2/v3.
 
 | Work | Current position |
 |---|---|
-| Six-node topology and OSPF underlay | Built; different source and RP paths verified |
-| Static-RP PIM-SM | Membership, tree state, receiver replies and three controlled cases documented |
+| Original six-node topology | Built; distinct source and RP paths verified |
+| Static-RP PIM-SM | Membership, registration state, receiver replies and three controlled cases documented |
 | RPF path change | Source tree moved with a temporary unicast route and restored |
-| Static RP faults | Receiver-side tree recovery and source-side failure/recovery documented |
-| Auto-RP migration | Listener, Candidate RP and Mapping Agent configured; dynamic mapping verified before static removal across R1–R4 |
-| Auto-RP-only traffic | Captured 19 replies from 20 probes |
-| Auto-RP troubleshooting | Mapping Agent withdrawal distinguished from missing-listener recovery fault |
-| Auto-RP recovery | Listener restored across the domain; R3 counters, R4 dynamic mapping and final source-tree state verified |
-| BSR | Next section when the lab resumes; not completed |
-| IGMPv2/v3, SSM, Bidir-PIM, MSDP | Planned dedicated labs |
+| Auto-RP migration | Dynamic mapping verified before removing static configuration across R1–R4; 19 replies from 20 probes captured |
+| Auto-RP recovery | Listener restored across the domain; counters, mapping and source-tree state documented |
+| Seven-node BSR topology | R5 added as a leaf off R3; OSPF reachability and PIM adjacency captured |
+| BSR election | Missing candidacy corrected; priority and BSR-address tie-break verified |
+| BSR failover/recovery | R3 takes over when R5 is isolated; R3 accepts R5 after reconnection |
+| BSR propagation repair | Missing PIM on R3 Gi0/0 and Gi0/1 corrected; R1–R4 recover matching RP information |
+| BSR forwarding | R4 shared/source-tree state and R2's pruned source entry captured |
+| Candidate RP experiment | Unequal/equal priority and R4's hash selection documented; temporary R3 RP role removed |
+| IGMPv2/v3, SSM, Bidir-PIM, MSDP | Dedicated subsections to follow their completed labs |
+| Final RPF review | Planned; existing RPF work remains linked within PIM-SM |
 
 ## Evidence retained
 
-The PIM-SM section now contains **69 numbered blocks**: 39 from the original static-RP checkpoint and 30 for Auto-RP. The Auto-RP material combines original CLI captures with selected excerpts supplied in the completed handoff.
+PIM-SM contains **105 numbered blocks** across twelve verification pages: 39 static-RP, 30 Auto-RP and 36 BSR. There are seven cases, two topology diagrams and a saved BSR CML checkpoint. The BSR blocks include a labeled operator report and an excerpt from the original export alongside retrieved CLI.
 
-The Auto-RP migration has a complete 20-probe transcript. Later recovery has counters, mapping and forwarding-state excerpts, without a separate complete post-fix ping transcript. Registration state is captured; receipt of a Register-Stop packet is inferred from the state transition rather than directly captured.
+Auto-RP's migration has a complete 20-probe transcript. Its later recovery and the BSR recovery retain mapping and forwarding state without separate complete recovery ping transcripts. Register-Stop behavior is interpreted from the earlier state transition, not a packet capture.
+
+The BSR failover test precedes Candidate RP setup. It establishes election takeover and recovery, not RP failover or a traffic-loss measurement. The supplied CML export also predates Candidate RP setup and retains the missing R3 PIM settings; [completion steps](PIM-SM/configs/bsr.md#complete-the-saved-checkpoint) are documented separately.
 
 ## Next checkpoint
 
-Begin BSR from a saved, verified Auto-RP baseline. Retain the starting configuration and RP mapping, each intentional phase change, the new mapping origin, traffic results and rollback checks. Keep BSR evidence distinct from this completed Auto-RP phase.
+Keep Static RP, Auto-RP and BSR together inside PIM-SM. Add IGMPv2/v3, SSM, Bidir-PIM and MSDP as standalone Multicast subsections once their work is ready. A dedicated RPF subsection can summarize the existing exercises and the final review without duplicating evidence.
 
-A full final running-config set, CML export and complete post-fix traffic transcript would make the Auto-RP checkpoint easier to reproduce independently. These are additional artifacts, not reasons to mark the completed lab phase as unfinished.
+For the next lab handoff, retain the starting export, the significant before/after checks and a complete traffic transcript where delivery is being tested. A final BSR running-config export would complement the existing intermediate checkpoint.
 
-[Read Auto-RP](PIM-SM/auto-rp.md) · [Back to Multicast](README.md)
+[Read BSR](PIM-SM/bsr.md) · [Read Auto-RP](PIM-SM/auto-rp.md) · [Back to Multicast](README.md)

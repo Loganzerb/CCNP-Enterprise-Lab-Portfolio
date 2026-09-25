@@ -4,7 +4,9 @@ Auto-RP lets routers learn the multicast Rendezvous Point (RP) dynamically inste
 
 I migrated the working static-RP lab to Auto-RP, verified delivery without static fallback, and investigated a later discovery failure. The decisive finding was missing Auto-RP listener configuration across the sparse-mode domain. Restoring that transport behavior allowed the Mapping Agent to receive announcements again and the receiver-side router to relearn its RP.
 
-**Completed Auto-RP phase · 30 evidence blocks · BSR is next, not completed**
+**Completed Auto-RP phase · 30 evidence blocks**
+
+Continue with the subsequent [BSR phase](bsr.md) for election resilience and RP-set distribution.
 
 ## Objective and results
 
@@ -103,7 +105,7 @@ The lab captured `Registering` and its later absence, along with the outgoing-br
 
 The 30 new blocks combine 20 retrieved CLI captures with 10 selected excerpts/field summaries supplied in the completed lab handoff. The **19/20** traffic result belongs to the Auto-RP-only migration test. Post-repair validation retains recovered counters, dynamic mapping and forwarding state; no separate complete post-repair ping transcript was supplied.
 
-This lab develops the PIM-SM, source-registration, SPT, RPF and Auto-RP topics in Chapter 13 of the *ENCOR 350-401 Official Cert Guide, Second Edition*. BSR remains the next lab.
+This lab develops the PIM-SM, source-registration, SPT, RPF and Auto-RP topics in Chapter 13 of the *ENCOR 350-401 Official Cert Guide, Second Edition*. The subsequent [BSR lab](bsr.md) extends this work with two candidates, propagation repair and RP selection testing.
 
 [Back to PIM-SM](README.md) · [Back to Multicast](../README.md)
 

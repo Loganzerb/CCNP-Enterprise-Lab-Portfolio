@@ -2,6 +2,8 @@
 
 The six files reconstruct the **static-RP baseline after cleanup** from the lab's setup commands and verification. They are relevant configuration templates, not exported running-configs. These files preserve the original static checkpoint. Continue with the [Auto-RP migration guide](auto-rp.md) for the completed dynamic-discovery phase.
 
+For BSR, use the [seven-node checkpoint and completion guide](bsr.md). The saved export is an intermediate state, distinct from the static templates below.
+
 ## Device files
 
 | File | Purpose |
@@ -44,5 +46,5 @@ These templates have been checked against the retained addressing, commands and 
 
 [Exercise commands](exercise-commands.md) contains the temporary static route, the two RP faults, recovery commands and receiver cleanup. Those changes are excluded from the baseline files.
 
-[Auto-RP configuration and rollback](auto-rp.md) · [Back to PIM-SM](../README.md)
+[BSR configuration and experiments](bsr.md) · [Auto-RP configuration and rollback](auto-rp.md) · [Back to PIM-SM](../README.md)
 
