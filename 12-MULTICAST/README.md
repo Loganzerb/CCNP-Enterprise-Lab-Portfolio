@@ -1,39 +1,37 @@
-# 12 — Multicast: Receiver-driven delivery and path diagnosis
+# PIM-SM configuration guide
 
-Multicast lets a source send traffic to a group of interested receivers. This section follows how the network builds that delivery path, how routing decisions affect it, and how discovery faults can interrupt it even when ordinary routing works.
+The six files reconstruct the **static-RP baseline after cleanup** from the lab's setup commands and verification. They are relevant configuration templates, not exported running-configs. These files preserve the original static checkpoint. Continue with the [Auto-RP migration guide](auto-rp.md) for the completed dynamic-discovery phase.
 
-I built a Cisco Modeling Labs environment to separate receiver membership, RP discovery, source registration and forwarding behavior. The original six-node topology expands to seven nodes for BSR election and recovery testing. Each case connects the diagnosis to device evidence.
+For BSR, use the [seven-node checkpoint and completion guide](bsr.md). The saved export is an intermediate state, distinct from the static templates below.
 
-**In progress · Static RP, Auto-RP and BSR documented · Updated September 25, 2026**
+## Device files
 
-## Start here
+| File | Purpose |
+|---|---|
+| [MCAST-SOURCE.cfg](MCAST-SOURCE.cfg) | IOSv endpoint at 10.1.1.10 with routing disabled |
+| [R1-FHR.cfg](R1-FHR.cfg) | Source LAN gateway, OSPF and PIM on the two upstream branches |
+| [R2-RP.cfg](R2-RP.cfg) | RP loopback 2.2.2.2 and both upper transit links |
+| [R3-TRANSIT.cfg](R3-TRANSIT.cfg) | Lower transit branch used by the baseline source tree |
+| [R4-LHR.cfg](R4-LHR.cfg) | Receiver gateway, static RP and OSPF cost 2 toward R2 |
+| [MCAST-RECEIVER.cfg](MCAST-RECEIVER.cfg) | IOSv endpoint with the baseline 239.1.1.1 join |
 
-[Read the BSR lab](PIM-SM/bsr.md) for discovery resilience, election tests and group-specific RP selection. Its featured case, [OSPF reaches the BSR, but RP discovery stops](PIM-SM/troubleshooting/07-bsr-propagation.md), follows missing PIM settings through restored mappings and forwarding state.
+## Settings that shape the result
 
-The earlier [Auto-RP recovery case](PIM-SM/troubleshooting/04-autorp-listener-recovery.md) examines a different discovery mechanism, while [A ready receiver with no replies](PIM-SM/troubleshooting/03-source-rp-failure.md) isolates a source-side static-RP fault.
+| Setting | Role in this lab |
+|---|---|
+| `ip multicast-routing` on R1–R4 | Enables multicast routing |
+| `ip pim sparse-mode` on participating interfaces | Enables PIM-SM on the source LAN, transit links and receiver LAN |
+| `ip pim rp-address 2.2.2.2` on all four routers | Supplies the common static RP, including on R2 itself |
+| OSPF area 0 | Supplies reachability used by the reverse-path lookups |
+| `ip ospf cost 2` on R4 Gi0/1 | Separates R4's preferred source path from its RP path |
+| `ip igmp join-group 239.1.1.1` on the receiver | Establishes local interest in the baseline group |
+| `no ip routing` and a default gateway on each endpoint | Makes the two IOSv nodes operate as hosts for these tests |
 
-## Current work
+The RP uses Loopback0; R2's unused Gi0/2 is not part of PIM. During setup, PIM was briefly placed on Gi0/2, then removed and applied to Loopback0. These files reflect the corrected state.
 
-| Topic | Status | Available material |
-|---|---|---|
-| [PIM-SM](PIM-SM/README.md) | Static RP, Auto-RP and BSR documented | Two topology diagrams, configuration guides, seven cases and 105 evidence blocks |
-| Reverse Path Forwarding (RPF) | Path-change exercise documented within PIM-SM | [Move the source tree by changing a unicast route](PIM-SM/troubleshooting/01-rpf-path-change.md) |
-| [Auto-RP](PIM-SM/auto-rp.md) | Completed lab phase | Candidate RP, Mapping Agent, listener recovery and native SPT state |
-| [BSR](PIM-SM/bsr.md) | Completed lab phase | BSR election/recovery, RP-set propagation repair, forwarding state and RP hash selection |
-| IGMPv2/v3, SSM, Bidir-PIM and MSDP | Planned dedicated subsections | Add as the corresponding labs are completed |
+## Exercise changes
 
-PIM-SM already uses IGMP receiver membership and RPF checks. Dedicated protocol comparisons and the final RPF review remain future work. BSR stays within PIM-SM; subsequent multicast topics will have their own subsections.
+[Exercise commands](exercise-commands.md) contains the temporary static route, the two RP faults, recovery commands and receiver cleanup. Those changes are excluded from the baseline files.
 
-## Lab at a glance
+[BSR configuration and experiments](bsr.md) · [Auto-RP configuration and rollback](auto-rp.md) · [Back to PIM-SM](../README.md)
 
-![BSR topology with R5 added to the multicast diamond](PIM-SM/topology-bsr.png)
-
-R5 provides another Candidate BSR without becoming a source-to-receiver transit router. R2 remains the RP, and the receiver-side router has different paths toward the RP and the source.
-
-[Original topology](PIM-SM/topology.md) · [BSR wiring](PIM-SM/topology-bsr.md) · [Troubleshooting](PIM-SM/troubleshooting/README.md) · [Evidence guide](PIM-SM/verification/README.md) · [Progress](progress.md)
-
-## Evidence scope
-
-The portfolio separates captured output, operator observations and reconstructed commands. The supplied BSR export is an intermediate checkpoint, with completion steps documented. Forwarding state and measured receiver replies are identified separately; the BSR work does not reuse the earlier Auto-RP ping result as new evidence.
-
-[Back to portfolio](../README.md)
