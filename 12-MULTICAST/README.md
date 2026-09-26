@@ -1,39 +1,28 @@
-# 12 — Multicast: Receiver-driven delivery and path diagnosis
+# 12 — Multicast
 
-Multicast lets a source send traffic to a group of interested receivers. This section follows how the network builds that delivery path, how routing decisions affect it, and how discovery faults can interrupt it even when ordinary routing works.
+Multicast delivers a source's traffic to interested receivers. This portfolio follows how routers discover the Rendezvous Point (RP), build delivery paths, and recover when routing or discovery fails. Each lab connects the intended behavior to troubleshooting decisions and recorded device evidence.
 
-I built a Cisco Modeling Labs environment to separate receiver membership, RP discovery, source registration and forwarding behavior. The original six-node topology expands to seven nodes for BSR election and recovery testing. Each case connects the diagnosis to device evidence.
+## Explore the topics
 
-**In progress · Static RP, Auto-RP and BSR documented · Updated September 25, 2026**
-
-## Start here
-
-[Read the BSR lab](PIM-SM/bsr.md) for discovery resilience, election tests and group-specific RP selection. Its featured case, [OSPF reaches the BSR, but RP discovery stops](PIM-SM/troubleshooting/07-bsr-propagation.md), follows missing PIM settings through restored mappings and forwarding state.
-
-The earlier [Auto-RP recovery case](PIM-SM/troubleshooting/04-autorp-listener-recovery.md) examines a different discovery mechanism, while [A ready receiver with no replies](PIM-SM/troubleshooting/03-source-rp-failure.md) isolates a source-side static-RP fault.
-
-## Current work
-
-| Topic | Status | Available material |
+| Topic | Current work | Start here |
 |---|---|---|
-| [PIM-SM](PIM-SM/README.md) | Static RP, Auto-RP and BSR documented | Two topology diagrams, configuration guides, seven cases and 105 evidence blocks |
-| Reverse Path Forwarding (RPF) | Path-change exercise documented within PIM-SM | [Move the source tree by changing a unicast route](PIM-SM/troubleshooting/01-rpf-path-change.md) |
-| [Auto-RP](PIM-SM/auto-rp.md) | Completed lab phase | Candidate RP, Mapping Agent, listener recovery and native SPT state |
-| [BSR](PIM-SM/bsr.md) | Completed lab phase | BSR election/recovery, RP-set propagation repair, forwarding state and RP hash selection |
-| IGMPv2/v3, SSM, Bidir-PIM and MSDP | Planned dedicated subsections | Add as the corresponding labs are completed |
+| **PIM-SM** | Static RP, Auto-RP and BSR completed; seven cases and 105 evidence blocks | [PIM-SM overview](PIM-SM/README.md) |
+| **IGMPv2/v3** | Lab in progress; portfolio section pending | Will be a standalone subsection alongside PIM-SM |
+| **RPF** | Routing and path-change work already appears within PIM-SM; dedicated review pending | [RPF path-change case](PIM-SM/troubleshooting/01-rpf-path-change.md) |
+| **SSM, Bidir-PIM and MSDP** | Future dedicated subsections | Add after their respective labs are completed |
 
-PIM-SM already uses IGMP receiver membership and RPF checks. Dedicated protocol comparisons and the final RPF review remain future work. BSR stays within PIM-SM; subsequent multicast topics will have their own subsections.
+## Choose a PIM-SM phase
 
-## Lab at a glance
+The three phases build on the same multicast scenario. Each has its own overview and links to its configuration, evidence and cases.
 
-![BSR topology with R5 added to the multicast diamond](PIM-SM/topology-bsr.png)
+| Phase | Engineering focus |
+|---|---|
+| [01 — Static RP](PIM-SM/static-rp.md) | Establish forwarding, trace the shared/source trees and isolate faults at either edge |
+| [02 — Auto-RP](PIM-SM/auto-rp.md) | Migrate to dynamic RP discovery and restore control-message transport |
+| [03 — BSR](PIM-SM/bsr.md) | Test election resilience, repair RP-set propagation and explain RP selection |
 
-R5 provides another Candidate BSR without becoming a source-to-receiver transit router. R2 remains the RP, and the receiver-side router has different paths toward the RP and the source.
+For a quick technical review, start with [OSPF reaches the BSR, but RP discovery stops](PIM-SM/troubleshooting/07-bsr-propagation.md). Ordinary routes were present; missing PIM settings on two transit interfaces prevented discovery from working throughout the domain.
 
-[Original topology](PIM-SM/topology.md) · [BSR wiring](PIM-SM/topology-bsr.md) · [Troubleshooting](PIM-SM/troubleshooting/README.md) · [Evidence guide](PIM-SM/verification/README.md) · [Progress](progress.md)
-
-## Evidence scope
-
-The portfolio separates captured output, operator observations and reconstructed commands. The supplied BSR export is an intermediate checkpoint, with completion steps documented. Forwarding state and measured receiver replies are identified separately; the BSR work does not reuse the earlier Auto-RP ping result as new evidence.
+[All PIM-SM cases](PIM-SM/troubleshooting/README.md) · [Evidence by phase](PIM-SM/verification/README.md) · [Progress and evidence scope](progress.md)
 
 [Back to portfolio](../README.md)

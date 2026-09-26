@@ -4,9 +4,16 @@ Multicast routers need a consistent way to find the Rendezvous Point (RP), where
 
 The strongest troubleshooting result came when ordinary routing worked but RP discovery did not. I traced the gap to missing PIM settings on two R3 interfaces, restored participation, and verified that the routers learned the same RP. A final experiment used the device's hash output to explain an RP choice that contradicted the initial prediction.
 
-**7 IOSv nodes · 3 additional case studies · 36 new evidence blocks · September 24–25, 2026**
+**Phase 03 of 03 · 7 IOSv nodes · 3 cases · 36 evidence blocks**
 
-[Start with the propagation case](troubleshooting/07-bsr-propagation.md) · [Browse the evidence](verification/README.md) · [Configuration guide](configs/bsr.md)
+## Review this phase
+
+| Material | Start here |
+|---|---|
+| Topology | [BSR roles](#topology-and-roles) and [seven-node wiring](topology-bsr.md) |
+| Configuration | [BSR checkpoint, completion and experiments](configs/bsr.md) |
+| Verification | [BSR evidence pages](verification/README.md#bsr) |
+| Troubleshooting | [Election and propagation cases](troubleshooting/README.md#bsr) |
 
 ## Results at a glance
 
@@ -90,4 +97,4 @@ These entries support the source-tree path through R1 → R3 → R4, while group
 
 The BSR failure test occurred before Candidate RP setup. It proves election takeover and recovery, not uninterrupted multicast delivery or a measured failover time. Later captures establish recovered discovery and multicast forwarding state; no complete BSR multicast ping transcript was supplied. The earlier Auto-RP **19/20** result remains attributed to that phase.
 
-[Back to PIM-SM](README.md) · [Back to Multicast](../README.md)
+[Previous: Auto-RP](auto-rp.md) · [All PIM-SM phases](README.md) · [Back to Multicast](../README.md)

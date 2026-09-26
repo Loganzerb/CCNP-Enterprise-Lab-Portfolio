@@ -1,6 +1,14 @@
-# PIM-SM verification guide
+# PIM-SM verification — Evidence by phase
 
-These twelve pages retain **105 numbered blocks**: 39 for static RP, 30 for Auto-RP and 36 for BSR. Each block identifies its purpose before the evidence. Auto-RP combines original CLI captures with clearly labeled selected handoff excerpts.
+Start with the phase you are reviewing. Each page uses numbered blocks with a short interpretation before the retained output.
+
+**105 blocks · Static RP: 39 · Auto-RP: 30 · BSR: 36**
+
+[Static RP](#static-rp) · [Auto-RP](#auto-rp) · [BSR](#bsr)
+
+## Static RP
+
+Baseline forwarding, a route change and RP faults at each edge. [Phase overview](../static-rp.md).
 
 | Page | Blocks | What to look for |
 |---|---:|---|
@@ -8,9 +16,23 @@ These twelve pages retain **105 numbered blocks**: 39 for static RP, 30 for Auto
 | [02 — RPF path change](02-rpf-path-change.md) | 7 | Static-route selection, changed tree and rollback across R4, R3 and R2 |
 | [03 — Receiver-side RP failure](03-receiver-rp-failure.md) | 6 | Local membership survives while the upstream tree is missing |
 | [04 — Source-side RP failure](04-source-rp-failure.md) | 11 | Healthy receiver tree, missing registration mechanism, timeouts and restored state |
+
+## Auto-RP
+
+Migration, listener recovery and the subsequent forwarding checks. [Phase overview](../auto-rp.md).
+
+| Page | Blocks | What to look for |
+|---|---:|---|
 | [05 — Auto-RP migration](05-autorp-migration.md) | 11 | Candidate/Mapping-Agent setup, coexistence, static removal and 19/20 replies |
 | [06 — Auto-RP failure and recovery](06-autorp-recovery.md) | 11 | Initial outage, stalled recovery, listener diagnosis and recovered discovery |
 | [07 — Auto-RP forwarding](07-autorp-forwarding.md) | 8 | Shared tree, SPT, neighbors, unicast-table distinction, RP prune and FHR registration state |
+
+## BSR
+
+Transition, elections, propagation repair, forwarding and RP selection. [Phase overview](../bsr.md).
+
+| Page | Blocks | What to look for |
+|---|---:|---|
 | [08 — BSR transition](08-bsr-transition.md) | 13 | Remove prior mechanisms, add R5 and verify underlay/PIM participation |
 | [09 — BSR election](09-bsr-election.md) | 9 | Candidate omission, priority, equal-priority tie, isolation and recovery |
 | [10 — BSR propagation](10-bsr-propagation.md) | 7 | Candidate RP with no BSR knowledge, missing PIM and recovered mappings |

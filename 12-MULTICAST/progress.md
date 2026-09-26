@@ -1,6 +1,6 @@
 # Multicast progress
 
-**Snapshot: September 25, 2026.** BSR is the latest completed PIM-SM lab phase. The next dedicated topic is IGMPv2/v3.
+**Snapshot: September 26, 2026.** Static RP, Auto-RP and BSR are documented within PIM-SM. The IGMPv2/v3 lab is in progress; its portfolio subsection will sit alongside PIM-SM.
 
 | Work | Current position |
 |---|---|
@@ -15,7 +15,8 @@
 | BSR propagation repair | Missing PIM on R3 Gi0/0 and Gi0/1 corrected; R1–R4 recover matching RP information |
 | BSR forwarding | R4 shared/source-tree state and R2's pruned source entry captured |
 | Candidate RP experiment | Unequal/equal priority and R4's hash selection documented; temporary R3 RP role removed |
-| IGMPv2/v3, SSM, Bidir-PIM, MSDP | Dedicated subsections to follow their completed labs |
+| IGMPv2/v3 | Lab in progress; standalone Multicast subsection pending |
+| SSM, Bidir-PIM, MSDP | Dedicated subsections to follow their completed labs |
 | Final RPF review | Planned; existing RPF work remains linked within PIM-SM |
 
 ## Evidence retained

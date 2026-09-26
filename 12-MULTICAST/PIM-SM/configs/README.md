@@ -1,10 +1,18 @@
-# PIM-SM configuration guide
+# PIM-SM configurations — Choose the lab phase
 
-The six files reconstruct the **static-RP baseline after cleanup** from the lab's setup commands and verification. They are relevant configuration templates, not exported running-configs. These files preserve the original static checkpoint. Continue with the [Auto-RP migration guide](auto-rp.md) for the completed dynamic-discovery phase.
+The files here describe different checkpoints. The six device templates belong to Static RP; the Auto-RP and BSR guides describe their later phase changes.
 
-For BSR, use the [seven-node checkpoint and completion guide](bsr.md). The saved export is an intermediate state, distinct from the static templates below.
+| Phase | Material | Configuration status |
+|---|---|---|
+| [Static RP](#static-rp) | Six device templates and an exercise-command guide | Reconstructed static baseline |
+| [Auto-RP](#auto-rp) | Migration, listener recovery and rollback commands | Documented changes to the original six-node lab |
+| [BSR](#bsr) | Seven-node CML export and separate completion/experiment commands | Intermediate saved checkpoint; completion changes documented separately |
 
-## Device files
+## Static RP
+
+The six files reconstruct the **static-RP baseline after cleanup** from setup commands and verification. They are configuration templates, not exported running-configs. [Static-RP overview](../static-rp.md).
+
+### Device files
 
 | File | Purpose |
 |---|---|
@@ -15,7 +23,7 @@ For BSR, use the [seven-node checkpoint and completion guide](bsr.md). The saved
 | [R4-LHR.cfg](R4-LHR.cfg) | Receiver gateway, static RP and OSPF cost 2 toward R2 |
 | [MCAST-RECEIVER.cfg](MCAST-RECEIVER.cfg) | IOSv endpoint with the baseline 239.1.1.1 join |
 
-## Settings that shape the result
+### Settings that shape the result
 
 | Setting | Role in this lab |
 |---|---|
@@ -29,9 +37,22 @@ For BSR, use the [seven-node checkpoint and completion guide](bsr.md). The saved
 
 The RP uses Loopback0; R2's unused Gi0/2 is not part of PIM. During setup, PIM was briefly placed on Gi0/2, then removed and applied to Loopback0. These files reflect the corrected state.
 
-## Exercise changes
+### Exercise changes
 
 [Exercise commands](exercise-commands.md) contains the temporary static route, the two RP faults, recovery commands and receiver cleanup. Those changes are excluded from the baseline files.
 
-[BSR configuration and experiments](bsr.md) · [Auto-RP configuration and rollback](auto-rp.md) · [Back to PIM-SM](../README.md)
+## Auto-RP
 
+[Auto-RP configuration guide](auto-rp.md) covers the Candidate RP on R2, Mapping Agent on R3, listener behavior, removal of static fallback and recovery commands. These changes belong to the six-node Auto-RP phase.
+
+[Phase overview](../auto-rp.md) · [Auto-RP evidence](../verification/README.md#auto-rp)
+
+## BSR
+
+[BSR configuration guide](bsr.md) covers the added R5 router, candidate roles, election tests, PIM repair and temporary second-RP experiment.
+
+The [September 24 CML export](PIM-SM_BSR_September_24th.yaml) is an **intermediate checkpoint**: it retains missing PIM on R3 Gi0/0 and Gi0/1 and predates R2's Candidate RP configuration. The guide identifies the later changes; the export alone is not the final completed state.
+
+[Phase overview](../bsr.md) · [BSR evidence](../verification/README.md#bsr)
+
+[All PIM-SM phases](../README.md) · [Back to Multicast](../../README.md)
