@@ -1,0 +1,3 @@
+R4-LHR#sh running-config | include ip pim ssm
+ip pim ssm default
+R4-LHR#

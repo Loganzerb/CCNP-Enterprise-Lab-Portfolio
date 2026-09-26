@@ -1,0 +1,8 @@
+R1-DF-A#show ip pim rp mapping
+PIM Group-to-RP Mappings
+
+R1-DF-A#show ip pim interface GigabitEthernet0/1 df
+
+implies this system is the DF
+Interface                RP               DF Winner        Metric     Uptime
+R1-DF-A#

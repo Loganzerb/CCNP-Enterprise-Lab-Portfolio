@@ -1,0 +1,35 @@
+SRC-HOST#ping 239.100.100.100 source 10.10.10.100 repeat 30
+Type escape sequence to abort.
+Sending 30, 100-byte ICMP Echos to 239.100.100.100, timeout is 2 seconds:
+Packet sent with a source address of 10.10.10.100 
+.
+Reply to request 1 from 10.30.30.100, 7 ms
+Reply to request 2 from 10.30.30.100, 4 ms
+Reply to request 3 from 10.30.30.100, 3 ms
+Reply to request 4 from 10.30.30.100, 3 ms
+Reply to request 5 from 10.30.30.100, 3 ms
+Reply to request 6 from 10.30.30.100, 3 ms
+Reply to request 7 from 10.30.30.100, 3 ms
+Reply to request 8 from 10.30.30.100, 3 ms
+Reply to request 9 from 10.30.30.100, 3 ms
+Reply to request 10 from 10.30.30.100, 3 ms
+Reply to request 11 from 10.30.30.100, 3 ms
+Reply to request 12 from 10.30.30.100, 3 ms
+Reply to request 13 from 10.30.30.100, 3 ms
+Reply to request 14 from 10.30.30.100, 5 ms
+Reply to request 15 from 10.30.30.100, 2 ms
+Reply to request 16 from 10.30.30.100, 3 ms
+Reply to request 17 from 10.30.30.100, 3 ms
+Reply to request 18 from 10.30.30.100, 3 ms
+Reply to request 19 from 10.30.30.100, 2 ms
+Reply to request 20 from 10.30.30.100, 3 ms
+Reply to request 21 from 10.30.30.100, 3 ms
+Reply to request 22 from 10.30.30.100, 3 ms
+Reply to request 23 from 10.30.30.100, 3 ms
+Reply to request 24 from 10.30.30.100, 3 ms
+Reply to request 25 from 10.30.30.100, 3 ms
+Reply to request 26 from 10.30.30.100, 3 ms
+Reply to request 27 from 10.30.30.100, 3 ms
+Reply to request 28 from 10.30.30.100, 3 ms
+Reply to request 29 from 10.30.30.100, 3 ms
+SRC-HOST#

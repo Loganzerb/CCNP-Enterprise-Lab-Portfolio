@@ -1,0 +1,15 @@
+R3-BRANCH#show ip pim rp mapping
+PIM Group-to-RP Mappings
+
+Acl: 45, Static, Bidir Mode
+RP: 4.4.4.4 (?)
+R3-BRANCH#show ip mroute 239.100.100.0
+Group 239.100.100.0 not found
+R3-BRANCH#show ip mroute 239.100.100.100
+Group 239.100.100.100 not found
+R3-BRANCH#show ip pim interface GigabitEthernet0/3 df
+
+implies this system is the DF
+Interface                RP               DF Winner        Metric     Uptime
+GigabitEthernet0/3       4.4.4.4          *10.30.30.1       2          00:10:47
+R3-BRANCH#

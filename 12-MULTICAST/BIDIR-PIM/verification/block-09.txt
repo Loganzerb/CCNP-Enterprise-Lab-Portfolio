@@ -1,0 +1,19 @@
+R3-BRANCH#show ip pim interface gigabitEthernet 0/0 df
+
+implies this system is the DF
+Interface                RP               DF Winner        Metric     Uptime
+GigabitEthernet0/0       4.4.4.4          10.13.0.2        2          00:08:05
+R3-BRANCH#sh ip mroute 239.100.100.100
+(,239.100.100.100), 00:08:14/-, RP 4.4.4.4, flags: B
+Bidir-Upstream: GigabitEthernet0/2, RPF nbr: 10.34.0.2
+Incoming interface list:
+GigabitEthernet0/3, Accepting/Sparse
+GigabitEthernet0/1, Accepting/Sparse
+GigabitEthernet0/0, Accepting/Sparse
+GigabitEthernet0/2, Accepting/Sparse
+
+R3-BRANCH#show ip igmp groups
+IGMP Connected Group Membership
+Group Address    Interface                Uptime    Expires   Last Reporter   Group Accounted
+224.0.1.40       GigabitEthernet0/0       00:17:45  00:02:02  10.13.0.1
+R3-BRANCH#

@@ -34,6 +34,6 @@ Across the three phases, source **10.1.1.10** sends to **239.1.1.1**, receiver *
 | [Verification by phase](verification/README.md) | Twelve pages of numbered evidence blocks and interpretation |
 | [Troubleshooting by phase](troubleshooting/README.md) | Seven cases linking symptoms, diagnosis, repair and validation |
 
-IGMPv2/v3 and the remaining multicast topics will have their own sections alongside PIM-SM. [Multicast progress](../progress.md) records what is complete and what remains.
+[IGMPv2/v3 and SSM](../IGMPv2-v3/README.md) and [BIDIR-PIM](../BIDIR-PIM/README.md) have their own sections alongside PIM-SM. [Multicast progress](../progress.md) records what is complete and what remains.
 
 [Back to Multicast](../README.md) · [Back to portfolio](../../README.md)

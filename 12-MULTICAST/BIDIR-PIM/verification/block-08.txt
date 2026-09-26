@@ -1,0 +1,24 @@
+R1-DF-A#
+*Sep 25 23:36:22.252: %SYS-5-CONFIG_I: Configured from console by consoleshow ip pim rp mapping
+PIM Group-to-RP Mappings
+
+Acl: 45, Static, Bidir Mode
+RP: 4.4.4.4 (?)
+R1-DF-A#show ip pim interface GigabitEthernet0/1 df
+
+implies this system is the DF
+Interface                RP               DF Winner        Metric     Uptime
+GigabitEthernet0/1       4.4.4.4          *10.10.10.1       12         00:01:14
+R1-DF-A#
+
+R2-DF-B#show ip pim rp mapping
+PIM Group-to-RP Mappings
+
+Acl: 45, Static, Bidir Mode
+RP: 4.4.4.4 (?)
+R2-DF-B#show ip pim interface GigabitEthernet0/0 df
+
+implies this system is the DF
+Interface                RP               DF Winner        Metric     Uptime
+GigabitEthernet0/0       4.4.4.4           10.10.10.1       12         00:01:03
+R2-DF-B#

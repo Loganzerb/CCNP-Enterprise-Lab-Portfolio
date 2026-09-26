@@ -1,0 +1,20 @@
+R1-DF-A#show ip interface brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         10.13.0.1       YES manual up                    up
+GigabitEthernet0/1         10.10.10.1      YES manual up                    up
+GigabitEthernet0/2         unassigned      YES unset  administratively down down
+GigabitEthernet0/3         unassigned      YES unset  administratively down down
+Loopback0                  1.1.1.1         YES manual up                    up
+R1-DF-A#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+3.3.3.3           1   FULL/DR         00:00:37    10.13.0.2       GigabitEthernet0/0
+R1-DF-A#show ip route 4.4.4.4
+Routing entry for 4.4.4.4/32
+Known via "ospf 1", distance 110, metric 12, type intra area
+Last update from 10.13.0.2 on GigabitEthernet0/0, 00:00:08 ago
+Routing Descriptor Blocks:
+
+10.13.0.2, from 4.4.4.4, 00:00:08 ago, via GigabitEthernet0/0
+Route metric is 12, traffic share count is 1
+R1-DF-A#

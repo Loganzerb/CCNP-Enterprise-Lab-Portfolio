@@ -1,0 +1,53 @@
+R4-LHR#show ip igmp groups detail
+
+Flags: L - Local, U - User, SG - Static Group, VG - Virtual Group,
+       SS - Static Source, VS - Virtual Source,
+       Ac - Group accounted towards access control limit
+
+Interface:      GigabitEthernet0/0
+Group:          239.1.1.1
+Flags:
+Uptime:         00:38:20
+Group mode:     EXCLUDE (Expires: 00:02:35)
+Last reporter:  10.4.4.10
+Source list is empty
+
+Interface:      GigabitEthernet0/0
+Group:          232.1.1.1
+Flags:          SSM 
+Uptime:         00:00:09
+Group mode:     INCLUDE
+Last reporter:  10.4.4.10
+Group source list: (C - Cisco Src Report, U - URD, R - Remote, S - Static,
+                    V - Virtual, M - SSM Mapping, L - Local,
+                    Ac - Channel accounted towards access control limit)
+  Source Address   Uptime    v3 Exp   CSR Exp   Fwd  Flags
+          
+R4-LHR#how ip mroute 232.1.1.1
+        ^
+% Invalid input detected at '^' marker.
+
+R4-LHR#show ip mroute 232.1.1.1  
+IP Multicast Routing Table
+Flags: D - Dense, S - Sparse, B - Bidir Group, s - SSM Group, C - Connected,
+       L - Local, P - Pruned, R - RP-bit set, F - Register flag,
+       T - SPT-bit set, J - Join SPT, M - MSDP created entry, E - Extranet,
+       X - Proxy Join Timer Running, A - Candidate for MSDP Advertisement,
+       U - URD, I - Received Source Specific Host Report, 
+       Z - Multicast Tunnel, z - MDT-data group sender, 
+       Y - Joined MDT-data group, y - Sending to MDT-data group, 
+       G - Received BGP C-Mroute, g - Sent BGP C-Mroute, 
+       N - Received BGP Shared-Tree Prune, n - BGP C-Mroute suppressed, 
+       Q - Received BGP S-A Route, q - Sent BGP S-A Route, 
+       V - RD & Vector, v - Vector, p - PIM Joins on route, 
+       x - VxLAN group
+Outgoing interface flags: H - Hardware switched, A - Assert winner, p - PIM Join
+ Timers: Uptime/Expires
+ Interface state: Interface, Next-Hop or VCD, State/Mode
+
+(10.1.1.10, 232.1.1.1), 00:00:16/00:02:44, flags: sTI
+  Incoming interface: GigabitEthernet0/2, RPF nbr 10.34.0.1
+  Outgoing interface list:
+    GigabitEthernet0/0, Forward/Sparse, 00:00:16/00:02:44
+
+R4-LHR#

@@ -1,0 +1,14 @@
+R1-DF-A#ping 4.4.4.4 source 1.1.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 4.4.4.4, timeout is 2 seconds:
+Packet sent with a source address of 1.1.1.1 
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+R1-DF-A#
+Success rate is 0 percent (0/5)
+SRC-HOST#ping 10.30.30.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.30.30.100, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 3/4/7 ms
+SRC-HOST#

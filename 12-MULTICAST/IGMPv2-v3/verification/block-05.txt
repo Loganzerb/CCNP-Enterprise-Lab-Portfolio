@@ -1,0 +1,5 @@
+R4-LHR#show ip pim ssm
+                   ^
+% Invalid input detected at '^' marker.
+
+R4-LHR#

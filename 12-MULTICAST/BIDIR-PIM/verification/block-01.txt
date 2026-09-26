@@ -1,0 +1,55 @@
+R3-BRANCH#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+
+4.4.4.4           1   FULL/DR         00:00:35    10.34.0.2       GigabitEthernet0/2
+
+2.2.2.2           1   FULL/BDR        00:00:32    10.23.0.1       GigabitEthernet0/1
+
+R3-BRANCH#
+
+R1-DF-A#show ip route 4.4.4.4
+
+% Network not in table
+
+R1-DF-A#ping 4.4.4.4 source 1.1.1.1
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to 4.4.4.4, timeout is 2 seconds:
+
+Packet sent with a source address of 1.1.1.1 
+
+.....
+
+Success rate is 0 percent (0/5)
+
+R1-DF-A#
+
+R2-DF-B#show ip route 4.4.4.4
+Routing entry for 4.4.4.4/32
+Known via "ospf 1", distance 110, metric 32, type intra area
+Last update from 10.23.0.2 on GigabitEthernet0/1, 00:03:01 ago
+Routing Descriptor Blocks:
+
+10.23.0.2, from 4.4.4.4, 00:03:01 ago, via GigabitEthernet0/1
+Route metric is 32, traffic share count is 1
+R2-DF-B#ping 4.4.4.4 source 2.2.2.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 4.4.4.4, timeout is 2 seconds:
+Packet sent with a source address of 2.2.2.2
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+R2-DF-B#
+
+SRC-HOST#ping 10.30.30.100
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to 10.30.30.100, timeout is 2 seconds:
+
+.....
+
+Success rate is 0 percent (0/5)
+
+SRC-HOST#
