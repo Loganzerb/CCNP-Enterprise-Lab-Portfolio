@@ -1,0 +1,9 @@
+R1-VRF#show ip arp vrf BLUE
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.10.10.1              -   5254.001d.b3b9  ARPA   GigabitEthernet0/0
+Internet  10.10.10.2              9   5254.0005.97a3  ARPA   GigabitEthernet0/0
+R1-VRF#show ip arp vrf RED 
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.10.10.1              -   5254.000d.35ee  ARPA   GigabitEthernet0/1
+Internet  10.10.10.2              0   5254.0013.95df  ARPA   GigabitEthernet0/1
+R1-VRF#

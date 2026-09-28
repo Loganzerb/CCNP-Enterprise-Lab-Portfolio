@@ -1,0 +1,10 @@
+R1-VRF#sh ip cef vrf BLUE 172.16.100.1 de
+R1-VRF#sh ip cef vrf BLUE 172.16.100.1 detail 
+172.16.100.1/32, epoch 0
+  recursive via 10.10.10.2
+    attached to GigabitEthernet0/0
+R1-VRF#sh ip cef vrf RED 172.16.100.1 detail  
+172.16.100.1/32, epoch 0
+  recursive via 10.10.10.2
+    attached to GigabitEthernet0/1
+R1-VRF#

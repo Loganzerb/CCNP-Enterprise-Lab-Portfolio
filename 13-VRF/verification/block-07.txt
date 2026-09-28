@@ -1,0 +1,11 @@
+R1-VRF#show ip cef vrf BLUE 10.10.10.2 detail
+10.10.10.2/32, epoch 0, flags [attached]
+  Adj source: IP adj out of GigabitEthernet0/0, addr 10.10.10.2 0F9DB900
+    Dependent covered prefix type adjfib, cover 10.10.10.0/24
+  attached to GigabitEthernet0/0
+R1-VRF#show ip cef vrf RED 10.10.10.2 detail
+10.10.10.2/32, epoch 0, flags [attached]
+  Adj source: IP adj out of GigabitEthernet0/1, addr 10.10.10.2 0F9DB7D0
+    Dependent covered prefix type adjfib, cover 10.10.10.0/24
+  attached to GigabitEthernet0/1
+R1-VRF#

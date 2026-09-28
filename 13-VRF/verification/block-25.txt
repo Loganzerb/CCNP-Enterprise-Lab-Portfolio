@@ -1,0 +1,15 @@
+SHARED-SVC#ping 192.168.10.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.10.10, timeout is 2 seconds:
+U.U.U
+Success rate is 0 percent (0/5)
+SHARED-SVC#ping 192.168.20.20
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.20.20, timeout is 2 seconds:
+U.U.U
+Success rate is 0 percent (0/5)
+SHARED-SVC#show ip route 192.168.10.10
+% Network not in table
+SHARED-SVC#show ip route 192.168.20.20
+% Network not in table
+SHARED-SVC#

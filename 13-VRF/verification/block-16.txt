@@ -1,0 +1,11 @@
+R1-VRF#show ip route 10.10.10.2
+% Network not in table
+R1-VRF#show ip route vrf RED 10.10.10.2
+
+Routing Table: RED
+Routing entry for 10.10.10.0/24
+  Known via "connected", distance 0, metric 0 (connected, via interface)
+  Routing Descriptor Blocks:
+  * directly connected, via GigabitEthernet0/1
+      Route metric is 0, traffic share count is 1
+R1-VRF#

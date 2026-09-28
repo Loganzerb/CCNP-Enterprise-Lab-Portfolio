@@ -1,0 +1,15 @@
+SHARED-SVC#show running-config | include ^ip route
+ip route 0.0.0.0 0.0.0.0 172.16.50.1
+SHARED-SVC#show ip route 0.0.0.0
+Routing entry for 0.0.0.0/0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 172.16.50.1
+      Route metric is 0, traffic share count is 1
+SHARED-SVC#show ip interface brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         172.16.50.10    YES manual up                    up      
+GigabitEthernet0/1         unassigned      YES unset  administratively down down    
+GigabitEthernet0/2         unassigned      YES unset  administratively down down    
+GigabitEthernet0/3         unassigned      YES unset  administratively down down    
+SHARED-SVC#

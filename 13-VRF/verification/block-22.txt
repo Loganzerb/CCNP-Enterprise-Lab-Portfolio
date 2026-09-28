@@ -1,0 +1,11 @@
+R1-VRF#ping vrf BLUE 172.16.50.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.16.50.10, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+R1-VRF#ping vrf RED 172.16.50.10 
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.16.50.10, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+R1-VRF#

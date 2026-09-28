@@ -1,0 +1,5 @@
+R1-VRF#show ip route 192.168.10.10
+% Network not in table
+R1-VRF#show ip route 192.168.20.20
+% Network not in table
+R1-VRF#

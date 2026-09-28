@@ -1,0 +1,19 @@
+R1-VRF#show ip route 192.168.10.10
+Routing entry for 192.168.10.10/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.10.10.2, via GigabitEthernet0/0
+      Route metric is 0, traffic share count is 1
+R1-VRF#show ip route 192.168.20.20
+Routing entry for 192.168.20.20/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.10.10.2, via GigabitEthernet0/1
+      Route metric is 0, traffic share count is 1
+R1-VRF#show ip cef 192.168.10.10 detail
+192.168.10.10/32, epoch 0
+  nexthop 10.10.10.2 GigabitEthernet0/0
+R1-VRF#show ip cef 192.168.20.20 detail
+192.168.20.20/32, epoch 0
+  nexthop 10.10.10.2 GigabitEthernet0/1
+R1-VRF#

@@ -1,0 +1,10 @@
+R1-VRF#show running-config | include 172.16.100.1
+ip route 172.16.100.1 255.255.255.255 10.10.10.2
+ip route vrf BLUE 172.16.100.1 255.255.255.255 10.10.10.2
+R1-VRF#show ip route 172.16.100.1
+% Network not in table
+R1-VRF#show ip route vrf RED 172.16.100.1
+
+Routing Table: RED
+% Network not in table
+R1-VRF#

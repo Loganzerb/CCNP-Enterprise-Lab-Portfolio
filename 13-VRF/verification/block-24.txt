@@ -1,0 +1,27 @@
+R1-VRF#show ip route vrf BLUE 192.168.10.10
+
+Routing Table: BLUE
+Routing entry for 192.168.10.10/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.10.10.2
+      Route metric is 0, traffic share count is 1
+R1-VRF#show ip route vrf RED 192.168.20.20
+
+Routing Table: RED
+Routing entry for 192.168.20.20/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.10.10.2
+      Route metric is 0, traffic share count is 1
+R1-VRF#ping vrf BLUE 192.168.10.10
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.10.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+R1-VRF#ping vrf RED 192.168.20.20 
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.20.20, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+R1-VRF#

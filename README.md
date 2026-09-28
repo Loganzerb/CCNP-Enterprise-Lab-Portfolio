@@ -1,10 +1,10 @@
 # CCNP Enterprise Lab Portfolio
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, and time synchronization.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, and time synchronization.
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
 
-**12 technology modules · 258 text evidence files · 16 topology diagrams · 7 CML lab exports**
+**13 technology modules · 287 text evidence files · 17 topology diagrams · 8 CML lab exports**
 
 ## Start with these three cases
 
@@ -42,6 +42,7 @@ O2 received replies to all five probes sent to O4, but OSPF stalled in `EXSTART`
 | [10 — NTP](10-NTP/README.md) | Time hierarchy, source failover, and service-specific diagnosis | [Ping works while time updates stop](10-NTP/troubleshooting/03-acl-udp123.md) |
 | [11 — PBR](11-PBR/README.md) | Selective forwarding, policy logic, and next-hop recovery | [A next-hop route remains while the policy path changes](11-PBR/troubleshooting/02-next-hop-failure.md) |
 | [12 — Multicast (in progress)](12-MULTICAST/README.md) | RP discovery, IGMP/SSM membership, BIDIR role changes, and path diagnosis | [OSPF reaches the BSR, but RP discovery stops](12-MULTICAST/PIM-SM/troubleshooting/07-bsr-propagation.md) |
+| [13 — VRF](13-VRF/README.md) | Overlapping networks, separate forwarding state, and selective shared access | [An installed route with an unresolved next hop](13-VRF/troubleshooting/01-bad-next-hop.md) |
 
 ## How to review the work
 
@@ -63,10 +64,12 @@ CML exports are available for [STP](04-STP/CCNP_MASTERCLASS_STP.yaml), [MSTP](05
 
 The [Multicast BSR export](12-MULTICAST/PIM-SM/configs/PIM-SM_BSR_September_24th.yaml) preserves an intermediate seven-node checkpoint; its [configuration guide](12-MULTICAST/PIM-SM/configs/bsr.md) supplies the later completion steps.
 
+The [VRF checkpoint](13-VRF/configs/CCNP_VRF_Sept_27th-baseline.yaml) contains the original three-router overlapping-address stage; the [configuration guide](13-VRF/configs/README.md) separates it from the later shared-service additions.
+
 Read the module's configuration guide before import. Exports represent different experiment stages; check image mappings, interface wiring, and VLAN creation before establishing a fresh baseline. Other modules provide extracts, selected settings, or reconstructed configurations, with their scope explained in the guides.
 
 ## Evidence scope
 
 This portfolio records controlled lab work. Cases identify whether a result comes from captured output, a recorded observation, or configuration analysis. Missing measurements and reconstructed commands are labeled where relevant.
 
-The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 130 numbered Multicast blocks, including labeled Auto-RP handoff excerpts and BSR operator/configuration evidence. The new IGMP and BIDIR blocks also link to full text transcripts counted above. Diagrams explain the designs; the linked captures establish the recorded behavior.
+The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 130 numbered Multicast blocks, including labeled Auto-RP handoff excerpts and BSR operator/configuration evidence. The IGMP, BIDIR and 29 VRF blocks also link to full text transcripts counted above. Diagrams explain the designs; the linked captures establish the recorded behavior.

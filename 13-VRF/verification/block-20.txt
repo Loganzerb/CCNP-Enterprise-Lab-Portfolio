@@ -1,0 +1,11 @@
+R1-VRF(config)#ip route vrf BLUE 172.16.50.10 255.255.255.255 172.16.50.10 ?
+  <1-255>    Distance metric for this route
+  global     Next hop address is global
+  multicast  multicast route
+  name       Specify name of the next hop
+  permanent  permanent route
+  tag        Set tag for this route
+  track      Install route depending on tracked item
+  <cr>       <cr>
+
+R1-VRF(config)#ip route vrf BLUE 172.16.50.10 255.255.255.255 172.16.50.10

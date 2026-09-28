@@ -1,0 +1,14 @@
+BLUE-CE#show ip route 172.16.50.10
+Routing entry for 172.16.50.10/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.10.10.1
+      Route metric is 0, traffic share count is 1
+BLUE-CE#
+RED-CE#show ip route 172.16.50.10
+Routing entry for 172.16.50.10/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.10.10.1
+      Route metric is 0, traffic share count is 1
+RED-CE#

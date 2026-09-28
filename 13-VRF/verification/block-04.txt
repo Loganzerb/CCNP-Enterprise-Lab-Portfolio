@@ -1,0 +1,11 @@
+R1-VRF#ping vrf BLUE 10.10.10.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+R1-VRF#ping vrf RED 10.10.10.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 1/1/2 ms
+R1-VRF#

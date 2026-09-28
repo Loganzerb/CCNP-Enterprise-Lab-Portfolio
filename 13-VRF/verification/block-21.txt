@@ -1,0 +1,28 @@
+R1-VRF#show running-config | include 172.16.50.10
+ip route vrf BLUE 172.16.50.10 255.255.255.255 172.16.50.10 global
+ip route vrf RED 172.16.50.10 255.255.255.255 172.16.50.10 global
+R1-VRF#show ip route vrf BLUE 172.16.50.10
+
+Routing Table: BLUE
+Routing entry for 172.16.50.10/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 172.16.50.10 (default)
+      Route metric is 0, traffic share count is 1
+R1-VRF#show ip route vrf RED 172.16.50.10
+
+Routing Table: RED
+Routing entry for 172.16.50.10/32
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 172.16.50.10 (default)
+      Route metric is 0, traffic share count is 1
+R1-VRF#show ip cef vrf BLUE 172.16.50.10 detail
+172.16.50.10/32, epoch 0
+  recursive via 172.16.50.10
+    attached to GigabitEthernet0/2
+R1-VRF#show ip cef vrf RED 172.16.50.10 detail
+172.16.50.10/32, epoch 0
+  recursive via 172.16.50.10
+    attached to GigabitEthernet0/2
+R1-VRF#

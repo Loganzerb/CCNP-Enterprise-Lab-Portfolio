@@ -1,0 +1,7 @@
+R1-VRF#show ip cef vrf RED 10.10.10.1
+10.10.10.1/32
+  receive for GigabitEthernet0/1
+R1-VRF#show ip cef vrf BLUE 10.10.10.1
+10.10.10.1/32
+  receive for GigabitEthernet0/0
+R1-VRF#
