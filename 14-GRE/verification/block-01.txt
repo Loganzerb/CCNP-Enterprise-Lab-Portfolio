@@ -1,0 +1,13 @@
+R1-GRE#show ip route 198.51.100.2
+Routing entry for 198.51.100.0/30
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 192.0.2.2
+      Route metric is 0, traffic share count is 1
+R1-GRE#ping 198.51.100.2 source 192.0.2.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 198.51.100.2, timeout is 2 seconds:
+Packet sent with a source address of 192.0.2.1 
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/3 ms
+R1-GRE#

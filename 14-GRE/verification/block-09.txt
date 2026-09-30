@@ -1,0 +1,14 @@
+R1-GRE#show ip route 198.51.100.2
+Routing entry for 198.51.100.0/30
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 192.0.2.2
+      Route metric is 0, traffic share count is 1
+R1-GRE#show interfaces Tunnel0 | include Tunnel0|Tunnel source
+Tunnel0 is up, line protocol is up 
+  Tunnel source 192.0.2.1, destination 198.51.100.2
+R1-GRE#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+3.3.3.3           0   FULL/  -        00:00:35    172.16.13.2     Tunnel0
+R1-GRE#.

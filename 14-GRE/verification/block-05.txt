@@ -1,0 +1,7 @@
+R1-GRE#ping 10.3.3.1 source 10.1.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.3.3.1, timeout is 2 seconds:
+Packet sent with a source address of 10.1.1.1 
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+R1-GRE#

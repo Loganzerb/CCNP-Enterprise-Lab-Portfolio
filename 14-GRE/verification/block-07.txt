@@ -1,0 +1,5 @@
+R1-GRE#
+R1-GRE#show ip route 198.51.100.2
+% Network not in table
+R1-GRE#show running-config | include ^ip route
+R1-GRE#

@@ -1,0 +1,29 @@
+R1-GRE#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1-GRE(config)#ip route 198.51.100.2 255.255.255.255 172.16.13.2
+R1-GRE(config)#end
+R1-GRE#show ip route 198.51.100.2
+Routing entry for 198.51.100.0/30
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 192.0.2.2
+      Route metric is 0, traffic share count is 1
+R1-GRE#show interfaces Tunnel0 | include Tunnel0|Tunnel source
+Tunnel0 is up, line protocol is down 
+  Tunnel source 192.0.2.1, destination 198.51.100.2
+R1-GRE#show interfaces Tunnel0 | include Tunnel0|Tunnel source
+Tunnel0 is up, line protocol is down 
+  Tunnel source 192.0.2.1, destination 198.51.100.2
+R1-GRE#show logging | include RECUR|PARENT|Tunnel0
+*Sep 30 22:33:29.929: %LINEPROTO-5-UPDOWN: Line protocol on Interface Tunnel0, changed state to down
+*Sep 30 22:33:38.792: %LINEPROTO-5-UPDOWN: Line protocol on Interface Tunnel0, changed state to up
+*Sep 30 22:33:47.221: %OSPF-5-ADJCHG: Process 10, Nbr 3.3.3.3 on Tunnel0 from LOADING to FULL, Loading Done
+*Sep 30 22:40:58.946: %LINEPROTO-5-UPDOWN: Line protocol on Interface Tunnel0, changed state to down
+*Sep 30 22:40:58.949: %OSPF-5-ADJCHG: Process 10, Nbr 3.3.3.3 on Tunnel0 from FULL to DOWN, Neighbor Down: Interface down or detached
+*Sep 30 22:45:18.952: %LINEPROTO-5-UPDOWN: Line protocol on Interface Tunnel0, changed state to up
+*Sep 30 22:45:18.977: %OSPF-5-ADJCHG: Process 10, Nbr 3.3.3.3 on Tunnel0 from LOADING to FULL, Loading Done
+*Sep 30 22:46:43.204: %ADJ-5-PARENT: Midchain parent maintenance for IP midchain out of Tunnel0 - looped chain attempting to stack
+*Sep 30 22:46:48.952: %TUN-5-RECURDOWN: Tunnel0 temporarily disabled due to recursive routing
+*Sep 30 22:46:48.952: %LINEPROTO-5-UPDOWN: Line protocol on Interface Tunnel0, changed state to down
+*Sep 30 22:46:48.954: %OSPF-5-ADJCHG: Process 10, Nbr 3.3.3.3 on Tunnel0 from FULL to DOWN, Neighbor Down: Interface down or detached
+R1-GRE#
