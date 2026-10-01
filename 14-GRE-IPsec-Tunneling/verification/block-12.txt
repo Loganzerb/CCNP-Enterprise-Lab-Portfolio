@@ -1,0 +1,1 @@
+*Oct  1 20:14:44.996: %OSPF-5-ADJCHG: Process 10, Nbr 3.3.3.3 on Tunnel0 from FULL to DOWN, Neighbor Down: Dead timer expired

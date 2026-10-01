@@ -1,0 +1,1 @@
+%CRYPTO-4-IKMP_BAD_MESSAGE: IKE message from 192.0.2.1 failed its sanity check or is malformed

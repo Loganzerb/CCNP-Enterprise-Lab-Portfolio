@@ -1,0 +1,6 @@
+R1-VPN#show crypto isakmp sa
+IPv4 Crypto ISAKMP SA
+dst             src             state          conn-id status
+198.51.100.2    192.0.2.1       QM_IDLE           1010 ACTIVE
+
+IPv6 Crypto ISAKMP SA

@@ -1,0 +1,4 @@
+R1-VPN#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+3.3.3.3           0   FULL/  -        00:00:31    172.16.13.2     Tunnel0

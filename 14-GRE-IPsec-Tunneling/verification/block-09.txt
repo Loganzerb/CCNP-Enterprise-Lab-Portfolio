@@ -1,0 +1,9 @@
+R1-VPN#show crypto isakmp sa
+IPv4 Crypto ISAKMP SA
+dst             src             state          conn-id status
+192.0.2.1       198.51.100.2    MM_NO_STATE       1009 ACTIVE (deleted)
+192.0.2.1       198.51.100.2    MM_NO_STATE       1007 ACTIVE (deleted)
+198.51.100.2    192.0.2.1       QM_IDLE           1010 ACTIVE
+198.51.100.2    192.0.2.1       MM_NO_STATE       1008 ACTIVE (deleted)
+
+IPv6 Crypto ISAKMP SA

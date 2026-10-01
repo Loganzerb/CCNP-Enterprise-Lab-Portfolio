@@ -1,0 +1,1 @@
+permit gre host 198.51.100.2 host 192.0.2.5

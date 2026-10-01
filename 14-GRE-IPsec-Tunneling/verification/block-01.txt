@@ -1,0 +1,30 @@
+R1-VPN#show crypto isakmp sa
+IPv4 Crypto ISAKMP SA
+dst             src             state          conn-id status
+198.51.100.2    192.0.2.1       QM_IDLE           1010 ACTIVE
+
+IPv6 Crypto ISAKMP SA
+
+R1-VPN#show crypto ipsec sa
+
+interface: GigabitEthernet0/0
+    Crypto map tag: GRE-IPSEC-MAP, local addr 192.0.2.1
+
+   protected vrf: (none)
+   local  ident (addr/mask/prot/port): (192.0.2.1/255.255.255.255/47/0)
+   remote ident (addr/mask/prot/port): (198.51.100.2/255.255.255.255/47/0)
+   current_peer 198.51.100.2 port 500
+     PERMIT, flags={origin_is_acl,}
+    #pkts encaps: 117, #pkts encrypt: 117, #pkts digest: 117
+    #pkts decaps: 115, #pkts decrypt: 115, #pkts verify: 115
+    #pkts compressed: 0, #pkts decompressed: 0
+    #pkts not compressed: 0, #pkts compr. failed: 0
+    #pkts not decompressed: 0, #pkts decompress failed: 0
+    #send errors 0, #recv errors 0
+
+     local crypto endpt.: 192.0.2.1, remote crypto endpt.: 198.51.100.2
+     plaintext mtu 1458, path mtu 1500, ip mtu 1500, ip mtu idb GigabitEthernet0/0
+     current outbound spi: 0xDA3E187A(3661502586)
+     PFS (Y/N): N, DH group: none
+
+     inbound esp sas:
