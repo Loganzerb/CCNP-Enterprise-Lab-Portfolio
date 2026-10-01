@@ -28,8 +28,6 @@ R1-GRE#
 
 ## Block 02 — Inspect the tunnel’s actual parameters
 
-**📁 GitHub Evidence**
-
 Tunnel0 is up/up with overlay address 172.16.13.1/30, source 192.0.2.1 and destination 198.51.100.2. GRE/IP, transport MTU 1476, no keepalive, disabled key/checksum/sequence, and TTL 255 are captured values. The separate interface MTU field is 17916; it is not the measured unfragmented transport limit.
 
 ```text
@@ -72,8 +70,6 @@ R1-GRE#
 
 ## Block 04 — Run OSPF across Tunnel0
 
-**📁 GitHub Evidence**
-
 Neighbor RID 3.3.3.3 is FULL at overlay address 172.16.13.2. OSPF process 10 installs 10.3.3.1/32 through Tunnel0 with metric 1001. The CE loopback is configured with a /24 mask; its OSPF loopback advertisement is a /32.
 
 ```text
@@ -94,8 +90,6 @@ R1-GRE#
 [Full captured text](block-04.txt)
 
 ## Block 05 — Carry private-to-private traffic
-
-**📁 GitHub Evidence**
 
 The ping is sourced from R1’s 10.1.1.1 loopback and targets R3’s 10.3.3.1 loopback. All five replies return across the overlay. The saved R2 configuration has only the two connected transport networks and no overlay routing process.
 

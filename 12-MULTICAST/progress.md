@@ -1,6 +1,8 @@
 # Multicast progress
 
-**Snapshot: September 26, 2026.** Static RP, Auto-RP and BSR are documented within PIM-SM. IGMPv2/v3 with SSM control-plane validation and BIDIR-PIM are documented as sibling subsections.
+**Documentation status: September 30, 2026.** Static RP, Auto-RP and BSR are documented within PIM-SM. IGMPv2/v3 with SSM control-plane validation and BIDIR-PIM are documented as sibling subsections.
+
+## Published lab evidence
 
 | Work | Current position |
 |---|---|
@@ -18,8 +20,13 @@
 | IGMPv2/v3 | Membership expiry/rejoin and version migration documented in its own subsection |
 | SSM | INCLUDE membership and source-specific routing state documented with IGMPv3; no retained SSM traffic transcript |
 | BIDIR-PIM | Addressing and receiver-placement repairs, DR/DF separation and DF transition documented; post-change test has 29/30 replies |
-| MSDP | Next lab; no completed evidence added to the portfolio |
-| Final RPF review | Planned; existing RPF work remains linked within PIM-SM |
+| MSDP | Portfolio evidence not yet integrated |
+| PIM Dense Mode | Included in the cumulative assessment; no lab evidence published here |
+| Final RPF review | Dedicated subsection pending; existing RPF work remains linked within PIM-SM |
+
+## Cumulative assessment
+
+The original 50-question CCNP ENCOR-style assessment recorded **43/50 (86%) on the first attempt**. It tested independent reasoning after the lab work across a broader topic range than the published captures, including MSDP and PIM Dense Mode. The [assessment summary](README.md#validation--post-assessment) retains the topic coverage and first-attempt findings; the table above identifies the hands-on evidence available in this section.
 
 ## Evidence retained
 

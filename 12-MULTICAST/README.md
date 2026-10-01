@@ -4,7 +4,7 @@ These labs trace how a network discovers receivers, selects multicast paths and 
 
 ## Explore the topics
 
-| Topic | Completed work | Start here |
+| Topic | Published lab evidence | Start here |
 |---|---|---|
 | **PIM-SM** | Static RP, Auto-RP and BSR; seven cases and 105 evidence blocks | [PIM-SM overview](PIM-SM/README.md) |
 | **IGMPv2/v3 and SSM** | Membership expiry/rejoin and source-specific control-plane state; seven blocks | [IGMP overview](IGMPv2-v3/README.md) |
@@ -33,9 +33,11 @@ Static RP, Auto-RP and BSR remain together within PIM-SM. IGMP and BIDIR have th
 
 ## Validation & Post-Assessment
 
-After completing the hands-on multicast labs, I completed an original **50-question CCNP ENCOR-style cumulative assessment**, scoring **43/50 (86%) on the first attempt**. The purpose was to test whether I could independently reason through multicast behavior, interpret device output and diagnose scenarios using the understanding developed during the labs.
+After the hands-on multicast work, I completed an original **50-question CCNP ENCOR-style cumulative assessment**, scoring **43/50 (86%) on the first attempt**. It tested whether I could independently reason through multicast behavior, interpret device output and diagnose scenarios using the understanding developed during the labs.
 
 The assessment covered Reverse Path Forwarding (RPF), PIM Sparse Mode, Auto-RP, Bootstrap Router (BSR), IGMPv2 and IGMPv3, Source-Specific Multicast (SSM), Bidirectional PIM, Multicast Source Discovery Protocol (MSDP), PIM Dense Mode, and multicast addressing and control-plane behavior. It combined conceptual questions, troubleshooting scenarios, configuration/output interpretation, protocol behavior and multi-select questions.
+
+Assessment coverage extends beyond the lab evidence currently published here, including MSDP and PIM Dense Mode. The score records cumulative reasoning across those topics; the topic table and linked captures identify the documented hands-on results.
 
 ### First-attempt findings
 
@@ -49,6 +51,6 @@ The result provided a separate check of the reasoning behind the lab work and id
 - IGMPv3 Membership Report destination.
 - IGMP querier versus PIM Designated Router election behavior.
 
-Together, the lab captures and this assessment document practical work followed by a cumulative check of conceptual understanding and troubleshooting judgment. The first-attempt result is retained as the validation baseline, including the gaps it revealed.
+The original score and these first-attempt findings remain the assessment baseline, separate from recorded forwarding results.
 
 [Progress and evidence scope](progress.md) · [Back to portfolio](../README.md)

@@ -1,8 +1,8 @@
 # 13 — VRF: Isolated networks and selective shared access
 
-Virtual Routing and Forwarding (VRF) lets one router maintain separate routing and forwarding environments. Engineers use it to keep networks separate, reuse overlapping IP addresses, and provide selected access to shared services without combining their routing tables.
+Virtual Routing and Forwarding (VRF) keeps separate routing and forwarding environments on one router. This lab explores overlapping addresses, isolation and selected access to a shared service.
 
-I built two isolated networks with identical addresses, verified how each selected its own next hop, and introduced faults that separated configuration, route installation, and actual forwarding. I then connected both networks to a shared service and diagnosed the return routes needed to complete the traffic exchange.
+I built BLUE and RED with identical addresses, verified their separate next hops, and diagnosed faults in route installation and forwarding. I then added a shared service and corrected the return routes needed for successful exchanges.
 
 **4 routers in the completed lab · 2 VRFs plus the global table · 3 troubleshooting cases · 29 evidence blocks**
 
@@ -26,7 +26,7 @@ Follow [Selective route leaking](route-leaking/README.md) for the complete share
 
 ![VRF topology: BLUE and RED use overlapping addresses on separate R1 interfaces, with a shared service in the global table](topology.png)
 
-The original topology is **BLUE-CE — R1-VRF — RED-CE**. SHARED-SVC is added later on R1 Gi0/2. BLUE uses Gi0/0; RED uses Gi0/1. Each CE has 10.10.10.2/24, and R1 uses 10.10.10.1/24 independently on both links.
+BLUE and RED use separate R1 interfaces with identical 10.10.10.0/24 addressing. SHARED-SVC is added later in the global table on Gi0/2.
 
 [Addressing and wiring](topology.md) · [Configuration guide and saved checkpoint](configs/README.md)
 
@@ -42,11 +42,10 @@ The original topology is **BLUE-CE — R1-VRF — RED-CE**. SHARED-SVC is added 
 
 ## Engineering lessons
 
-- **Identify the routing context first.** An address alone is insufficient when networks overlap; interface membership, ARP and CEF must agree with the selected VRF.
-- **Check configuration, installation and forwarding separately.** A configured route may not install; an installed route may still have an unresolved next-hop adjacency.
-- **Global and VRF routes are not automatically shared.** The `global` keyword changes next-hop resolution for a VRF static route; it does not move that route into the global table.
-- **Account for both directions.** Selective shared-service access needs routes for requests and replies. This IOSv lab uses explicit egress interfaces to disambiguate overlapping return next hops.
-- **Distinguish segmentation from protection.** VLANs separate Layer 2 broadcast domains; VRFs separate Layer 3 routing contexts. VRF does not encrypt traffic. IPsec can provide confidentiality and integrity when those protections are required.
+- Select the routing context before interpreting interface, ARP and CEF state.
+- Check configuration, route installation, next-hop resolution and forwarding separately.
+- Validate both directions of selective shared-service access.
+- VRF separates routing contexts; encryption requires additional protection.
 
 ## Validation & Post-Assessment
 
@@ -63,8 +62,6 @@ The only initial post-assessment miss was confusing VRF segmentation with encryp
 
 ## Evidence scope
 
-The CLI comes from the completed September 27–28, 2026 lab record. The saved CML export is the earlier three-router overlapping-address checkpoint; it does not contain the later loopbacks, static-route exercises or shared-service node. Those additions are documented separately and tied to captured results.
+CLI captures cover the September 27–28, 2026 lab. The CML export is the earlier three-router checkpoint; later additions are documented in the configuration guide. The explicit-egress return routes reflect observed IOSv behavior. Detailed test limits and platform boundaries are recorded in the [scope guide](scope.md).
 
-The first RED neighbor test recorded 4/5 replies; later remote-prefix and final shared-service tests recorded 5/5. No loss-free convergence, encryption, throughput or exhaustive isolation test is claimed. The explicit-egress return-route technique is documented as observed IOSv behavior, not a portable configuration guarantee.
-
-[Conceptual sources and platform boundaries](scope.md) · [Back to portfolio](../README.md)
+[Back to portfolio](../README.md)

@@ -24,4 +24,6 @@ The baseline file is a three-node checkpoint recovered from the original attachm
 
 VRF-Lite and static routing are the completed implementation. MPLS, MP-BGP VPN distribution, route-target policies and IPsec encryption were not implemented in this lab. The final tests show ICMP request/reply success for the named loopbacks; they do not establish application performance or universal isolation between all possible endpoints.
 
+The first RED neighbor test recorded 4/5 replies; later remote-prefix and final shared-service tests recorded 5/5. Convergence loss and throughput were not measured. The explicit-egress return routes are documented as observed IOSv behavior, with their platform boundaries described above.
+
 [Verification record](verification/README.md) · [Configuration provenance](configs/README.md) · [VRF overview](README.md)

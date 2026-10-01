@@ -1,6 +1,6 @@
 # Verification — transport first, then overlay and service
 
-Each guide explains what its output establishes and links to complete text transcripts. Selected priority blocks carry the requested **📁 GitHub Evidence** marker.
+Each guide explains what its output establishes and links to complete text transcripts.
 
 | Guide | Blocks | Question answered |
 |---|---|---|

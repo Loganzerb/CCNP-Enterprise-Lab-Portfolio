@@ -6,8 +6,6 @@ These excerpts retain actual CLI from the completed lab. The linked full transcr
 
 ## Block 10 — Correlate the bad route with explicit recursion logs
 
-**📁 GitHub Evidence**
-
 The captured command adds 198.51.100.2/32 through 172.16.13.2. The later RIB lookup displays the safe covering /30, while Tunnel0 is up/down. Syslogs at 22:46:43–22:46:48 UTC show the looped midchain, RECURDOWN, line-protocol loss and OSPF FULL-to-DOWN transition. Earlier buffered logs are excluded from this excerpt to avoid mixing incidents.
 
 ```text
@@ -37,8 +35,6 @@ Tunnel0 is up, line protocol is down
 [Full captured text](block-10.txt)
 
 ## Block 11 — Remove the bad /32 and verify recovery
-
-**📁 GitHub Evidence**
 
 After removing the recursive route, Tunnel0 is up/up, OSPF returns to FULL, and 10.3.3.1/32 is learned again with metric 1001. The repair command is documented separately from this captured recovery output.
 

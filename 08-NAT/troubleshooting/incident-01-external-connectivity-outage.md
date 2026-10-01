@@ -127,3 +127,5 @@ The pings establish reachability and the same translation table establishes coex
 Check the whole dependency chain: interface role → source eligibility → mapping reference → pool capacity → forward and return routing → endpoint proof. The strongest clue at the intermediate checkpoint was the combination of ACL matches with zero translations and an unresolved pool reference. It prevented repeating repairs to components already shown healthy.
 
 Keep measurement and interpretation separate. A full pool can be healthy for two clients but inadequate for three; zero misses can coexist with failure; successful short pings do not erase an observed latency spike or prove sustained performance.
+
+[All NAT cases](README.md) · [NAT overview](../README.md)

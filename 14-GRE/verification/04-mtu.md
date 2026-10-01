@@ -6,8 +6,6 @@ These excerpts retain actual CLI from the completed lab. The linked full transcr
 
 ## Block 12 — Compare 1476 and 1477 bytes with and without DF
 
-**📁 GitHub Evidence**
-
 1476 bytes with DF returns 5/5; 1477 with DF returns 0/5; 1477 without DF returns 5/5. This establishes the tested boundary and successful delivery when fragmentation is permitted. No packet capture or fragment counters were retained to show individual fragments.
 
 ```text

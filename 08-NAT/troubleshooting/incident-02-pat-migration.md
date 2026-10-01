@@ -143,3 +143,5 @@ The original ticket also requested overlapping ping runs in both start orders an
 ## Lessons carried forward
 
 Validate the actual client path, identify which address an interface PAT rule selects, and inspect limits as well as mappings. Separate reachability proof from concurrency proof: pings establish replies, while persistent TCP sessions provide a stable window to inspect shared-address state. Capture commands in order and interpret each snapshot on its own terms.
+
+[All NAT cases](README.md) · [NAT overview](../README.md)

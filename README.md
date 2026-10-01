@@ -4,7 +4,7 @@ Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF se
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
 
-**14 technology modules · 299 text evidence files · 18 topology diagrams · 9 CML lab exports**
+**14 technology modules with topology diagrams, captured output and troubleshooting cases**
 
 ## Start with these three cases
 
@@ -61,18 +61,19 @@ The cases distinguish configured intent, observed device state, and tested servi
 
 ## Reuse a lab
 
-CML exports are available for [STP](04-STP/CCNP_MASTERCLASS_STP.yaml), [MSTP](05-MSTP/CCNP_MASTERCLASS_MSTP.yaml), [EtherChannel](06-ETHERCHANNEL/CML-LAB.yaml), [NTP](10-NTP/CCNP_MASTERCLASS_LAB_September_18th.yaml), and the two NAT fault states: [Incident 01](08-NAT/configs/incident-01-original.yaml) and [Incident 02](08-NAT/configs/incident-02-original.yaml).
+| CML export | Saved state | Configuration guide |
+|---|---|---|
+| [STP](04-STP/CCNP_MASTERCLASS_STP.yaml) | Switching checkpoint | [STP settings](04-STP/configs/README.md) |
+| [MSTP](05-MSTP/CCNP_MASTERCLASS_MSTP.yaml) | Region and boundary checkpoint | [MSTP settings](05-MSTP/configs/README.md) |
+| [EtherChannel](06-ETHERCHANNEL/CML-LAB.yaml) | Link-aggregation checkpoint | [Bundle settings](06-ETHERCHANNEL/configs/README.md) |
+| [NTP](10-NTP/CCNP_MASTERCLASS_LAB_September_18th.yaml) | Earlier hierarchy checkpoint | [Later source changes](10-NTP/configs/README.md) |
+| NAT: [Incident 01](08-NAT/configs/incident-01-original.yaml) / [Incident 02](08-NAT/configs/incident-02-original.yaml) | Original fault states | [Repairs and final configurations](08-NAT/configs/README.md) |
+| [Multicast BSR](12-MULTICAST/PIM-SM/configs/PIM-SM_BSR_September_24th.yaml) | Intermediate seven-node checkpoint | [Completion steps](12-MULTICAST/PIM-SM/configs/bsr.md) |
+| [VRF](13-VRF/configs/CCNP_VRF_Sept_27th-baseline.yaml) | Original three-router isolation stage | [Shared-service additions](13-VRF/configs/README.md) |
+| [GRE](14-GRE/configs/CCNP_GRE_Sept_27th.yaml) | Healthy underlay and OSPF overlay | [Fault and repair stages](14-GRE/configs/README.md) |
 
-The [Multicast BSR export](12-MULTICAST/PIM-SM/configs/PIM-SM_BSR_September_24th.yaml) preserves an intermediate seven-node checkpoint; its [configuration guide](12-MULTICAST/PIM-SM/configs/bsr.md) supplies the later completion steps.
-
-The [VRF checkpoint](13-VRF/configs/CCNP_VRF_Sept_27th-baseline.yaml) contains the original three-router overlapping-address stage; the [configuration guide](13-VRF/configs/README.md) separates it from the later shared-service additions.
-
-The [GRE export](14-GRE/configs/CCNP_GRE_Sept_27th.yaml) preserves the healthy three-router underlay and OSPF overlay; its [configuration guide](14-GRE/configs/README.md) links the separate fault and repair stages.
-
-Read the module's configuration guide before import. Exports represent different experiment stages; check image mappings, interface wiring, and VLAN creation before establishing a fresh baseline. Other modules provide extracts, selected settings, or reconstructed configurations, with their scope explained in the guides.
+Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 
 ## Evidence scope
 
-This portfolio records controlled lab work. Cases identify whether a result comes from captured output, a recorded observation, or configuration analysis. Missing measurements and reconstructed commands are labeled where relevant.
-
-The file totals count evidence `.txt` files under verification and troubleshooting, not independent tests. They exclude five configuration text files. Additional excerpts appear in Markdown, including 34 numbered NTP blocks, 30 numbered PBR blocks, and 130 numbered Multicast blocks, including labeled Auto-RP handoff excerpts and BSR operator/configuration evidence. The IGMP, BIDIR, 29 VRF and 12 GRE blocks also link to full text transcripts counted above. Diagrams explain the designs; the linked captures establish the recorded behavior.
+Cases distinguish captured output, recorded observations and configuration analysis. Reconstructed commands and measurement limits are identified alongside the relevant evidence. Diagrams explain the designs; linked CLI captures establish the recorded behavior.
