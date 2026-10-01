@@ -6,6 +6,8 @@ A third case examines inconsistent summarization: removing one setting on a bran
 
 **Five routers · EIGRP AS 100 · Three troubleshooting cases**
 
+**Process diagram:** [Backup eligibility and route replacement](troubleshooting/README.md#follow-backup-eligibility-and-the-observed-result)
+
 **Start here:** [A qualified backup takes over](troubleshooting/scenario-1-feasible-successor-promotion.md). The case connects the eligibility calculation to the installed replacement route and the restored baseline.
 
 ## Lab design

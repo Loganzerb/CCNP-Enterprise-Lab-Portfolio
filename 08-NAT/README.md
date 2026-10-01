@@ -6,6 +6,8 @@ Guided exercises compare static NAT, dynamic NAT, and shared-address PAT. Two in
 
 **Two clients · Four translation modes · Two integrated incidents · 14 evidence captures**
 
+**Process diagram:** [Follow the NAT service dependencies](troubleshooting/incident-01-external-connectivity-outage.md#follow-the-service-dependencies)
+
 **Start here:** [Restore outside access through multiple faults](troubleshooting/incident-01-external-connectivity-outage.md). Four starting faults prevented the intended dynamic-NAT service. A temporary pool-name typo added another diagnostic checkpoint. Final evidence shows both clients receiving 5/5 replies and holding different translated addresses concurrently.
 
 ## Lab design

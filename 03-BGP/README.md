@@ -6,6 +6,8 @@ The work demonstrates how I separate a connection problem from a route-selection
 
 **Six routers · Four autonomous systems · Three troubleshooting cases**
 
+**Process diagram:** [From advertisement to a usable path](troubleshooting/scenario-2-ibgp-next-hop-reachability.md#from-advertisement-to-a-usable-path)
+
 **Start here:** [A healthy session with an unusable path](troubleshooting/scenario-2-ibgp-next-hop-reachability.md). Both internal BGP sessions stayed established, but one advertised next hop was unreachable. The alternate route remained installed; restoring `next-hop-self` made the original path eligible again.
 
 ## Lab design

@@ -6,6 +6,8 @@ I built a five-router Cisco Modeling Labs environment with two source addresses 
 
 **5 routers · 2 source addresses · 3 case studies · 30 evidence blocks**
 
+**Process diagram:** [Follow policy evaluation](verification/README.md#follow-policy-evaluation)
+
 ## Results at a glance
 
 | Test | What I established | Recorded result |

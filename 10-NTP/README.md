@@ -6,6 +6,8 @@ I built a five-device Cisco Modeling Labs environment with two local time source
 
 **5 devices · 2 time sources · 3 troubleshooting cases · 34 evidence blocks**
 
+**Process diagram:** [Follow the NTP verification layers](verification/README.md#follow-the-verification-layers)
+
 ## Results at a glance
 
 | Problem or test | What I established | Recorded result |

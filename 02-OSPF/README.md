@@ -6,6 +6,8 @@ In this five-router lab, I investigated both problems: an IP MTU mismatch that s
 
 **Five routers · Two OSPF areas · Three troubleshooting cases**
 
+**Process diagram:** [Follow the MTU diagnosis](troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md#follow-the-mtu-diagnosis)
+
 **Start here:** [Repair an OSPF adjacency while ping still works](troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md). O2 received replies to all five probes sent to O4, but OSPF remained in `EXSTART`. Comparing interface and IP MTU values exposed the mismatch; removing it restored `FULL` adjacency on both devices.
 
 ## Lab design

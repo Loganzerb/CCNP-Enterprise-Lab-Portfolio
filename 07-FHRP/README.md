@@ -6,6 +6,8 @@ The HSRP, VRRP, and GLBP exercises connect gateway selection to upstream routing
 
 **Three gateway protocols · Three case studies · Two topologies · 80 console captures**
 
+**Process diagram:** [How tracking moves gateway service](troubleshooting/scenario-1-hsrp-upstream-black-hole.md#how-tracking-moves-gateway-service)
+
 **Start here:** [An active gateway with no upstream path](troubleshooting/scenario-1-hsrp-upstream-black-hole.md). PC-A lost all ten probes while DIST-A remained HSRP Active. Tracking shifted service to DIST-B, followed by 10/10 replies. Recovery testing then examined whether the preferred gateway reclaimed traffic before OSPF was ready.
 
 ## Lab design
