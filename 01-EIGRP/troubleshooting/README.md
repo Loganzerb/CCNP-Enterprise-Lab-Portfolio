@@ -18,6 +18,19 @@ The first two cases compare backup eligibility for the same branch summary, `172
 | R3 qualifies as the backup | Yes | No |
 | Installed metric through R3 after failure | 156416 | 156672 |
 
+### Follow backup eligibility and the observed result
+
+```mermaid
+flowchart LR
+    F["Before failure<br/>FD 131072"] --> T{"Is RD less than FD?"}
+    T -->|"Case 01: RD 130816"| Y["Yes<br/>R3 qualifies as feasible successor"]
+    T -->|"Case 02: RD 131072"| N["No<br/>R3 does not qualify before failure"]
+    Y --> A["After preferred-path failure<br/>R3 route installed: metric 156416"]
+    N --> B["After preferred-path failure<br/>R3 route installed: metric 156672"]
+```
+
+Backup eligibility is checked before failure; the installed replacement route is checked afterward. The original [Case 01](../verification/incidents/scenario-1-feasible-successor-promotion.md) and [Case 02](../verification/incidents/scenario-2-no-feasible-successor-dual-recalculation.md) blocks retain the comparisons and route results.
+
 A failed feasibility test does not prove that a path contains a loop. It means that this test does not qualify it for use as a precomputed loop-free alternative.
 
 Neither experiment measures convergence time or packet loss. Case 02 retains no direct Active-state or Query/Reply event. The original 77 blocks include command lists and explanatory calculations as well as selected device output; they are not 77 independent captures.

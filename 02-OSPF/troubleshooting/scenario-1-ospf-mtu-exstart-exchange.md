@@ -24,6 +24,18 @@ The controlled fault set `ip mtu 1400` on O2's interface and bounced that interf
 
 The small ping proved that those probes could cross the link. It did not test database synchronization or full-size packet handling.
 
+### Follow the MTU diagnosis
+
+```mermaid
+flowchart LR
+    P["Small ping succeeds<br/>5/5 replies"] --> N["OSPF adjacency stalls<br/>EXSTART"]
+    N --> M["Compare effective IP MTUs<br/>O2 override: 1400"]
+    M --> R["Remove O2's override<br/>no ip mtu"]
+    R --> F["Verify both neighbor views<br/>FULL adjacency"]
+```
+
+The [ping and MTU comparison](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-3) narrows the investigation; the [post-repair views](../verification/incidents/scenario-1-ospf-mtu-exstart-exchange.md#block-9) establish adjacency recovery. The diagram summarizes the investigation, without measuring convergence time.
+
 ## Repair and verification
 
 I removed the override with `no ip mtu` on O2 Gi0/2. The documented repair did not clear the OSPF process or bounce the interface again.

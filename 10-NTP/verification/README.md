@@ -18,11 +18,20 @@ The evidence is grouped by the question each test answers. Read a short interpre
 | Is the source accepted? | Association markers and detail | A responding source could still be x, insane or invalid |
 | Is the local clock synchronized? | show ntp status | Initial and backup hierarchy captures explicitly report synchronized |
 
+### Follow the verification layers
+
+```mermaid
+flowchart LR
+    R["Test actual source reachability"] --> E["Check NTP exchange<br/>Reach + ACL counters"]
+    E --> A["Check source acceptance<br/>Association markers"]
+    A --> S["Confirm synchronization<br/>show ntp status"]
+```
+
+Each step needs its own check. The [R3 baseline pair](01-hierarchy.md#block-03) shows source selection before synchronization, while the [later status](01-hierarchy.md#block-05) explicitly confirms a synchronized clock. The routing and ACL repairs retain exchange recovery without a final synchronized-status capture.
+
 **Reach** is an eight-bit history displayed in octal, not a percentage or a total packet count. **377** represents eight successful recent polls. **1** and **17** show partial rebuilt history; a positive value alone does not prove synchronization. Confirm local state with `show ntp status`.
 
 The association's **st** field describes the remote source. Local stratum appears in `show ntp status`. In these captures, `*` marks the system peer, `+` a candidate, `x` a falseticker and `~` a configured association. Detailed `insane, invalid` output means the source's time is not accepted.
-
-The [R3 baseline pair](01-hierarchy.md#block-03) is particularly useful: the association had a selected marker while local status still said unsynchronized and FREQ. A [later status](01-hierarchy.md#block-05) explicitly recorded synchronized and CTRL.
 
 ## Capture conventions and limits
 

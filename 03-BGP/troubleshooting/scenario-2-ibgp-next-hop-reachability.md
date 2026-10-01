@@ -10,6 +10,17 @@ Normally, O1's `next-hop-self` setting replaces the provider next hop with O1's 
 
 [Originating prefix and fault commands](../verification/incidents/scenario-2-ibgp-next-hop-reachability.md#block-1)
 
+## From advertisement to a usable path
+
+```mermaid
+flowchart LR
+    P["O2 receives O1's BGP path"] --> N{"Can O2 resolve the next hop?"}
+    N -->|"Fault: 10.250.1.2"| F["No: O1's path is inaccessible<br/>O4 alternate stays installed"]
+    N -->|"Repair: 10.100.1.1"| R["Yes: O1's path is usable<br/>Installed next hop returns to O1"]
+```
+
+The peer session remained established while O1's path changed from inaccessible to usable. Compare the [fault-state path and route lookups](../verification/incidents/scenario-2-ibgp-next-hop-reachability.md#block-5) with the [recovered next hop](../verification/incidents/scenario-2-ibgp-next-hop-reachability.md#block-9). The alternate through O4 remained installed during the fault.
+
 ## How I isolated the cause
 
 The peer summaries still showed established sessions. The decisive comparison was between O2's detailed BGP entry and its IP routing table.

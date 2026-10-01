@@ -39,6 +39,17 @@ The pool's current index was `.23` before the last acquisition, and `.23` was su
 
 DORA means **Discover → Offer → Request → Acknowledgment**. [Capture 08](08-relayed-dora-and-new-binding.txt) contains all four stages in the server debug, including replies sent to relay `10.10.20.1`.
 
+### Follow the relayed exchange
+
+```mermaid
+flowchart LR
+    D["Discover<br/>Client → relay → server"] --> O["Offer<br/>Server → relay → client"]
+    O --> R["Request<br/>Client → relay → server"]
+    R --> A["ACK<br/>Server → relay → client"]
+```
+
+In the captured exchange, DIST-SW relays these messages between CLIENT-B and DHCP-SRV. The [server debug and new binding](08-relayed-dora-and-new-binding.txt) connect the exchange to CLIENT-B's new `.22` lease.
+
 The final client lease reports:
 
 | Field | Captured seconds | Duration |

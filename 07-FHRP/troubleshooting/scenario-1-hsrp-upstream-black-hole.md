@@ -74,6 +74,17 @@ Source: [Tracking lowers effective HSRP priority to 99](../verification/hsrp-tra
 
 Recovery testing then exposed premature preemption. A 10-second minimum preemption delay was added to DIST-A.
 
+### How tracking moves gateway service
+
+```mermaid
+flowchart LR
+    U["DIST-A uplink down"] --> T["Tracking lowers priority<br/>120 − 21 = 99"]
+    T --> B["DIST-B becomes Active<br/>Priority 100"]
+    B --> V["Post-change client test<br/>10/10 replies via DIST-B"]
+```
+
+This summarizes the repaired behavior with DIST-A's uplink still down: [tracking changes its effective priority](../verification/hsrp-tracking/FHRP-DIST-A-show-track-and-standby-uplink-down.txt), and the [client check verifies DIST-B's path](../verification/hsrp-tracking/PC-A-ping-and-traceroute-tracking-failover.txt). Recovery ordering and packet loss are recorded separately below.
+
 ## Verification
 
 With DIST-A’s uplink still down, PC-A completed:

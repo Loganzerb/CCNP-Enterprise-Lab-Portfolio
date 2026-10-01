@@ -33,6 +33,21 @@ The [before route](01-baseline.md#block-06) and [after route](01-baseline.md#blo
 
 These rules concern an ACL referenced by a PBR route map. They do not describe an interface filtering ACL.
 
+### Follow policy evaluation
+
+```mermaid
+flowchart LR
+    P["Packet enters R2's policy interface"] --> M{"Current sequence matches?"}
+    M -->|"No, including ACL deny"| S{"Another sequence?"}
+    S -->|"Yes: evaluate next"| M
+    S -->|"No"| R["Use normal routing"]
+    M -->|"Yes"| A{"Route-map action?"}
+    A -->|"deny"| R
+    A -->|"permit + set next hop"| N["Apply configured next-hop policy"]
+```
+
+This follows the lab's route-map sequences. The [sequencing output](04-route-map-sequencing.md) and [paired source traces](04-route-map-sequencing.md#block-07) connect the decisions to the observed paths. Next-hop usability is examined separately in the [link-failure case](../troubleshooting/02-next-hop-failure.md).
+
 The sequencing exercise recorded **nine ACL matches**, **zero policy-routing packets on deny 10**, and **39 policy-routing packets on permit 20**. Those are separate cumulative counters, not a one-to-one packet ledger.
 
 ## Evidence handling and limits

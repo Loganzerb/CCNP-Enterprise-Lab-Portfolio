@@ -12,6 +12,18 @@ Clients use `10.10.10.1` as their gateway through NAT-SW. NAT-EDGE receives thei
 
 The target result was two coexisting base mappings and successful traffic from both clients. The two-address pool meets this lab requirement; it has no spare address while both mappings remain allocated.
 
+### Follow the service dependencies
+
+```mermaid
+flowchart LR
+    I["NAT interface roles"] --> A["Eligible inside sources"]
+    A --> M["Valid pool mapping<br/>Capacity for two clients"]
+    M --> R["Forward and return routing"]
+    R --> V["Closure<br/>Two mappings; 5/5 per client"]
+```
+
+These are the dependencies checked during diagnosis, rather than a timeline of repair commands. The [final client and translation checks](../verification/incident-01-final.txt) establish the recorded closure.
+
 ## Evidence and its limits
 
 - [Original fault lab](../configs/incident-01-original.yaml): direct configuration evidence for all four starting faults. It is not a transcript of initial device commands.
