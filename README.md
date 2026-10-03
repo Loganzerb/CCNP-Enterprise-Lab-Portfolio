@@ -43,7 +43,7 @@ O2 received replies to all five probes sent to O4, but OSPF stalled in `EXSTART`
 | [11 — PBR](11-PBR/README.md) | Selective forwarding, policy logic, and next-hop recovery | [A next-hop route remains while the policy path changes](11-PBR/troubleshooting/02-next-hop-failure.md) |
 | [12 — Multicast (in progress)](12-MULTICAST/README.md) | RP discovery, IGMP/SSM membership, BIDIR role changes, and path diagnosis | [OSPF reaches the BSR, but RP discovery stops](12-MULTICAST/PIM-SM/troubleshooting/07-bsr-propagation.md) |
 | [13 — VRF](13-VRF/README.md) | Overlapping networks, separate forwarding state, and selective shared access | [An installed route with an unresolved next hop](13-VRF/troubleshooting/01-bad-next-hop.md) |
-| [14 — GRE and IPsec](14-GRE-IPsec-Tunneling/README.md) | Routed overlays, transport-mode protection, and layered crypto diagnosis | [A healthy IKE session with the wrong selector](14-GRE-IPsec-Tunneling/troubleshooting/03-selector-mismatch.md) |
+| [14 — GRE/IPsec and IKEv2 VTI](14-GRE-IPsec-Tunneling/README.md) | Policy-based protection, route-based tunneling, and OSPF across both designs | [Direct OSPF and 10/10 private replies over VTI](14-GRE-IPsec-Tunneling/verification/07-vti.md) |
 
 ## How to review the work
 
@@ -70,6 +70,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 | NAT: [Incident 01](08-NAT/configs/incident-01-original.yaml) / [Incident 02](08-NAT/configs/incident-02-original.yaml) | Original fault states | [Repairs and final configurations](08-NAT/configs/README.md) |
 | [Multicast BSR](12-MULTICAST/PIM-SM/configs/PIM-SM_BSR_September_24th.yaml) | Intermediate seven-node checkpoint | [Completion steps](12-MULTICAST/PIM-SM/configs/bsr.md) |
 | [VRF](13-VRF/configs/CCNP_VRF_Sept_27th-baseline.yaml) | Original three-router isolation stage | [Shared-service additions](13-VRF/configs/README.md) |
+| [Section 14 VTI](14-GRE-IPsec-Tunneling/configs/IKEv2-VTI-CML-sanitized.yaml) | Saved three-router IKEv2 VTI and OSPF checkpoint; key sanitized | [VTI settings and provenance](14-GRE-IPsec-Tunneling/configs/vti.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 

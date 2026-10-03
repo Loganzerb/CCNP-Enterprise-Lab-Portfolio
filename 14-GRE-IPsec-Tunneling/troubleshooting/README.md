@@ -1,6 +1,6 @@
 # Troubleshooting — locate the failing crypto dependency
 
-Each exercise began from a working GRE/IPsec baseline. A single change on R3 tested whether I could separate negotiation state from protected forwarding and recover the service with a targeted repair.
+These three exercises belong to the classic GRE/IKEv1 stage. VTI work is documented as successful configuration and verification in the [VTI guide](../verification/07-vti.md). Each exercise began from a working GRE/IPsec baseline. A single change on R3 tested whether I could separate negotiation state from protected forwarding and recover the service with a targeted repair.
 
 | Case | Failure signature | Root cause | Retained recovery |
 |---|---|---|---|

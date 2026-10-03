@@ -1,4 +1,4 @@
-# Final validation — private traffic, routing, and ESP agree
+# Classic GRE/IKEv1 final validation — private traffic, routing, and ESP agree
 
 These captures follow the fault repairs. The test explicitly uses R1’s Loopback0 source, so a successful WAN ping cannot substitute for the result.
 

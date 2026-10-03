@@ -1,4 +1,4 @@
-# IPsec verification — current SAs and protected traffic identities
+# Classic GRE/IKEv1 IPsec verification — current SAs and protected identities
 
 Inspect IKE and ESP separately. A configured peer or a QM_IDLE entry does not establish a currently usable ESP data path.
 

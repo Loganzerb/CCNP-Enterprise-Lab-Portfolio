@@ -1,59 +1,72 @@
-# 14 — GRE and IPsec: A routed overlay with verified protection
+# 14 — GRE/IPsec and IKEv2 VTI: Two verified site-to-site designs
 
-GRE connects two sites across an intermediate IP network and carries their private traffic and routing updates. IPsec protects that GRE traffic between the site routers. Together, they provide a routed connection while the transit router only forwards packets between the WAN endpoints.
+I built two VPN designs across the same three-router network to connect private endpoints through a transit router. The first combines GRE with policy-based IPsec; the second uses a route-based IPsec Virtual Tunnel Interface (VTI). Both carry OSPF and private traffic, with different ways of selecting and protecting that traffic.
 
-I built the GRE overlay, established OSPF across it, and added IKEv1/IPsec transport-mode protection. Three controlled faults then tested peer authentication, encryption agreement, and traffic selection. Each repair restored the tunnel's routing adjacency without restarting OSPF.
+The objective was to configure each design, verify routing and encrypted forwarding together, and explain what the device state establishes. Three controlled faults in the classic GRE/IKEv1 stage tested authentication, ESP negotiation, and traffic selection.
 
-**Final result: 20/20 sourced private-to-private replies, active ESP SAs, increasing encryption/decryption counters, and zero recorded crypto send/receive errors.**
+**GRE/IKEv1: 20/20 private replies after three fault repairs. IKEv2 VTI: 10/10 private replies, FULL OSPF, active ESP SAs, and zero final crypto errors.**
 
-**Process diagrams:** [Protected packet flow](operation.md#how-private-traffic-crosses-the-transit-network) · [Configuration dependencies](configs/ipsec.md#how-the-configuration-pieces-connect) · [Fault diagnosis](troubleshooting/README.md#locate-the-failing-layer)
-
-## Results at a glance
-
-| Stage | What I verified | Result |
-|---|---|---|
-| GRE | Interface display versus actual overlay reachability | Up/up appeared before the remote tunnel existed; overlay ping succeeded after both ends were configured |
-| OSPF | Private routing across Tunnel0 | FULL adjacency; remote loopback host routes learned through the overlay |
-| Protected traffic | Current IKE and ESP state, routing, and a sourced traffic test | QM_IDLE/ACTIVE; active transport-mode ESP; 20/20 replies |
-| Authentication fault | Fresh negotiation after a PSK mismatch | Main Mode attempts failed; correcting the key restored IKE, ESP, and OSPF |
-| Transform fault | IKE remained established while ESP could not rebuild | AES-256 restoration brought back ESP and FULL adjacency |
-| Selector fault | Correct peer, incorrect protected destination | Correcting 192.0.2.5 to 192.0.2.1 restored encrypted forwarding |
-
-## Start with these files
-
-For a quick review, read [final validation](verification/03-final-validation.md): the sourced ping, FULL adjacency, active SAs, and counter changes establish a complete request/reply path.
-
-For the strongest troubleshooting example, read [Case 03 — A healthy IKE session with the wrong selector](troubleshooting/03-selector-mismatch.md). R1 retained 102 encrypted/decrypted packets from earlier operation while its current outbound SPI was zero and traffic failed.
+**Process diagrams:** [GRE packet flow](operation.md#how-private-traffic-crosses-the-transit-network) · [VTI packet flow](operation.md#how-the-vti-carries-private-traffic) · [IKEv2 configuration dependencies](configs/vti.md#how-the-objects-connect) · [Classic fault diagnosis](troubleshooting/README.md#locate-the-failing-layer)
 
 ## Topology and objective
 
-![GRE and IPsec overlay between R1-VPN and R3-VPN across R2-TRANSIT](topology.png)
+![Shared three-router WAN with GRE/IPsec and VTI tested in separate stages](topology-vti.png)
 
-R1-VPN and R3-VPN terminate GRE and IPsec. R2-TRANSIT provides the routed WAN path and participates in neither the tunnel nor OSPF. The overlay uses 172.16.13.0/30; the private test endpoints are 10.10.10.1 and 10.30.30.1.
+R1-VPN and R3-VPN terminate the VPN. R2-TRANSIT routes only the WAN endpoints, 192.0.2.1 and 198.51.100.2. Tunnel0 uses 172.16.13.0/30; private loopbacks are 10.10.10.1 and 10.30.30.1. The two designs reuse these addresses in separate lab stages.
 
-The project addresses **CCNP ENCOR 350-401 v1.2, objective 2.2.b — GRE and IPsec tunneling**, under configuring and verifying data path virtualization technologies.
+This project addresses **CCNP ENCOR 350-401 v1.2, objective 2.2.b — GRE and IPsec tunneling**, under configuring and verifying data path virtualization technologies.
 
-[Roles, addresses and wiring](topology.md) · [Packet behavior](operation.md)
+[Addresses and wiring](topology.md) · [Encapsulation and forwarding](operation.md)
 
-## Explore the section
+## Stage 1 — Classic GRE over IPsec with IKEv1
 
-| Guide | Purpose |
-|---|---|
-| [Configurations](configs/README.md) | Sanitized device extracts and the relationship between IKE, ESP, selectors, and the WAN crypto map |
-| [Verification](verification/README.md) | Numbered CLI blocks, initial GRE/OSPF observations, and final protected traffic checks |
-| [Troubleshooting](troubleshooting/README.md) | Three controlled faults with symptoms, investigation, correction, and recovery evidence |
+GRE supplied the routed overlay; a WAN crypto map protected the GRE packets with ESP transport mode. I established OSPF process 10 across Tunnel0, then deliberately mismatched the PSK, ESP transform, and traffic selector on R3.
 
-## Engineering lessons
+Each repair restored protected forwarding and OSPF without a recorded routing-process restart. Final CLI combines **20/20 sourced replies**, **active inbound/outbound ESP**, **counter growth**, and **zero send/receive errors**.
 
-- GRE supplies the overlay; IPsec adds confidentiality and integrity. R2 needs only the outer endpoint routes.
-- Tunnel up/up and IKE QM_IDLE are useful checks, but service validation also needs current ESP SAs and traffic tests.
-- The crypto ACL selects GRE between the WAN endpoints. The crypto map activates protection on Gi0/0.
-- Verify inbound and outbound SAs separately. Cross-peer SPI correlation identifies the two traffic directions.
-- Existing SAs can mask a configuration mismatch until renegotiation. Historical counters can also survive a failed current state.
-- Repair the failing dependency and observe recovery; the recorded cases did not require an OSPF process restart.
+[Classic configuration](configs/ipsec.md) · [Final CLI validation](verification/03-final-validation.md) · [Three troubleshooting cases](troubleshooting/README.md)
 
-## Evidence scope
+## Stage 2 — Route-based IPsec VTI with IKEv2
 
-The initial GRE/OSPF milestones come from the completed-lab handoff. The linked CLI captures establish the IPsec failures, repairs, and final validation. Device configuration files are clearly labeled reconstructions, with the lab key replaced by a placeholder. [Source and measurement boundaries](scope.md) identify partial captures and unmeasured behavior.
+The VTI supplied the routed tunnel directly, without GRE. An IPsec profile applied tunnel-mode protection to Tunnel0; routing selected the packets entering it. OSPF process 10 ran directly over the VTI in area 0 and exchanged the loopback host routes.
+
+The recorded validation includes **IKEv2 READY**, **5/5 tunnel-address replies**, **FULL adjacency**, and **10/10 loopback-to-loopback replies from R3 to R1**. R3's final counters were **44 encapsulated/encrypted** and **51 decapsulated/decrypted**, with **zero errors** and both ESP SAs **ACTIVE(ACTIVE)**.
+
+[IKEv2/VTI configuration stages](configs/vti.md) · [VTI routing and validation](verification/07-vti.md) · [Sanitized CML export](configs/IKEv2-VTI-CML-sanitized.yaml)
+
+## Compare the two lab designs
+
+| Design choice | Classic GRE/IKEv1 | IKEv2 VTI |
+|---|---|---|
+| Tunnel encapsulation | GRE carries the inner packet | IPsec supplies tunnel encapsulation |
+| IPsec mode | Transport | Tunnel |
+| Traffic selection | Crypto ACL matches GRE between WAN endpoints | Routing selects Tunnel0; no site-prefix crypto ACL |
+| Protection attachment | Crypto map on Gi0/0 | IPsec profile on Tunnel0 |
+| OSPF | Across GRE | Directly across the VTI |
+
+[Packet-flow comparison](operation.md#compare-encapsulation-and-traffic-selection)
+
+## Configuration memory
+
+**IKEv2:** Proposal → Policy → Keyring → IKEv2 Profile → Transform Set → IPsec Profile → VTI
+
+**Classic GRE/IPsec:** Negotiate → Authenticate → Protect → Select → Bind → Apply → Verify
+
+These workflows organize the configuration jobs; the [configuration guide](configs/vti.md) explains the actual object references.
+
+## Key engineering takeaways
+
+- Prove reachability to the outer VPN endpoint independently of the tunnel. R2 needs neither private routes nor overlay OSPF.
+- Pair tunnel and IKE state with current ESP SAs, routing, and sourced traffic checks.
+- GRE selectors and VTI routing select traffic differently. Broad VTI selectors do not send every route through the VPN.
+- Compare inbound and outbound SPIs across peers; each direction has its own SA.
+- Existing SAs can conceal a changed configuration, and historical counters can outlive current forwarding.
+- Keep the two stages' evidence separate. VTI work stopped after successful configuration and verification; its later retention rebuild is planned work.
+
+## Navigate the evidence
+
+[Configurations](configs/README.md) · [Verification and commands](verification/README.md) · [Classic troubleshooting](troubleshooting/README.md) · [Source and measurement boundaries](scope.md)
+
+The classic stage retains the supplied console captures. The VTI stage combines saved node configuration with the completed-lab validation handoff; reported runtime results are identified separately from verbatim CLI. Keys are sanitized.
 
 [Back to portfolio](../README.md)
