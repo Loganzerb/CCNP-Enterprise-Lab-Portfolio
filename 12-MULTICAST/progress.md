@@ -1,10 +1,10 @@
-# Multicast progress
+# Multicast completion and evidence scope
 
-**Documentation status: September 30, 2026.** Static RP, Auto-RP and BSR are documented within PIM-SM. IGMPv2/v3 with SSM control-plane validation and BIDIR-PIM are documented as sibling subsections.
+**Completion status: October 8, 2026.** The Multicast work is complete. Static RP, Auto-RP and BSR are documented within PIM-SM. IGMPv2/v3 with SSM control-plane validation and BIDIR-PIM are documented as sibling subsections.
 
 ## Published lab evidence
 
-| Work | Current position |
+| Work | Published coverage |
 |---|---|
 | Original six-node topology | Built; distinct source and RP paths verified |
 | Static-RP PIM-SM | Membership, registration state, receiver replies and three controlled cases documented |
@@ -20,9 +20,9 @@
 | IGMPv2/v3 | Membership expiry/rejoin and version migration documented in its own subsection |
 | SSM | INCLUDE membership and source-specific routing state documented with IGMPv3; no retained SSM traffic transcript |
 | BIDIR-PIM | Addressing and receiver-placement repairs, DR/DF separation and DF transition documented; post-change test has 29/30 replies |
-| MSDP | Portfolio evidence not yet integrated |
+| MSDP | No integrated portfolio evidence |
 | PIM Dense Mode | Included in the cumulative assessment; no lab evidence published here |
-| Final RPF review | Dedicated subsection pending; existing RPF work remains linked within PIM-SM |
+| RPF coverage | Existing RPF work is linked within PIM-SM; no standalone RPF page is published |
 
 ## Cumulative assessment
 
@@ -40,10 +40,10 @@ IGMP adds seven numbered blocks and two investigations. BIDIR adds eighteen bloc
 
 IGMPv2 removal was observed through expiry, without a captured Leave exchange. IGMPv3/SSM has a source-specific route but no retained delivery test. BIDIR's original 100-probe excerpt stops at request 42; its later 30-probe transcript is complete. That later test occurred after the DF change and does not measure transition loss. The proposed cost rollback was not captured.
 
-## Next checkpoint
+## Organization and possible evidence additions
 
-Keep Static RP, Auto-RP and BSR together inside PIM-SM. Keep IGMPv2/v3 (including its completed SSM state exercise) and BIDIR as sibling subsections. Add MSDP when its evidence is ready. A dedicated RPF subsection can summarize the existing exercises and the final review without duplicating evidence.
+Static RP, Auto-RP and BSR remain together inside PIM-SM. IGMPv2/v3, including its completed SSM state exercise, and BIDIR remain sibling subsections. Existing RPF exercises stay linked within PIM-SM.
 
-For the next lab handoff, retain the starting export, the significant before/after checks and a complete traffic transcript where delivery is being tested. A final BSR running-config export would complement the existing intermediate checkpoint.
+Possible publication additions include an MSDP evidence set, a standalone index of the existing RPF exercises, retained delivery transcripts for SSM or recovery tests, and a final BSR running-config export. These would extend the published evidence coverage.
 
 [Read IGMP](IGMPv2-v3/README.md) · [Read BIDIR](BIDIR-PIM/README.md) · [Read BSR](PIM-SM/bsr.md) · [Read Auto-RP](PIM-SM/auto-rp.md) · [Back to Multicast](README.md)

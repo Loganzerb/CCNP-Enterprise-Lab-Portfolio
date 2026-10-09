@@ -61,7 +61,7 @@ I built these labs to understand how networks behave when configurations change 
 | [09 — DHCP](09-DHCP/README.md) | Address assignment, relay, and lease-state diagnosis | [A valid address without remote access](09-DHCP/troubleshooting/02-incorrect-default-gateway.md) |
 | [10 — NTP](10-NTP/README.md) | Time hierarchy, source failover, and service-specific diagnosis | [Ping works while time updates stop](10-NTP/troubleshooting/03-acl-udp123.md) |
 | [11 — PBR](11-PBR/README.md) | Selective forwarding, policy logic, and next-hop recovery | [A next-hop route remains while the policy path changes](11-PBR/troubleshooting/02-next-hop-failure.md) |
-| [12 — Multicast (in progress)](12-MULTICAST/README.md) | RP discovery, IGMP/SSM membership, BIDIR role changes, and path diagnosis | [OSPF reaches the BSR, but RP discovery stops](12-MULTICAST/PIM-SM/troubleshooting/07-bsr-propagation.md) |
+| [12 — Multicast](12-MULTICAST/README.md) | RP discovery, IGMP/SSM membership, BIDIR role changes, and path diagnosis | [OSPF reaches the BSR, but RP discovery stops](12-MULTICAST/PIM-SM/troubleshooting/07-bsr-propagation.md) |
 
 ### Segmentation and tunneling
 

@@ -2,7 +2,9 @@
 
 These labs trace how a network discovers receivers, selects multicast paths and responds when configuration or routing changes. Each subsection connects a plain-English outcome to configuration, device evidence and the decisions used to diagnose it.
 
-**Quick navigation:** [Topics](#explore-the-topics) · [Cases](#choose-a-case) · [PIM-SM phases](#pim-sm-phases) · [Assessment](#validation--post-assessment) · [Progress and scope](progress.md)
+**Completion status: October 8, 2026.** The Multicast work is complete; the topic table identifies the lab evidence published here.
+
+**Quick navigation:** [Topics](#explore-the-topics) · [Cases](#choose-a-case) · [PIM-SM phases](#pim-sm-phases) · [Assessment](#validation--post-assessment) · [Completion and scope](progress.md)
 
 **Process diagram:** [Follow the RP discovery stages](PIM-SM/README.md#follow-the-rp-discovery-stages)
 
@@ -13,8 +15,8 @@ These labs trace how a network discovers receivers, selects multicast paths and 
 | **PIM-SM** | Static RP, Auto-RP and BSR; seven cases and 105 evidence blocks | [PIM-SM overview](PIM-SM/README.md) |
 | **IGMPv2/v3 and SSM** | Membership expiry/rejoin and source-specific control-plane state; seven blocks | [IGMP overview](IGMPv2-v3/README.md) |
 | **BIDIR-PIM** | DR/DF separation, two repairs and a routing-driven DF transition; eighteen blocks | [BIDIR overview](BIDIR-PIM/README.md) |
-| **RPF** | Path-change work documented within PIM-SM; dedicated review pending | [RPF path-change case](PIM-SM/troubleshooting/01-rpf-path-change.md) |
-| **MSDP** | Portfolio evidence not yet integrated | [Progress and scope](progress.md) |
+| **RPF** | Path-change work documented within PIM-SM; no standalone RPF page | [RPF path-change case](PIM-SM/troubleshooting/01-rpf-path-change.md) |
+| **MSDP** | No integrated portfolio evidence | [Completion and scope](progress.md) |
 
 ## Choose a case
 
