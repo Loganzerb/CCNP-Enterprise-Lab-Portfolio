@@ -25,7 +25,9 @@ I built a five-switch Cisco Modeling Labs environment, assigned preferred roots 
 
 ## Lab design
 
-![STP topology with redundant distribution and access switches, two endpoints, and a controlled test switch](topology.png)
+![STP topology with redundant distribution and access switches, two endpoints, and a controlled test switch](topology.svg)
+
+[Original topology PNG](topology.png)
 
 SW1 is the preferred root for VLANs 10/20; SW4 is preferred for VLANs 30/40. SW2 and SW3 connect the endpoints and provide redundant paths. SW5 is a controlled test switch connected to SW4.
 

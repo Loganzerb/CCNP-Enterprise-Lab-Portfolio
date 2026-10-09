@@ -1,6 +1,8 @@
 # STP topology and device roles
 
-![STP lab: two distribution switches, two access switches, two endpoints, and a dedicated test switch](topology.png)
+![STP lab: two distribution switches, two access switches, two endpoints, and a dedicated test switch](topology.svg)
+
+[Original topology PNG](topology.png)
 
 | Device | Device role |
 |---|---|
