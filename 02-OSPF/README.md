@@ -6,17 +6,11 @@ In this five-router lab, I investigated both problems: an IP MTU mismatch that s
 
 **Five routers · Two OSPF areas · Three troubleshooting cases**
 
+**Quick navigation:** [Results](#troubleshooting-results) · [Lab design](#lab-design) · [Files](#explore-the-files) · [Evidence scope](#evidence-scope)
+
 **Process diagram:** [Follow the MTU diagnosis](troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md#follow-the-mtu-diagnosis)
 
 **Start here:** [Repair an OSPF adjacency while ping still works](troubleshooting/scenario-1-ospf-mtu-exstart-exchange.md). O2 received replies to all five probes sent to O4, but OSPF remained in `EXSTART`. Comparing interface and IP MTU values exposed the mismatch; removing it restored `FULL` adjacency on both devices.
-
-## Lab design
-
-![Five-router OSPF topology with O2 connecting Area 0 to Area 10](topology.png)
-
-O2 connects the backbone to the branch and edge area. The branch supplies four networks that O2 summarizes into one advertisement. O4 introduces two external test prefixes, while O5 provides another internal path.
-
-[Topology, addressing, and device roles](topology.md)
 
 ## Troubleshooting results
 
@@ -27,6 +21,14 @@ O2 connects the backbone to the branch and edge area. The branch supplies four n
 | [03 — Area-border filtering](troubleshooting/scenario-3-abr-route-filtering-control-plane.md) | The branch summary disappeared from the backbone while all three O2 neighbors remained `FULL` | Removing the filter attachment restored the summary advertisement and O1's inter-area route |
 
 The case studies explain the diagnosis and link directly to the original excerpts. Where an observation was described without its command output being retained, it is labeled accordingly.
+
+## Lab design
+
+![Five-router OSPF topology with O2 connecting Area 0 to Area 10](topology.png)
+
+O2 connects the backbone to the branch and edge area. The branch supplies four networks that O2 summarizes into one advertisement. O4 introduces two external test prefixes, while O5 provides another internal path.
+
+[Topology, addressing, and device roles](topology.md)
 
 ## What this work demonstrates
 

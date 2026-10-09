@@ -1,6 +1,23 @@
 # VRRP: Master Election, Tracking, and Recovery
 
-The [campus topology](../topology.png) was reused for this phase: VLAN 20 used VRRP in place of its earlier HSRP group.
+VLAN 20 reused the campus lab to examine Master election, upstream tracking, and recovery ordering.
+
+| Check | Recorded outcome |
+|---|---|
+| Stable election | DIST-B Master at priority 120; DIST-A Backup at priority 100 |
+| Gateway-interface failure | DIST-A became Master; PC-B completed 5/5 probes after convergence |
+| Upstream tracking | DIST-B fell to priority 99; PC-B completed 5/5 probes after convergence |
+| Recovery ordering | Without delay, VRRP led OSPF FULL by 2.696 seconds; with delay, OSPF FULL led VRRP by 3.448 seconds |
+
+The combined delayed-recovery capture still recorded **70/78 replies and 10% reported loss**, with unusually large RTT values. It does not isolate a recovery-only outage or establish lossless service.
+
+**Read by task:** [Election](#configuration-and-steady-state) · [Interface failure](#gateway-interface-failure) · [Upstream tracking](#upstream-tracking) · [Recovery ordering](#recovery-ordering) · [Packet-loss limits](#recovery-verification)
+
+![Campus topology reused for the VLAN 20 VRRP phase](../topology-campus.svg)
+
+The [campus topology](../topology-campus.svg) was reused for this phase: VLAN 20 used VRRP in place of its earlier HSRP group.
+
+[Original campus PNG](../topology.png)
 
 ## Design objective
 

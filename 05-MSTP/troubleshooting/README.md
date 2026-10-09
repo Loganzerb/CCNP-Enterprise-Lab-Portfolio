@@ -14,4 +14,18 @@ The cases cover configuration mismatches, external-root behavior and protection 
 
 These are documented controlled exercises and observations. The cases distinguish **captured output**, **original lab narrative**, **saved configuration**, and **checks for a future replay**. A saved baseline does not replace a missing post-change capture.
 
+## Follow the region checks
+
+A matching digest does not establish matching name and revision. Use the intended topology to distinguish the external MST5 boundary from a region split between internal peers.
+
+```mermaid
+flowchart TD
+    peer["Check peer role and operating mode"] --> boundary{"Expected external<br/>MST5 boundary?"}
+    boundary -->|Yes| external["Read CIST and boundary roles<br/>Root / Master where applicable"]
+    boundary -->|Internal peer| region["Compare region name, revision<br/>and VLAN-to-instance mapping"]
+    region --> match{"All three match?"}
+    match -->|Yes| internal["Inspect internal instance roles<br/>and preferred paths"]
+    match -->|No| split["Identify the differing setting<br/>and unintended internal boundary"]
+```
+
 [Section overview](../README.md) · [Full evidence index](../verification/README.md)

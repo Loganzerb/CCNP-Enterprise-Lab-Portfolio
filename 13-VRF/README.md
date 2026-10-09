@@ -6,6 +6,8 @@ I built BLUE and RED with identical addresses, verified their separate next hops
 
 **4 routers in the completed lab · 2 VRFs plus the global table · 3 troubleshooting cases · 29 evidence blocks**
 
+**Quick navigation:** [Results](#results-at-a-glance) · [Lab design](#lab-design) · [Follow the lab](#follow-the-lab) · [Assessment](#validation--post-assessment) · [Evidence scope](#evidence-scope)
+
 ## Results at a glance
 
 | Test | What the evidence establishes | Recorded result |

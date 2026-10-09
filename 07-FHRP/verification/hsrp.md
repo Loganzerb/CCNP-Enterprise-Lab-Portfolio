@@ -1,6 +1,19 @@
 # HSRP: Gateway Redundancy and Verification
 
-![Campus topology](../topology.png)
+The campus exercises connect Active/Standby placement to the upstream path that clients actually use.
+
+| Check | Recorded outcome |
+|---|---|
+| Healthy placement | DIST-A Active for VLAN 10; DIST-B Active for VLAN 20; both clients completed 5/5 upstream probes |
+| Upstream tracking | The featured case changed 0/10 replies to 10/10 through the alternate gateway |
+| Authentication | A mismatch produced two Active peers; repair restored the complementary roles |
+| Custom timers | Operational 1/4-second timers and takeover were captured; exact elapsed failover was not measured |
+
+**Read by task:** [Healthy placement](#dual-vlan-placement) · [Tracking and recovery case](../troubleshooting/scenario-1-hsrp-upstream-black-hole.md) · [Authentication](#authentication-mismatch) · [Timers](#custom-timers) · [Recovery checks](#recovery-verification)
+
+![Campus topology](../topology-campus.svg)
+
+[Original campus PNG](../topology.png)
 
 ## Design objective
 
@@ -57,6 +70,9 @@ Source: [Both campus clients reach the upstream destination](hsrp-baseline/PC-A-
 
 ### Captured configuration: DIST-A VLAN 10
 
+<details>
+<summary>Captured Vlan10 configuration and source</summary>
+
 Actual running-config excerpt after adding tracking and recovery delay:
 
 ```cisco
@@ -72,6 +88,8 @@ end
 ```
 
 Source: [Captured Vlan10 configuration excerpt and HSRP state](hsrp-baseline/FHRP-DIST-A-show-standby-and-running-config-vlan10.txt).
+
+</details>
 
 ### Authentication mismatch
 

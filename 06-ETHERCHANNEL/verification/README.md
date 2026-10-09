@@ -2,6 +2,17 @@
 
 These 14 files are the retained final-state evidence set. Read bundle membership, trunk eligibility, spanning-tree state, and endpoint reachability together. The [guided lab narrative](guided-labs.md) covers failure and recovery experiments separately.
 
+## Follow the forwarding checks
+
+Follow these checks in order while treating each capture as a separate observation. Bundle membership, VLAN eligibility and STP state do not replace the endpoint test or prove that every bundle carried its traffic.
+
+```mermaid
+flowchart LR
+    members["Bundle membership<br/>SU and member P / D / s / H"] --> vlan["VLAN eligibility<br/>Allowed and active lists"]
+    vlan --> stp["VLAN spanning tree<br/>Forwarding or Alternate / Blocked"]
+    stp --> replies["Endpoint test<br/>Sent and received replies"]
+```
+
 ## Read the key fields
 
 | Field | Meaning in these captures |

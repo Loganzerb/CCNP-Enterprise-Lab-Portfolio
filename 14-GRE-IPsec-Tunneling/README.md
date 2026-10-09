@@ -4,7 +4,14 @@ I built two VPN designs across the same three-router network to connect private 
 
 The objective was to configure each design, verify routing and encrypted forwarding together, and explain what the device state establishes. Three controlled faults in the classic GRE/IKEv1 stage tested authentication, ESP negotiation, and traffic selection.
 
-**GRE/IKEv1: 20/20 private replies after three fault repairs. IKEv2 VTI: 10/10 private replies, FULL OSPF, active ESP SAs, and zero final crypto errors.**
+**Quick navigation:** [Results](#recorded-results) · [Lab design](#topology-and-objective) · [Design comparison](#compare-the-two-lab-designs) · [Evidence](#navigate-the-evidence) · [Scope](scope.md)
+
+## Recorded results
+
+| Design | Recorded result |
+|---|---|
+| GRE/IKEv1 | 20/20 private replies after three fault repairs |
+| IKEv2 VTI | 10/10 private replies, FULL OSPF, active ESP SAs, and zero final crypto errors |
 
 **Process diagrams:** [GRE packet flow](operation.md#how-private-traffic-crosses-the-transit-network) · [VTI packet flow](operation.md#how-the-vti-carries-private-traffic) · [IKEv2 configuration dependencies](configs/vti.md#how-the-objects-connect) · [Classic fault diagnosis](troubleshooting/README.md#locate-the-failing-layer)
 

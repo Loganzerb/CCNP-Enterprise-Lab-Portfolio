@@ -2,7 +2,9 @@
 
 ### HSRP and VRRP campus lab
 
-![FHRP campus topology](topology.png)
+![FHRP campus topology](topology-campus.svg)
+
+[Original campus PNG](topology.png)
 
 Two distribution devices serve the client VLANs through a redundant access switch. An inter-distribution EtherChannel connects DIST-A and DIST-B, and routed OSPF uplinks connect both distribution devices to CORE-R1.
 
@@ -15,7 +17,9 @@ HSRP initially served both VLANs. The later VRRP phase reused VLAN 20 with DIST-
 
 ### GLBP lab
 
-![GLBP logical topology](topology-glbp.png)
+![GLBP logical topology](topology-glbp.svg)
+
+[Original GLBP PNG](topology-glbp.png)
 
 GLBP used a separate three-router topology with IOSv endpoints HOST-A, HOST-B, and HOST-C. Each GLBP router had an independently verified OSPF path to CORE-R1. Group 30 used virtual gateway **10.30.30.1** and the same upstream test destination, **10.255.255.1**.
 

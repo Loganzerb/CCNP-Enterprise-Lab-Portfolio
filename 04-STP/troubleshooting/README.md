@@ -20,6 +20,19 @@ These eleven exercises explain how the lab responds to changed topology, inconsi
 | [10 — Path engineering](10-path-cost-port-priority-engineering.md) | How do root priority, path cost, and port priority affect selection? | Saved priorities and selected-port/cost captures; dedicated override comparison absent |
 | [11 — LACP member and negotiation failures](11-lacp-negotiation-and-member-failure.md) | How is one member down different from the entire bundle down? | Direct baseline, bundle, member-failure, and suspension captures; final negotiation-repair capture absent |
 
+## Follow the port-state checks
+
+Use the reported state to choose the next check. These branches guide diagnosis; the case index identifies which exercises retain event and recovery output.
+
+```mermaid
+flowchart TD
+    state["Read the port or member state"] --> kind{"Which state is reported?"}
+    kind --> normal["Alternate / Blocked<br/>Check expected VLAN, root and path roles"]
+    kind --> inconsistent["Inconsistent state<br/>Check peer, protection policy and BPDUs"]
+    kind --> disabled["Err-disabled<br/>Inspect the disable reason and logs"]
+    kind --> suspended["Member suspended<br/>Compare bundle settings and negotiation"]
+```
+
 ## Understand the different protective outcomes
 
 | State | Meaning in these exercises |

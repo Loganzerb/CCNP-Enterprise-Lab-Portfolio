@@ -6,17 +6,31 @@ The HSRP, VRRP, and GLBP exercises connect gateway selection to upstream routing
 
 **Three gateway protocols · Three case studies · Two topologies · 80 console captures**
 
+## Results at a glance
+
+| Protocol | Recorded result | Read the result |
+|---|---|---|
+| HSRP | Tracking changed an upstream black hole from 0/10 to 10/10 client replies; recovery exposed a routing-readiness issue | [Upstream failure and recovery](troubleshooting/scenario-1-hsrp-upstream-black-hole.md) |
+| VRRP | 5/5 replies after each converged failure test; a delay placed OSPF FULL before gateway reclamation | [Tracking and recovery ordering](verification/vrrp.md#recovery-ordering) |
+| GLBP | R2 became AVG while R3 took AVF1; the associated host runs retained 7, 4, and 0 losses | [Independent gateway and forwarder takeover](verification/glbp.md#7-avg-failure-and-independent-avf-takeover) |
+
+**Quick navigation:** [HSRP cases](#troubleshooting-results) · [VRRP recovery](verification/vrrp.md) · [GLBP roles and failover](verification/glbp.md) · [Addressing and stages](topology.md) · [Capture indexes](verification/README.md)
+
 **Process diagram:** [How tracking moves gateway service](troubleshooting/scenario-1-hsrp-upstream-black-hole.md#how-tracking-moves-gateway-service)
 
 **Start here:** [An active gateway with no upstream path](troubleshooting/scenario-1-hsrp-upstream-black-hole.md). PC-A lost all ten probes while DIST-A remained HSRP Active. Tracking shifted service to DIST-B, followed by 10/10 replies. Recovery testing then examined whether the preferred gateway reclaimed traffic before OSPF was ready.
 
 ## Lab design
 
-![FHRP campus topology with redundant distribution gateways and client VLANs](topology.png)
+![FHRP campus topology with redundant distribution gateways and client VLANs](topology-campus.svg)
+
+[Original campus PNG](topology.png)
 
 The campus lab uses two distribution devices, a redundant access switch, and routed OSPF uplinks to CORE-R1. HSRP initially prefers DIST-A for VLAN 10 and DIST-B for VLAN 20. A later VRRP phase reuses VLAN 20.
 
-![Separate GLBP topology with three gateway routers and three clients](topology-glbp.png)
+![Separate GLBP topology with three gateway routers and three clients](topology-glbp.svg)
+
+[Original GLBP PNG](topology-glbp.png)
 
 The separate GLBP lab uses three routers sharing virtual gateway `10.30.30.1`. It examines gateway election, virtual-forwarder ownership, client assignment, and upstream tracking.
 

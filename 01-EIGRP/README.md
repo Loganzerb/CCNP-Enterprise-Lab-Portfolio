@@ -6,17 +6,11 @@ A third case examines inconsistent summarization: removing one setting on a bran
 
 **Five routers · EIGRP AS 100 · Three troubleshooting cases**
 
+**Quick navigation:** [Results](#troubleshooting-results) · [Lab design](#lab-design) · [Files](#explore-the-files) · [Evidence scope](#evidence-scope)
+
 **Process diagram:** [Backup eligibility and route replacement](troubleshooting/README.md#follow-backup-eligibility-and-the-observed-result)
 
 **Start here:** [A qualified backup takes over](troubleshooting/scenario-1-feasible-successor-promotion.md). The case connects the eligibility calculation to the installed replacement route and the restored baseline.
-
-## Lab design
-
-![EIGRP topology showing core, two distribution routers, branch, and remote stub](topology.png)
-
-R1 reaches the branch through two distribution routers, which also connect to each other. R4 summarizes four branch networks and filters advertisements toward R5. R5 uses named EIGRP, advertises its remote summary, and operates as a stub.
-
-[Topology, addressing, and device roles](topology.md)
 
 ## Troubleshooting results
 
@@ -25,6 +19,14 @@ R1 reaches the branch through two distribution routers, which also connect to ea
 | [01 — Feasible successor promotion](troubleshooting/scenario-1-feasible-successor-promotion.md) | Does the alternate satisfy EIGRP's backup-path condition? | The qualified R3 path replaced R2 in R1's routing table; restoring the test settings returned two equal-cost successors |
 | [02 — No feasible successor](troubleshooting/scenario-2-no-feasible-successor-dual-recalculation.md) | What changes when the alternate fails that condition? | R3 was installed after the R2 path failed; the transient Active/Query/Reply sequence was not captured |
 | [03 — Inconsistent summaries](troubleshooting/scenario-3-inconsistent-eigrp-summarization.md) | Can two uplinks advertise the same networks differently? | Summary and component routes coexisted; restoring the missing summary returned the distribution tables to the documented summary-only view |
+
+## Lab design
+
+![EIGRP topology showing core, two distribution routers, branch, and remote stub](topology.png)
+
+R1 reaches the branch through two distribution routers, which also connect to each other. R4 summarizes four branch networks and filters advertisements toward R5. R5 uses named EIGRP, advertises its remote summary, and operates as a stub.
+
+[Topology, addressing, and device roles](topology.md)
 
 ## What this work demonstrates
 

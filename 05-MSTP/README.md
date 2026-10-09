@@ -6,6 +6,10 @@ I built a five-switch Cisco Modeling Labs environment to verify those paths, tes
 
 **5 switches · 2 configured VLAN-group instances · 7 documented cases · 9 retained evidence files**
 
+**Quick navigation:** [Results](#results-at-a-glance) · [Lab design](#lab-design) · [Files](#explore-the-files) · [Evidence scope](#evidence-scope)
+
+**Process diagram:** [Follow the region checks](troubleshooting/README.md#follow-the-region-checks)
+
 ## Results at a glance
 
 | Engineering question | Observed result |

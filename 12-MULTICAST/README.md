@@ -2,6 +2,10 @@
 
 These labs trace how a network discovers receivers, selects multicast paths and responds when configuration or routing changes. Each subsection connects a plain-English outcome to configuration, device evidence and the decisions used to diagnose it.
 
+**Quick navigation:** [Topics](#explore-the-topics) · [Cases](#choose-a-case) · [PIM-SM phases](#pim-sm-phases) · [Assessment](#validation--post-assessment) · [Progress and scope](progress.md)
+
+**Process diagram:** [Follow the RP discovery stages](PIM-SM/README.md#follow-the-rp-discovery-stages)
+
 ## Explore the topics
 
 | Topic | Published lab evidence | Start here |

@@ -6,17 +6,11 @@ I built a five-switch Cisco Modeling Labs environment, assigned preferred roots 
 
 **Five switches · Two lab endpoints · Eleven documented exercises · Nine retained captures**
 
+**Quick navigation:** [Results](#results-at-a-glance) · [Lab design](#lab-design) · [Files](#explore-the-files) · [Evidence scope](#evidence-scope)
+
+**Process diagram:** [Follow the port-state checks](troubleshooting/README.md#follow-the-port-state-checks)
+
 **Start here:** [One member fails, then the whole bundle stops forming](troubleshooting/11-lacp-negotiation-and-member-failure.md). The captured sequence distinguishes a degraded bundle that still forwards from a negotiation failure that removes the logical link.
-
-## Lab design
-
-![STP topology with redundant distribution and access switches, two endpoints, and a controlled test switch](topology.png)
-
-SW1 is the preferred root for VLANs 10/20; SW4 is preferred for VLANs 30/40. SW2 and SW3 connect the endpoints and provide redundant paths. SW5 is a controlled test switch connected to SW4.
-
-The saved design uses Rapid PVST+ and long path costs. The topology shows physical wiring; forwarding roles vary by VLAN and experiment.
-
-[Topology, device roles, and terminology](topology.md)
 
 ## Results at a glance
 
@@ -28,6 +22,16 @@ The saved design uses Rapid PVST+ and long path costs. The topology shows physic
 | What happens when negotiation fails? | Both members are suspended and Po1 is down |
 
 [Root-selection evidence](verification/root-election/README.md) · [Bundle and failure sequence](verification/etherchannel/README.md)
+
+## Lab design
+
+![STP topology with redundant distribution and access switches, two endpoints, and a controlled test switch](topology.png)
+
+SW1 is the preferred root for VLANs 10/20; SW4 is preferred for VLANs 30/40. SW2 and SW3 connect the endpoints and provide redundant paths. SW5 is a controlled test switch connected to SW4.
+
+The saved design uses Rapid PVST+ and long path costs. The topology shows physical wiring; forwarding roles vary by VLAN and experiment.
+
+[Topology, device roles, and terminology](topology.md)
 
 ## What this work demonstrates
 

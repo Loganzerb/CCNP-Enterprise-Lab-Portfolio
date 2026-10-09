@@ -6,17 +6,11 @@ The work connects three checks: whether links bundle, whether a VLAN forwards, a
 
 **Four switches · Three bundle types · Two detailed cases · 42 evidence captures**
 
+**Quick navigation:** [Results](#results-at-a-glance) · [Lab design](#lab-design) · [Files](#explore-the-files) · [Evidence scope](#evidence-scope)
+
+**Process diagram:** [Follow the forwarding checks](verification/README.md#follow-the-forwarding-checks)
+
 **Start here:** [A VLAN mismatch suspends one member](troubleshooting/case-01-vlan-mask-mismatch.md). Changing one member's allowed VLAN list suspended that interface while the other member kept the logical bundle up. Restoring the list returned both members to service.
-
-## Lab design
-
-![EtherChannel topology with static, LACP, and PAgP bundles](topology.png)
-
-Two distribution and two access switches form redundant paths. Po10 is static, Po20 uses LACP, and Po30 uses PAgP. A separate trunk joins the access switches.
-
-PC-A at `10.10.10.10/24` tests SW4's VLAN 10 interface at `10.10.10.20/24`. The PC-B position shown in the diagram is not deployed in the final export. Infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`.
-
-[Topology, interfaces, and intended design](topology.md)
 
 ## Results at a glance
 
@@ -29,6 +23,16 @@ PC-A at `10.10.10.10/24` tests SW4's VLAN 10 interface at `10.10.10.20/24`. The 
 | [Final baseline](verification/README.md) | Intended members were bundled and PC-A received 10/10 replies from SW4 |
 
 The max-bundle case retains an unresolved observation: the internal cause is not established. Its evidence supports recovery after the experiment without identifying a particular software defect.
+
+## Lab design
+
+![EtherChannel topology with static, LACP, and PAgP bundles](topology.png)
+
+Two distribution and two access switches form redundant paths. Po10 is static, Po20 uses LACP, and Po30 uses PAgP. A separate trunk joins the access switches.
+
+PC-A at `10.10.10.10/24` tests SW4's VLAN 10 interface at `10.10.10.20/24`. The PC-B position shown in the diagram is not deployed in the final export. Infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`.
+
+[Topology, interfaces, and intended design](topology.md)
 
 ## What this work demonstrates
 

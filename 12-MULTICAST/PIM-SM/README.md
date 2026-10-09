@@ -16,6 +16,16 @@ This lab develops that behavior through **Static RP → Auto-RP → BSR**. Each 
 
 Open a phase overview for its topology, configuration guide, evidence pages and cases. The evidence limits remain attached to the relevant phase; the Auto-RP traffic result is not a BSR measurement.
 
+## Follow the RP discovery stages
+
+These are successive lab stages, each with its own RP information and forwarding evidence. Auto-RP uses a Mapping Agent to distribute mappings; BSR distributes an RP-set from which routers select the RP for each group.
+
+```mermaid
+flowchart TD
+    static["Stage 1: Static RP<br/>R2 RP address configured on multicast routers"] -->|Later discovery stage| autorp["Stage 2: Auto-RP<br/>R2 Candidate RP; R3 Mapping Agent"]
+    autorp -->|Separate later stage| bsr["Stage 3: BSR<br/>R2 Candidate RP; R3 and R5 Candidate BSRs"]
+```
+
 ## What changes between phases
 
 | Phase | How RP information is supplied | Roles in this lab | Topology |

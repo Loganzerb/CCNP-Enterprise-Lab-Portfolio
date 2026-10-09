@@ -6,6 +6,8 @@ I built a four-device Cisco Modeling Labs environment serving two client network
 
 **4 devices · 2 client networks · 3 troubleshooting cases**
 
+**Quick navigation:** [Results](#results-at-a-glance) · [Lab design](#lab-design) · [Files](#explore-the-files) · [Evidence scope](#evidence-scope)
+
 **Process diagram:** [Follow the relayed address exchange](verification/README.md#follow-the-relayed-exchange)
 
 ## Results at a glance
