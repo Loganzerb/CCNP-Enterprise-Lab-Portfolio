@@ -1,6 +1,8 @@
 # BIDIR topology — two possible forwarders on one source LAN
 
-![BIDIR topology with competing source-LAN routers and receiver branch](topology.png)
+![BIDIR topology with competing source-LAN routers and receiver branch](topology.svg)
+
+[Original topology PNG](topology.png)
 
 Six IOSv nodes and one unmanaged switch form a dedicated lab. R1 and R2 share the source LAN and have separate uplinks to R3. R3 connects both the receiver and R4's RPA. This makes DF selection visible without changing the receiver's attachment.
 

@@ -27,7 +27,9 @@ For source-selection behavior, read [Case 01 — A backup takes over, but recove
 
 ## Lab design
 
-![NTP physical topology: R1 connects to R2; R2, R3 and R4 share VLAN 1 through SW1](topology.png)
+![NTP physical topology: R1 connects to R2; R2, R3 and R4 share VLAN 1 through SW1](topology.svg)
+
+[Original topology PNG](topology.png)
 
 | Device | Responsibility |
 |---|---|

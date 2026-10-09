@@ -24,7 +24,9 @@ The case studies explain the diagnosis and link directly to the original excerpt
 
 ## Lab design
 
-![Five-router OSPF topology with O2 connecting Area 0 to Area 10](topology.png)
+![Five-router OSPF topology with O2 connecting Area 0 to Area 10](topology.svg)
+
+[Original topology PNG](topology.png)
 
 O2 connects the backbone to the branch and edge area. The branch supplies four networks that O2 summarizes into one advertisement. O4 introduces two external test prefixes, while O5 provides another internal path.
 

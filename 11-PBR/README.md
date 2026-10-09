@@ -27,7 +27,9 @@ Read [Case 03 — A deny match with zero policy-routing packets](troubleshooting
 
 ## Lab design
 
-![PBR topology: R1 feeds R2, which can forward directly through R4 or through R3 and R4 to R5](topology.png)
+![PBR topology: R1 feeds R2, which can forward directly through R4 or through R3 and R4 to R5](topology.svg)
+
+[Original topology PNG](topology.png)
 
 | Device | Responsibility |
 |---|---|

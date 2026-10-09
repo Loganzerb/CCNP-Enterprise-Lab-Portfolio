@@ -26,7 +26,9 @@ Follow [Selective route leaking](route-leaking/README.md) for the complete share
 
 ## Lab design
 
-![VRF topology: BLUE and RED use overlapping addresses on separate R1 interfaces, with a shared service in the global table](topology.png)
+![VRF topology: BLUE and RED use overlapping addresses on separate R1 interfaces, with a shared service in the global table](topology.svg)
+
+[Original topology PNG](topology.png)
 
 BLUE and RED use separate R1 interfaces with identical 10.10.10.0/24 addressing. SHARED-SVC is added later in the global table on Gi0/2.
 

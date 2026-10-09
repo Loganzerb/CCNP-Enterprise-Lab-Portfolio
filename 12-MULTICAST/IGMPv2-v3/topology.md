@@ -1,6 +1,8 @@
 # IGMP topology — focus on the receiver edge
 
-![IGMP receiver membership and ASM versus SSM directions](topology.png)
+![IGMP receiver membership and ASM versus SSM directions](topology.svg)
+
+[Original topology PNG](topology.png)
 
 This is a focused view of the existing seven-node multicast lab. The work centers on R4's receiver LAN. The image highlights the two relevant routing directions; R5 remains outside the traffic path and is omitted from this focused drawing.
 

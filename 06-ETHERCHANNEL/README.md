@@ -26,7 +26,9 @@ The max-bundle case retains an unresolved observation: the internal cause is not
 
 ## Lab design
 
-![EtherChannel topology with static, LACP, and PAgP bundles](topology.png)
+![EtherChannel topology with static, LACP, and PAgP bundles](topology.svg)
+
+[Original topology PNG](topology.png)
 
 Two distribution and two access switches form redundant paths. Po10 is static, Po20 uses LACP, and Po30 uses PAgP. A separate trunk joins the access switches.
 

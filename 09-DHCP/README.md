@@ -26,7 +26,9 @@ For deeper technical discussion, read [Case 03 — Client and server disagree ab
 
 ## Lab design
 
-![DHCP lab: two clients connect through DIST-SW to a server on VLAN 99; all three links are access links](topology.png)
+![DHCP lab: two clients connect through DIST-SW to a server on VLAN 99; all three links are access links](topology.svg)
+
+[Original topology PNG](topology.png)
 
 | Device | Responsibility |
 |---|---|

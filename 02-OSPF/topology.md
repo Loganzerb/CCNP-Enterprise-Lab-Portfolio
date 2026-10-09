@@ -1,6 +1,8 @@
 # OSPF topology and addressing
 
-![OSPF five-router baseline topology](topology.png)
+![OSPF five-router baseline topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 The diagram shows the five-router OSPF design verified by the neighbor captures. **O2 connects Area 0 and Area 10.** Area 10 is configured as a totally NSSA: O2 uses `nssa no-summary`, while O3, O4, and O5 use `nssa`.
 

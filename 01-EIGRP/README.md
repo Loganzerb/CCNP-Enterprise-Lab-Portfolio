@@ -22,7 +22,9 @@ A third case examines inconsistent summarization: removing one setting on a bran
 
 ## Lab design
 
-![EIGRP topology showing core, two distribution routers, branch, and remote stub](topology.png)
+![EIGRP topology showing core, two distribution routers, branch, and remote stub](topology.svg)
+
+[Original topology PNG](topology.png)
 
 R1 reaches the branch through two distribution routers, which also connect to each other. R4 summarizes four branch networks and filters advertisements toward R5. R5 uses named EIGRP, advertises its remote summary, and operates as a stub.
 

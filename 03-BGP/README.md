@@ -24,7 +24,9 @@ Each case links the symptom, decisive evidence, repair, and recovery. Original c
 
 ## Lab design
 
-![BGP topology showing six routers across four autonomous systems and their IPv4 BGP sessions](topology.png)
+![BGP topology showing six routers across four autonomous systems and their IPv4 BGP sessions](topology.svg)
+
+[Original topology PNG](topology.png)
 
 The enterprise uses two edge routers and a central route reflector to exchange routes with two simulated providers. An outside router supplies additional destinations and policy exercises. An autonomous system (AS) is a routing domain with its own routing policy.
 

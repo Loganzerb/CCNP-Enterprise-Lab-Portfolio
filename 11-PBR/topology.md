@@ -1,6 +1,8 @@
 # PBR topology and addressing
 
-![PBR baseline topology](topology.png)
+![PBR baseline topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 Five IOSv routers provide a normal OSPF path and an alternate branch. R2 applies PBR to traffic received from R1 on Gi0/0. The diagram depicts the restored baseline policy.
 

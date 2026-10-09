@@ -29,7 +29,9 @@ The strongest troubleshooting result came when ordinary routing worked but RP di
 
 ## Topology and roles
 
-![Seven-node BSR topology with R5 connected as a leaf off R3](topology-bsr.png)
+![Seven-node BSR topology with R5 connected as a leaf off R3](topology-bsr.svg)
+
+[Original topology PNG](topology-bsr.png)
 
 R5 adds a candidate to the BSR election without adding another source-to-receiver transit path. R2 remains the RP; R5 distributes the RP-set. These are separate responsibilities.
 

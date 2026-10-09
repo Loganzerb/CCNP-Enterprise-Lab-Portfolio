@@ -2,7 +2,9 @@
 
 Two client networks share one DHCP server. DIST-SW provides the gateway for each network and forwards initial DHCP requests to the server.
 
-![DHCP topology](topology.png)
+![DHCP topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 ## Devices and networks
 

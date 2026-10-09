@@ -26,7 +26,9 @@ The diamond topology made the shared tree and source tree visibly different. It 
 
 ## Topology and roles
 
-![Original six-node static-RP topology](topology.png)
+![Original six-node static-RP topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 R1 is the first-hop router for source 10.1.1.10. R2 is the RP at Loopback0 2.2.2.2. R3 carries the baseline source-tree branch, and R4 serves receiver 10.4.4.10. R1–R4 all have the static RP address configured.
 

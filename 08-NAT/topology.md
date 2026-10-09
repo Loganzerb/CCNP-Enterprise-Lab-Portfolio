@@ -1,6 +1,8 @@
 # NAT/PAT topology and addressing
 
-![NAT lab topology in the portfolio visual style](topology.png)
+![NAT lab topology in the portfolio visual style](topology.svg)
+
+[Original topology PNG](topology.png)
 
 Both clients reach NAT-EDGE through NAT-SW. Gi0/1 is NAT-EDGE's inside boundary; Gi0/0 connects to ISP. ISP forwards to OUTSIDE-SRV. Device names, addressing, and port connections follow the lab record.
 

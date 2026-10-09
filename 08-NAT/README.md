@@ -23,7 +23,9 @@ The PAT case uses persistent TCP sessions to make concurrent translation state e
 
 ## Lab design
 
-![NAT/PAT lab showing two clients, NAT-EDGE, ISP, and an outside server](topology.png)
+![NAT/PAT lab showing two clients, NAT-EDGE, ISP, and an outside server](topology.svg)
+
+[Original topology PNG](topology.png)
 
 CLIENT-A and CLIENT-B reach NAT-EDGE through NAT-SW. Gi0/1 is the inside boundary; Gi0/0 connects to ISP. The outside test server is `203.0.113.10`.
 

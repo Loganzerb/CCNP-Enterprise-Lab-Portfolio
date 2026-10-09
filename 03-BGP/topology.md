@@ -1,6 +1,8 @@
 # BGP topology and addressing
 
-![BGP logical peering diagram](topology.png)
+![BGP logical peering diagram](topology.svg)
+
+[Original topology PNG](topology.png)
 
 The diagram shows **BGP sessions**, not physical wiring or measured traffic flow. Addresses inside the device cards are Loopback0 addresses. A dashed B1–X1 session uses the same underlying connection as their direct session; it is not a second physical circuit.
 

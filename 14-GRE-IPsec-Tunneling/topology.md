@@ -1,6 +1,8 @@
 # Topology — one WAN, two VPN implementations
 
-![Shared VPN topology](topology-vti.png)
+![Shared VPN topology](topology-vti.svg)
+
+[Original topology PNG](topology-vti.png)
 
 ## Addressing and roles
 

@@ -1,6 +1,8 @@
 # EIGRP topology and addressing
 
-![Five-router EIGRP AS 100 topology](topology.png)
+![Five-router EIGRP AS 100 topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 The diagram shows six router-to-router EIGRP links in one routing domain, AS 100. R1 reaches R4 through R2 or R3; the distribution routers also connect directly. R5 has one upstream neighbor, R4.
 

@@ -1,6 +1,8 @@
 # Topology — overlapping CE networks and a shared global service
 
-![Completed VRF lab topology](topology.png)
+![Completed VRF lab topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 ## Physical links
 

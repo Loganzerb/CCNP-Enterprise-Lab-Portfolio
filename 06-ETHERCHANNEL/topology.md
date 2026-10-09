@@ -1,6 +1,8 @@
 # EtherChannel topology and interfaces
 
-![EtherChannel lab topology](topology.png)
+![EtherChannel lab topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 SW1–SW4 below abbreviate the `EC-SW1-DIST-A`, `EC-SW2-DIST-B`, `EC-SW3-ACCESS-A`, and `EC-SW4-ACCESS-B` device names.
 

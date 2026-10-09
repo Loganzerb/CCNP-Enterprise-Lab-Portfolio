@@ -2,7 +2,9 @@
 
 The diamond separates the path toward the Rendezvous Point from the baseline path toward the source. All six nodes are IOSv; the two endpoints use `no ip routing` and a default gateway.
 
-![Static-RP multicast topology](topology.png)
+![Static-RP multicast topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 ## Auto-RP phase
 

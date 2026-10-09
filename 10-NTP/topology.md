@@ -1,6 +1,8 @@
 # NTP topology and addressing
 
-![NTP lab topology](topology.png)
+![NTP lab topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 Four routers and one Layer 2 switch form two IP networks. The graphic shows physical wiring and includes the Loopback0 address added in the later troubleshooting exercises.
 

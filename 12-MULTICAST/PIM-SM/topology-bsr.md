@@ -1,6 +1,8 @@
 # BSR topology — add election resilience without changing the delivery path
 
-![BSR topology and final connected roles](topology-bsr.png)
+![BSR topology and final connected roles](topology-bsr.svg)
+
+[Original topology PNG](topology-bsr.png)
 
 The original six-node diamond gains **R5-BSR2**, connected only to R3. Seven IOSv nodes model five multicast routers and two endpoints. OSPF area 0 provides reachability; the test remains source `10.1.1.10`, group `239.1.1.1`, receiver `10.4.4.10`.
 

@@ -17,7 +17,9 @@ The objective was to configure each design, verify routing and encrypted forward
 
 ## Topology and objective
 
-![Shared three-router WAN with GRE/IPsec and VTI tested in separate stages](topology-vti.png)
+![Shared three-router WAN with GRE/IPsec and VTI tested in separate stages](topology-vti.svg)
+
+[Original topology PNG](topology-vti.png)
 
 R1-VPN and R3-VPN terminate the VPN. R2-TRANSIT routes only the WAN endpoints, 192.0.2.1 and 198.51.100.2. Tunnel0 uses 172.16.13.0/30; private loopbacks are 10.10.10.1 and 10.30.30.1. The two designs reuse these addresses in separate lab stages.
 
