@@ -2,7 +2,9 @@
 
 The four-switch main region provides multiple internal paths. A fifth switch creates an external boundary so the lab can examine both separate-region operation and Rapid PVST+ interoperability.
 
-![MSTP topology](topology.png)
+![MSTP topology](topology.svg)
+
+[Original topology PNG](topology.png)
 
 ## Physical wiring
 

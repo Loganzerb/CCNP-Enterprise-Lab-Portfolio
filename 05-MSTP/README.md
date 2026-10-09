@@ -27,7 +27,9 @@ For a quick design review, see [different paths over the same wiring](verificati
 
 ## Lab design
 
-![Five-switch MSTP topology: four switches in CCNP_MST and MST5 outside the region, connected by six trunks](topology.png)
+![Five-switch MSTP topology: four switches in CCNP_MST and MST5 outside the region, connected by six trunks](topology.svg)
+
+[Original topology PNG](topology.png)
 
 | Device | Responsibility |
 |---|---|
