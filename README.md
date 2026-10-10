@@ -2,7 +2,7 @@
 
 ![CCNP Enterprise Lab Portfolio — Configuration, Verification, Troubleshooting](assets/portfolio-banner.png)
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, and time synchronization.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, and device-local automation.
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
 
@@ -70,6 +70,12 @@ I built these labs to understand how networks behave when configurations change 
 | [13 — VRF](13-VRF/README.md) | Overlapping networks, separate forwarding state, and selective shared access | [An installed route with an unresolved next hop](13-VRF/troubleshooting/01-bad-next-hop.md) |
 | [14 — GRE/IPsec and IKEv2 VTI](14-GRE-IPsec-Tunneling/README.md) | Policy-based protection, route-based tunneling, and OSPF across both designs | [Direct OSPF and 10/10 private replies over VTI](14-GRE-IPsec-Tunneling/verification/07-vti.md) |
 
+### Device automation
+
+| Module | Engineering focus | Suggested case |
+|---|---|---|
+| [15 — EEM](15-EEM/README.md) | Automated diagnostics, timer/CLI events, and detector matching | [A registered policy misses the actual syslog event](15-EEM/troubleshooting/incorrect-syslog-pattern.md) |
+
 ## How to review the work
 
 **Predict → configure → verify → explain → break → diagnose → repair → capture evidence**
@@ -96,6 +102,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 | [Multicast BSR](12-MULTICAST/PIM-SM/configs/PIM-SM_BSR_September_24th.yaml) | Intermediate seven-node checkpoint | [Completion steps](12-MULTICAST/PIM-SM/configs/bsr.md) |
 | [VRF](13-VRF/configs/CCNP_VRF_Sept_27th-baseline.yaml) | Original three-router isolation stage | [Shared-service additions](13-VRF/configs/README.md) |
 | [Section 14 VTI](14-GRE-IPsec-Tunneling/configs/IKEv2-VTI-CML-sanitized.yaml) | Saved three-router IKEv2 VTI and OSPF checkpoint; key sanitized | [VTI settings and provenance](14-GRE-IPsec-Tunneling/configs/vti.md) |
+| [EEM](15-EEM/CML-LAB.yaml) | Completed two-router lab with two retained applets; device-specific material sanitized | [Retained and temporary applets](15-EEM/configs/README.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 
