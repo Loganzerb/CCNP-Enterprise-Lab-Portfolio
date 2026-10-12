@@ -2,9 +2,9 @@
 
 ![CCNP Enterprise Lab Portfolio — Configuration, Verification, Troubleshooting](assets/portfolio-banner.png)
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, and device-local automation.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, device-local automation, and traffic measurement.
 
-I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to troubleshooting decisions, targeted repairs, and the results recorded on the devices.
+I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to recorded configuration and verification results, with troubleshooting decisions and targeted repairs where tested.
 
 **Quick navigation:** [Featured cases](#start-with-these-three-cases) · [Modules](#explore-the-modules) · [Reading guide](#how-to-review-the-work) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
 
@@ -76,6 +76,12 @@ I built these labs to understand how networks behave when configurations change 
 |---|---|---|
 | [15 — EEM](15-EEM/README.md) | Automated diagnostics, timer/CLI events, and detector matching | [A registered policy misses the actual syslog event](15-EEM/troubleshooting/incorrect-syslog-pattern.md) |
 
+### Network assurance
+
+| Module | Engineering focus | Suggested evidence |
+|---|---|---|
+| [16 — Flexible NetFlow](16-NETFLOW/README.md) | Traffic measurement, flow-cache aging, and NetFlow v9 export | [Correlate local counters with collector-side template/data decoding](16-NETFLOW/verification/export-and-templates.md) |
+
 ## How to review the work
 
 **Predict → configure → verify → explain → break → diagnose → repair → capture evidence**
@@ -103,6 +109,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 | [VRF](13-VRF/configs/CCNP_VRF_Sept_27th-baseline.yaml) | Original three-router isolation stage | [Shared-service additions](13-VRF/configs/README.md) |
 | [Section 14 VTI](14-GRE-IPsec-Tunneling/configs/IKEv2-VTI-CML-sanitized.yaml) | Saved three-router IKEv2 VTI and OSPF checkpoint; key sanitized | [VTI settings and provenance](14-GRE-IPsec-Tunneling/configs/vti.md) |
 | [EEM](15-EEM/CML-LAB.yaml) | Completed two-router lab with two retained applets; device-specific material sanitized | [Retained and temporary applets](15-EEM/configs/README.md) |
+| [Flexible NetFlow](16-NETFLOW/CML-LAB.yaml) | Completed four-node lab; public configuration sanitized, collector IPv4 address applied interactively | [Flow settings and collector setup](16-NETFLOW/configs/README.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 
