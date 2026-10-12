@@ -2,7 +2,7 @@
 
 ![CCNP Enterprise Lab Portfolio — Configuration, Verification, Troubleshooting](assets/portfolio-banner.png)
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, device-local automation, and traffic measurement.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, device-local automation, traffic measurement, and remote packet inspection.
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to recorded configuration and verification results, with troubleshooting decisions and targeted repairs where tested.
 
@@ -81,6 +81,7 @@ I built these labs to understand how networks behave when configurations change 
 | Module | Engineering focus | Suggested evidence |
 |---|---|---|
 | [16 — Flexible NetFlow](16-NETFLOW/README.md) | Traffic measurement, flow-cache aging, and NetFlow v9 export | [Correlate local counters with collector-side template/data decoding](16-NETFLOW/verification/export-and-templates.md) |
+| [17 — SPAN/RSPAN/ERSPAN](17-SPAN-RSPAN-ERSPAN/README.md) | Remote packet mirroring, inner/outer headers, and platform-capability validation | [Identify requests and replies inside mirrored GRE](17-SPAN-RSPAN-ERSPAN/verification/bidirectional.md) |
 
 ## How to review the work
 
@@ -112,6 +113,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 | [Section 14 VTI](14-GRE-IPsec-Tunneling/configs/IKEv2-VTI-CML-sanitized.yaml) | Saved three-router IKEv2 VTI and OSPF checkpoint; key sanitized | [VTI settings and provenance](14-GRE-IPsec-Tunneling/configs/vti.md) |
 | [EEM](15-EEM/CML-LAB.yaml) | Completed two-router lab with two retained applets; device-specific material sanitized | [Retained and temporary applets](15-EEM/configs/README.md) |
 | [Flexible NetFlow](16-NETFLOW/CML-LAB.yaml) | Completed four-node lab; public configuration sanitized, collector IPv4 address applied interactively | [Flow settings and collector setup](16-NETFLOW/configs/README.md) |
+| [ERSPAN](17-SPAN-RSPAN-ERSPAN/CML-LAB.yaml) | Final four-node ERSPAN source lab; public configuration sanitized, collector IPv4 address applied interactively | [Session settings and reproduction](17-SPAN-RSPAN-ERSPAN/configs/README.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 
