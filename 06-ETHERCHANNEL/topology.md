@@ -16,6 +16,6 @@ SW1–SW4 below abbreviate the `EC-SW1-DIST-A`, `EC-SW2-DIST-B`, `EC-SW3-ACCESS-
 
 Infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`. The saved switch configurations use **classic PVST**, rather than Rapid PVST+.
 
-PC-A is `10.10.10.10/24`. Tests target SW4's VLAN 10 switch interface at `10.10.10.20/24`. PC-B appears in the supplied diagram as an unused endpoint position; it is absent from the [final CML export](CML-LAB.yaml). The diagram provides design context, not additional experimental proof.
+PC-A is `10.10.10.10/24`. Tests target SW4's VLAN 10 switch interface at `10.10.10.20/24`. PC-B appears in the [original PNG](topology.png) as an unused endpoint position. The embedded SVG follows the [final CML export](CML-LAB.yaml), where PC-B is absent. The diagram provides design context, not additional experimental proof.
 
 [Configuration guide](configs/README.md) · [Module overview](README.md)

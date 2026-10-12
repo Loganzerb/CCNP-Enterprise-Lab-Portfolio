@@ -13,7 +13,7 @@ flowchart TD
     E --> F["Write EEM DIAG to syslog"]
 ```
 
-The supplied excerpt follows that sequence: line-protocol down, custom alert, then diagnostic output showing the interface administratively down. The diagnostic records the state at collection time; it is not a packet capture or an interface repair.
+The selected CLI excerpt follows that sequence: line-protocol down, custom alert, then diagnostic output showing the interface administratively down. The diagnostic records the state at collection time; it is not a packet capture or an interface repair.
 
 [Saved applet](configs/README.md#gi1-down-alert--capture-the-interface-state-after-a-matching-event) · [Observed diagnostic sequence](verification/syslog-triggered-diagnostics.md)
 
@@ -26,7 +26,7 @@ flowchart LR
     C --> D["Completion syslog"]
 ```
 
-The handoff reports terminal output and a completion message. Those reported outcomes are kept separate from the selected raw-style excerpts supplied for the automatic and fault tests.
+**Reported observation:** manual execution displayed terminal output and a completion message. The automatic and fault tests instead retain selected CLI excerpts.
 
 [Manual execution record](verification/manual-execution.md)
 

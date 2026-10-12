@@ -24,7 +24,7 @@ flowchart LR
     E --> F["Alpine eth0: 10.30.30.2<br/>Capture and interpret"]
 ```
 
-Export sends traffic metadata along the collector link. The template describes the five fields; the data record supplies their values. The handoff's decoded values match the local cache. The diagram explains those relationships and does not reproduce packet timing or imply that a template accompanies every data record.
+Export sends traffic metadata along the collector link. The template describes the five fields; the data record supplies their values. The lab record's decoded values match the local cache. The diagram explains those relationships and does not reproduce packet timing or imply that a template accompanies every data record.
 
 [Template and data evidence](verification/export-and-templates.md) · [Collector setup](configs/collector.md)
 

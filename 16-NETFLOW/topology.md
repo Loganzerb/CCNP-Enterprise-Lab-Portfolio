@@ -4,7 +4,7 @@
 
 [PNG rendition](topology.png)
 
-The [sanitized CML export](CML-LAB.yaml) defines four nodes and three physical links. Software versions below follow the supplied handoff and image definitions.
+The [sanitized CML export](CML-LAB.yaml) defines four nodes and three physical links. Software versions follow the lab record and image definitions.
 
 | Node | Platform | Lab role |
 |---|---|---|
@@ -41,13 +41,13 @@ The diagram uses solid lines for these three physical links. Arrows in the notes
 
 The tested ICMP request uses source `10.10.10.10` and destination `10.20.20.20`. It travels from R2 to R1 Gi1, where the input monitor observes it, then through R1 Gi2 toward R3. Alpine receives the exported measurements of that traffic; the test request continues toward R3.
 
-The separate exporter datagrams use source **`10.30.30.1` on R1 GigabitEthernet3**, destination **`10.30.30.2`**, and destination **UDP port 2055**. NetFlow v9 is established by the supplied operational output and packet evidence; the saved exporter block omits an explicit protocol command.
+The separate exporter datagrams use source **`10.30.30.1` on R1 GigabitEthernet3**, destination **`10.30.30.2`**, and destination **UDP port 2055**. NetFlow v9 is established by operational output and decoded packet evidence; the saved exporter block omits an explicit protocol command.
 
 R1 Loopback0 retains the description `NETFLOW-EXPORT-SOURCE`. The exporter configuration explicitly selects **GigabitEthernet3**, so that loopback description does not select the export source.
 
 ## Collector portability
 
-The handoff reports that `10.30.30.2/30` was assigned to Alpine eth0 interactively. The saved Alpine startup script does not assign this address. It may need to be reapplied after a restart or reimport; the diagram labels this as reported interactive state.
+**Reported interactive state:** `10.30.30.2/30` was assigned to Alpine eth0. The saved startup script does not assign this address, so it may need reapplying after restart or reimport; the diagram retains that distinction.
 
 The illustration combines saved wiring and Cisco configuration with that reported collector state. Observed connectivity and export results are documented in the verification material.
 

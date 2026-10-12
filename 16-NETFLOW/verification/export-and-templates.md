@@ -1,6 +1,6 @@
 # Export delivery and NetFlow v9 templates
 
-R1-FNF exported flow telemetry to the Alpine collector over UDP 2055. The handoff supplies packet excerpts, decoded template and data values, and exporter statistics; it does not supply a full raw hexadecimal capture or a packet-capture file.
+R1-FNF exported flow telemetry to Alpine over UDP 2055. The lab record contains selected packet excerpts, decoded template/data summaries, and router statistics; [evidence sources](../scope.md#sources) define their capture limits.
 
 **Quick navigation:** [Exporter properties](#exporter-properties) · [Remote delivery](#remote-delivery) · [Template and data decoding](#template-and-data-decoding) · [Template refresh](#template-refresh) · [Exporter statistics](#exporter-statistics) · [Evidence scope](#evidence-scope)
 
@@ -8,7 +8,7 @@ R1-FNF exported flow telemetry to the Alpine collector over UDP 2055. The handof
 
 ### Block 07
 
-**Supplied operational exporter properties.**
+**Selected CLI excerpt — operational exporter properties.**
 
 ```text
 Export protocol:          NetFlow Version 9
@@ -22,13 +22,13 @@ Export template timeout:  60
 
 The destination is the collector address `10.30.30.2`. GigabitEthernet3 supplies the export source address `10.30.30.1`, and UDP destination port `2055` selects the collector transport port. NetFlow v9 identifies the telemetry format. The 60-second template timeout controls template refresh, separately from flow-cache aging.
 
-NetFlow v9 is explicitly recorded in this output and in the supplied packet decoding. The final exported configuration omits an explicit export-protocol command; the operational result does not justify adding that command to the preserved configuration.
+NetFlow v9 is explicitly recorded in this output and in the lab record's packet decoding. The final exported configuration omits an explicit export-protocol command; the operational result does not justify adding that command to the preserved configuration.
 
 ## Remote delivery
 
 ### Block 08
 
-**Supplied command — FNF-COLLECTOR.**
+**Recorded command — FNF-COLLECTOR.**
 
 ```bash
 sudo tcpdump -ni eth0 -vv 'udp port 2055'
@@ -36,7 +36,7 @@ sudo tcpdump -ni eth0 -vv 'udp port 2055'
 
 ### Block 09
 
-**Supplied received-packet excerpts.**
+**Selected CLI excerpts — received packets.**
 
 ```text
 10.30.30.1.53971 > 10.30.30.2.2055:
@@ -48,13 +48,13 @@ UDP, length 52
 
 The two UDP payload lengths are 48 and 52 bytes. Both excerpts show source `10.30.30.1`, destination `10.30.30.2`, and destination port `2055`, matching the exporter properties. They demonstrate delivery of export datagrams to Alpine, independently of the router's local flow cache.
 
-Alpine's `eth0` being UP/LOWER_UP is reported in the handoff without a full interface-status transcript. Its address was configured interactively and is not preserved by the supplied CML export; [collector setup](../configs/collector.md) documents that portability limit.
+**Reported observation:** Alpine `eth0` was UP/LOWER_UP, without a full interface-status transcript. Its address was interactive and is absent from the CML export; [collector setup](../configs/collector.md) documents that portability limit.
 
 ## Template and data decoding
 
 ### Block 10
 
-**Supplied hexadecimal-capture command — FNF-COLLECTOR.**
+**Recorded command — hexadecimal inspection on FNF-COLLECTOR.**
 
 ```bash
 sudo tcpdump -ni eth0 -s 0 -XX 'udp dst port 2055'
@@ -62,7 +62,7 @@ sudo tcpdump -ni eth0 -s 0 -XX 'udp dst port 2055'
 
 ### Block 11
 
-**Supplied decoded template summary.** This is the handoff's decoding, not a reconstructed raw header.
+**Decoded summary from lab record — template.** This is a summary, not a raw header.
 
 ```text
 NetFlow version:     9
@@ -71,7 +71,7 @@ Template ID:         256
 Number of fields:    5
 ```
 
-**Supplied decoded field definitions.**
+**Decoded field definitions from lab record.**
 
 | Field ID | Meaning | Length |
 |---|---|---|
@@ -85,7 +85,7 @@ Template FlowSet ID `0` carries the definition for template `256`. Its five fiel
 
 ### Block 12
 
-**Supplied decoded data-record summary.** The corresponding data FlowSet uses ID `256` to identify that template's field layout.
+**Decoded summary from lab record — data record.** The corresponding data FlowSet uses ID `256` to identify that template's field layout.
 
 ```text
 Source IPv4:       10.10.10.10
@@ -95,7 +95,7 @@ Byte counter:      10000
 Packet counter:    100
 ```
 
-**Supplied decoded hexadecimal values.**
+**Decoded values from lab record — selected hexadecimal fields.**
 
 | Hexadecimal | Value |
 |---|---|
@@ -105,19 +105,19 @@ Packet counter:    100
 | `00 00 00 00 00 00 27 10` | 10,000 bytes |
 | `00 00 00 00 00 00 00 64` | 100 packets |
 
-The template describes how to interpret the values; the data record contains the measurements. Its addresses, ICMP protocol, 10,000-byte counter, and 100-packet counter match the [populated local cache](traffic-and-cache.md#block-04). The handoff supplies these decoded values and selected hexadecimal field values, without the full raw hexadecimal output or a packet-capture file.
+The template describes how to interpret the values; the data record contains the measurements. Its addresses, ICMP protocol, 10,000-byte counter, and 100-packet counter match the [populated local cache](traffic-and-cache.md#block-04).
 
 ## Template refresh
 
 ### Block 13
 
-**Supplied exporter configuration line.**
+**Recorded configuration — exporter template refresh.**
 
 ```cisco
 template data timeout 60
 ```
 
-The handoff reports repeated 48-byte template datagrams approximately 60 seconds apart. No recurrence timestamps were supplied, so this remains a reported observation rather than a calculated timing interval.
+**Reported observation:** repeated 48-byte template datagrams approximately 60 seconds apart. No recurrence timestamps are available, so this is not a calculated timing interval.
 
 Refreshing the template resends the record layout. It is separate from the monitor's configured 60-second active timeout and observed 15-second inactive timeout, which govern cache entries.
 
@@ -125,7 +125,7 @@ Refreshing the template resends the record layout. It is separate from the monit
 
 ### Block 14
 
-**Supplied command — R1-FNF.**
+**Recorded command — R1-FNF.**
 
 ```cisco
 show flow exporter statistics
@@ -133,7 +133,7 @@ show flow exporter statistics
 
 ### Block 15
 
-**Supplied final exporter-statistics output.**
+**Selected CLI excerpt — final exporter statistics.**
 
 ```text
 Flow Exporter ENCOR-IPV4-EXPORTER:
@@ -154,6 +154,6 @@ The 25 export packets are telemetry datagrams, not the 100 original ICMP packets
 
 ## Evidence scope
 
-The output, command, and decoded-summary blocks preserve the handoff's supplied contents. Decoded tables are supplied interpretations; no missing header bytes, capture timestamps, packet sequence, or raw capture has been reconstructed. The packet excerpts and exporter statistics support remote delivery and export activity without proving a continuous capture of every exported datagram.
+Blocks retain selected CLI excerpts, commands/configuration, and decoded lab-record summaries. Packet excerpts and cumulative statistics support delivery and export activity, without establishing a continuous sequence of every exported datagram. [Full provenance and capture limits](../scope.md#sources) explain the sources.
 
 [Traffic and cache](traffic-and-cache.md) · [Verification index](README.md) · [Flexible NetFlow overview](../README.md) · [Configurations](../configs/README.md) · [Collector setup](../configs/collector.md) · [Operation](../operation.md) · [Evidence scope](../scope.md)

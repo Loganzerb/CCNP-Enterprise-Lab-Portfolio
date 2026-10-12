@@ -2,6 +2,18 @@
 
 The saved CML export supplies the configuration excerpts below. Runtime states, SPIs, counts, and ping results are recorded in the completed-lab handoff; they are reported as values rather than reconstructed console output. The [source guide](../scope.md) distinguishes these from the classic stage's verbatim CLI captures.
 
+## Final results
+
+| Final check | Verified result reported for the VTI stage |
+|---|---|
+| Private test | 10.30.30.1 to 10.10.10.1: 10/10 replies |
+| R3 encaps / encrypt | 44 / 44 |
+| R3 decaps / decrypt | 51 / 51 |
+| R3 send / receive errors | 0 / 0 |
+| Inbound and outbound ESP | ACTIVE(ACTIVE) |
+
+The final totals include selected traffic across the measurement interval, including routing traffic. They are not the packet count of the final ten-probe test alone; unequal directional totals do not establish ping loss.
+
 ## Establish the VTI
 
 | Build checkpoint | Recorded observation | What it establishes |
@@ -73,18 +85,6 @@ router ospf 10
 | Route learned by R3 | 10.10.10.1/32 via 172.16.13.1, Tunnel0 |
 
 R2 does not participate in this OSPF relationship. Its job remains forwarding the outer WAN packet.
-
-## Final results
-
-| Final check | Verified result reported for the VTI stage |
-|---|---|
-| Private test | 10.30.30.1 to 10.10.10.1: 10/10 replies |
-| R3 encaps / encrypt | 44 / 44 |
-| R3 decaps / decrypt | 51 / 51 |
-| R3 send / receive errors | 0 / 0 |
-| Inbound and outbound ESP | ACTIVE(ACTIVE) |
-
-The final totals include selected traffic across the measurement interval, including routing traffic. They are not the packet count of the final ten-probe test alone; unequal directional totals do not establish ping loss.
 
 The lab stopped after successful configuration and verification. No forced VTI faults, throughput measurement, or retention rebuild is represented as completed work.
 

@@ -1,6 +1,6 @@
 # 16 — Flexible NetFlow: Verify traffic from the router to the collector
 
-I configured a router to measure traffic crossing a test network, export the measurements, and verify their arrival on a Linux collector. A controlled 100-packet test produced one monitored ICMP flow with **100 packets and 10,000 bytes**. The supplied collector decoding identified the same source, destination, protocol, and counters in a NetFlow v9 data record.
+I configured a router to measure traffic crossing a test network, export the measurements, and verify their arrival on a Linux collector. A controlled 100-packet test produced one monitored ICMP flow with **100 packets and 10,000 bytes**. The lab record's collector decoding identified the same source, destination, protocol, and counters in a NetFlow v9 data record.
 
 The engineering objective was to follow the evidence through three stages: successful forwarding, accurate local measurement, and remote export. This completed Cisco Modeling Labs exercise aligns with **CCNP ENCOR 350-401 v1.2, objective 4.2 — Configure and verify Flexible NetFlow**.
 
@@ -17,7 +17,7 @@ The engineering objective was to follow the evidence through three stages: succe
 | Could the exported record be interpreted? | Template **256** describes five fields; the supplied data decoding matches the monitored flow values |
 | What did the final exporter report? | **25 export packets**, with **two client records / 50 bytes** sent; these are cumulative exporter statistics |
 
-The [verification guide](verification/README.md) preserves the supplied commands and excerpts. Packet-capture decoding is documented from the handoff; a full hexadecimal capture or PCAP file was not supplied.
+The [verification guide](verification/README.md) preserves recorded commands, selected CLI excerpts, and decoded summaries. The [source guide](scope.md) defines their provenance and capture limits.
 
 ## Lab design
 
@@ -53,6 +53,6 @@ This lab focused on working configuration and verification. Deliberate faults an
 
 ## Portability
 
-Alpine's tested `10.30.30.2/30` address was applied interactively and is absent from the YAML. Check the interface and reapply the address when needed using the [collector setup note](configs/collector.md). The sanitized export was checked for structure and configuration consistency; it was not reimported or rerun during portfolio preparation.
+Alpine's tested `10.30.30.2/30` address was applied interactively and is absent from the YAML. Check the interface and reapply the address when needed using the [collector setup note](configs/collector.md). [Public export checks](scope.md#public-export-and-portability) describe structural validation and the import limit.
 
 [Back to portfolio](../README.md)

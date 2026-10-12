@@ -1,5 +1,7 @@
 # Case 02 — An HSRP version mismatch breaks peer recognition
 
+**Result:** Restoring HSRPv2 recovered the Active/Standby peer relationship and PC-B's final upstream test returned 5/5 replies. The earlier 19/20 result during dual-active operation showed why successful traffic alone could conceal broken redundancy.
+
 ## Problem
 
 Removing HSRPv2 from DIST-A’s VLAN 20 interface broke the peer relationship while both devices retained the same virtual IP.

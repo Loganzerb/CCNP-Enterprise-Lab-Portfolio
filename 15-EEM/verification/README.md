@@ -1,6 +1,6 @@
 # EEM verification guide
 
-These Cisco Modeling Labs tests connect an event detector to its actions and observed result. The October 9, 2026 handoff supplies selected syslog and debug excerpts, commands, temporary policy definitions, and reported execution results.
+These Cisco Modeling Labs tests connect an event detector to its actions and result. Selected syslog/debug excerpts, commands, temporary policies, and reported results form the October 9, 2026 lab record.
 
 **Quick navigation:** [Verification guides](#verification-guides) · [Read the evidence](#read-the-evidence) · [Troubleshooting cases](../troubleshooting/README.md)
 
@@ -15,10 +15,10 @@ These Cisco Modeling Labs tests connect an event detector to its actions and obs
 
 ## Read the evidence
 
-The blocks preserve the handoff's supplied lines. They are grouped by verification question rather than presented as one uninterrupted console transcript. Configuration and command blocks identify what was configured or invoked; they are not output records.
+Blocks retain selected lab-record lines, grouped by verification question. Labels distinguish CLI excerpts from commands/configuration and reported observations. [Full provenance](../scope.md#evidence-sources) explains the source boundaries.
 
-Manual interface-summary output, policy-registration output, and event-history entries were described without their command output being supplied. Those observations remain prose. Only GI1-DOWN-ALERT and MANUAL-DIAG were retained in the final saved configuration; watchdog, faulty-link, and CLI audit policies were temporary tests.
+Manual interface-summary output, policy registration, and event-history entries remain reported observations without their command output. Only GI1-DOWN-ALERT and MANUAL-DIAG were retained in the final saved configuration; watchdog, faulty-link, and CLI audit policies were temporary tests.
 
-The 3 ms faulty-link interval describes one pair of syslog timestamps. It provides no response-time guarantee. UTC is retained where the handoff explicitly labels it; other excerpts keep their supplied timestamp formatting.
+The 3 ms faulty-link interval is one timestamp pair, not a response-time guarantee. UTC appears only where identified in the lab record; other timestamp formatting is retained.
 
 [EEM overview](../README.md) · [Configurations](../configs/README.md) · [Troubleshooting](../troubleshooting/README.md)

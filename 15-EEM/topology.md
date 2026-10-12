@@ -4,7 +4,7 @@
 
 [PNG rendition](topology.png)
 
-Two routers share one routed link on `10.66.12.0/30`. The [sanitized CML export](CML-LAB.yaml) supplies the node configuration and physical interface mapping; platform versions below are described in the completed-lab handoff.
+Two routers share one routed link on `10.66.12.0/30`. The [sanitized CML export](CML-LAB.yaml) defines the node configuration and physical interface mapping; platform versions follow the lab record.
 
 | Device | Platform described in the handoff | Interface | Address | Lab role |
 |---|---|---|---|---|
@@ -21,6 +21,6 @@ These are the two applets retained in the export. The watchdog, syslog-pattern f
 
 ## Evidence boundary
 
-The handoff reports verified interface connectivity and ICMP reachability. It does not supply a ping transcript or reply count. The topology illustration derives from the saved configuration and link definitions; it is not an observed packet path or a new device capture.
+**Reported observation:** interface connectivity and ICMP reachability, without a ping transcript or reply count. The illustration derives from saved configuration and link definitions; [evidence sources](scope.md#evidence-sources) distinguish diagrams from device captures.
 
 [Module overview](README.md) · [Configuration guide](configs/README.md)

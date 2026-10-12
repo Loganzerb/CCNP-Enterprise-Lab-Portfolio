@@ -20,12 +20,12 @@ These labs trace how a network discovers receivers, selects multicast paths and 
 
 ## Choose a case
 
-| Question | Follow the investigation |
-|---|---|
-| Why does RP discovery stop when OSPF still works? | [Missing PIM on transit interfaces](PIM-SM/troubleshooting/07-bsr-propagation.md) |
-| Why did a receiver-facing branch disappear? | [IGMP membership timer expiry](IGMPv2-v3/troubleshooting/01-membership-expiry.md) |
-| Why does the tree point toward the wrong host? | [BIDIR receiver join on the source LAN](BIDIR-PIM/troubleshooting/02-wrong-receiver.md) |
-| What changes the router carrying source traffic? | [BIDIR Designated Forwarder transition](BIDIR-PIM/troubleshooting/03-df-transition.md) |
+| Question | Follow the investigation | Recorded outcome |
+|---|---|---|
+| Why does RP discovery stop when OSPF still works? | [Missing PIM on transit interfaces](PIM-SM/troubleshooting/07-bsr-propagation.md) | R1–R4 recovered matching RP mappings after PIM was restored on R3. |
+| Why did a receiver-facing branch disappear? | [IGMP membership timer expiry](IGMPv2-v3/troubleshooting/01-membership-expiry.md) | New receiver reports restored R4's receiver-facing branch. |
+| Why does the tree point toward the wrong host? | [BIDIR receiver join on the source LAN](BIDIR-PIM/troubleshooting/02-wrong-receiver.md) | Moving the join to RCV-HOST added the intended receiver branch on R3 Gi0/3. |
+| What changes the router carrying source traffic? | [BIDIR Designated Forwarder transition](BIDIR-PIM/troubleshooting/03-df-transition.md) | The forwarding role moved to R2; a subsequent test returned 29/30 replies, without measuring transition loss. |
 
 ## PIM-SM phases
 

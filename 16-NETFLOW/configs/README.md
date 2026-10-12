@@ -13,16 +13,12 @@ These router files are sanitized extracts from the completed October 12, 2026 CM
 
 ## Saved configuration and observed defaults
 
-The saved monitor explicitly sets its active timeout to 60 seconds. The 15-second inactive timeout was reported in operational output. NetFlow v9 was verified in exporter output and the supplied packet decoding, although the explicit export-protocol command is absent from the saved configuration. No such commands have been added to the public export.
+The saved monitor explicitly sets its active timeout to 60 seconds. The 15-second inactive timeout was reported in operational output. NetFlow v9 was verified in exporter output and decoded packet summaries, although the explicit export-protocol command is absent from the saved configuration. No such commands have been added to the public export.
 
-R1's Loopback0 description says `NETFLOW-EXPORT-SOURCE`, but the configured exporter actually uses **GigabitEthernet3**. The supplied operational output confirms source address **10.30.30.1**. The files preserve both the description and the effective setting.
+R1's Loopback0 description says `NETFLOW-EXPORT-SOURCE`, but the configured exporter actually uses **GigabitEthernet3**. The operational excerpt confirms source address **10.30.30.1**. The files preserve both the description and the effective setting.
 
 ## Public export preparation
 
-The original YAML is preserved outside the public portfolio. Generated PKI trustpoints/certificate chains, device-specific licensing identifiers, call-home settings, and Alpine login variables were removed. Router console display headers were also removed from configuration fields.
-
-Flow, interface, and routing commands remain unchanged, including the exporter description's `ECNOR` typo. Node/image references and all three physical links are preserved. The router `.cfg` files match the public YAML's configuration fields. No software images are included.
-
-The YAML parses and its saved relationships have been checked. It has not been imported or executed again during this documentation work. Alpine login settings must be handled for the user's own lab environment; the public file contains no supplied login credentials.
+The router `.cfg` files match the public YAML's configuration fields. [Public export checks](../scope.md#public-export-and-portability) document sanitization, preserved commands/wiring, and the import limit. Alpine login variables were removed; use local access settings and check the interactive address through [collector setup](collector.md).
 
 [Flow components](flow-components.md) · [Collector setup](collector.md) · [Evidence scope](../scope.md) · [Overview](../README.md)

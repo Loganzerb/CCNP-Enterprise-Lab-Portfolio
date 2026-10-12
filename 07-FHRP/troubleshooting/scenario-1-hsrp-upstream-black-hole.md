@@ -1,5 +1,7 @@
 # Case 01 — An active HSRP gateway loses its upstream path
 
+**Result:** Tracking moved gateway service to DIST-B and restored PC-A to 10/10 replies with DIST-A's uplink still down. A 10-second preemption delay placed gateway recovery after OSPF reached FULL, but both recovery runs retained packet loss.
+
 ## Problem
 
 VLAN 10 lost upstream connectivity when DIST-A’s Gi0/0 failed, even though DIST-A remained the HSRP Active gateway.

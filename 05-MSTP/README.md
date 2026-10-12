@@ -14,10 +14,10 @@ I built a five-switch Cisco Modeling Labs environment to verify those paths, tes
 
 | Engineering question | Observed result |
 |---|---|
-| Can VLAN groups use different preferred paths? | MST2-ACCESS-A selects Gi0/0 toward MST1 for VLANs 10/20 and Gi0/1 toward MST4 for VLANs 30/40 |
-| Is a matching configuration digest enough to establish region membership? | Changing the revision or region name leaves the mapping digest unchanged but produces boundary roles |
-| How does the region reach an external spanning-tree root? | MST4 uses the same boundary link as Root for MST0 and Master for the two VLAN-group instances |
-| What happens when the external VLAN information is inconsistent? | MST4 blocks the boundary; Case 06 records the failure, the subsequent clear message and zero remaining inconsistent entries |
+| [Can VLAN groups use different preferred paths?](verification/instances/README.md) | MST2-ACCESS-A selects Gi0/0 toward MST1 for VLANs 10/20 and Gi0/1 toward MST4 for VLANs 30/40 |
+| [Is a matching configuration digest enough to establish region membership?](verification/region-mismatch/README.md) | Changing the revision or region name leaves the mapping digest unchanged but produces boundary roles |
+| [How does the region reach an external spanning-tree root?](verification/boundary-master/README.md) | MST4 uses the same boundary link as Root for MST0 and Master for the two VLAN-group instances |
+| [What happens when the external VLAN information is inconsistent?](troubleshooting/scenario-6-pvst-sim-inferior-vlan/README.md) | MST4 blocks the boundary; Case 06 records the failure, the subsequent clear message and zero remaining inconsistent entries |
 
 ## Start here
 

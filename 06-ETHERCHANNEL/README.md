@@ -32,7 +32,7 @@ The max-bundle case retains an unresolved observation: the internal cause is not
 
 Two distribution and two access switches form redundant paths. Po10 is static, Po20 uses LACP, and Po30 uses PAgP. A separate trunk joins the access switches.
 
-PC-A at `10.10.10.10/24` tests SW4's VLAN 10 interface at `10.10.10.20/24`. The PC-B position shown in the diagram is not deployed in the final export. Infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`.
+PC-A at `10.10.10.10/24` tests SW4's VLAN 10 interface at `10.10.10.20/24`. The unused PC-B position appears in the [original PNG](topology.png); the embedded SVG shows the final export, where PC-B is absent. Infrastructure trunks use native VLAN 99 and allow VLANs `1,10,20,30,99`.
 
 [Topology, interfaces, and intended design](topology.md)
 

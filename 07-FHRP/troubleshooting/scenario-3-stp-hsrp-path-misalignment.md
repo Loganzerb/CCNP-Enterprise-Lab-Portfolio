@@ -1,5 +1,7 @@
 # Case 03 — STP and HSRP select an indirect path
 
+**Result:** Restoring the STP root placement returned the access switch's gateway path directly to DIST-B on Gi0/1. STP roles and MAC learning exposed the extra Layer 2 traversal while the misaligned path still returned 5/5 replies; the small samples did not quantify a latency penalty.
+
 ## Problem
 
 VLAN 20’s STP root was moved to DIST-A while its HSRP Active gateway remained DIST-B.

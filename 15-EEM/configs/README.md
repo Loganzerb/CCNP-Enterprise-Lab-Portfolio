@@ -24,7 +24,7 @@ event manager applet GI1-DOWN-ALERT
 
 The detector selects a line-protocol message for Gi1 containing `down`. The applet logs an alert, enters privileged CLI mode, collects the filtered interface result, and logs the result of that diagnostic command. The retained test used an administrative shutdown; the applet collected evidence rather than changing the interface configuration.
 
-The regex is not an exact whole-message match. Its behavior is validated against the supplied lab event, rather than claimed to cover every possible failure message.
+The regex is not an exact whole-message match. Its behavior is validated against the recorded lab event, rather than claimed to cover every possible failure message.
 
 [Automatic diagnostic evidence](../verification/syslog-triggered-diagnostics.md)
 
@@ -41,16 +41,12 @@ event manager applet MANUAL-DIAG
  action 4.0 syslog msg "EEM MANUAL-DIAG: Diagnostic completed"
 ```
 
-`event none` makes this an administrator-invoked policy. The diagnostic output goes to the terminal through `puts`; a separate syslog marks completion. The handoff reports successful execution through `event manager run MANUAL-DIAG`.
+`event none` makes this an administrator-invoked policy. The diagnostic output goes to the terminal through `puts`; a separate syslog marks completion. Successful execution through `event manager run MANUAL-DIAG` is a reported observation.
 
 [Manual execution record](../verification/manual-execution.md)
 
 ## Configuration provenance and sanitization
 
-The original October 9 export is preserved outside the public portfolio. The public YAML and `.cfg` files remove device-specific PKI trustpoints and certificate chains, a licensing/device identifier command, and call-home configuration. Console display headers were removed so the configuration fields contain configuration text.
-
-All EEM detector/action lines, interface settings, node definitions, image-definition references, and link endpoints remain unchanged. The `.cfg` files match the public YAML's configuration fields. Image references identify the CML platforms; no Cisco software images are included.
-
-The export parses successfully and its node/link/configuration relationships have been checked. It has not been imported or executed again during portfolio preparation.
+The `.cfg` files match the public YAML's configuration fields. [Public export checks](../scope.md#public-export-checks) document sanitization, preserved settings, platform references, and the import limit.
 
 [Temporary exercise configurations](exercise-applets.md) · [Evidence scope](../scope.md) · [Overview](../README.md)

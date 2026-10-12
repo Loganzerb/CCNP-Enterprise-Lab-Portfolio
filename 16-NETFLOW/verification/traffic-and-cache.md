@@ -1,6 +1,6 @@
 # Traffic and Flexible NetFlow cache
 
-R2-SOURCE generated ICMP traffic from its Loopback0 to R3-DEST's Loopback0 through R1-FNF. The supplied results connect successful forwarding to the ingress monitor's local counters and later inactive expiration.
+R2-SOURCE generated ICMP traffic from its Loopback0 to R3-DEST's Loopback0 through R1-FNF. The selected results connect successful forwarding to the ingress monitor's local counters and later inactive expiration.
 
 **Quick navigation:** [Traffic result](#traffic-result) · [Flow identity and counters](#flow-identity-and-counters) · [Cache timers and expiration](#cache-timers-and-expiration) · [Evidence scope](#evidence-scope)
 
@@ -8,7 +8,7 @@ R2-SOURCE generated ICMP traffic from its Loopback0 to R3-DEST's Loopback0 throu
 
 ### Block 01
 
-**Supplied command — R2-SOURCE.**
+**Recorded command — R2-SOURCE.**
 
 ```cisco
 ping 10.20.20.20 source 10.10.10.10 repeat 100
@@ -16,7 +16,7 @@ ping 10.20.20.20 source 10.10.10.10 repeat 100
 
 ### Block 02
 
-**Supplied ping output.**
+**Selected CLI excerpt — ping result.**
 
 ```text
 Sending 100, 100-byte ICMP Echos to 10.20.20.20,
@@ -33,7 +33,7 @@ All 100 probes received replies. The recorded round-trip minimum, average, and m
 
 ### Block 03
 
-**Supplied command — R1-FNF.**
+**Recorded command — R1-FNF.**
 
 ```cisco
 show flow monitor ENCOR-IPV4-MONITOR cache
@@ -41,7 +41,7 @@ show flow monitor ENCOR-IPV4-MONITOR cache
 
 ### Block 04
 
-**Supplied populated-cache excerpt.**
+**Selected CLI excerpt — populated cache.**
 
 ```text
 Current entries:               1
@@ -65,7 +65,7 @@ The monitor is applied in the input direction on R1-FNF GigabitEthernet1. It cou
 
 ### Block 05
 
-**Supplied operational timer values.**
+**Selected CLI excerpt — operational timer values.**
 
 ```text
 Inactive Timeout: 15 secs
@@ -76,7 +76,7 @@ The monitor explicitly configures `cache timeout active 60`. The 15-second inact
 
 ### Block 06
 
-**Supplied cache excerpt after traffic stopped.** The same cache command was used.
+**Selected CLI excerpt — cache after traffic stopped.** The same cache command was used.
 
 ```text
 Current entries:                               0
@@ -93,6 +93,6 @@ The cache retained its high watermark and one added flow while reporting one flo
 
 ## Evidence scope
 
-These are selected results from the completed October 12, 2026 lab. The populated and expired cache excerpts describe separate observations. No active-expiration test, timing trace of the inactive interval, or failed monitoring test was supplied.
+These are selected results from the completed October 12, 2026 lab. The populated and expired cache excerpts describe separate observations. No active-expiration test, timing trace of the inactive interval, or failed monitoring test is recorded.
 
 [Export and templates](export-and-templates.md) · [Verification index](README.md) · [Flexible NetFlow overview](../README.md) · [Configurations](../configs/README.md) · [Operation](../operation.md) · [Evidence scope](../scope.md)

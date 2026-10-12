@@ -17,7 +17,7 @@ These four text files preserve the switch configurations supplied with the portf
 - **VLAN policy is consistent across the intended infrastructure trunks:** native VLAN 99 and allowed VLANs `1,10,20,30,99`. The [VLAN mismatch case](../troubleshooting/case-01-vlan-mask-mismatch.md) shows the consequence of changing only one member.
 - **Classic PVST is configured on all four switches.** The final [SW2 Po30 output](../verification/EC-SW2-DIST-B-spanning-tree-Po30.txt) shows spanning tree blocking the logical bundle while its members remain bundled.
 - **SW3's client-facing port uses access VLAN 10, PortFast edge, and BPDU Guard.** The endpoint connects outside the infrastructure bundles.
-- **SW4 Vlan10 supplies the target address.** The unused PC-B position in the diagram is not an additional node in the export.
+- **SW4 Vlan10 supplies the target address.** The [original PNG](../topology.png) includes an unused PC-B position; the [current SVG](../topology.svg) shows the final exported deployment, which has no PC-B node.
 
 ## Final state versus temporary experiments
 

@@ -1,6 +1,6 @@
 # Flexible NetFlow verification guide
 
-The October 12, 2026 completed-lab handoff records successful endpoint traffic, local flow collection and inactive expiration, NetFlow v9 delivery to Alpine, and interpretation of template and data fields.
+The October 12, 2026 lab record documents successful endpoint traffic, local flow collection and inactive expiration, NetFlow v9 delivery to Alpine, and interpretation of template and data fields.
 
 **Quick navigation:** [Verification guides](#verification-guides) · [Evidence block index](#evidence-block-index) · [Read the evidence](#read-the-evidence)
 
@@ -33,9 +33,9 @@ The October 12, 2026 completed-lab handoff records successful endpoint traffic, 
 
 ## Read the evidence
 
-The numbered blocks preserve the supplied command, output, configuration, and decoded-summary contents verbatim. They are selected handoff excerpts, not one continuous console transcript. The field-definition and hexadecimal-value tables also preserve the supplied decoding.
+Numbered blocks retain recorded commands/configuration, selected CLI excerpts, and decoded summaries verbatim. Field-definition and hexadecimal-value tables retain the lab record's decoding. [Evidence sources](../scope.md#sources) define the provenance.
 
-Full raw hexadecimal output and a packet-capture file were not supplied. Approximate 60-second template recurrence and Alpine `eth0` being UP/LOWER_UP are reported observations without timestamped recurrence output or a full interface-status transcript. The configured active timeout was not demonstrated expiring a continuing flow.
+Approximate 60-second template recurrence and Alpine `eth0` being UP/LOWER_UP are reported observations without recurrence timestamps or a full interface-status transcript. The configured active timeout was not demonstrated expiring a continuing flow.
 
 Export packets and flow records measure exported telemetry; their counts are separate from the 100 original ICMP Echo Requests. These pages document the completed working exercise without introducing failed configurations or new troubleshooting tests.
 

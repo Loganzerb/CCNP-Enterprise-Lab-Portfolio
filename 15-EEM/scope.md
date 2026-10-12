@@ -4,6 +4,8 @@ This completed October 9, 2026 CML exercise covers EEM syslog diagnostics, manua
 
 ## Evidence sources
 
+The **lab record** is the October 9 completed-lab handoff: selected excerpts, commands, and reported observations.
+
 | Material | Source and interpretation |
 |---|---|
 | Topology, interfaces, platforms, final applet configuration | Original `ENCOR-6.6-EEM-MASTERCLASS_Oct-9th.yaml`; selected configuration is preserved in the sanitized public export and device files |
@@ -24,7 +26,7 @@ The CLI debug establishes zero matches for the original expression; the revised 
 
 ## Public export checks
 
-The original YAML is preserved privately outside this repository. The public export removes PKI trustpoint/certificate blocks, licensing/device identifiers, and call-home settings. EEM applet lines, interfaces, node definitions, image references, and wiring remain unchanged. The export parses and its configuration fields match the public `.cfg` files; it has not been imported or rerun during documentation work. No Cisco software image is included.
+The original YAML is preserved privately outside this repository. The public YAML and `.cfg` files remove PKI trustpoints/certificate chains, licensing/device identifiers, and call-home settings. Console display headers were removed from configuration fields. All EEM detector/action lines, interface settings, node definitions, image-definition references, and link endpoints remain unchanged. The export parses, its node/link/configuration relationships have been checked, and its configuration fields match the public `.cfg` files. It has not been imported or rerun during documentation work. Image references identify the CML platforms; no Cisco software image is included.
 
 ## Technical cross-checks
 

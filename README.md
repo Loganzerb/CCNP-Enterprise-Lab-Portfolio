@@ -84,7 +84,9 @@ I built these labs to understand how networks behave when configurations change 
 
 ## How to review the work
 
-**Predict → configure → verify → explain → break → diagnose → repair → capture evidence**
+**Predict → configure → verify → explain → capture evidence**
+
+For controlled-fault exercises, extend that path: **break → diagnose → repair → verify recovery**.
 
 Start with a module's overview or featured case, then follow its supporting guides. Multicast groups these guides under [PIM-SM](12-MULTICAST/PIM-SM/README.md), [IGMPv2/v3](12-MULTICAST/IGMPv2-v3/README.md), and [BIDIR-PIM](12-MULTICAST/BIDIR-PIM/README.md):
 

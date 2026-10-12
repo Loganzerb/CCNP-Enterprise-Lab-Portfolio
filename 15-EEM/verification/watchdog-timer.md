@@ -6,13 +6,13 @@ TIMER-HEARTBEAT tested recurring EEM execution without a manual trigger. It was 
 
 ## Recorded result
 
-Three supplied trigger times support recurring execution at approximately 60-second intervals. The differences between adjacent timestamps are **60.001 seconds** each.
+Three recorded trigger times support recurring execution at approximately 60-second intervals. The differences between adjacent timestamps are **60.001 seconds** each.
 
 ## Temporary policy
 
 ### Block 07
 
-**Supplied temporary configuration.**
+**Recorded configuration — temporary watchdog.**
 
 ```cisco
 event manager applet TIMER-HEARTBEAT
@@ -24,7 +24,7 @@ event manager applet TIMER-HEARTBEAT
 
 ### Block 08
 
-**Supplied observed timestamps — October 9, 2026.**
+**Recorded timestamps — October 9, 2026.**
 
 ```text
 23:07:24.899
@@ -36,6 +36,6 @@ The configured detector requests a 60-second watchdog interval. These three time
 
 ## Evidence scope
 
-The handoff supplies the configuration and three timestamps, without full heartbeat syslog lines or an uninterrupted console transcript. Its account states that execution occurred without manual intervention and that the applet was removed afterward. TIMER-HEARTBEAT is absent from the final saved EEM policy set.
+The lab record contains configuration and three timestamps; complete heartbeat syslog lines are unavailable. Execution without manual invocation is reported. TIMER-HEARTBEAT was removed from the final saved policy set.
 
 [Verification index](README.md) · [EEM overview](../README.md)

@@ -10,7 +10,7 @@ GI1-DOWN-ALERT watches `%LINEPROTO-5-UPDOWN` messages containing GigabitEthernet
 
 ### Block 01
 
-**Supplied syslog excerpt — October 9, 2026.** The failure, custom alert, and diagnostic result appear in sequence. Line breaks follow the handoff.
+**Selected CLI excerpt — October 9, 2026.** The failure, custom alert, and diagnostic result appear in sequence.
 
 ```text
 22:34:47.104 %LINEPROTO-5-UPDOWN:
@@ -34,7 +34,7 @@ LINK-FAULT-TEST was a separate troubleshooting applet and was subsequently remov
 
 ### Block 02
 
-**Supplied incorrect detector configuration.**
+**Recorded configuration — incorrect detector.**
 
 ```cisco
 event syslog pattern "%LINK-3-UPDOWN.*GigabitEthernet1.*down"
@@ -42,7 +42,7 @@ event syslog pattern "%LINK-3-UPDOWN.*GigabitEthernet1.*down"
 
 ### Block 03
 
-**Supplied administrative-shutdown message.**
+**Selected CLI excerpt — administrative-shutdown message.**
 
 ```text
 %LINK-5-CHANGED:
@@ -54,7 +54,7 @@ The emitted identifier was LINK-5-CHANGED, not the LINK-3-UPDOWN identifier in t
 
 ### Block 04
 
-**Supplied corrected detector configuration.**
+**Recorded configuration — corrected detector.**
 
 ```cisco
 event syslog pattern "%LINK-5-CHANGED.*GigabitEthernet1.*administratively down"
@@ -62,7 +62,7 @@ event syslog pattern "%LINK-5-CHANGED.*GigabitEthernet1.*administratively down"
 
 ### Block 05
 
-**Supplied repair-result excerpt.**
+**Selected CLI excerpt — repair result.**
 
 ```text
 23:21:17.157 %LINK-5-CHANGED:
@@ -76,6 +76,6 @@ The two recorded syslog timestamps are 3 ms apart. This interval describes that 
 
 ## Evidence scope
 
-These are selected excerpts supplied in the completed-lab handoff, not a complete console session. Successful registration and the initial failure to trigger are reported observations without their own output excerpts. The repaired LINK detector does not replace the distinct LINEPROTO detector in the final saved configuration.
+Registration and the initial failure are reported observations without output excerpts. The selected excerpts show the repaired LINK detector, distinct from the final LINEPROTO policy. [Evidence sources](../scope.md#evidence-sources) document the provenance.
 
 [Read the pattern-mismatch case](../troubleshooting/incorrect-syslog-pattern.md) · [Verification index](README.md) · [EEM overview](../README.md)

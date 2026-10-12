@@ -16,7 +16,7 @@ The objective was to turn a device event into useful diagnostic evidence and ver
 | Syslog detector repair | Matching the actual `%LINK-5-CHANGED` message restored the temporary fault-test trigger |
 | CLI event handling | A revised pattern triggered asynchronously; the later synchronous policy allowed `show clock` to proceed |
 
-The two final saved applets are **GI1-DOWN-ALERT** and **MANUAL-DIAG**. The watchdog, fault-test, and CLI-audit applets were removed after their tests. The [verification guide](verification/README.md) distinguishes supplied excerpts from outcomes reported in the completed-lab handoff.
+The final saved applets are **GI1-DOWN-ALERT** and **MANUAL-DIAG**; watchdog, fault-test, and CLI-audit applets were removed after testing. The [verification guide](verification/README.md) distinguishes selected CLI excerpts from reported observations.
 
 ## Lab design
 
@@ -26,7 +26,7 @@ The two final saved applets are **GI1-DOWN-ALERT** and **MANUAL-DIAG**. The watc
 
 EEM-R1 uses a CSR1000v running IOS XE 17.3.2. Its Gi1 interface, `10.66.12.1/30`, connects directly to R2-PEER's Gi0/0, `10.66.12.2/30`. The peer provides the test link; EEM executes locally on R1.
 
-The YAML establishes the saved topology and applet configuration. Interface connectivity, ICMP reachability, and saving both routers to startup configuration are reported in the handoff; no ping counts or complete connectivity transcript were supplied.
+The YAML establishes the saved topology and applets. Connectivity, ICMP reachability, and startup saves on both routers are reported observations, without a connectivity transcript or ping counts.
 
 ## Configuration approach
 
