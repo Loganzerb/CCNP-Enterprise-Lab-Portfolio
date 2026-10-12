@@ -26,6 +26,8 @@ flowchart LR
 
 Export sends traffic metadata along the collector link. The template describes the five fields; the data record supplies their values. The lab record's decoded values match the local cache. The diagram explains those relationships and does not reproduce packet timing or imply that a template accompanies every data record.
 
+Compare these exported flow fields and counters with [ERSPAN's inspection of original packet headers](../17-SPAN-RSPAN-ERSPAN/operation.md#read-the-inner-and-outer-headers), documented in a separate lab.
+
 [Template and data evidence](verification/export-and-templates.md) · [Collector setup](configs/collector.md)
 
 ## Keep three timers separate
@@ -38,4 +40,4 @@ Export sends traffic metadata along the collector link. The template describes t
 
 Identical numerical settings do not give timers the same role. An empty cache after aging is expected; repeated template traffic describes the record structure rather than a new endpoint traffic burst.
 
-[Flow configuration](configs/flow-components.md) · [Verification index](verification/README.md) · [Overview](README.md)
+[Flow configuration](configs/flow-components.md) · [Verification index](verification/README.md) · [Overview](README.md) · [Reading guide](../READING-GUIDE.md#compare-the-inspection-tools)

@@ -6,7 +6,7 @@ Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF se
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to recorded configuration and verification results, with troubleshooting decisions and targeted repairs where tested.
 
-**Quick navigation:** [Featured cases](#start-with-these-three-cases) · [Modules](#explore-the-modules) · [Reading guide](#how-to-review-the-work) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
+**Quick navigation:** [Featured cases](#start-with-these-three-cases) · [Modules](#explore-the-modules) · [Reading guide](READING-GUIDE.md) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
 
 ## Start with these three cases
 
@@ -84,6 +84,8 @@ I built these labs to understand how networks behave when configurations change 
 | [17 — SPAN/RSPAN/ERSPAN](17-SPAN-RSPAN-ERSPAN/README.md) | Remote packet mirroring, inner/outer headers, and platform-capability validation | [Identify requests and replies inside mirrored GRE](17-SPAN-RSPAN-ERSPAN/verification/bidirectional.md) |
 
 ## How to review the work
+
+Choose a short introduction or a deeper evidence review in the [portfolio reading guide](READING-GUIDE.md).
 
 **Predict → configure → verify → explain → capture evidence**
 

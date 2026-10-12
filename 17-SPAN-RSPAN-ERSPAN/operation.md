@@ -39,10 +39,12 @@ flowchart LR
 
 The outer addresses identify the mirror-delivery path; the inner addresses identify the original endpoints. The reported Type II identification follows the lab record's decoding, rather than classification from `0x88BE` alone. No missing header bytes are reconstructed here.
 
+Compare these mirrored original packet headers with [NetFlow's exported flow fields and counters](../16-NETFLOW/operation.md#send-measurements-to-the-collector), documented in a separate lab.
+
 ## Interpret direction and capture counts
 
 RX-only monitoring of Gi1 captured incoming traffic. The later session output reported **Both : Gi1**, and payload inspection identified requests and replies, including a matching pair in GRE sequences **122** and **123**.
 
 The RX-only capture reported **101 GRE packets**, including a separate packet; the record does not identify all 101 as ICMP. Payload inspection also found a mirrored CDP advertisement. The later **12-packet** GRE capture demonstrates both directions, without establishing a complete capture of every request and reply in the **10/10** ping test. Reported zero capture-kernel drops are a collector observation, not a completeness guarantee.
 
-[Verification](verification/README.md) · [Lessons learned](lessons-learned.md) · [Evidence scope](scope.md) · [Overview](README.md)
+[Verification](verification/README.md) · [Lessons learned](lessons-learned.md) · [Evidence scope](scope.md) · [Overview](README.md) · [Reading guide](../READING-GUIDE.md#compare-the-inspection-tools)
