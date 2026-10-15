@@ -2,7 +2,7 @@
 
 ![CCNP Enterprise Lab Portfolio — Configuration, Verification, Troubleshooting](assets/portfolio-banner.png)
 
-Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, device-local automation, traffic measurement, remote packet inspection, and reachability-based route failover.
+Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF segmentation, GRE/IPsec tunneling, traffic policy, multicast, switching, gateway redundancy, address translation, DHCP, time synchronization, device-local automation, model-based device management, traffic measurement, remote packet inspection, and reachability-based route failover.
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to recorded configuration and verification results, with troubleshooting decisions and targeted repairs where tested.
 
@@ -75,6 +75,7 @@ I built these labs to understand how networks behave when configurations change 
 | Module | Engineering focus | Suggested case |
 |---|---|---|
 | [15 — EEM](15-EEM/README.md) | Automated diagnostics, timer/CLI events, and detector matching | [A registered policy misses the actual syslog event](15-EEM/troubleshooting/incorrect-syslog-pattern.md) |
+| [19 — NETCONF/RESTCONF](19-NETCONF-RESTCONF/README.md) | Model-based configuration retrieval, targeted edits, and independent verification | [GET/PATCH/GET and CLI confirm the final description](19-NETCONF-RESTCONF/verification/restconf.md) |
 
 ### Network assurance
 
@@ -118,6 +119,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 | [Flexible NetFlow](16-NETFLOW/CML-LAB.yaml) | Completed four-node lab; public configuration sanitized, collector IPv4 address applied interactively | [Flow settings and collector setup](16-NETFLOW/configs/README.md) |
 | [ERSPAN](17-SPAN-RSPAN-ERSPAN/CML-LAB.yaml) | Final four-node ERSPAN source lab; public configuration sanitized, collector IPv4 address applied interactively | [Session settings and reproduction](17-SPAN-RSPAN-ERSPAN/configs/README.md) |
 | [IP SLA](18-IP-SLA/CML-LAB.yaml) | Sanitized four-router reconstruction; original failover/failback evidence retained, fresh import/run pending | [Probe, tracking, routing, and import checks](18-IP-SLA/configs/README.md) |
+| [NETCONF/RESTCONF](19-NETCONF-RESTCONF/CML-LAB.yaml) | Final two-node description checkpoint; credentials and certificate material sanitized, fresh import/run pending | [Local setup and protocol procedures](19-NETCONF-RESTCONF/configs/README.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 
