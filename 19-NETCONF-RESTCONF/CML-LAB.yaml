@@ -1,0 +1,69 @@
+lab:
+  description: ''
+  notes: ''
+  timestamp: 1792018242.3685894
+  title: CCNP NETCONF & RESTCONF Oct 14th
+  version: 0.0.4
+nodes:
+- id: n0
+  label: LINUX-AUTOMATION
+  node_definition: desktop
+  x: 0
+  y: 0
+  configuration: '# NETCONF/RESTCONF Automation Client
+
+    # Interface: eth0
+
+    # Address: 192.0.2.20/24
+
+
+    ip link set dev eth0 up
+
+    ip addr show dev eth0 | grep -q ''inet 192.0.2.20/24'' || ip addr add 192.0.2.20/24 dev eth0
+
+
+    # Set Linux hostname
+
+    hostname linux-automation'
+  image_definition: desktop-3-13-2-xfce
+  tags: []
+  interfaces:
+  - id: i0
+    slot: 0
+    label: eth0
+    type: physical
+- id: n1
+  label: R1-AUTOMATION
+  node_definition: csr1000v
+  x: -350
+  y: 0
+  configuration: "!\n!\nversion 17.3\nservice timestamps debug datetime msec\nservice timestamps log datetime msec\nplatform qfp utilization monitor load 80\nplatform punt-keepalive disable-kernel-core\nplatform console serial\n!\nhostname R1-AUTOMATION\n!\nboot-start-marker\nboot-end-marker\n!\n!\nno logging console\n!\naaa new-model\n!\n!\naaa authentication login default local\naaa authorization exec default local\n!\n!\n!\n!\n!\n!\naaa session-id common\n!\n!\n!\n!\n!\n!\n!\nip domain name encor.lab\n!\n!\n!\nlogin on-success log\n!\n!\n!\n!\n!\n!\n!\nsubscriber templating\n!\n!\n!\n!\n!\n!\nmultilink bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ndiagnostic bootup level minimal\nmemory free low-watermark processor 71507\n!\n!\nspanning-tree extend system-id\n!\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface GigabitEthernet1\n description RESTCONF-EDIT-VERIFIED\n ip address 192.0.2.10 255.255.255.0\n negotiation\
+    \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet2\n no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet3\n no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\nip forward-protocol nd\nip http server\nip http authentication local\nip http secure-server\n!\nip ssh version 2\n!\n!\n!\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\n!\n!\n!\nline con 0\n exec-timeout 0 0\n stopbits 1\nline vty 0 4\n transport input ssh\n!\nnetconf-yang\nrestconf\nend\n"
+  image_definition: csr1000v-170302
+  tags: []
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    slot: 0
+    label: GigabitEthernet1
+    type: physical
+  - id: i2
+    slot: 1
+    label: GigabitEthernet2
+    type: physical
+  - id: i3
+    slot: 2
+    label: GigabitEthernet3
+    type: physical
+  - id: i4
+    slot: 3
+    label: GigabitEthernet4
+    type: physical
+links:
+- id: l0
+  i1: i1
+  n1: n1
+  i2: i0
+  n2: n0
