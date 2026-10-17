@@ -1,0 +1,8 @@
+network:
+  version: 2
+  ethernets:
+    ens3:
+      dhcp4: false
+      addresses:
+        - 192.0.2.20/24
+      optional: true

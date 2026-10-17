@@ -1,0 +1,14 @@
+[Unit]
+Description=Shrubbery TACACS+ Server - CCNP Lab
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/tac_plus -G -C /etc/tacacs/tac_plus.conf -B 192.0.2.20
+ExecReload=/bin/kill -USR1 $MAINPID
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
