@@ -85,6 +85,13 @@ I built these labs to understand how networks behave when configurations change 
 | [17 — SPAN/RSPAN/ERSPAN](17-SPAN-RSPAN-ERSPAN/README.md) | Remote packet mirroring, inner/outer headers, and platform-capability validation | [Identify requests and replies inside mirrored GRE](17-SPAN-RSPAN-ERSPAN/verification/bidirectional.md) |
 | [18 — IP SLA](18-IP-SLA/README.md) | Remote reachability, tracked defaults, and provider failover/failback | [Backup forwarding while the branch primary link stays up](18-IP-SLA/verification/failover.md) |
 
+### Network security
+
+| Module | Engineering focus | Suggested case |
+|---|---|---|
+| [20 — AAA Device Security](20-AAA-DEVICE-SECURITY/README.md) | TACACS+ authentication, command authorization, accounting, and local recovery | [Restore administrative access during a TACACS+ outage](20-AAA-DEVICE-SECURITY/verification/failure-recovery.md) |
+| [21 — Access Control Lists](21-ACCESS-CONTROL-LISTS/README.md) | IPv4 ACL ordering, interface direction, TCP/UDP matching, and troubleshooting | [Correct ACL, wrong interface direction](21-ACCESS-CONTROL-LISTS/troubleshooting/02-interface-direction.md) |
+
 ## How to review the work
 
 Choose a short introduction or a deeper evidence review in the [portfolio reading guide](READING-GUIDE.md).
