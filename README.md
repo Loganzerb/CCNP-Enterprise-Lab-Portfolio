@@ -91,6 +91,7 @@ I built these labs to understand how networks behave when configurations change 
 |---|---|---|
 | [20 — AAA Device Security](20-AAA-DEVICE-SECURITY/README.md) | TACACS+ authentication, command authorization, accounting, and local recovery | [Restore administrative access during a TACACS+ outage](20-AAA-DEVICE-SECURITY/verification/failure-recovery.md) |
 | [21 — Access Control Lists](21-ACCESS-CONTROL-LISTS/README.md) | IPv4 ACL ordering, interface direction, TCP/UDP matching, and troubleshooting | [Correct ACL, wrong interface direction](21-ACCESS-CONTROL-LISTS/troubleshooting/02-interface-direction.md) |
+| [22 — Control Plane Policing](22-CONTROL-PLANE-POLICING/README.md) | Control-plane traffic classification, SSH and OSPF policing, and verified failure recovery | [Restore OSPF after an incorrect policing action](22-CONTROL-PLANE-POLICING/troubleshooting/02-ospf-conform-action.md) |
 
 ## How to review the work
 
@@ -127,6 +128,7 @@ The cases distinguish configured intent, observed device state, and tested servi
 | [ERSPAN](17-SPAN-RSPAN-ERSPAN/CML-LAB.yaml) | Final four-node ERSPAN source lab; public configuration sanitized, collector IPv4 address applied interactively | [Session settings and reproduction](17-SPAN-RSPAN-ERSPAN/configs/README.md) |
 | [IP SLA](18-IP-SLA/CML-LAB.yaml) | Sanitized four-router reconstruction; original failover/failback evidence retained, fresh import/run pending | [Probe, tracking, routing, and import checks](18-IP-SLA/configs/README.md) |
 | [NETCONF/RESTCONF](19-NETCONF-RESTCONF/CML-LAB.yaml) | Final two-node description checkpoint; credentials and certificate material sanitized, fresh import/run pending | [Local setup and protocol procedures](19-NETCONF-RESTCONF/configs/README.md) |
+| [CoPP](22-CONTROL-PLANE-POLICING/CML-LAB.yaml) | Final four-node SSH/OSPF policing configuration; sanitized import and retesting pending | [CoPP configuration and setup](22-CONTROL-PLANE-POLICING/configs/README.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
 
