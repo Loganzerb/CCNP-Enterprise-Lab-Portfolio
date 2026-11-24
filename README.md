@@ -6,7 +6,19 @@ Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF se
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to recorded configuration and verification results, with troubleshooting decisions and targeted repairs where tested.
 
-**Quick navigation:** [Featured cases](#start-with-these-three-cases) · [Modules](#explore-the-modules) · [Reading guide](READING-GUIDE.md) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
+**Quick navigation:** [Integrated projects](#integrated-enterprise-networking) · [Featured cases](#start-with-these-three-cases) · [Standalone modules](#explore-the-modules) · [Reading guide](READING-GUIDE.md) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
+
+## Integrated Enterprise Networking
+
+Three integrated CML projects complement the 22 standalone labs. Each pairs a network design and implementation notes with evidence from a fault or traffic test.
+
+| Project | Engineering question | Evidence |
+|---|---|---|
+| [19A — Integrated Enterprise Network](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md) | Does the alternate campus gateway preserve external reachability and the VLAN security policy? | The lab record reports new PAT traffic through the alternate gateway and five ACL denies on each gateway in separate tests. |
+| [20A — Dual-ISP WAN Redundancy](integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md) | Can the core select a different WAN next hop while its link to the primary edge stays up? | [Captured route and CEF lookups](integrated-enterprise-networking/20A-DUAL-ISP-WAN/verification/tracked-default.md) show the backup default after probe timeout and the primary default after recovery. |
+| [20B — Enterprise WAN QoS](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/README.md) | Do marking, queue selection, and rate enforcement match the intended policy? | [Captured router and iPerf excerpts](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/verification/policing.md) show 932 ingress policer drops matching 932 lost datagrams. After AF21 was restored, ingress and egress business classification increased by the same 2,391 packets. |
+
+[Project status and evidence](integrated-enterprise-networking/README.md) · [Integrated project reading path](READING-GUIDE.md#integrated-projects)
 
 ## Start with these three cases
 
@@ -131,6 +143,8 @@ The cases distinguish configured intent, observed device state, and tested servi
 | [CoPP](22-CONTROL-PLANE-POLICING/CML-LAB.yaml) | Final four-node SSH/OSPF policing configuration; sanitized import and retesting pending | [CoPP configuration and setup](22-CONTROL-PLANE-POLICING/configs/README.md) |
 
 Exports preserve different lab stages. Read the linked guide for configuration provenance and import requirements. Other modules provide extracts or reconstructed configurations with their source explained in the guides.
+
+For the integrated projects, use the [topology and configuration guides](integrated-enterprise-networking/README.md). Their complete CML checkpoints are retained privately pending redistribution clearance.
 
 ## Evidence scope
 
