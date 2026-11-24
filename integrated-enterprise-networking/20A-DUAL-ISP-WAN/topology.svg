@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1290" viewBox="0 0 1240 1290" role="img" aria-labelledby="title desc">
+  <title id="title">20A / Dual-ISP Enterprise WAN</title>
+  <desc id="desc">Independently drawn Cisco Modeling Labs topology with eight devices and eight physical Ethernet links. PC-USERS eth0 and PC-SERVERS eth0 connect to access switch ports Gi0/1 and Gi0/2 for VLANs 10 and 20. SW1 Gi0/0 trunks to R1 Gi0/0. R1 Gi0/1 and Gi0/2 connect to R2 and R3 Gi0/0 on OSPF Area 0 links. R2 and R3 Gi0/1 connect to R4 and R5 Gi0/0 for provider eBGP. R4 and R5 Gi0/1 form a separate provider eBGP link. Gold dashes show the loopback-based iBGP session across the OSPF underlay and IP SLA monitoring from R1 to R4. The observed default-route and CEF selection moved from R2 to R3 and back as Track 10 changed. End-to-end backup delivery remains untested.</desc>
+  <style>
+    svg {background:#061e32;font-family:Arial,Helvetica,sans-serif}
+    .bg {fill:#061e32}
+    .card {fill:#102d43;stroke:#527084;stroke-width:1.5}
+    .note {fill:#0c273c;stroke:#456276;stroke-width:1}
+    text {fill:#f3f7fa}
+    .heading {font-size:32px;font-weight:700}
+    .subtitle {font-size:22px;fill:#b9cfdf}
+    .device {font-size:25px;font-weight:700}
+    .label {font-size:21px}
+    .small,.port {font-size:19px;fill:#c0d3df}
+    .network {font-size:20px;font-weight:700;fill:#d8eef4}
+    .note-heading,.logical-label {font-size:20px;font-weight:700;fill:#e5bb6d}
+    .link,.accent,.logical {fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .link,.accent {stroke:#63ceda;stroke-width:3}
+    .logical {stroke:#e5bb6d;stroke-width:2.7;stroke-dasharray:8 6}
+  </style>
+  <defs>
+    <marker id="monitor-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8" fill="none" stroke="#e5bb6d" stroke-width="1.3"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1240" height="1290"/>
+  <text x="48" y="58" class="heading">20A / DUAL-ISP ENTERPRISE WAN</text>
+  <text x="48" y="96" class="subtitle">OSPF and BGP integration with IP SLA-tracked WAN failover and automatic recovery</text>
+
+  <!-- Physical Ethernet links. Endpoint IDs map to the saved interface labels. -->
+  <g id="physical-links">
+    <path id="users-access" class="link" d="M330 240V265H525V291" data-from="PC-USERS:eth0" data-to="SW1-ACCESS:Gi0/1"/>
+    <path id="servers-access" class="link" d="M910 240V265H715V291" data-from="PC-SERVERS:eth0" data-to="SW1-ACCESS:Gi0/2"/>
+    <path id="access-core" class="link" d="M620 369V432" data-from="SW1-ACCESS:Gi0/0" data-to="R1-CORE:Gi0/0"/>
+    <path id="core-edge-a" class="link" d="M482 550V588H330V650" data-from="R1-CORE:Gi0/1" data-to="R2-EDGE-A:Gi0/0" data-from-address="10.20.12.1/30" data-to-address="10.20.12.2/30" data-network="10.20.12.0/30"/>
+    <path id="core-edge-b" class="link" d="M758 550V588H910V650" data-from="R1-CORE:Gi0/2" data-to="R3-EDGE-B:Gi0/0" data-from-address="10.20.13.1/30" data-to-address="10.20.13.2/30" data-network="10.20.13.0/30"/>
+    <path id="edge-a-isp-a" class="link" d="M330 750V858" data-from="R2-EDGE-A:Gi0/1" data-to="R4-ISP-A:Gi0/0" data-from-address="198.51.100.1/30" data-to-address="198.51.100.2/30" data-network="198.51.100.0/30"/>
+    <path id="edge-b-isp-b" class="link" d="M910 750V858" data-from="R3-EDGE-B:Gi0/1" data-to="R5-ISP-B:Gi0/0" data-from-address="203.0.113.1/30" data-to-address="203.0.113.2/30" data-network="203.0.113.0/30"/>
+    <path id="isp-interconnect" class="link" d="M485 909H755" data-from="R4-ISP-A:Gi0/1" data-to="R5-ISP-B:Gi0/1" data-from-address="192.0.2.1/30" data-to-address="192.0.2.2/30" data-network="192.0.2.0/30"/>
+  </g>
+  <g id="logical-relationships">
+    <path id="edge-ibgp" class="logical" d="M485 701H755" data-from="R2-EDGE-A:Lo0" data-to="R3-EDGE-B:Lo0"/>
+    <path id="sla-monitor" class="logical" d="M405 474H81V909H175" marker-end="url(#monitor-arrow)" data-from="R1-CORE:Gi0/1" data-to="R4-ISP-A:Lo0"/>
+  </g>
+
+  <g id="pc-users" data-device="PC-USERS" data-platform="desktop" text-anchor="middle">
+    <rect x="165" y="126" width="330" height="114" rx="12" class="card"/>
+    <path d="M183 127H477" class="accent"/>
+    <text x="330" y="158" class="device">PC-USERS</text>
+    <text x="330" y="183" class="small">Alpine Desktop · VLAN 10</text>
+    <text x="330" y="207" class="label">10.20.10.10/24</text>
+    <text x="330" y="230" class="small">GW 10.20.10.1</text>
+  </g>
+  <g id="pc-servers" data-device="PC-SERVERS" data-platform="desktop" text-anchor="middle">
+    <rect x="745" y="126" width="330" height="114" rx="12" class="card"/>
+    <path d="M763 127H1057" class="accent"/>
+    <text x="910" y="158" class="device">PC-SERVERS</text>
+    <text x="910" y="183" class="small">Alpine Desktop · VLAN 20</text>
+    <text x="910" y="207" class="label">10.20.20.20/24</text>
+    <text x="910" y="230" class="small">GW 10.20.20.1</text>
+  </g>
+  <g id="sw1-access" data-device="SW1-ACCESS" data-platform="iosvl2" text-anchor="middle">
+    <rect x="465" y="291" width="310" height="78" rx="12" class="card"/>
+    <path d="M483 292H757" class="accent"/>
+    <text x="620" y="325" class="device">SW1-ACCESS</text>
+    <text x="620" y="352" class="small">IOSvL2 · VLANs 10 and 20</text>
+  </g>
+  <g id="r1-core" data-device="R1-CORE" data-platform="iosv" text-anchor="middle">
+    <rect x="405" y="432" width="430" height="118" rx="12" class="card"/>
+    <path d="M423 433H817" class="accent"/>
+    <text x="620" y="464" class="device">R1-CORE</text>
+    <text x="620" y="488" class="small">IOSv · Lo0 1.1.1.1/32</text>
+    <text x="620" y="512" class="small">Gi0/0.10 · 10.20.10.1/24</text>
+    <text x="620" y="536" class="small">Gi0/0.20 · 10.20.20.1/24</text>
+  </g>
+  <g id="r2-edge-a" data-device="R2-EDGE-A" data-platform="iosv" text-anchor="middle">
+    <rect x="175" y="650" width="310" height="100" rx="12" class="card"/>
+    <path d="M193 651H467" class="accent"/>
+    <text x="330" y="683" class="device">R2-EDGE-A</text>
+    <text x="330" y="709" class="small">IOSv · AS 65000 · Primary edge</text>
+    <text x="330" y="734" class="label">Lo0 2.2.2.2/32</text>
+  </g>
+  <g id="r3-edge-b" data-device="R3-EDGE-B" data-platform="iosv" text-anchor="middle">
+    <rect x="755" y="650" width="310" height="100" rx="12" class="card"/>
+    <path d="M773 651H1047" class="accent"/>
+    <text x="910" y="683" class="device">R3-EDGE-B</text>
+    <text x="910" y="709" class="small">IOSv · AS 65000 · Backup edge</text>
+    <text x="910" y="734" class="label">Lo0 3.3.3.3/32</text>
+  </g>
+  <g id="r4-isp-a" data-device="R4-ISP-A" data-platform="iosv" text-anchor="middle">
+    <rect x="175" y="858" width="310" height="100" rx="12" class="card"/>
+    <path d="M193 859H467" class="accent"/>
+    <text x="330" y="891" class="device">R4-ISP-A</text>
+    <text x="330" y="917" class="small">IOSv · AS 65100</text>
+    <text x="330" y="943" class="label">Lo0 4.4.4.4/32</text>
+  </g>
+  <g id="r5-isp-b" data-device="R5-ISP-B" data-platform="iosv" text-anchor="middle">
+    <rect x="755" y="858" width="310" height="100" rx="12" class="card"/>
+    <path d="M773 859H1047" class="accent"/>
+    <text x="910" y="891" class="device">R5-ISP-B</text>
+    <text x="910" y="917" class="small">IOSv · AS 65200</text>
+    <text x="910" y="943" class="label">Lo0 5.5.5.5/32</text>
+  </g>
+
+  <g id="link-labels">
+    <text x="316" y="256" class="port" text-anchor="end">eth0</text>
+    <text x="924" y="256" class="port">eth0</text>
+    <text x="511" y="283" class="port" text-anchor="end">Gi0/1</text>
+    <text x="729" y="283" class="port">Gi0/2</text>
+    <text x="606" y="391" class="port" text-anchor="end">Gi0/0</text>
+    <text x="606" y="423" class="port" text-anchor="end">Gi0/0</text>
+    <text x="640" y="408" class="network">802.1Q trunk · VLANs 10 and 20</text>
+    <text x="620" y="584" class="network" text-anchor="middle">OSPF 10 · Area 0</text>
+    <text x="468" y="574" class="port" text-anchor="end">Gi0/1 · 10.20.12.1</text>
+    <text x="772" y="574" class="port">Gi0/2 · 10.20.13.1</text>
+    <text x="315" y="633" class="port" text-anchor="end">Gi0/0 · 10.20.12.2</text>
+    <text x="925" y="633" class="port">Gi0/0 · 10.20.13.2</text>
+    <text x="348" y="619" class="network">10.20.12.0/30</text>
+    <text x="892" y="619" class="network" text-anchor="end">10.20.13.0/30</text>
+    <text x="315" y="781" class="port" text-anchor="end">Gi0/1 · 198.51.100.1</text>
+    <text x="315" y="848" class="port" text-anchor="end">Gi0/0 · 198.51.100.2</text>
+    <text x="925" y="781" class="port">Gi0/1 · 203.0.113.1</text>
+    <text x="925" y="848" class="port">Gi0/0 · 203.0.113.2</text>
+    <text x="348" y="798" class="network">198.51.100.0/30</text>
+    <text x="348" y="825" class="small">eBGP · fault link</text>
+    <text x="892" y="798" class="network" text-anchor="end">203.0.113.0/30</text>
+    <text x="892" y="825" class="small" text-anchor="end">eBGP</text>
+    <text x="503" y="878" class="port">Gi0/1</text>
+    <text x="503" y="900" class="port">192.0.2.1</text>
+    <text x="737" y="878" class="port" text-anchor="end">Gi0/1</text>
+    <text x="737" y="900" class="port" text-anchor="end">192.0.2.2</text>
+    <text x="620" y="939" class="network" text-anchor="middle">192.0.2.0/30 · eBGP</text>
+    <text x="620" y="687" class="logical-label" text-anchor="middle">Loopback iBGP</text>
+    <text x="620" y="730" class="small" text-anchor="middle">R2 sets next-hop-self</text>
+    <text x="99" y="507" class="logical-label">IP SLA 10 · ICMP Echo</text>
+    <text x="99" y="534" class="small">R1 to ISP-A loopback</text>
+  </g>
+
+  <path d="M48 992H94" class="link"/>
+  <text x="107" y="999" class="small">Physical Ethernet</text>
+  <path d="M290 992H336" class="logical"/>
+  <text x="350" y="999" class="small">Logical session or monitor</text>
+
+  <g id="tracking-summary">
+    <rect x="48" y="1025" width="552" height="214" rx="12" class="note"/>
+    <text x="70" y="1062" class="note-heading">TRACKED STATIC DEFAULT</text>
+    <text x="70" y="1095" class="label">Primary · 10.20.12.2 · AD 1 · Track 10</text>
+    <text x="70" y="1124" class="label">Floating backup · 10.20.13.2 · AD 10</text>
+    <text x="70" y="1153" class="small">IP SLA 10 · ICMP Echo to 4.4.4.4</text>
+    <text x="70" y="1182" class="small">Source 10.20.12.1 · every 5 seconds</text>
+    <text x="70" y="1211" class="small">Track 10 monitors IP SLA reachability.</text>
+  </g>
+  <g id="recorded-sequence">
+    <rect x="640" y="1025" width="552" height="214" rx="12" class="note"/>
+    <text x="662" y="1062" class="note-heading">RECORDED ROUTE AND CEF SELECTION</text>
+    <text x="662" y="1095" class="label">Primary available → Track Up → AD 1</text>
+    <text x="662" y="1124" class="label">Upstream failure → Track Down → AD 10</text>
+    <text x="662" y="1153" class="label">Primary restored → Track Up → AD 1</text>
+    <text x="662" y="1182" class="small">CEF lookups establish next-hop selection.</text>
+    <text x="662" y="1211" class="small">End-to-end backup delivery remains untested.</text>
+  </g>
+  <text x="48" y="1270" class="small">Independently drawn from the saved CML topology and historical lab evidence.</text>
+</svg>

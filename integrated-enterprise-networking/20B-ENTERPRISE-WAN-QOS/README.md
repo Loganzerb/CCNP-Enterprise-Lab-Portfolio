@@ -19,7 +19,11 @@ The linked pages distinguish selected terminal excerpts from the associated lab 
 
 ## Lab design
 
-`PC-CLIENT → R1-CORE → R2-EDGE-A → R4-ISP-A → PC-SERVER` is the preferred forward path. A floating static route points R1 toward R3-EDGE-B and R5-ISP-B, which reach the server via R4. R2's policy covers the primary forward path. [Labeled topology and interface tables](topology.md)
+![Seven-device static WAN topology with the primary path through R2 and R4, the floating path through R3 and R5, and R2's marking and QoS policy inset](topology.svg)
+
+Independent engineering illustration based on the saved CML topology. [PNG copy](topology.png) · [Labeled topology and interface tables](topology.md)
+
+`PC-CLIENT → R1-CORE → R2-EDGE-A → R4-ISP-A → PC-SERVER` is the preferred forward path. A floating static route points R1 toward R3-EDGE-B and R5-ISP-B, which reach the server via R4. R2's policy covers the primary forward path.
 
 | Policy stage | Final saved setting on R2-EDGE-A |
 |---|---|

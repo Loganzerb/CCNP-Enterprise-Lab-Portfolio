@@ -1,20 +1,23 @@
 # Portfolio reading guide
 
-Use either path to explore selected projects without reading every module in sequence. **Project highlights** introduce the work and its results. **Engineering evidence** follows specific questions into the investigation and supporting records.
+The portfolio contains **25 projects**. Follow the integrated project order for a short review of campus infrastructure, WAN resilience, and application traffic management. The standalone highlights and engineering evidence sections provide a deeper protocol-specific review.
 
 These are independent labs, each with its own topology and test history. The paths connect engineering ideas across the portfolio; they do not represent one combined deployment or test run.
 
-**Quick navigation:** [Integrated projects](#integrated-projects) · [Project highlights](#project-highlights) · [Engineering evidence](#engineering-evidence) · [Compare the inspection tools](#compare-the-inspection-tools) · [Read the evidence labels](#read-the-evidence-labels)
+**Quick navigation** · [Recommended review order](#integrated-projects) · [Standalone highlights](#project-highlights) · [Engineering evidence](#engineering-evidence) · [Compare the inspection tools](#compare-the-inspection-tools) · [Read the evidence labels](#read-the-evidence-labels)
 
 ## Integrated projects
 
-Use the [Integrated Enterprise Networking index](integrated-enterprise-networking/README.md) to browse all three projects and find their topology, configuration, and evidence guides.
+For a first pass, read each project overview and topology. For a technical interview, follow the evidence links to see which observations and captures support the results.
 
 | Start here | What to follow | Where to inspect the results |
 |---|---|---|
-| [19A — Campus and edge](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md) | Follow a VLAN 10 client from the HSRP gateway to the simulated external endpoint. Compare the PAT addresses across gateways and the ACL tests for VLANs 10 and 20. | [Switching, routing, PAT, and access-policy observations](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/verification/README.md) |
-| [20A — Dual-ISP WAN](integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md) | Follow the ISP-A probe through its pinned route. Compare IP SLA, tracking, and the selected default next hop across the outage and recovery. | [Captured baseline, outage, and recovery](integrated-enterprise-networking/20A-DUAL-ISP-WAN/verification/tracked-default.md) |
-| [20B — WAN QoS](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/README.md) | Compare iPerf loss with the router's policing count. Then see how a DSCP mismatch redirected working TCP traffic to the default class. | [Captured policing output](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/verification/policing.md) · [Fault and recovery counters](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/troubleshooting/README.md) |
+| **1.** [19A — Enterprise infrastructure and gateway resilience](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md) | Follow a VLAN 10 client from the HSRP gateway to the simulated external endpoint. Compare the PAT addresses across gateways and the separate ACL and VLAN 20 tests. | [Switching, routing, PAT, and access-policy observations](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/verification/README.md) |
+| **2.** [20A — Dual-provider WAN routing and recovery](integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md) | Follow the ISP-A probe through its pinned route. Compare IP SLA, tracking, and the selected default next hop across the outage and recovery. | [Captured baseline, outage, and recovery](integrated-enterprise-networking/20A-DUAL-ISP-WAN/verification/tracked-default.md) |
+| **3.** [20B — Application traffic management and troubleshooting](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/README.md) | Compare iPerf loss with the router's policing count, then trace how a DSCP mismatch sent working TCP traffic to the default class. | [Captured policing output](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/verification/policing.md) · [Fault and recovery counters](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/troubleshooting/README.md) |
+| **4.** [Standalone labs](README.md#explore-the-modules) | Explore individual protocols, services, and troubleshooting cases in more depth. | [Standalone highlights](#project-highlights) · [Engineering evidence](#engineering-evidence) |
+
+[Integrated topology and configuration guides](integrated-enterprise-networking/README.md)
 
 ## Project highlights
 

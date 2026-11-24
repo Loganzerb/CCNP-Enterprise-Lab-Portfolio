@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1090" viewBox="0 0 1280 1090" role="img" aria-labelledby="title desc">
+  <title id="title">20B / Enterprise WAN QoS</title>
+  <desc id="desc">Seven devices and seven physical links. PC-CLIENT eth0 connects to R1-CORE Gi0/0. The preferred static path crosses R1 Gi0/1 to R2-EDGE-A Gi0/0, then R2 Gi0/1 to R4-ISP-A Gi0/0. The configured floating path uses R1 Gi0/2 to R3-EDGE-B Gi0/0, R3 Gi0/1 to R5-ISP-B Gi0/0, and R5 Gi0/1 to R4 Gi0/1. R4 Gi0/2 connects to PC-SERVER eth0. R2 marks client-to-server UDP port 5001 as EF and TCP port 5002 as AF21. Its 2 Mbps WAN-SHAPE parent invokes WAN-OUT for EF strict priority, AF21 minimum bandwidth allocation, and default traffic. The historical ingress policer dropped 932 packets, matching the iPerf loss, and the AF21 correction restored classification for 2,391 packets. The temporary policer was removed. IOSv limits apply and the hierarchical policy's separate output-drop mechanism remains unresolved. Engineering illustration based on the saved CML topology, with separate historical lab results.</desc>
+  <style>
+    svg {font-family:Arial,Helvetica,sans-serif}
+    text {fill:#f3f7fa}
+    .bg {fill:#061e32}
+    .card {fill:#102d43;stroke:#527084;stroke-width:1.5}
+    .note {fill:#0c273c;stroke:#527084;stroke-width:1.5}
+    .inner {fill:#0c273c;stroke:#527084;stroke-width:1}
+    .heading {font-size:34px;font-weight:700}
+    .subtitle {font-size:22px;fill:#b9cfdf}
+    .device-name {font-size:24px;font-weight:700}
+    .label {font-size:19px}
+    .muted {font-size:19px;fill:#c0d3df}
+    .port {font-size:18px;fill:#c0d3df}
+    .network {font-size:19px;font-weight:700;fill:#63ceda}
+    .note-title {font-size:22px;font-weight:700;fill:#e5bb6d}
+    .policy-title {font-size:20px;font-weight:700}
+    .cyan {stroke:#63ceda}
+    .gold {stroke:#e5bb6d}
+    .accent,.link {fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .logical {fill:none;stroke:#e5bb6d;stroke-width:2.5;stroke-dasharray:8 6}
+    .qos-pill {fill:#0c273c;stroke:#e5bb6d;stroke-width:1}
+    .qos-label {font-size:18px;font-weight:700;fill:#e5bb6d}
+  </style>
+  <defs>
+    <marker id="policy-arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8" fill="none" stroke="#e5bb6d" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1280" height="1090"/>
+  <g id="diagram-heading" class="diagram-heading">
+    <text x="48" y="59" class="heading" text-anchor="start">20B / ENTERPRISE WAN QoS</text>
+    <text x="48" y="96" class="subtitle" text-anchor="start">Application traffic classification, hierarchical scheduling, and rate enforcement</text>
+    <path d="M49 129H88" class="link cyan"/>
+    <text x="100" y="136" class="muted" text-anchor="start">Physical link</text>
+    <path d="M250 129H289" class="logical"/>
+    <text x="301" y="136" class="muted" text-anchor="start">Policy flow</text>
+    <text x="1232" y="136" class="muted" text-anchor="end">5 IOSv routers · 2 Alpine endpoints</text>
+  </g>
+  <g id="physical-l0" class="physical-link" data-a="PC-CLIENT:eth0" data-b="R1-CORE:Gi0/0" data-network="10.20.10.0/24">
+    <title>PC-CLIENT:eth0 to R1-CORE:Gi0/0, 10.20.10.0/24</title>
+    <path d="M258 234H434" class="link cyan"/>
+    <text x="346" y="221" class="network" text-anchor="middle">10.20.10.0/24</text>
+    <text x="268" y="258" class="port" text-anchor="start">eth0</text>
+    <text x="424" y="258" class="port" text-anchor="end">Gi0/0</text>
+  </g>
+  <g id="physical-l1" class="physical-link" data-a="R1-CORE:Gi0/1" data-b="R2-EDGE-A:Gi0/0" data-network="10.20.12.0/30">
+    <title>R1-CORE:Gi0/1 to R2-EDGE-A:Gi0/0, 10.20.12.0/30</title>
+    <path d="M464 330V376H171V426" class="link cyan"/>
+    <text x="317" y="363" class="network" text-anchor="middle">10.20.12.0/30</text>
+    <text x="451" y="350" class="port" text-anchor="end">Gi0/1</text>
+    <text x="184" y="411" class="port" text-anchor="start">Gi0/0</text>
+  </g>
+  <g id="physical-l2" class="physical-link" data-a="R1-CORE:Gi0/2" data-b="R3-EDGE-B:Gi0/0" data-network="10.20.13.0/30">
+    <title>R1-CORE:Gi0/2 to R3-EDGE-B:Gi0/0, 10.20.13.0/30</title>
+    <path d="M642 330V376H673V426" class="link cyan"/>
+    <text x="658" y="359" class="network" text-anchor="start">10.20.13.0/30</text>
+    <text x="630" y="350" class="port" text-anchor="end">Gi0/2</text>
+    <text x="686" y="411" class="port" text-anchor="start">Gi0/0</text>
+  </g>
+  <g id="physical-l3" class="physical-link" data-a="R2-EDGE-A:Gi0/1" data-b="R4-ISP-A:Gi0/0" data-network="198.51.100.0/30">
+    <title>R2-EDGE-A:Gi0/1 to R4-ISP-A:Gi0/0, 198.51.100.0/30</title>
+    <path d="M171 558V653" class="link cyan"/>
+    <text x="187" y="613" class="network" text-anchor="start">198.51.100.0/30</text>
+    <text x="187" y="580" class="port" text-anchor="start">Gi0/1</text>
+    <text x="187" y="642" class="port" text-anchor="start">Gi0/0</text>
+  </g>
+  <g id="physical-l4" class="physical-link" data-a="R3-EDGE-B:Gi0/1" data-b="R5-ISP-B:Gi0/0" data-network="203.0.113.0/30">
+    <title>R3-EDGE-B:Gi0/1 to R5-ISP-B:Gi0/0, 203.0.113.0/30</title>
+    <path d="M673 558V653" class="link cyan"/>
+    <text x="657" y="613" class="network" text-anchor="end">203.0.113.0/30</text>
+    <text x="657" y="580" class="port" text-anchor="end">Gi0/1</text>
+    <text x="657" y="642" class="port" text-anchor="end">Gi0/0</text>
+  </g>
+  <g id="physical-l5" class="physical-link" data-a="R4-ISP-A:Gi0/1" data-b="R5-ISP-B:Gi0/1" data-network="192.0.2.0/30">
+    <title>R4-ISP-A:Gi0/1 to R5-ISP-B:Gi0/1, 192.0.2.0/30</title>
+    <path d="M294 721H550" class="link cyan"/>
+    <text x="422" y="708" class="network" text-anchor="middle">192.0.2.0/30</text>
+    <text x="307" y="746" class="port" text-anchor="start">Gi0/1</text>
+    <text x="537" y="746" class="port" text-anchor="end">Gi0/1</text>
+  </g>
+  <g id="physical-l6" class="physical-link" data-a="R4-ISP-A:Gi0/2" data-b="PC-SERVER:eth0" data-network="10.20.40.0/24">
+    <title>R4-ISP-A:Gi0/2 to PC-SERVER:eth0, 10.20.40.0/24</title>
+    <path d="M171 805V889" class="link cyan"/>
+    <text x="187" y="852" class="network" text-anchor="start">10.20.40.0/24</text>
+    <text x="187" y="827" class="port" text-anchor="start">Gi0/2</text>
+    <text x="187" y="878" class="port" text-anchor="start">eth0</text>
+  </g>
+  <g id="pc-client" class="device-card" data-device="PC-CLIENT" data-cml-id="n3" data-type="desktop" data-addresses="eth0:10.20.10.10/24;GW:10.20.10.1">
+    <rect x="48" y="176" width="210" height="132" rx="12" class="card"/>
+    <path d="M64 177H242" class="accent cyan"/>
+    <text x="64" y="209" class="device-name" text-anchor="start">PC-CLIENT</text>
+    <text x="64" y="235" class="muted" text-anchor="start">Alpine Desktop</text>
+    <text x="64" y="260" class="label" text-anchor="start">eth0  10.20.10.10/24</text>
+    <text x="64" y="284" class="label" text-anchor="start">GW  10.20.10.1</text>
+  </g>
+  <g id="r1-core" class="device-card" data-device="R1-CORE" data-cml-id="n0" data-type="iosv" data-addresses="Gi0/0:10.20.10.1/24;Gi0/1:10.20.12.1/30;Gi0/2:10.20.13.1/30" data-loopback="1.1.1.1/32">
+    <rect x="434" y="176" width="246" height="154" rx="12" class="card"/>
+    <path d="M450 177H664" class="accent cyan"/>
+    <text x="450" y="209" class="device-name" text-anchor="start">R1-CORE</text>
+    <text x="450" y="235" class="muted" text-anchor="start">IOSv · Lo0 1.1.1.1/32</text>
+    <text x="450" y="260" class="label" text-anchor="start">Gi0/0  10.20.10.1/24</text>
+    <text x="450" y="284" class="label" text-anchor="start">Gi0/1  10.20.12.1/30</text>
+    <text x="450" y="308" class="label" text-anchor="start">Gi0/2  10.20.13.1/30</text>
+  </g>
+  <g id="r2-edge-a" class="device-card" data-device="R2-EDGE-A" data-cml-id="n1" data-type="iosv" data-addresses="Gi0/0:10.20.12.2/30;Gi0/1:198.51.100.1/30" data-loopback="2.2.2.2/32">
+    <rect x="48" y="426" width="246" height="132" rx="12" class="card"/>
+    <path d="M64 427H278" class="accent gold"/>
+    <text x="64" y="459" class="device-name" text-anchor="start">R2-EDGE-A</text>
+    <text x="64" y="485" class="muted" text-anchor="start">IOSv · Lo0 2.2.2.2/32</text>
+    <text x="64" y="510" class="label" text-anchor="start">Gi0/0  10.20.12.2/30</text>
+    <text x="64" y="534" class="label" text-anchor="start">Gi0/1  198.51.100.1/30</text>
+    <rect x="228" y="441" width="52" height="25" rx="6" class="qos-pill"/>
+    <text x="254" y="460" class="qos-label" text-anchor="middle">QoS</text>
+  </g>
+  <g id="r3-edge-b" class="device-card" data-device="R3-EDGE-B" data-cml-id="n2" data-type="iosv" data-addresses="Gi0/0:10.20.13.2/30;Gi0/1:203.0.113.1/30" data-loopback="3.3.3.3/32">
+    <rect x="550" y="426" width="246" height="132" rx="12" class="card"/>
+    <path d="M566 427H780" class="accent cyan"/>
+    <text x="566" y="459" class="device-name" text-anchor="start">R3-EDGE-B</text>
+    <text x="566" y="485" class="muted" text-anchor="start">IOSv · Lo0 3.3.3.3/32</text>
+    <text x="566" y="510" class="label" text-anchor="start">Gi0/0  10.20.13.2/30</text>
+    <text x="566" y="534" class="label" text-anchor="start">Gi0/1  203.0.113.1/30</text>
+  </g>
+  <g id="r4-isp-a" class="device-card" data-device="R4-ISP-A" data-cml-id="n4" data-type="iosv" data-addresses="Gi0/0:198.51.100.2/30;Gi0/1:192.0.2.1/30;Gi0/2:10.20.40.1/24" data-loopback="4.4.4.4/32">
+    <rect x="48" y="653" width="246" height="152" rx="12" class="card"/>
+    <path d="M64 654H278" class="accent cyan"/>
+    <text x="64" y="686" class="device-name" text-anchor="start">R4-ISP-A</text>
+    <text x="64" y="712" class="muted" text-anchor="start">IOSv · Lo0 4.4.4.4/32</text>
+    <text x="64" y="737" class="label" text-anchor="start">Gi0/0  198.51.100.2/30</text>
+    <text x="64" y="761" class="label" text-anchor="start">Gi0/1  192.0.2.1/30</text>
+    <text x="64" y="785" class="label" text-anchor="start">Gi0/2  10.20.40.1/24</text>
+  </g>
+  <g id="r5-isp-b" class="device-card" data-device="R5-ISP-B" data-cml-id="n5" data-type="iosv" data-addresses="Gi0/0:203.0.113.2/30;Gi0/1:192.0.2.2/30" data-loopback="5.5.5.5/32">
+    <rect x="550" y="653" width="246" height="152" rx="12" class="card"/>
+    <path d="M566 654H780" class="accent cyan"/>
+    <text x="566" y="686" class="device-name" text-anchor="start">R5-ISP-B</text>
+    <text x="566" y="712" class="muted" text-anchor="start">IOSv · Lo0 5.5.5.5/32</text>
+    <text x="566" y="737" class="label" text-anchor="start">Gi0/0  203.0.113.2/30</text>
+    <text x="566" y="761" class="label" text-anchor="start">Gi0/1  192.0.2.2/30</text>
+  </g>
+  <g id="pc-server" class="device-card" data-device="PC-SERVER" data-cml-id="n6" data-type="desktop" data-addresses="eth0:10.20.40.10/24;GW:10.20.40.1">
+    <rect x="48" y="889" width="246" height="140" rx="12" class="card"/>
+    <path d="M64 890H278" class="accent cyan"/>
+    <text x="64" y="922" class="device-name" text-anchor="start">PC-SERVER</text>
+    <text x="64" y="948" class="muted" text-anchor="start">Alpine Desktop</text>
+    <text x="64" y="973" class="label" text-anchor="start">eth0  10.20.40.10/24</text>
+    <text x="64" y="997" class="label" text-anchor="start">GW  10.20.40.1</text>
+  </g>
+  <g id="route-choice" class="engineering-callout">
+    <rect x="324" y="821" width="472" height="208" rx="12" class="note"/>
+    <text x="346" y="856" class="note-title" text-anchor="start">STATIC ROUTE CHOICES</text>
+    <text x="346" y="886" class="label" text-anchor="start">Preferred: client → R1 → R2 → R4 → server</text>
+    <text x="346" y="913" class="label" text-anchor="start">Configured floating path: R1 → R3 → R5 → R4</text>
+    <text x="346" y="940" class="label" text-anchor="start">R1 next hops: 10.20.12.2 (AD 1) and</text>
+    <text x="346" y="964" class="muted" text-anchor="start">10.20.13.2 (AD 10, floating).</text>
+    <text x="346" y="1003" class="muted" text-anchor="start">Endpoints run iPerf TCP and UDP tests.</text>
+  </g>
+  <g id="qos-policy" class="engineering-callout">
+    <rect x="838" y="176" width="394" height="557" rx="12" class="note"/>
+    <text x="858" y="213" class="note-title" text-anchor="start">R2-EDGE-A / FINAL POLICY</text>
+    <rect x="858" y="233" width="354" height="168" rx="10" class="card"/>
+    <text x="876" y="265" class="policy-title" text-anchor="start">Gi0/0 INBOUND · MARK-IN</text>
+    <text x="876" y="295" class="muted" text-anchor="start">Client-to-server ACL matches</text>
+    <text x="876" y="320" class="label" text-anchor="start">UDP destination 5001 → EF (46)</text>
+    <text x="876" y="345" class="label" text-anchor="start">TCP destination 5002 → AF21 (18)</text>
+    <text x="876" y="370" class="label" text-anchor="start">Remaining traffic → CS0</text>
+    <path d="M985 406V441" class="logical" marker-end="url(#policy-arrow)"/>
+    <text x="1001" y="430" class="muted" text-anchor="start">Classify using DSCP</text>
+    <rect x="858" y="449" width="354" height="260" rx="10" class="card"/>
+    <text x="876" y="481" class="policy-title" text-anchor="start">Gi0/1 OUTBOUND · WAN-SHAPE</text>
+    <text x="876" y="510" class="label" text-anchor="start">2 Mbps aggregate shaping target</text>
+    <rect x="875" y="529" width="320" height="163" rx="8" class="inner"/>
+    <text x="889" y="558" class="policy-title" text-anchor="start">WAN-OUT / CHILD POLICY</text>
+    <text x="889" y="583" class="label" text-anchor="start">VOICE-EF · strict priority</text>
+    <text x="889" y="605" class="muted" text-anchor="start">1,200 kbps priority allocation</text>
+    <text x="889" y="629" class="label" text-anchor="start">BUSINESS-AF21 · CBWFQ</text>
+    <text x="889" y="651" class="muted" text-anchor="start">300 kbps minimum in congestion</text>
+    <text x="889" y="677" class="label" text-anchor="start">class-default · remaining traffic</text>
+  </g>
+  <g id="historical-evidence" class="engineering-callout">
+    <rect x="838" y="757" width="394" height="272" rx="12" class="note"/>
+    <text x="858" y="793" class="note-title" text-anchor="start">CAPTURED LAB RESULTS</text>
+    <text x="858" y="825" class="label" text-anchor="start">932 ingress policer drops matched</text>
+    <text x="858" y="850" class="label" text-anchor="start">932 missing iPerf datagrams.</text>
+    <text x="858" y="882" class="label" text-anchor="start">AF21 recovery: +2,391 ingress and</text>
+    <text x="858" y="907" class="label" text-anchor="start">+2,391 egress business classifications.</text>
+    <text x="858" y="939" class="muted" text-anchor="start">Temporary policer removed.</text>
+    <text x="858" y="964" class="muted" text-anchor="start">IOSv forwarding limits apply.</text>
+    <text x="858" y="989" class="muted" text-anchor="start">HQoS output-drop mechanism unresolved.</text>
+  </g>
+  <g id="diagram-provenance" class="diagram-provenance">
+    <text x="48" y="1067" class="muted" text-anchor="start">Engineering illustration from saved CML topology · Results from historical captures</text>
+  </g>
+</svg>

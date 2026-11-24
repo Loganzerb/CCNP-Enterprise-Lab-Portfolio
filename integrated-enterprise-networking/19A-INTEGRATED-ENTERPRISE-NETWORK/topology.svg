@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1254" viewBox="0 0 1280 1254" role="img" aria-labelledby="title desc">
+  <title id="title">19A / Integrated Enterprise Network</title>
+  <desc id="desc">Independently authored diagram of six CML devices and seven physical links. R1-CLIENT Gi0/0 connects to SW1-ACCESS Gi0/0. SW1 and SW2-DIST connect through Gi0/2 and Gi0/3 on both switches, forming LACP Port-channel1. SW2 Gi0/0 connects to R2-GW-A Gi0/0 and SW2 Gi0/1 connects to R3-GW-B Gi0/0. R2 and R3 use Gi0/1 to reach R4-ISP on Gi0/0 and Gi0/1 respectively. An HSRPv2 dashed logical line links the two gateways. The routed links use OSPF process 10 Area 0, and R4 hosts simulated endpoint 203.0.113.100/32. Both gateways have independent PAT tables and the same inbound VLAN 10 users filter.</desc>
+  <style>
+    svg {font-family:Arial,Helvetica,sans-serif;background:#061e32}
+    .bg {fill:#061e32}
+    .card {fill:#102d43;stroke:#527084;stroke-width:1.5}
+    .note {fill:#0c273c;stroke:#456276;stroke-width:1}
+    text {fill:#f3f7fa}
+    .heading {font-size:34px;font-weight:700}
+    .subtitle {font-size:22px;fill:#b9cfdf}
+    .device-name {font-size:26px;font-weight:700}
+    .label {font-size:21px}
+    .small {font-size:19px;fill:#c0d3df}
+    .port {font-size:19px;fill:#c0d3df}
+    .proto {font-size:19px;font-weight:700;fill:#e5bb6d}
+    .note-heading {font-size:21px;font-weight:700;fill:#e5bb6d}
+    .link {fill:none;stroke:#63ceda;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+    .accent {fill:none;stroke:#63ceda;stroke-width:3}
+    .logical {fill:none;stroke:#e5bb6d;stroke-width:2.5;stroke-dasharray:8 6}
+    .rule {stroke:#456276;stroke-width:1}
+  </style>
+  <rect class="bg" width="1280" height="1254"/>
+  <text x="48" y="58" class="heading">19A / INTEGRATED ENTERPRISE NETWORK</text>
+  <text x="48" y="100" class="subtitle">Resilient enterprise infrastructure with redundant gateways, dynamic routing, and consistent security enforcement.</text>
+  <path d="M48 127H1232" class="rule"/>
+
+  <g aria-label="Physical network links">
+    <path id="link-r1-sw1" class="link" d="M640 256V324" data-kind="physical-link" data-a="R1-CLIENT:Gi0/0" data-b="SW1-ACCESS:Gi0/0"/>
+    <path id="link-sw1-sw2-gi02" class="link" d="M580 405V500" data-kind="physical-link" data-a="SW1-ACCESS:Gi0/2" data-b="SW2-DIST:Gi0/2"/>
+    <path id="link-sw1-sw2-gi03" class="link" d="M700 405V500" data-kind="physical-link" data-a="SW1-ACCESS:Gi0/3" data-b="SW2-DIST:Gi0/3"/>
+    <path id="link-sw2-r2" class="link" d="M550 591V624H331V688" data-kind="physical-link" data-a="SW2-DIST:Gi0/0" data-b="R2-GW-A:Gi0/0"/>
+    <path id="link-sw2-r3" class="link" d="M730 591V624H949V688" data-kind="physical-link" data-a="SW2-DIST:Gi0/1" data-b="R3-GW-B:Gi0/0"/>
+    <path id="link-r2-r4" class="link" d="M331 797V846H550V918" data-kind="physical-link" data-a="R2-GW-A:Gi0/1" data-b="R4-ISP:Gi0/0"/>
+    <path id="link-r3-r4" class="link" d="M949 797V846H730V918" data-kind="physical-link" data-a="R3-GW-B:Gi0/1" data-b="R4-ISP:Gi0/1"/>
+  </g>
+  <path id="hsrp-logical" class="logical" d="M558 749H722"/>
+
+  <g id="device-r1" data-device="R1-CLIENT" data-node-definition="iosv">
+    <rect class="card" x="406" y="156" width="468" height="100" rx="12"/>
+    <path class="accent" d="M425 157H855"/>
+    <text x="640" y="188" class="device-name" text-anchor="middle">R1-CLIENT</text>
+    <text x="640" y="215" class="label" text-anchor="middle">IOSv · simulated clients</text>
+    <text x="640" y="242" class="small" text-anchor="middle">Gi0/0.10: 10.10.10.10 · Gi0/0.20: 10.10.20.20</text>
+  </g>
+  <g id="device-sw1" data-device="SW1-ACCESS" data-node-definition="iosvl2">
+    <rect class="card" x="453" y="324" width="374" height="81" rx="12"/>
+    <path class="accent" d="M472 325H808"/>
+    <text x="640" y="359" class="device-name" text-anchor="middle">SW1-ACCESS</text>
+    <text x="640" y="387" class="label" text-anchor="middle">IOSvL2 · campus access</text>
+  </g>
+  <g id="device-sw2" data-device="SW2-DIST" data-node-definition="iosvl2">
+    <rect class="card" x="431" y="500" width="418" height="91" rx="12"/>
+    <path class="accent" d="M450 501H830"/>
+    <text x="640" y="536" class="device-name" text-anchor="middle">SW2-DIST</text>
+    <text x="640" y="568" class="label" text-anchor="middle">IOSvL2 · Rapid PVST+ root priority 4096</text>
+  </g>
+  <g id="device-r2" data-device="R2-GW-A" data-node-definition="iosv">
+    <rect class="card" x="104" y="688" width="454" height="109" rx="12"/>
+    <path class="accent" d="M123 689H539"/>
+    <text x="331" y="721" class="device-name" text-anchor="middle">R2-GW-A</text>
+    <text x="331" y="750" class="label" text-anchor="middle">IOSv · HSRP priority 110 · PAT</text>
+    <text x="331" y="779" class="small" text-anchor="middle">Gi0/0.10: 10.10.10.2 · Gi0/0.20: 10.10.20.2</text>
+  </g>
+  <g id="device-r3" data-device="R3-GW-B" data-node-definition="iosv">
+    <rect class="card" x="722" y="688" width="454" height="109" rx="12"/>
+    <path class="accent" d="M741 689H1157"/>
+    <text x="949" y="721" class="device-name" text-anchor="middle">R3-GW-B</text>
+    <text x="949" y="750" class="label" text-anchor="middle">IOSv · HSRP priority 100 · PAT</text>
+    <text x="949" y="779" class="small" text-anchor="middle">Gi0/0.10: 10.10.10.3 · Gi0/0.20: 10.10.20.3</text>
+  </g>
+  <g id="device-r4" data-device="R4-ISP" data-node-definition="iosv">
+    <rect class="card" x="414" y="918" width="452" height="116" rx="12"/>
+    <path class="accent" d="M433 919H847"/>
+    <text x="640" y="953" class="device-name" text-anchor="middle">R4-ISP</text>
+    <text x="640" y="982" class="label" text-anchor="middle">IOSv · simulated external endpoint</text>
+    <text x="640" y="1011" class="small" text-anchor="middle">Loopback0: 203.0.113.100/32</text>
+  </g>
+
+  <g aria-label="Interface and link labels">
+    <text x="656" y="279" class="port">Gi0/0</text>
+    <text x="624" y="298" class="small" text-anchor="end">802.1Q trunk</text>
+    <text x="656" y="316" class="port">Gi0/0</text>
+
+    <text x="567" y="430" class="port" text-anchor="end">Gi0/2</text>
+    <text x="713" y="430" class="port">Gi0/3</text>
+    <text x="640" y="447" class="small" text-anchor="middle">LACP</text>
+    <text x="640" y="472" class="small" text-anchor="middle">Po1</text>
+    <text x="567" y="490" class="port" text-anchor="end">Gi0/2</text>
+    <text x="713" y="490" class="port">Gi0/3</text>
+
+    <text x="535" y="614" class="port" text-anchor="end">Gi0/0</text>
+    <text x="745" y="614" class="port">Gi0/1</text>
+    <text x="442" y="653" class="small" text-anchor="middle">802.1Q trunk</text>
+    <text x="838" y="653" class="small" text-anchor="middle">802.1Q trunk</text>
+    <text x="346" y="676" class="port">Gi0/0</text>
+    <text x="934" y="676" class="port" text-anchor="end">Gi0/0</text>
+
+    <text x="640" y="732" class="proto" text-anchor="middle">HSRPv2</text>
+    <text x="640" y="776" class="small" text-anchor="middle">Groups 10 / 20</text>
+
+    <text x="346" y="825" class="port">Gi0/1: 172.16.24.1</text>
+    <text x="934" y="825" class="port" text-anchor="end">Gi0/1: 172.16.34.1</text>
+    <text x="433" y="876" class="label" text-anchor="middle">172.16.24.0/30</text>
+    <text x="847" y="876" class="label" text-anchor="middle">172.16.34.0/30</text>
+    <text x="640" y="864" class="proto" text-anchor="middle">OSPF 10 / Area 0</text>
+    <text x="535" y="905" class="port" text-anchor="end">Gi0/0: 172.16.24.2</text>
+    <text x="745" y="905" class="port">Gi0/1: 172.16.34.2</text>
+  </g>
+
+  <g aria-label="Campus switching">
+    <rect class="note" x="48" y="327" width="365" height="198" rx="12"/>
+    <text x="69" y="363" class="note-heading">CAMPUS SWITCHING</text>
+    <text x="69" y="398" class="small">VLAN 10 USERS · 10.10.10.0/24</text>
+    <text x="69" y="428" class="small">VLAN 20 SERVERS · 10.10.20.0/24</text>
+    <text x="69" y="465" class="small">IEEE 802.1Q carries both VLANs.</text>
+    <text x="69" y="495" class="small">LACP Port-channel1 uses two links.</text>
+  </g>
+  <g aria-label="Gateway resilience">
+    <rect class="note" x="867" y="327" width="365" height="198" rx="12"/>
+    <text x="888" y="363" class="note-heading">GATEWAY RESILIENCE</text>
+    <text x="888" y="398" class="small">Group 10 VIP · 10.10.10.1</text>
+    <text x="888" y="428" class="small">Group 20 VIP · 10.10.20.1</text>
+    <text x="888" y="465" class="small">HSRPv2 preemption on both.</text>
+    <text x="888" y="495" class="small">R2 preferred · R3 standby at baseline.</text>
+  </g>
+
+  <g aria-label="Independent PAT state">
+    <rect class="note" x="48" y="1061" width="576" height="125" rx="12"/>
+    <text x="70" y="1097" class="note-heading">INDEPENDENT PAT STATE</text>
+    <text x="70" y="1130" class="small">Each gateway uses its own WAN address and PAT table.</text>
+    <text x="70" y="1158" class="small">The failover record reports new traffic through R3.</text>
+  </g>
+  <g aria-label="Consistent ingress policy">
+    <rect class="note" x="656" y="1061" width="576" height="125" rx="12"/>
+    <text x="678" y="1097" class="note-heading">CONSISTENT INGRESS POLICY</text>
+    <text x="678" y="1130" class="small">USERS-FILTER applies inbound on Gi0/0.10 of both gateways.</text>
+    <text x="678" y="1158" class="small">The record reports five matching denies on each gateway.</text>
+  </g>
+  <path d="M48 1220H90" class="link"/>
+  <text x="104" y="1226" class="small">Physical link</text>
+  <path d="M238 1220H280" class="logical"/>
+  <text x="294" y="1226" class="small">Logical relationship</text>
+  <text x="1232" y="1226" class="small" text-anchor="end">Saved CML topology · 6 devices · 7 physical links</text>
+</svg>

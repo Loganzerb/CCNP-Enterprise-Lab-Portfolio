@@ -13,11 +13,15 @@ I configured an enterprise core to monitor an ISP-A loopback with IP SLA and tra
 
 ## Lab design
 
+![Lab 20A topology with two VLANs, OSPF transit links, two BGP providers, and the IP SLA-tracked default route](topology.svg)
+
+This independently authored engineering diagram represents the saved CML topology.
+
+[Port map and topology diagram](topology.md) · [PNG copy](topology.png) · [Selected implementation settings](configs/README.md)
+
 Five Cisco IOSv routers form the WAN in Cisco Modeling Labs. R1-CORE connects to R2-EDGE-A and R3-EDGE-B in the AS 65000 enterprise. R2 peers with R4-ISP-A in AS 65100, and R3 peers with R5-ISP-B in AS 65200. The saved topology also includes an inter-provider link, an access switch, and two desktop endpoints. The documented outage test focuses on the five routers.
 
 On R1, two static host routes keep the provider loopback tests on their respective edge paths. IP SLA 10 probes ISP-A loopback `4.4.4.4` from `10.20.12.1` every five seconds. Track 10 controls whether the primary default via `10.20.12.2` is eligible. The standby default via `10.20.13.2` has administrative distance 10.
-
-[Port map and topology diagram](topology.md) · [Selected implementation settings](configs/README.md)
 
 ## Results from the original CML session
 

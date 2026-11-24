@@ -6,19 +6,39 @@ Hands-on enterprise networking in **Cisco Modeling Labs (CML)**: routing, VRF se
 
 I built these labs to understand how networks behave when configurations change and components fail. Each section connects the intended design to recorded configuration and verification results, with troubleshooting decisions and targeted repairs where tested.
 
-**Quick navigation:** [Integrated projects](#integrated-enterprise-networking) · [Featured cases](#start-with-these-three-cases) · [Standalone modules](#explore-the-modules) · [Reading guide](READING-GUIDE.md) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
+**Quick navigation** · [Flagship projects](#integrated-enterprise-networking) · [Standalone featured cases](#start-with-these-three-cases) · [Standalone modules](#explore-the-modules) · [Reading guide](READING-GUIDE.md) · [CML exports](#reuse-a-lab) · [Evidence scope](#evidence-scope)
 
 ## Integrated Enterprise Networking
 
-Three integrated CML projects complement the 22 standalone labs. Each pairs a network design and implementation notes with evidence from a fault or traffic test.
+Start with the campus and WAN flagship projects, then review application traffic management in Lab 20B. Together with the 22 standalone labs, the portfolio covers **25 CML projects**.
 
-| Project | Engineering question | Evidence |
-|---|---|---|
-| [19A — Integrated Enterprise Network](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md) | Does the alternate campus gateway preserve external reachability and the VLAN security policy? | The lab record reports new PAT traffic through the alternate gateway and five ACL denies on each gateway in separate tests. |
-| [20A — Dual-ISP WAN Redundancy](integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md) | Can the core select a different WAN next hop while its link to the primary edge stays up? | [Captured route and CEF lookups](integrated-enterprise-networking/20A-DUAL-ISP-WAN/verification/tracked-default.md) show the backup default after probe timeout and the primary default after recovery. |
-| [20B — Enterprise WAN QoS](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/README.md) | Do marking, queue selection, and rate enforcement match the intended policy? | [Captured router and iPerf excerpts](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/verification/policing.md) show 932 ingress policer drops matching 932 lost datagrams. After AF21 was restored, ingress and egress business classification increased by the same 2,391 packets. |
+### [19A — Integrated Enterprise Network](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md)
 
-[Project status and evidence](integrated-enterprise-networking/README.md) · [Integrated project reading path](READING-GUIDE.md#integrated-projects)
+<a href="integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md#lab-design"><img src="integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/topology.svg" width="460" alt="Lab 19A topology preview showing the client and campus switches above two redundant gateways connected to a simulated ISP"></a>
+
+I built a two-VLAN campus with **802.1Q, LACP, Rapid PVST+, HSRP, OSPF, NAT/PAT, and IPv4 ACLs**. The lab tested whether an alternate gateway could translate new traffic to a simulated external service and enforce the same VLAN 10 policy.
+
+The lab record reports that R3 took the HSRP group 10 active role and translated new traffic using its own PAT state. In separate policy tests, the VLAN 10 ACL counted **five denies on each gateway**.
+
+[Open the complete 19A project](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/README.md) · [Reported verification](integrated-enterprise-networking/19A-INTEGRATED-ENTERPRISE-NETWORK/verification/README.md)
+
+### [20A — Dual-ISP Enterprise WAN](integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md)
+
+<a href="integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md#lab-design"><img src="integrated-enterprise-networking/20A-DUAL-ISP-WAN/topology.svg" width="460" alt="Lab 20A topology preview showing the enterprise core, two WAN edges, and the primary and backup ISP paths"></a>
+
+I combined **OSPF, eBGP, iBGP, IP SLA, object tracking, and floating static routing** to change the core’s default next hop when the primary provider probe failed and the core-facing link stayed up.
+
+Captured CLI shows the default route and CEF selection moving to **ISP-B after the probe timed out**, then returning to **ISP-A after recovery**. Packet delivery over the backup default remains unverified.
+
+[Open the complete 20A project](integrated-enterprise-networking/20A-DUAL-ISP-WAN/README.md) · [Captured failover and recovery](integrated-enterprise-networking/20A-DUAL-ISP-WAN/verification/tracked-default.md)
+
+### [20B — Enterprise WAN QoS](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/README.md)
+
+I used ACL classification, DSCP marking, and hierarchical QoS to manage application flows at the WAN edge. In a temporary ingress policing test, captured router and iPerf output matched **932 policer drops to 932 lost datagrams**. After I restored AF21, ingress and egress business classification each increased by **2,391 packets**.
+
+[Inspect the policing evidence](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/verification/policing.md) · [Follow the DSCP troubleshooting case](integrated-enterprise-networking/20B-ENTERPRISE-WAN-QOS/troubleshooting/README.md)
+
+[Browse all integrated projects](integrated-enterprise-networking/README.md) · [Follow the reading guide](READING-GUIDE.md#integrated-projects)
 
 ## Start with these three cases
 

@@ -20,7 +20,15 @@ The source handoff supplies these outcomes as reported observations. The verific
 
 A campus LAN with separate user and server segments needs a stable default gateway, a redundant routed exit, and consistent policy during gateway maintenance or failure. This lab modeled that requirement with one client router emulating hosts on both VLANs, two switches carrying tagged traffic, and two gateways with individual uplinks to a common provider router. The implementation verified the switching, routing, translation, and policy dependencies before testing their combined behavior during a role change.
 
-## Network design
+<a name="network-design"></a>
+
+## Lab design
+
+![Lab 19A campus topology showing dual LACP members, two HSRPv2 and PAT gateways, and two routed OSPF links to a simulated ISP](topology.svg)
+
+Independently authored engineering diagram based on the saved CML topology. [Addresses and wiring](topology.md) · [PNG copy](topology.png)
+
+### Logical overview
 
 ```mermaid
 flowchart LR
